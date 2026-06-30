@@ -40,12 +40,12 @@ nav: false
 
 <h3>爱发电</h3>
 
-<img v-svg-inline class="max-w-100% h-auto m-auto" src="/sponsors/afdian.svg" alt="" data-no-zoom />
+<SponsorSvgAfdian class="max-w-100% h-auto m-auto" />
 
 <h3>直接赞助（自建站以来）</h3>
 
 如果需要订正信息，请直接向 <a href="https://github.com/lgc2333/blog/blob/master/public/sponsors/direct-raw.json" target="_blank">此文件</a> 提交 PR
 
-<img v-svg-inline class="max-w-100% h-auto m-auto" src="/sponsors/direct.svg" alt="" data-no-zoom />
+<SponsorSvgDirect class="max-w-100% h-auto m-auto" />
 
 </div>

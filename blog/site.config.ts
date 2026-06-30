@@ -64,4 +64,10 @@ export default defineSiteConfig({
     title: '赞助我',
     description: '如果你觉得这篇文章有意义，不妨赞助我一下',
   },
+
+  redirects: {
+    rules: [
+      { from: '/donate', to: '/sponsor' }, // backward compatibility
+    ],
+  },
 })

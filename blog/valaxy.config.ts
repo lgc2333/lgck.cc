@@ -3,9 +3,10 @@ import { addonComponents } from 'valaxy-addon-components'
 
 import type { UserThemeConfig } from 'valaxy-theme-yun'
 
-import { definePreset, Preset } from 'unocss'
+import type { Preset } from 'unocss'
+import { definePreset } from 'unocss'
 
-const unoPreset = definePreset((options?: any) => {
+const unoPreset = definePreset((_options?: any) => {
   return {
     name: 'custom-preset',
     rules: [],
@@ -24,7 +25,7 @@ export default defineValaxyConfig<UserThemeConfig>({
         enable: true,
       },
     },
-    // @ts-ignore
+    // @ts-expect-error - there's a type err can't resolve
     say: { enable: false },
     fireworks: { enable: false },
     pages: [
@@ -36,7 +37,7 @@ export default defineValaxyConfig<UserThemeConfig>({
       },
       {
         name: '赞助',
-        url: '/donate',
+        url: '/sponsor',
         icon: 'i-ri-heart-2-line',
         color: 'var(--va-c-text)',
       },

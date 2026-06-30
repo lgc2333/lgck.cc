@@ -34,3 +34,4 @@ catalog:
   vue-gtag-next: ^1.14.0
   '@iconify-json/ant-design': ^1.2.7
   '@iconify-json/simple-icons': ^1.2.88
+  unocss: ^66.7.3

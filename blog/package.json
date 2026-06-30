@@ -16,14 +16,14 @@
     "valaxy": "catalog:",
     "valaxy-addon-components": "catalog:",
     "valaxy-theme-yun": "catalog:",
-    "vue-gtag-next": "catalog:",
-    "vue-svg-inline-plugin": "workspace:@lgcnpm/vue-svg-inline-plugin@^"
+    "vue-gtag-next": "catalog:"
   },
   "devDependencies": {
     "eslint": "catalog:",
     "prettier": "catalog:",
     "semaphore-promise": "catalog:",
     "sponsorkit": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "unocss": "catalog:"
   }
 }
