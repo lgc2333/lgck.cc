@@ -5,14 +5,16 @@ packages:
   - blog
   - demo
   - theme
-  - third-party/*
 
 allowBuilds:
   '@parcel/watcher': true
-  core-js: set this to true or false
+  cn-font-split: true
+  core-js: false
   esbuild: true
-  sharp: set this to true or false
-  vue-demi: set this to true or false
+  koffi: true
+  protobufjs: true
+  sharp: false
+  vue-demi: false
 
 minimumReleaseAgeExclude:
   - '@unocss/config@66.7.4'
@@ -25,8 +27,10 @@ catalog:
   '@antfu/eslint-config': ^9.1.0
   '@giscus/vue': ^3.1.1
   '@iconify-json/ant-design': ^1.2.7
+  '@iconify-json/material-symbols': ^1.2.81
   '@iconify-json/ri': ^1.2.10
   '@iconify-json/simple-icons': ^1.2.88
+  '@vueuse/core': ^14.3.0
   '@unocss/eslint-plugin': ^66.7.4
   eslint: ^10.6.0
   eslint-config-prettier: ^10.1.8
@@ -39,3 +43,8 @@ catalog:
   valaxy-theme-yun: ^0.28.11
   vue-gtag-next: ^1.14.0
   unocss: ^66.7.3
+  vite-plugin-font: ^5.1.2
+  vite: ^8.1.0
+  vite-plugin-vue-layouts-next: ^2.1.0
+  unplugin-vue-router: ^0.19.2
+  vue: ^3.5.39

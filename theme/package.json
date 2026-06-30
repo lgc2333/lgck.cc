@@ -3,15 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b",
-  "author": {
-    "email": "me@yunyoujun.cn",
-    "name": "YunYouJun",
-    "url": "https://www.yunyoujun.cn"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lgc2333/blog"
-  },
+  "author": "LgCuwukii <lgc2333@126.com>",
+  "repository": "https://github.com/lgc2333/blog",
   "keywords": [
     "valaxy",
     "theme",
@@ -19,11 +12,16 @@
   ],
   "main": "client/index.ts",
   "types": "types/index.d.ts",
+  "scripts": {},
+  "peerDependencies": {
+    "valaxy": "catalog:"
+  },
   "dependencies": {
     "@iconify-json/ant-design": "catalog:",
-    "@iconify-json/simple-icons": "catalog:"
-  },
-  "devDependencies": {
-    "valaxy": "catalog:"
+    "@iconify-json/material-symbols": "catalog:",
+    "@iconify-json/ri": "catalog:",
+    "@iconify-json/simple-icons": "catalog:",
+    "@vueuse/core": "catalog:",
+    "vite-plugin-font": "catalog:"
   }
 }

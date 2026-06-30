@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "declaration": true,
-    "emitDeclarationOnly": true
-  }
+    "noEmit": true
+  },
+  "exclude": ["dist", "node_modules"]
 }

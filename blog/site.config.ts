@@ -25,7 +25,7 @@ export default defineSiteConfig({
   lastUpdated: true,
   favicon: '/assets/favicon.png',
   feed: { name: 'rss', favicon: '/assets/favicon.png' },
-  search: { enable: true, type: 'fuse' },
+  search: { enable: true, provider: 'fuse' },
   fuse: {
     options: {
       ignoreLocation: true,

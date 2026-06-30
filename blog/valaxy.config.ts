@@ -16,7 +16,7 @@ const safelist = [
 ]
 
 export default defineValaxyConfig<UserThemeConfig>({
-  theme: 'yun',
+  theme: 'lgcuwukii',
   themeConfig: {
     colors: { primary: '#aacdf4' },
     banner: {

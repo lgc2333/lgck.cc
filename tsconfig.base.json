@@ -11,7 +11,12 @@
       "~/*": ["./*"]
     },
     "resolveJsonModule": true,
-    "types": ["vite/client", "valaxy/client", "vite-plugin-vue-layouts-next/client"],
+    "types": [
+      "vite/client",
+      "valaxy/client",
+      "vite-plugin-vue-layouts-next/client",
+      "unplugin-vue-router/client"
+    ],
     "checkJs": true,
     "strict": true,
     "strictNullChecks": true,
@@ -20,6 +25,5 @@
     "forceConsistentCasingInFileNames": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true
-  },
-  "exclude": ["dist", "node_modules"]
+  }
 }

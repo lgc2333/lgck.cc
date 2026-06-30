@@ -2,9 +2,9 @@
 // included in index.html, suppress font preload
 
 :root {
-  --va-font-serif: 'HarmonyOS Sans SC', serif;
-  --va-font-sans: 'HarmonyOS Sans SC', sans-serif;
-  --va-font-mono: 'Victor Mono', 'HarmonyOS Sans SC', monospace;
+  --va-font-serif: 'HarmonyOS Sans LGC', 'HarmonyOS Sans SC', serif;
+  --va-font-sans: 'HarmonyOS Sans LGC', 'HarmonyOS Sans SC', sans-serif;
+  --va-font-mono: 'Victor Mono', 'HarmonyOS Sans LGC', 'HarmonyOS Sans SC', monospace;
 
   --smc-font-serif: var(--va-font-serif);
   --smc-font-sans: var(--va-font-sans);

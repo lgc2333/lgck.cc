@@ -1,6 +1,9 @@
 {
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "noEmit": true
-  }
+  "references": [
+    { "path": "./tsconfig.root.json" },
+    { "path": "./blog" },
+    { "path": "./demo" },
+    { "path": "./theme" }
+  ],
+  "files": []
 }

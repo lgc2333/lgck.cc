@@ -1,3 +1,5 @@
+/// <reference path="./font.d.ts" />
+
 import type { DefaultTheme } from 'valaxy'
 
 export namespace StarterTheme {
@@ -64,12 +66,75 @@ export interface ThemeConfig extends DefaultTheme.Config {
    * navbar
    */
   nav: NavItem[]
+
+  /**
+   * Landing screen
+   */
+  landing: Partial<LandingConfig>
 }
 
 export interface NavItem {
   text: string
   link: string
   icon?: string
+}
+
+export type LandingLinkVariant = 'primary' | 'tonal' | 'default' | 'cookie' | 'ribbon'
+
+export interface LandingLink {
+  text: string
+  link: string
+  icon?: string
+  variant?: LandingLinkVariant
+}
+
+export interface LandingSocial {
+  text: string
+  link: string
+  icon: string
+}
+
+export interface LandingConfig {
+  /**
+   * Enable landing home.
+   * @default true
+   */
+  enable: boolean
+
+  /**
+   * Render current posts below first viewport.
+   * @default false
+   */
+  showPosts: boolean
+
+  /**
+   * Use a shorter landing section.
+   * @default false
+   */
+  compact: boolean
+
+  /**
+   * Optional avatar image URL.
+   */
+  avatar: string
+
+  /**
+   * Small label above title.
+   */
+  eyebrow: string
+
+  /**
+   * Defaults to site title when empty.
+   */
+  title: string
+
+  /**
+   * Defaults to site subtitle when empty.
+   */
+  subtitle: string
+
+  links: LandingLink[]
+  socials: LandingSocial[]
 }
 
 export type ThemeUserConfig = Partial<ThemeConfig>

@@ -1,6 +1,8 @@
 # Repository Guidelines
 
-For `AGENTS.md`s and docs mainly for AI, keep them concise and token efficient.
+Note for Claude: Check if `CLAUDE.md` is a symlink first, the tool refuse to write through symlinks.
+
+For docs mainly for AI (like `AGENTS.md`), keep them concise and token efficient.
 
 ## Project Structure
 
@@ -17,10 +19,14 @@ pnpm --dir blog dev       # start the main blog locally
 pnpm --dir demo dev       # start the theme demo locally
 pnpm --dir blog build     # production SSG build
 pnpm --dir demo build     # demo SSG build
-pnpm exec eslint .        # lint TypeScript, Vue, JS, and config files
+pnpm lint                 # lint TypeScript, Vue, JS, and config files (dir param optional)
+pnpm check                # type-check root workspace projects (dir param optional)
+pnpm format               # format files with Prettier (dir param optional)
 pnpm --dir blog rss       # regenerate RSS output
 pnpm --dir blog sponsor   # regenerate sponsor assets
 ```
+
+Run `format`, `lint`, and `check` scripts after code changes.
 
 ## Reference Repository
 
@@ -36,7 +42,7 @@ Use `temp/valaxy` as a depth-1 clone of `YunYouJun/valaxy` when you need upstrea
 
 ATTENTION: If you encounter a pitfall that might be reusable, you MUST record it below as early as possible.
 
-Currently empty
+- PowerShell `Copy-Item -LiteralPath` does not expand wildcards like `*.ttf`; use `-Path` or enumerate with `Get-ChildItem`.
 
 ## Commit
 

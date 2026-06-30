@@ -87,20 +87,6 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
-    '/page/[page]': RouteRecordInfo<
-      '/page/[page]',
-      '/page/:page',
-      { page: ParamValue<true> },
-      { page: ParamValue<false> },
-      | never
-    >,
-    '/posts/': RouteRecordInfo<
-      '/posts/',
-      '/posts',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
     '/posts/2024-05-04-01/': RouteRecordInfo<
       '/posts/2024-05-04-01/',
       '/posts/2024-05-04-01',
@@ -149,7 +135,7 @@ declare module 'vue-router/auto-routes' {
    * @internal
    */
   export interface _RouteFileInfoMap {
-    '../node_modules/.pnpm/valaxy-theme-yun@0.28.11_ma_2260f480eb1f3087584c8cca15ced94b/node_modules/valaxy-theme-yun/pages/index.vue': {
+    '../theme/pages/index.vue': {
       routes:
         | '/'
       views:
@@ -208,22 +194,6 @@ declare module 'vue-router/auto-routes' {
     'pages/links/index.md': {
       routes:
         | '/links/'
-      views:
-        | never
-      pathParamNames:
-        | never
-    }
-    '../node_modules/.pnpm/valaxy-theme-yun@0.28.11_ma_2260f480eb1f3087584c8cca15ced94b/node_modules/valaxy-theme-yun/pages/page/[page].vue': {
-      routes:
-        | '/page/[page]'
-      views:
-        | never
-      pathParamNames:
-        | 'page'
-    }
-    '../node_modules/.pnpm/valaxy-theme-yun@0.28.11_ma_2260f480eb1f3087584c8cca15ced94b/node_modules/valaxy-theme-yun/pages/posts/index.vue': {
-      routes:
-        | '/posts/'
       views:
         | never
       pathParamNames:

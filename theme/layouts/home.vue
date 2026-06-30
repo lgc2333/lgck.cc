@@ -1,5 +1,13 @@
+<script setup lang="ts">
+import { useThemeConfig } from '../composables'
+
+const themeConfig = useThemeConfig()
+</script>
+
 <template>
-  <Layout>
+  <LgcLandingHome v-if="themeConfig.landing?.enable" />
+
+  <Layout v-else>
     <div class="divide-y divide-gray-200 dark:divide-gray-700">
       <StarterHeader />
 

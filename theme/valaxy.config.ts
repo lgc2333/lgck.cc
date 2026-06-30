@@ -1,12 +1,18 @@
 import type { ThemeConfig } from './types'
 import { defineTheme } from 'valaxy'
-import { defaultThemeConfig, generateSafelist, themePlugin } from './node'
+import Font from 'vite-plugin-font'
+import {
+  defaultThemeConfig,
+  generateSafelist,
+  harmonyOSFontFamilyPlugin,
+  themePlugin,
+} from './node'
 
 export default defineTheme<ThemeConfig>((options) => {
   return {
     themeConfig: defaultThemeConfig,
     vite: {
-      plugins: [themePlugin(options)],
+      plugins: [Font.vite(), harmonyOSFontFamilyPlugin(), themePlugin(options)],
     },
     unocss: {
       safelist: generateSafelist(options.config.themeConfig as ThemeConfig),
