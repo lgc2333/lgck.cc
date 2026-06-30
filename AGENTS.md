@@ -1,7 +1,5 @@
 # Repository Guidelines
 
-Note for Claude: `CLAUDE.md` is a symlink; always edit `AGENTS.md`.
-
 For `AGENTS.md`s and docs mainly for AI, keep them concise and token efficient.
 
 ## Project Structure

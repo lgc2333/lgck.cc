@@ -25,3 +25,6 @@ valaxy-fuse-list.json
 
 temp/
 # /demo/
+
+.agents/skills/*
+.claude/skills/*
