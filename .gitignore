@@ -1,13 +1,9 @@
 # valaxy
-
 valaxy-fuse-list.json
 
 # vite-ssg
-
 .vite-ssg-dist
 .vite-ssg-temp
-
-temp/
 
 .DS_Store
 *.local
@@ -29,3 +25,6 @@ public/valaxy-fuse-list.json
 
 .env
 .sponsorkit
+
+temp/
+# /demo/
