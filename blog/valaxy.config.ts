@@ -3,16 +3,17 @@ import { addonComponents } from 'valaxy-addon-components'
 
 import type { UserThemeConfig } from 'valaxy-theme-yun'
 
-import type { Preset } from 'unocss'
-import { definePreset } from 'unocss'
-
-const unoPreset = definePreset((_options?: any) => {
-  return {
-    name: 'custom-preset',
-    rules: [],
-    variants: [],
-  } as Preset
-})
+const safelist = [
+  'i-ri-rss-line',
+  'i-ri-earth-line',
+  'i-ri-github-line',
+  'i-ri-link',
+  'i-ri-heart-2-line',
+  'i-ri-folder-2-line',
+  'i-ri-information-line',
+  'i-ri-user-line',
+  'i-ri-price-tag-3-line',
+]
 
 export default defineValaxyConfig<UserThemeConfig>({
   theme: 'yun',
@@ -25,7 +26,7 @@ export default defineValaxyConfig<UserThemeConfig>({
         enable: true,
       },
     },
-    // @ts-expect-error - there's a type err can't resolve
+    // @ts-expect-error - upstream type issue
     say: { enable: false },
     fireworks: { enable: false },
     pages: [
@@ -52,8 +53,5 @@ export default defineValaxyConfig<UserThemeConfig>({
     },
   },
   addons: [addonComponents()],
-  unocss: {
-    safelist: [],
-    presets: [unoPreset],
-  },
+  unocss: { safelist },
 })

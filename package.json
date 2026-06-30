@@ -9,6 +9,8 @@
     "eslint": "catalog:",
     "eslint-config-prettier": "catalog:",
     "eslint-plugin-format": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "unocss": "catalog:",
+    "valaxy": "catalog:"
   }
 }

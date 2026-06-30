@@ -19,9 +19,9 @@
     "vue-gtag-next": "catalog:"
   },
   "devDependencies": {
+    "@iconify-json/ri": "catalog:",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "semaphore-promise": "catalog:",
     "sponsorkit": "catalog:",
     "typescript": "catalog:",
     "unocss": "catalog:"

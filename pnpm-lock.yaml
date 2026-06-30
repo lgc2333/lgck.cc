@@ -15,6 +15,9 @@ catalogs:
     '@iconify-json/ant-design':
       specifier: ^1.2.7
       version: 1.2.7
+    '@iconify-json/ri':
+      specifier: ^1.2.10
+      version: 1.2.10
     '@iconify-json/simple-icons':
       specifier: ^1.2.88
       version: 1.2.88
@@ -33,9 +36,6 @@ catalogs:
     prettier:
       specifier: ^3.9.4
       version: 3.9.4
-    semaphore-promise:
-      specifier: ^1.4.4
-      version: 1.4.4
     sponsorkit:
       specifier: ^17.1.1
       version: 17.1.1
@@ -80,6 +80,12 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 6.0.3
+      unocss:
+        specifier: 'catalog:'
+        version: 66.7.3(vite@8.1.0(@types/node@26.0.1)(jiti@2.7.0)(sass@1.101.0)(yaml@2.9.0))
+      valaxy:
+        specifier: 'catalog:'
+        version: 0.28.11(@babel/parser@7.29.7)(@nuxt/kit@3.21.8(magicast@0.5.3))(@types/markdown-it@14.1.2)(@types/node@26.0.1)(@vue/compiler-dom@3.5.39)(axios@1.18.1)(change-case@5.4.4)(eslint@10.6.0(jiti@2.7.0))(rolldown@1.1.3)(typescript@6.0.3)(vue-router@5.1.0(@vue/compiler-sfc@3.5.39)(pinia@3.0.4(typescript@6.0.3)(vue@3.5.39(typescript@6.0.3)))(rolldown@1.1.3)(vite@8.1.0(@types/node@26.0.1)(jiti@2.7.0)(sass@1.101.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3)))(vue@3.5.39(typescript@6.0.3))(yaml@2.9.0)
 
   blog:
     dependencies:
@@ -99,15 +105,15 @@ importers:
         specifier: 'catalog:'
         version: 1.14.0(vue@3.5.39(typescript@6.0.3))
     devDependencies:
+      '@iconify-json/ri':
+        specifier: 'catalog:'
+        version: 1.2.10
       eslint:
         specifier: 'catalog:'
         version: 10.6.0(jiti@2.7.0)
       prettier:
         specifier: 'catalog:'
         version: 3.9.4
-      semaphore-promise:
-        specifier: 'catalog:'
-        version: 1.4.4
       sponsorkit:
         specifier: 'catalog:'
         version: 17.1.1
@@ -4290,9 +4296,6 @@ packages:
 
   selderee@0.11.0:
     resolution: {integrity: sha512-5TF+l7p4+OsnP8BCCvSyZiSPc4x4//p5uPwK8TCnVPJYRmU2aYKMpOXvw8zM5a5JvuuCGN1jmsMwuU2W02ukfA==}
-
-  semaphore-promise@1.4.4:
-    resolution: {integrity: sha512-fd7ViIT1GTJmav5a80+5bZB02nhJ87s5X3mQ/0YUeRq0h75JIbFbULm9pZ9iZv+fqeMpONj9s3vXmQXFSpzgMA==}
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -9516,8 +9519,6 @@ snapshots:
   selderee@0.11.0:
     dependencies:
       parseley: 0.12.1
-
-  semaphore-promise@1.4.4: {}
 
   semver@6.3.1: {}
 
