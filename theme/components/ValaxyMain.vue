@@ -34,7 +34,10 @@ const siteConfig = useSiteConfig()
 
         <slot name="main-nav-after" />
 
-        <slot v-if="siteConfig.comment.enable && frontmatter.comment !== false" name="comment" />
+        <slot
+          v-if="siteConfig.comment.enable && frontmatter.comment !== false"
+          name="comment"
+        />
 
         <slot name="footer" />
       </slot>

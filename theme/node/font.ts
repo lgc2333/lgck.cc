@@ -3,7 +3,6 @@
 // regular face before the bundled italic file. Normalize the generated faces into a
 // private family and remove those ambiguous local sources so font-style/font-weight
 // select the bundled face deterministically.
-
 import type { Plugin } from 'vite'
 
 const harmonyOSUnifiedFamily = 'HarmonyOS Sans LgCuwukii'

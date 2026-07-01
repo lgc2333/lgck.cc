@@ -6,7 +6,12 @@ defineProps<{
 </script>
 
 <template>
-  <div class="lgc-mark" :class="{ 'has-image': avatar }" aria-hidden="true">
-    <img v-if="avatar" class="lgc-mark__image" :src="avatar" :alt="title">
-  </div>
+  <img
+    v-if="avatar"
+    class="mb-4 h-28 w-28 object-cover border-radius-[28px] sm:h-24 sm:w-24"
+    :src="avatar"
+    :alt="title"
+  />
 </template>
+
+<style scoped lang="scss"></style>

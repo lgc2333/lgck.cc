@@ -1,12 +1,14 @@
-import type { ThemeConfig } from './types'
 import { defineTheme } from 'valaxy'
 import Font from 'vite-plugin-font'
+
 import {
   defaultThemeConfig,
   generateSafelist,
   harmonyOSFontFamilyPlugin,
   themePlugin,
 } from './node'
+import type { ThemeConfig } from './types'
+import { lgcUnoTheme } from './uno.config'
 
 export default defineTheme<ThemeConfig>((options) => {
   return {
@@ -15,7 +17,19 @@ export default defineTheme<ThemeConfig>((options) => {
       plugins: [Font.vite(), harmonyOSFontFamilyPlugin(), themePlugin(options)],
     },
     unocss: {
-      safelist: generateSafelist(options.config.themeConfig as ThemeConfig),
+      safelist: generateSafelist(options),
+      theme: lgcUnoTheme,
+    },
+    unocssPresets: {
+      icons: {
+        collections: {
+          'material-symbols': () =>
+            import('@iconify-json/material-symbols/icons.json').then((i) => i.default),
+          'simple-icons': () =>
+            import('@iconify-json/simple-icons/icons.json').then((i) => i.default),
+          ri: () => import('@iconify-json/ri/icons.json').then((i) => i.default),
+        },
+      },
     },
   }
 })

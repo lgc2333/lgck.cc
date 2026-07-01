@@ -15,7 +15,7 @@
     "@giscus/vue": "catalog:",
     "valaxy": "catalog:",
     "valaxy-addon-components": "catalog:",
-    "valaxy-theme-yun": "catalog:",
+    "valaxy-theme-lgcuwukii": "workspace:*",
     "vue-gtag-next": "catalog:"
   },
   "devDependencies": {

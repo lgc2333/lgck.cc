@@ -22,22 +22,23 @@ const themeConfig = useThemeConfig()
         style="width: 50px; height: 35px"
         alt="logo"
         :src="siteConfig.favicon"
-      >
+      />
       <span class="hidden md:inline">{{ siteConfig.title }}</span>
     </RouterLink>
     <div class="text-sm text-gray-500 leading-5">
       <template v-for="(item, i) in themeConfig.nav" :key="i">
-        <AppLink
-          :to="item.link"
-          rel="noopener"
-        >
+        <AppLink :to="item.link" rel="noopener">
           {{ item.text }}
         </AppLink>
         <span v-if="i !== themeConfig.nav.length - 1" class="ml-2 mr-2">·</span>
       </template>
     </div>
 
-    <button type="button" aria-label="Toggle Dark Mode" @click="appStore.toggleDarkWithTransition">
+    <button
+      type="button"
+      aria-label="Toggle Dark Mode"
+      @click="appStore.toggleDarkWithTransition"
+    >
       <div v-if="!appStore.isDark" i-ri-sun-line />
       <div v-else i-ri-moon-line />
     </button>

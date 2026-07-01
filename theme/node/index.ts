@@ -1,5 +1,6 @@
 import type { ResolvedValaxyOptions } from 'valaxy'
 import type { Plugin } from 'vite'
+
 import type { ThemeConfig } from '../types'
 
 export { harmonyOSFontFamilyPlugin } from './font'
@@ -18,7 +19,7 @@ export const defaultThemeConfig: ThemeConfig = {
 
   landing: {
     enable: true,
-    showPosts: false,
+    showPosts: true,
     compact: false,
     avatar: '',
     eyebrow: 'soft blue / cookie / ribbon',
@@ -128,9 +129,10 @@ export function themePlugin(options: ResolvedValaxyOptions<ThemeConfig>): Plugin
 
 /**
  * generateSafelist by config
- * @param themeConfig
+ * @param options
  */
-export function generateSafelist(themeConfig: ThemeConfig) {
+export function generateSafelist(options: ResolvedValaxyOptions<ThemeConfig>) {
+  const themeConfig = options?.config.themeConfig || {}
   const safelist: string[] = [
     'i-material-symbols-home-rounded',
     'i-material-symbols-article-outline-rounded',

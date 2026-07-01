@@ -15,8 +15,8 @@ English
 **English Bold**
 
 ```ts
-import type { ThemeConfig } from 'valaxy-theme-starter'
 import { defineConfig } from 'valaxy'
+import type { ThemeConfig } from 'valaxy-theme-starter'
 
 export default defineConfig<ThemeConfig>({
   // your theme name

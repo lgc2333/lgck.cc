@@ -1,9 +1,9 @@
-import { readFile } from 'fs/promises'
+import { readFile } from 'node:fs/promises'
 
 import { defineConfig, tierPresets } from 'sponsorkit'
 
 /**
- * @typedef {Object} DirectSponsorRawData
+ * @typedef {object} DirectSponsorRawData
  * @property {string} name
  * @property {string} [username]
  * @property {string} [avatar]

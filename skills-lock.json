@@ -6,6 +6,12 @@
       "sourceType": "github",
       "skillPath": "skills/frontend-design/SKILL.md",
       "computedHash": "4eabc66183767153e404b39d1b839b1c37f2d82d86f0a0d7e880a579d8d62336"
+    },
+    "valaxy": {
+      "source": "YunYouJun/valaxy",
+      "sourceType": "github",
+      "skillPath": "skills/valaxy/SKILL.md",
+      "computedHash": "6c90991735301ebba56d39a5a00274487e559dc3ab8c4921b7a550fb8cb3c7fb"
     }
   }
 }

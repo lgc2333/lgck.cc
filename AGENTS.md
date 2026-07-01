@@ -28,13 +28,15 @@ pnpm --dir blog sponsor   # regenerate sponsor assets
 
 Run `format`, `lint`, and `check` scripts after code changes.
 
-## Reference Repository
+## Valaxy Reference
 
-Use `temp/valaxy` as a depth-1 clone of `YunYouJun/valaxy` when you need upstream reference. Keep it checked out to the currently installed version, and read its `AGENTS.md` before exploring the repo.
+Invoke the local `valaxy` skill before Valaxy theme/site work. If upstream reference is needed, use `temp/valaxy` as a depth-1 clone of `YunYouJun/valaxy`, check out the tag matching the installed `valaxy` package version (for example `v0.28.11`), and read its `AGENTS.md` before exploring it.
 
 ## Rules
 
 - Prefer thoughtful refactors when tiny patches would create spaghetti code.
+- Styling: prefer UnoCSS theme tokens/classes first; keep SCSS minimal and only for CSS-native concerns such as globals, prose, pseudo-elements, complex selectors, or gradients.
+- Keep styling responsibilities split: `uno.config.ts` defines theme/token mappings, while `styles/*.scss` contains real CSS and `@apply` utility classes.
 - Do not call Chrome DevTools MCP tools in parallel.
 - Store temporary files into the `temp/<sub-category>` folder in current project root. But if a skill guide you to use another location, follow it.
 
@@ -43,6 +45,7 @@ Use `temp/valaxy` as a depth-1 clone of `YunYouJun/valaxy` when you need upstrea
 ATTENTION: If you encounter a pitfall that might be reusable, you MUST record it below as early as possible.
 
 - PowerShell `Copy-Item -LiteralPath` does not expand wildcards like `*.ttf`; use `-Path` or enumerate with `Get-ChildItem`.
+- In this pnpm workspace, Valaxy/UnoCSS may not auto-resolve `@iconify-json/*` installed only through a local theme package. Theme icons should provide `unocssPresets.icons.collections` loaders in the theme `valaxy.config.ts`, alongside `unocss.safelist`.
 
 ## Commit
 

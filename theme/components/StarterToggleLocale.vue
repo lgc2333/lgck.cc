@@ -7,7 +7,16 @@ const { toggleLocales } = useLocale()
 </script>
 
 <template>
-  <button class="yun-icon-btn" :title="t('button.toggle_langs')" style="color:var(--va-c-text)" @click="toggleLocales">
-    <div i-ri-translate class="transform transition" :class="locale === 'en' ? 'rotate-y-180' : ''" />
+  <button
+    class="yun-icon-btn"
+    :title="t('button.toggle_langs')"
+    style="color: var(--va-c-text)"
+    @click="toggleLocales"
+  >
+    <div
+      i-ri-translate
+      class="transform transition"
+      :class="locale === 'en' ? 'rotate-y-180' : ''"
+    />
   </button>
 </template>

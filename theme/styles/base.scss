@@ -1,0 +1,52 @@
+.link {
+  color: var(--md-sys-color-primary);
+}
+
+html {
+  color: var(--md-sys-color-on-surface);
+  background: var(--md-sys-color-surface);
+  scroll-behavior: smooth;
+}
+
+.st-text {
+  color: var(--md-sys-color-on-surface);
+}
+
+body {
+  color: var(--md-sys-color-on-surface);
+  background: linear-gradient(
+    180deg,
+    var(--md-sys-color-surface-container-lowest),
+    var(--md-sys-color-surface)
+  );
+  font-family: var(--lgc-font-body);
+}
+
+i,
+em,
+cite,
+dfn {
+  font-family: var(--lgc-font-family-cjk), var(--lgc-font-family-system);
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--va-font-mono);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--md-sys-color-primary) 56%, transparent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

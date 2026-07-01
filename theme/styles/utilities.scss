@@ -1,0 +1,19 @@
+.lgc-motion-surface {
+  @apply transition-[background-color,border-radius,color,transform,width] duration-[var(--lgc-motion-short)] ease-[var(--lgc-easing-standard)];
+}
+
+.lgc-icon-button-base {
+  @apply inline-grid shrink-0 place-items-center border-0 bg-transparent p-0 text-md-on-surface-variant lgc-motion-surface;
+}
+
+.lgc-icon-button-hover {
+  @apply hover:bg-[color-mix(in_srgb,currentColor_calc(var(--lgc-state-hover-opacity)*100%),transparent)] hover:text-md-primary active:scale-95 active:bg-[color-mix(in_srgb,currentColor_calc(var(--lgc-state-pressed-opacity)*100%),transparent)];
+}
+
+.lgc-dock-link-base {
+  @apply inline-flex max-w-full items-center gap-2 rounded-6 text-sm font-800 text-md-on-surface no-underline lgc-motion-surface;
+}
+
+.lgc-chip-tonal {
+  @apply inline-flex items-center rounded-full bg-md-secondary-container text-md-on-secondary-container;
+}

@@ -3,13 +3,16 @@ import type { Post } from 'valaxy'
 import { usePostList } from 'valaxy'
 import { computed } from 'vue'
 
-const props = withDefaults(defineProps<{
-  type?: string
-  posts?: Post[]
-  curPage?: number
-}>(), {
-  curPage: 1,
-})
+const props = withDefaults(
+  defineProps<{
+    type?: string
+    posts?: Post[]
+    curPage?: number
+  }>(),
+  {
+    curPage: 1,
+  },
+)
 
 const routes = usePostList({ type: props.type || '' })
 const posts = computed(() => props.posts || routes.value)

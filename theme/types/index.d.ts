@@ -1,5 +1,4 @@
 /// <reference path="./font.d.ts" />
-
 import type { DefaultTheme } from 'valaxy'
 
 export namespace StarterTheme {

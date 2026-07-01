@@ -1,5 +1,5 @@
-import type { ThemeConfig } from 'valaxy-theme-lgcuwukii'
 import { defineConfig } from 'valaxy'
+import type { ThemeConfig } from 'valaxy-theme-lgcuwukii'
 
 /**
  * User Config

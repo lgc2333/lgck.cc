@@ -14,9 +14,12 @@ components.d.ts
 .vite-ssg-temp
 
 # valaxy rss
-blog/public/rss.xml
-blog/public/rss.atom
-blog/public/rss.json
+*/public/rss.xml
+*/public/rss.atom
+*/public/rss.json
+*/public/atom.xml
+*/public/feed.json
+*/public/feed.xml
 
 # valaxy fuse
 valaxy-fuse-list.json

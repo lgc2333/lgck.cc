@@ -1,9 +1,27 @@
-@use './vars' as *;
+@use 'sass:map';
 @use 'valaxy/client/styles/mixins/index.scss' as * with (
   $namespace: 'st'
 );
 
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+$common: () !default;
+$common: map.merge((), $common);
+
+$light: (
+  'c-brand': #3e88f6,
+  'c-link': 'var(--st-c-brand)',
+  'c-text': #101820,
+) !default;
+$light: map.merge((), $light);
+
+$dark: (
+  'c-text': #f0f8ff,
+) !default;
+$dark: map.merge((), $dark);
+
+$z-index: () !default;
+$z-index: map.merge((), $z-index);
 
 :root {
   --un-prose-links: var(--st-c-link);
@@ -21,17 +39,6 @@ html.dark {
 }
 
 :root {
-  --lgc-font-family-cjk: 'HarmonyOS Sans LgCuwukii', system-ui;
-  --lgc-font-family-mono: 'JetBrains Mono';
-  --lgc-font-family-system: system-ui;
-  --lgc-font-family-sans: var(--lgc-font-family-cjk), var(--lgc-font-family-system);
-
-  --va-font-family-base: var(--lgc-font-family-sans);
-  --va-font-sans: var(--lgc-font-family-sans);
-  --va-font-serif: var(--lgc-font-family-sans);
-  --va-font-mono:
-    var(--lgc-font-family-mono), var(--lgc-font-family-cjk), var(--lgc-font-family-system);
-
   --md-sys-color-primary: #2e6f9f;
   --md-sys-color-on-primary: #fff;
   --md-sys-color-primary-container: #d0e9ff;
@@ -53,29 +60,6 @@ html.dark {
   --md-sys-color-on-surface-variant: #5d6873;
   --md-sys-color-outline: #7a858f;
   --md-sys-color-outline-variant: #c7d0da;
-
-  --lgc-cookie: #a6794b;
-  --lgc-cookie-chip: #4e382e;
-  --lgc-ribbon: #c77970;
-  --lgc-star: #ecd062;
-  --lgc-blue-dot: #9fcdf7;
-
-  --lgc-font-display: var(--lgc-font-family-sans);
-  --lgc-font-body: var(--va-font-family-base);
-  --lgc-display-large: clamp(42px, 8.6vw, 96px);
-  --lgc-headline-large: clamp(28px, 4vw, 44px);
-  --lgc-title-large: 22px;
-  --lgc-body-large: 16px;
-  --lgc-label-large: 14px;
-
-  --lgc-shape-page: 40px;
-  --lgc-shape-avatar: 34px;
-  --lgc-shape-dock-item: 24px;
-  --lgc-motion-short: 160ms;
-  --lgc-motion-medium: 260ms;
-  --lgc-easing-standard: cubic-bezier(0.2, 0, 0, 1);
-  --lgc-state-hover-opacity: 0.08;
-  --lgc-state-pressed-opacity: 0.12;
 }
 
 html.dark {
@@ -100,9 +84,30 @@ html.dark {
   --md-sys-color-on-surface-variant: #bec8d2;
   --md-sys-color-outline: #909ba5;
   --md-sys-color-outline-variant: #414b55;
-  --lgc-cookie: #d2a36e;
-  --lgc-cookie-chip: #51392e;
-  --lgc-ribbon: #efaaa3;
-  --lgc-star: #f2d86b;
-  --lgc-blue-dot: #78b8ed;
+}
+
+:root {
+  --lgc-font-family-cjk: 'HarmonyOS Sans LgCuwukii', system-ui;
+  --lgc-font-family-mono: 'JetBrains Mono';
+  --lgc-font-family-system: system-ui;
+  --lgc-font-family-sans: var(--lgc-font-family-cjk), var(--lgc-font-family-system);
+
+  --va-font-family-base: var(--lgc-font-family-sans);
+  --va-font-sans: var(--lgc-font-family-sans);
+  --va-font-serif: var(--lgc-font-family-sans);
+  --va-font-mono:
+    var(--lgc-font-family-mono), var(--lgc-font-family-cjk),
+    var(--lgc-font-family-system);
+
+  --lgc-font-display: var(--lgc-font-family-sans);
+  --lgc-font-body: var(--va-font-family-base);
+  --lgc-display-large: clamp(42px, 8.6vw, 96px);
+  --lgc-headline-large: clamp(28px, 4vw, 44px);
+  --lgc-title-large: 22px;
+
+  --lgc-motion-short: 160ms;
+  --lgc-motion-medium: 260ms;
+  --lgc-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --lgc-state-hover-opacity: 0.08;
+  --lgc-state-pressed-opacity: 0.12;
 }
