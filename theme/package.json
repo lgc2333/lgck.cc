@@ -22,6 +22,7 @@
     "@iconify-json/ri": "catalog:",
     "@iconify-json/simple-icons": "catalog:",
     "@vueuse/core": "catalog:",
-    "vite-plugin-font": "catalog:"
+    "vite-plugin-font": "catalog:",
+    "vue-i18n": "catalog:"
   }
 }

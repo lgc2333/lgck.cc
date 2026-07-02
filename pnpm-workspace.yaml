@@ -48,3 +48,4 @@ catalog:
   unplugin-vue-router: ^0.19.2
   vue: ^3.5.39
   '@trivago/prettier-plugin-sort-imports': ^6.0.2
+  vue-i18n: ^11.4.6
