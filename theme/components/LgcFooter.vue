@@ -131,7 +131,12 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
   text-align: center;
   background: linear-gradient(
     180deg,
-    transparent,
+    color-mix(in srgb, var(--md-sys-color-surface-container) 0%, transparent) 0%,
+    color-mix(in srgb, var(--md-sys-color-surface-container) 4%, transparent) 18%,
+    color-mix(in srgb, var(--md-sys-color-surface-container) 14%, transparent) 38%,
+    color-mix(in srgb, var(--md-sys-color-surface-container) 34%, transparent) 58%,
+    color-mix(in srgb, var(--md-sys-color-surface-container) 62%, transparent) 78%,
+    color-mix(in srgb, var(--md-sys-color-surface-container) 86%, transparent) 92%,
     var(--md-sys-color-surface-container) 100%
   );
 }
