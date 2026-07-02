@@ -25,44 +25,25 @@ const tags = computed(() => {
 </script>
 
 <template>
-  <RouterLink
-    class="lgc-post-card relative grid grid-cols-1 gap-6 overflow-hidden rounded-7 bg-md-surface-container-low p-5 text-md-on-surface no-underline hover:translate-y-[-2px] hover:rounded-[22px] hover:bg-md-surface-container sm:grid-cols-[120px_minmax(0,1fr)_auto] sm:p-6"
-    :to="post.path || ''"
-  >
-    <time
-      class="lgc-post-date flex h-20 w-20 flex-col items-center justify-center justify-self-start rounded-7 bg-md-primary-container text-md-on-primary-container sm:h-24 sm:w-24 sm:justify-self-center"
-      :datetime="date.datetime"
-    >
-      <strong class="text-4xl leading-none">{{ date.day }}</strong>
-      <span class="mt-1 text-xs font-800 uppercase tracking-[0.08em]">{{
-        date.rest
-      }}</span>
+  <RouterLink class="lgc-post-card" :to="post.path || ''">
+    <time class="lgc-post-date" :datetime="date.datetime">
+      <strong class="lgc-post-date-day">{{ date.day }}</strong>
+      <span class="lgc-post-date-rest">{{ date.rest }}</span>
     </time>
 
-    <div class="min-w-0">
-      <h3 class="m-0 text-lgc-title leading-tight">
+    <div class="lgc-post-body">
+      <h3 class="lgc-post-title">
         {{ post.title }}
       </h3>
-      <div
-        v-if="post.excerpt"
-        class="lgc-post-excerpt mt-3 line-clamp-3 text-sm text-md-on-surface-variant leading-7"
-        v-html="post.excerpt"
-      />
-      <div v-if="tags.length" class="mt-3 flex flex-wrap gap-2">
-        <span
-          v-for="tag in tags"
-          :key="tag"
-          class="lgc-chip-tonal h-8 px-3 text-xs font-700"
-        >
+      <div v-if="post.excerpt" class="lgc-post-excerpt" v-html="post.excerpt" />
+      <div v-if="tags.length" class="lgc-post-tags">
+        <span v-for="tag in tags" :key="tag" class="lgc-post-tag lgc-chip-tonal">
           {{ tag }}
         </span>
       </div>
     </div>
 
-    <span
-      class="hidden h-12 w-12 place-items-center self-center rounded-6 bg-md-surface-container-highest text-2xl text-md-primary sm:inline-grid"
-      aria-hidden="true"
-    >
+    <span class="lgc-post-arrow" aria-hidden="true">
       <span i-material-symbols-arrow-forward-rounded />
     </span>
   </RouterLink>
@@ -70,21 +51,113 @@ const tags = computed(() => {
 
 <style scoped lang="scss">
 .lgc-post-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 1.25rem;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  color: var(--md-sys-color-on-surface);
+  text-decoration: none;
+  background: var(--md-sys-color-surface-container-low);
   transition:
     background-color var(--lgc-motion-short) var(--lgc-easing-standard),
     border-radius var(--lgc-motion-medium) var(--lgc-easing-standard),
     transform var(--lgc-motion-short) var(--lgc-easing-standard);
+
+  &:hover {
+    border-radius: 22px;
+    background: var(--md-sys-color-surface-container);
+    transform: translateY(-2px);
+  }
 }
 
 .lgc-post-date {
-  background-image: radial-gradient(
-    circle at 76% 24%,
-    color-mix(in srgb, var(--md-sys-color-tertiary) 34%, transparent) 0 16px,
-    transparent 17px
-  );
+  display: flex;
+  width: 5rem;
+  height: 5rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  border-radius: 1.75rem;
+  color: var(--md-sys-color-on-primary-container);
+  background-color: var(--md-sys-color-primary-container);
+}
+
+.lgc-post-date-day {
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
+.lgc-post-date-rest {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lgc-post-body {
+  min-width: 0;
+}
+
+.lgc-post-excerpt {
+  display: -webkit-box;
+  margin-top: 0.75rem;
+  overflow: hidden;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.875rem;
+  line-height: 1.75;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .lgc-post-excerpt :deep(p) {
-  @apply m-0;
+  margin: 0;
+}
+
+.lgc-post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.lgc-post-tag {
+  height: 2rem;
+  padding-inline: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.lgc-post-arrow {
+  display: none;
+  width: 3rem;
+  height: 3rem;
+  align-self: center;
+  place-items: center;
+  border-radius: 1.5rem;
+  color: var(--md-sys-color-primary);
+  font-size: 1.5rem;
+  background: var(--md-sys-color-surface-container-highest);
+}
+
+@media (min-width: 640px) {
+  .lgc-post-card {
+    grid-template-columns: 120px minmax(0, 1fr) auto;
+    padding: 1.5rem;
+  }
+
+  .lgc-post-date {
+    width: 6rem;
+    height: 6rem;
+    justify-self: center;
+  }
+
+  .lgc-post-arrow {
+    display: inline-grid;
+  }
 }
 </style>

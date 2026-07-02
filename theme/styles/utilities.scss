@@ -1,19 +1,83 @@
 .lgc-motion-surface {
-  @apply transition-[background-color,border-radius,color,transform,width] duration-[var(--lgc-motion-short)] ease-[var(--lgc-easing-standard)];
+  transition-property:
+    background-color, border-radius, color, max-inline-size, transform;
+  transition-duration: var(--lgc-motion-short);
+  transition-timing-function: var(--lgc-easing-standard);
 }
 
 .lgc-icon-button-base {
-  @apply inline-grid shrink-0 place-items-center border-0 bg-transparent p-0 text-md-on-surface-variant lgc-motion-surface;
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  color: var(--md-sys-color-on-surface-variant);
+  background: transparent;
+
+  @extend .lgc-motion-surface;
 }
 
 .lgc-icon-button-hover {
-  @apply hover:bg-[color-mix(in_srgb,currentColor_calc(var(--lgc-state-hover-opacity)*100%),transparent)] hover:text-md-primary active:scale-95 active:bg-[color-mix(in_srgb,currentColor_calc(var(--lgc-state-pressed-opacity)*100%),transparent)];
+  &:hover {
+    color: var(--md-sys-color-primary);
+    background: color-mix(
+      in srgb,
+      currentColor calc(var(--lgc-state-hover-opacity) * 100%),
+      transparent
+    );
+  }
+
+  &:active {
+    background: color-mix(
+      in srgb,
+      currentColor calc(var(--lgc-state-pressed-opacity) * 100%),
+      transparent
+    );
+    transform: scale(0.95);
+  }
 }
 
 .lgc-dock-link-base {
-  @apply inline-flex max-w-full items-center gap-2 rounded-6 text-sm font-800 text-md-on-surface no-underline lgc-motion-surface;
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 1.5rem;
+  color: var(--md-sys-color-on-surface);
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-decoration: none;
+
+  @extend .lgc-motion-surface;
 }
 
 .lgc-chip-tonal {
-  @apply inline-flex items-center rounded-full bg-md-secondary-container text-md-on-secondary-container;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  color: var(--md-sys-color-on-secondary-container);
+  background: var(--md-sys-color-secondary-container);
+}
+
+.lgc-landing-title {
+  max-width: 1100px;
+  margin: 0;
+  color: var(--md-sys-color-on-surface);
+  font-family: var(--lgc-font-display);
+  font-size: var(--lgc-display-large);
+  font-weight: 900;
+  line-height: 0.96;
+  letter-spacing: 0;
+}
+
+.lgc-section-title {
+  margin: 0;
+  font-size: var(--lgc-headline-large);
+  line-height: 1.25;
+}
+
+.lgc-post-title {
+  margin: 0;
+  font-size: var(--lgc-title-large);
+  line-height: 1.25;
 }

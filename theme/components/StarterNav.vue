@@ -3,7 +3,6 @@ import { useAppStore, useSiteConfig } from 'valaxy'
 
 // import { computed } from 'vue'
 // import { useRoute } from 'vue-router'
-import { useThemeConfig } from '../composables'
 
 // const route = useRoute()
 // const isIndex = computed(() => route.path.replace(/index.html$/, '') === '/')
@@ -11,7 +10,6 @@ import { useThemeConfig } from '../composables'
 const appStore = useAppStore()
 
 const siteConfig = useSiteConfig()
-const themeConfig = useThemeConfig()
 </script>
 
 <template>
@@ -26,11 +24,11 @@ const themeConfig = useThemeConfig()
       <span class="hidden md:inline">{{ siteConfig.title }}</span>
     </RouterLink>
     <div class="text-sm text-gray-500 leading-5">
-      <template v-for="(item, i) in themeConfig.nav" :key="i">
+      <template v-for="(item, i) in siteConfig.social" :key="item.link">
         <AppLink :to="item.link" rel="noopener">
-          {{ item.text }}
+          {{ item.name }}
         </AppLink>
-        <span v-if="i !== themeConfig.nav.length - 1" class="ml-2 mr-2">·</span>
+        <span v-if="i !== siteConfig.social.length - 1" class="ml-2 mr-2">·</span>
       </template>
     </div>
 

@@ -10,18 +10,38 @@ export namespace StarterTheme {
  * Theme Config
  */
 export interface ThemeConfig extends DefaultTheme.Config {
-  colors: {
+  /**
+   * Topbar behavior.
+   */
+  topBar?: Partial<{
     /**
-     * primary color
-     * @default '#0078E7'
+     * Show the home entry on the left side of the topbar.
+     * @default true
      */
-    primary: string
-  }
+    addHome: boolean
+
+    /**
+     * Keep the home label visible when there is enough space.
+     * Set to false to use the same hover expansion as other links.
+     * @default true
+     */
+    homeFixed: boolean
+
+    /**
+     * Optional label next to the home icon when there is enough space.
+     */
+    homeLabel: string
+
+    /**
+     * Desktop topbar link sizing/expansion behavior.
+     */
+    links: Partial<TopBarLinksConfig>
+  }>
 
   /**
    * footer
    */
-  footer: Partial<{
+  footer?: Partial<{
     /**
      * 建站于
      */
@@ -30,16 +50,17 @@ export interface ThemeConfig extends DefaultTheme.Config {
     /**
      * Icon between year and copyright info.
      */
-    icon: {
+    icon: Partial<{
       /**
        * icon name, i-xxx
        */
+      enable: boolean
       name: string
       animated: boolean
       color: string
       url: string
       title: string
-    }
+    }>
 
     /**
      * Powered by valaxy & valaxy-theme-${name}, default is yun
@@ -58,39 +79,58 @@ export interface ThemeConfig extends DefaultTheme.Config {
        * 苏ICP备xxxxxxxx号
        */
       icp: string
+      /**
+       * Custom ICP link.
+       * @default 'https://beian.miit.gov.cn/'
+       */
+      icpLink?: string
+      /**
+       * 公安网备案号
+       */
+      police?: string
     }
   }>
 
   /**
-   * navbar
-   */
-  nav: NavItem[]
-
-  /**
    * Landing screen
    */
-  landing: Partial<LandingConfig>
-}
-
-export interface NavItem {
-  text: string
-  link: string
-  icon?: string
+  landing?: Partial<LandingConfig>
 }
 
 export type LandingLinkVariant = 'primary' | 'tonal' | 'default' | 'cookie' | 'ribbon'
+
+export type TopBarLinkMode = 'icon' | 'hover' | 'expanded'
+
+export interface TopBarLinksConfig {
+  /**
+   * icon: icon-only, hover: expand on hover/focus, expanded: text always visible.
+   * @default 'hover'
+   */
+  mode: TopBarLinkMode
+
+  /**
+   * Fixed width for desktop links. When set, links do not size by content.
+   */
+  width: string
+
+  /**
+   * Minimum width for desktop links.
+   * @default '3rem'
+   */
+  minWidth: string
+
+  /**
+   * Maximum width for desktop links.
+   * @default '11rem'
+   */
+  maxWidth: string
+}
 
 export interface LandingLink {
   text: string
   link: string
   icon?: string
   variant?: LandingLinkVariant
-}
-
-export interface LandingSocial {
-  text: string
-  link: string
-  icon: string
 }
 
 export interface LandingConfig {
@@ -112,28 +152,7 @@ export interface LandingConfig {
    */
   compact: boolean
 
-  /**
-   * Optional avatar image URL.
-   */
-  avatar: string
-
-  /**
-   * Small label above title.
-   */
-  eyebrow: string
-
-  /**
-   * Defaults to site title when empty.
-   */
-  title: string
-
-  /**
-   * Defaults to site subtitle when empty.
-   */
-  subtitle: string
-
   links: LandingLink[]
-  socials: LandingSocial[]
 }
 
 export type ThemeUserConfig = Partial<ThemeConfig>

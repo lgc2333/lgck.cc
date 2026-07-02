@@ -8,17 +8,15 @@ import {
   themePlugin,
 } from './node'
 import type { ThemeConfig } from './types'
-import { lgcUnoTheme } from './uno.config'
 
 export default defineTheme<ThemeConfig>((options) => {
   return {
     themeConfig: defaultThemeConfig,
     vite: {
-      plugins: [Font.vite(), harmonyOSFontFamilyPlugin(), themePlugin(options)],
+      plugins: [Font.vite(), harmonyOSFontFamilyPlugin(), themePlugin()],
     },
     unocss: {
       safelist: generateSafelist(options),
-      theme: lgcUnoTheme,
     },
     unocssPresets: {
       icons: {
@@ -28,7 +26,7 @@ export default defineTheme<ThemeConfig>((options) => {
           'simple-icons': () =>
             import('@iconify-json/simple-icons/icons.json').then((i) => i.default),
           ri: () => import('@iconify-json/ri/icons.json').then((i) => i.default),
-        },
+        } as any,
       },
     },
   }

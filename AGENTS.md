@@ -34,9 +34,25 @@ Invoke the local `valaxy` skill before Valaxy theme/site work. If upstream refer
 
 ## Rules
 
+### Engineering
+
 - Prefer thoughtful refactors when tiny patches would create spaghetti code.
-- Styling: prefer UnoCSS theme tokens/classes first; keep SCSS minimal and only for CSS-native concerns such as globals, prose, pseudo-elements, complex selectors, or gradients.
-- Keep styling responsibilities split: `uno.config.ts` defines theme/token mappings, while `styles/*.scss` contains real CSS and `@apply` utility classes.
+
+### Styling And UI
+
+- Styling: use traditional SCSS for authored theme/site styles. Do not use UnoCSS utilities, shortcuts, or `@apply` for stable UI styling.
+- Keep UnoCSS limited to icon generation and required Valaxy integration in `valaxy.config.ts`; do not add standalone Uno config files. Put real styling in component scoped SCSS or `styles/*.scss`.
+- UI states should have clear layering: base, hover/focus, and active/selected styles must be distinct, with active rules ordered after hover when they overlap.
+- Prefer shape feedback: controls may be rounder at rest and should use smaller rounded-rectangle radii on hover/active.
+- For expanding/collapsing controls, keep icon anchors, padding, and layout stable; animate container/text size or opacity instead of changing gap/padding mid-transition.
+- Keep icon size and padding consistent within a control group; prefer inheriting button font size with `1em` over local px/rem guesses.
+
+### Configuration
+
+- Theme defaults should stay minimal behavior defaults. Put site-owned content such as title, author, avatar, social links, and long example lists in `site.config.ts` or demos, not theme defaults.
+
+### Tools And Files
+
 - Do not call Chrome DevTools MCP tools in parallel.
 - Store temporary files into the `temp/<sub-category>` folder in current project root. But if a skill guide you to use another location, follow it.
 

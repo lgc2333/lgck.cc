@@ -5,7 +5,7 @@ const themeConfig = useThemeConfig()
 </script>
 
 <template>
-  <LgcLandingHome v-if="themeConfig.landing?.enable" />
+  <LgcLandingHome v-if="themeConfig.landing?.enable !== false" />
 
   <Layout v-else>
     <div class="divide-y divide-gray-200 dark:divide-gray-700">

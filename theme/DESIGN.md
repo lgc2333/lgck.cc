@@ -37,8 +37,8 @@ The home page is a configurable Valaxy landing screen with optional posts below 
 
 - `LgcLandingHome.vue` owns the first viewport and optional posts section.
 - `LgcLandingTopbar.vue`, `LgcLandingDock.vue`, `LgcLandingSocials.vue`, `LgcLandingMark.vue`, and `LgcLandingPostCard.vue` own their local styles.
-- `theme/styles/layout.scss` should stay small: global text, page background, focus, and reduced-motion only.
-- `theme/styles/css-vars.scss` stores shared Material color roles and reusable lgc typography/motion tokens.
+- `theme/styles/index.scss` composes token, base, utility, and markdown styles.
+- `theme/styles/tokens.scss` stores shared Material color roles and reusable lgc typography/motion tokens.
 
 ## Landing Rules
 
@@ -53,15 +53,18 @@ The home page is a configurable Valaxy landing screen with optional posts below 
 ## Avatar
 
 - Do not simulate an avatar with CSS.
-- Use `themeConfig.landing.avatar` when present.
-- If `landing.avatar` is empty, hide the avatar area completely.
+- Use `siteConfig.author.avatar` when present.
+- If `author.avatar` is empty, hide the avatar area completely.
+- The landing title uses `siteConfig.title`; author-owned fields should stay in `site.config.ts` and render alongside the site title only when needed.
 - Do not add decorative badges below or on top of the avatar unless they are a real configurable feature.
 
 ## Style Constraints
 
-- Use Uno utility classes directly in Vue components for one-off layout and sizing.
+- Use traditional SCSS for authored theme styles.
 - Component-specific SCSS belongs in the component's scoped `<style>`.
 - Add global SCSS only for behavior shared across the theme.
+- Do not use UnoCSS utilities, shortcuts, or `@apply` for stable UI styling.
+- Keep UnoCSS limited to icon generation and required Valaxy integration in `valaxy.config.ts`; do not add standalone Uno config files.
 - Do not create CSS variables for values used only once.
 - Do not use `--uwk-*`; custom theme tokens use the `--lgc-*` prefix.
 - Use Material Symbols Rounded as the primary icon language. Additional rounded icon sets are fine when needed.
@@ -77,24 +80,29 @@ The home page is a configurable Valaxy landing screen with optional posts below 
 
 ## Theme Config Shape
 
+Theme defaults should stay minimal. Put site-owned content such as `title`, `subtitle`, `author`, `avatar`, and `social` in `site.config.ts`.
+
 ```ts
 themeConfig: {
+  topBar: {
+    addHome: true,
+    homeFixed: true,
+    homeLabel: 'Home',
+    links: {
+      mode: 'hover',
+      maxWidth: '11rem',
+    },
+  },
   landing: {
-    enable: true,
-    showPosts: true,
+    enable: false,
     compact: false,
-    avatar: '',
-    eyebrow: 'soft blue / cookie / ribbon',
-    title: '',
-    subtitle: '',
     links: [
       { text: '博客文章', link: '/posts', icon: 'i-material-symbols-article-outline-rounded', variant: 'primary' },
       { text: '项目列表', link: '/projects', icon: 'i-material-symbols-dashboard-outline-rounded', variant: 'tonal' },
-      { text: '友情链接', link: '/links', icon: 'i-material-symbols-link-rounded', variant: 'cookie' },
     ],
-    socials: [
-      { text: 'GitHub', link: '', icon: 'i-simple-icons-github' },
-    ],
+  },
+  footer: {
+    since: 2024,
   },
 }
 ```
