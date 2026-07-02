@@ -36,11 +36,17 @@ const tags = computed(() => {
         {{ post.title }}
       </h3>
       <div v-if="post.excerpt" class="lgc-post-excerpt" v-html="post.excerpt" />
-      <div v-if="tags.length" class="lgc-post-tags">
+      <div v-if="tags.length" class="lgc-post-tags lgc-post-tags-inline">
         <span v-for="tag in tags" :key="tag" class="lgc-post-tag lgc-chip-tonal">
           {{ tag }}
         </span>
       </div>
+    </div>
+
+    <div v-if="tags.length" class="lgc-post-tags lgc-post-tags-mobile">
+      <span v-for="tag in tags" :key="tag" class="lgc-post-tag lgc-chip-tonal">
+        {{ tag }}
+      </span>
     </div>
 
     <span class="lgc-post-arrow" aria-hidden="true">
@@ -53,11 +59,12 @@ const tags = computed(() => {
 .lgc-post-card {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+  grid-template-columns: 5.25rem minmax(0, 1fr);
+  align-items: start;
+  gap: 1rem;
   padding: 1.25rem;
   overflow: hidden;
-  border-radius: 1.75rem;
+  border-radius: var(--lgc-radius-large);
   color: var(--md-sys-color-on-surface);
   text-decoration: none;
   background: var(--md-sys-color-surface-container-low);
@@ -67,7 +74,7 @@ const tags = computed(() => {
     transform var(--lgc-motion-short) var(--lgc-easing-standard);
 
   &:hover {
-    border-radius: 22px;
+    border-radius: calc(var(--lgc-radius-large) - 0.375rem);
     background: var(--md-sys-color-surface-container);
     transform: translateY(-2px);
   }
@@ -75,19 +82,19 @@ const tags = computed(() => {
 
 .lgc-post-date {
   display: flex;
-  width: 5rem;
-  height: 5rem;
+  width: 5.25rem;
+  height: 5.25rem;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   justify-self: start;
-  border-radius: 1.75rem;
+  border-radius: var(--lgc-radius-large);
   color: var(--md-sys-color-on-primary-container);
   background-color: var(--md-sys-color-primary-container);
 }
 
 .lgc-post-date-day {
-  font-size: 2.25rem;
+  font-size: 2rem;
   line-height: 1;
 }
 
@@ -101,6 +108,7 @@ const tags = computed(() => {
 
 .lgc-post-body {
   min-width: 0;
+  align-self: center;
 }
 
 .lgc-post-excerpt {
@@ -122,7 +130,15 @@ const tags = computed(() => {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+.lgc-post-tags-inline {
+  display: none;
   margin-top: 0.75rem;
+}
+
+.lgc-post-tags-mobile {
+  grid-column: 1 / -1;
 }
 
 .lgc-post-tag {
@@ -134,11 +150,11 @@ const tags = computed(() => {
 
 .lgc-post-arrow {
   display: none;
-  width: 3rem;
-  height: 3rem;
+  width: var(--lgc-control-size);
+  height: var(--lgc-control-size);
   align-self: center;
   place-items: center;
-  border-radius: 1.5rem;
+  border-radius: var(--lgc-radius-control);
   color: var(--md-sys-color-primary);
   font-size: 1.5rem;
   background: var(--md-sys-color-surface-container-highest);
@@ -147,6 +163,7 @@ const tags = computed(() => {
 @media (min-width: 640px) {
   .lgc-post-card {
     grid-template-columns: 120px minmax(0, 1fr) auto;
+    gap: 1.5rem;
     padding: 1.5rem;
   }
 
@@ -156,7 +173,20 @@ const tags = computed(() => {
     justify-self: center;
   }
 
+  .lgc-post-tags {
+    grid-column: auto;
+  }
+
+  .lgc-post-tags-inline {
+    display: flex;
+  }
+
+  .lgc-post-tags-mobile {
+    display: none;
+  }
+
   .lgc-post-arrow {
+    grid-column: 3;
     display: inline-grid;
   }
 }

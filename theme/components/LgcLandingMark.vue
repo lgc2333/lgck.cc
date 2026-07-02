@@ -61,29 +61,36 @@ defineProps<{
   right: -0.45rem;
   bottom: -0.3rem;
   display: inline-flex;
-  max-width: 2.25rem;
-  min-height: 2rem;
+  box-sizing: border-box;
+  min-inline-size: 2.25rem;
+  max-inline-size: 2.25rem;
+  block-size: 2.25rem;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0 0.55rem;
+  justify-content: center;
+  gap: 0;
+  padding: 0;
   overflow: hidden;
   border-radius: 999px;
+  border: 3px solid var(--md-sys-color-surface);
   color: var(--md-sys-color-on-secondary-container);
   font-size: 0.8125rem;
   font-weight: 700;
   white-space: nowrap;
   background: var(--md-sys-color-secondary-container);
-  box-shadow: 0 0 0 3px var(--md-sys-color-surface);
+  box-shadow: 0 0.35rem 1.25rem
+    color-mix(in srgb, var(--md-sys-color-secondary) 22%, transparent);
   transition:
-    max-width var(--lgc-motion-medium) var(--lgc-easing-standard),
+    max-inline-size var(--lgc-motion-medium) var(--lgc-easing-standard),
     border-radius var(--lgc-motion-short) var(--lgc-easing-standard),
-    background-color var(--lgc-motion-short) var(--lgc-easing-standard);
+    padding-inline var(--lgc-motion-medium) var(--lgc-easing-standard);
 
   &:hover,
   &:focus-within {
-    max-width: 14rem;
+    max-inline-size: 14rem;
+    justify-content: flex-start;
+    gap: 0.4rem;
+    padding-inline: 0.55rem;
     border-radius: 12px;
-    background: var(--md-sys-color-surface-container-high);
   }
 }
 
@@ -92,8 +99,19 @@ defineProps<{
 }
 
 .lgc-mark-status-message {
+  max-inline-size: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+  opacity: 0;
+  transition:
+    max-inline-size var(--lgc-motion-medium) var(--lgc-easing-standard),
+    opacity var(--lgc-motion-short) var(--lgc-easing-standard);
+}
+
+.lgc-mark-status:hover .lgc-mark-status-message,
+.lgc-mark-status:focus-within .lgc-mark-status-message {
+  max-inline-size: 11rem;
+  opacity: 1;
 }
 
 @media (min-width: 640px) {

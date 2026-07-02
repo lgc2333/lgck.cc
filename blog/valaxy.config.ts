@@ -1,6 +1,6 @@
 import { defineValaxyConfig } from 'valaxy'
 import { addonComponents } from 'valaxy-addon-components'
-import type { ThemeConfig } from 'valaxy-theme-lgcwuwkii'
+import type { ThemeConfig } from 'valaxy-theme-lgcuwukii'
 
 const safelist = [
   'i-ri-rss-line',
@@ -15,7 +15,7 @@ const safelist = [
 ]
 
 export default defineValaxyConfig<ThemeConfig>({
-  theme: 'lgcwuwkii',
+  theme: 'lgcuwukii',
   themeConfig: {
     // banner: {
     //   enable: true,

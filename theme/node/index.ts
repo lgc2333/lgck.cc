@@ -18,9 +18,13 @@ export const defaultThemeConfig: ThemeConfig = {
     compact: false,
     links: [],
   },
-  topBar: {
+  header: {
     addHome: true,
-    homeFixed: true,
+    homeFixed: false,
+    nav: [],
+    links: {
+      activeExpanded: true,
+    },
   },
   footer: {
     powered: false,
@@ -51,11 +55,23 @@ export function generateSafelist(options: ResolvedValaxyOptions<ThemeConfig>) {
     'i-material-symbols-dark-mode-outline-rounded',
     'i-material-symbols-search-rounded',
     'i-material-symbols-keyboard-arrow-down-rounded',
+    'i-material-symbols-keyboard-arrow-up-rounded',
+    'i-material-symbols-keyboard-arrow-left-rounded',
+    'i-material-symbols-keyboard-arrow-right-rounded',
     'i-material-symbols-arrow-forward-rounded',
     'i-material-symbols-person-outline-rounded',
     'i-material-symbols-favorite-outline-rounded',
     'i-material-symbols-rss-feed-rounded',
     'i-material-symbols-mail-outline-rounded',
+    'i-material-symbols-article-outline-rounded',
+    'i-material-symbols-history-rounded',
+    'i-material-symbols-category-outline-rounded',
+    'i-material-symbols-tag-rounded',
+    'i-material-symbols-dashboard-outline-rounded',
+    'i-material-symbols-imagesmode-outline-rounded',
+    'i-material-symbols-link-rounded',
+    'i-material-symbols-keyboard-return-rounded',
+    'i-material-symbols-travel-explore-rounded',
     'i-simple-icons-github',
   ]
 
@@ -63,6 +79,10 @@ export function generateSafelist(options: ResolvedValaxyOptions<ThemeConfig>) {
   if (footerIcon) safelist.push(footerIcon)
 
   themeConfig.landing?.links?.forEach((item) => {
+    if (item.icon) safelist.push(item.icon)
+  })
+
+  themeConfig.header?.nav?.forEach((item) => {
     if (item.icon) safelist.push(item.icon)
   })
 

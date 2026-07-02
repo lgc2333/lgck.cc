@@ -126,18 +126,13 @@ const policeCode = computed(() => {
 <style scoped lang="scss">
 .lgc-footer {
   position: relative;
+  flex: 0 0 auto;
   padding: 2.5rem 1rem 2rem;
   color: var(--md-sys-color-on-surface-variant);
   font-size: 0.875rem;
   line-height: 1.8;
   text-align: center;
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--md-sys-color-surface) 82%, transparent),
-      var(--md-sys-color-surface-container-low)
-    ),
-    var(--md-sys-color-surface-container-low);
+  background: linear-gradient(180deg, var(--md-sys-color-surface));
 }
 
 .lgc-footer-inner {

@@ -32,13 +32,13 @@ defineProps<{
 }
 
 .lgc-social-link {
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 22px;
+  width: var(--lgc-control-size-compact);
+  height: var(--lgc-control-size-compact);
+  border-radius: calc(var(--lgc-control-size-compact) / 2);
   font-size: 1.25rem;
 
   &:hover {
-    border-radius: 15px;
+    border-radius: calc(var(--lgc-radius-control-active) - 0.0625rem);
     transform: translateY(-1px);
   }
 

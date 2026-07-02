@@ -36,7 +36,7 @@ The home page is a configurable Valaxy landing screen with optional posts below 
 ## Current Main Screen
 
 - `LgcLandingHome.vue` owns the first viewport and optional posts section.
-- `LgcLandingTopbar.vue`, `LgcLandingDock.vue`, `LgcLandingSocials.vue`, `LgcLandingMark.vue`, and `LgcLandingPostCard.vue` own their local styles.
+- `Header.vue`, `LgcLandingDock.vue`, `LgcLandingSocials.vue`, `LgcLandingMark.vue`, `LgcPostFeed.vue`, and `LgcPostFeedCard.vue` own their local styles.
 - `theme/styles/index.scss` composes token, base, utility, and markdown styles.
 - `theme/styles/tokens.scss` stores shared Material color roles and reusable lgc typography/motion tokens.
 
@@ -81,31 +81,6 @@ The home page is a configurable Valaxy landing screen with optional posts below 
 ## Theme Config Shape
 
 Theme defaults should stay minimal. Put site-owned content such as `title`, `subtitle`, `author`, `avatar`, and `social` in `site.config.ts`.
-
-```ts
-themeConfig: {
-  topBar: {
-    addHome: true,
-    homeFixed: true,
-    homeLabel: 'Home',
-    links: {
-      mode: 'hover',
-      maxWidth: '11rem',
-    },
-  },
-  landing: {
-    enable: false,
-    compact: false,
-    links: [
-      { text: '博客文章', link: '/posts', icon: 'i-material-symbols-article-outline-rounded', variant: 'primary' },
-      { text: '项目列表', link: '/projects', icon: 'i-material-symbols-dashboard-outline-rounded', variant: 'tonal' },
-    ],
-  },
-  footer: {
-    since: 2024,
-  },
-}
-```
 
 ## Before Finalizing
 

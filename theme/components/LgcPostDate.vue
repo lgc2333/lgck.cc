@@ -10,10 +10,14 @@ const datetime = computed(() => formatDate(props.date || ''))
 </script>
 
 <template>
-  <dl>
-    <dt class="sr-only">Published on</dt>
-    <dd class="text-base text-gray-500 font-medium leading-6">
-      <time :datetime="datetime">{{ datetime }}</time>
-    </dd>
-  </dl>
+  <time class="lgc-date" :datetime="datetime">{{ datetime }}</time>
 </template>
+
+<style scoped lang="scss">
+.lgc-date {
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+</style>

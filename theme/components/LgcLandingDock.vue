@@ -85,7 +85,7 @@ const variantClass: Record<LandingLinkVariant, string> = {
   }
 
   &:hover {
-    border-radius: 18px;
+    border-radius: calc(var(--lgc-radius-control) - 0.375rem);
     color: var(--lgc-dock-hover-color);
     background: var(--lgc-dock-hover-bg);
     transform: translateY(-1px);

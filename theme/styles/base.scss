@@ -8,17 +8,14 @@ html {
   scroll-behavior: smooth;
 }
 
-.st-text {
-  color: var(--md-sys-color-on-surface);
+#app {
+  isolation: isolate;
+  min-height: 100vh;
 }
 
 body {
   color: var(--md-sys-color-on-surface);
-  background: linear-gradient(
-    180deg,
-    var(--md-sys-color-surface-container-lowest),
-    var(--md-sys-color-surface)
-  );
+  background: var(--md-sys-color-surface);
   font-family: var(--lgc-font-body);
 }
 

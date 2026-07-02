@@ -1,7 +1,7 @@
 /// <reference path="./font.d.ts" />
 import type { DefaultTheme } from 'valaxy'
 
-export namespace StarterTheme {
+export namespace LgcTheme {
   export type Config = ThemeConfig
   export type Sidebar = any
 }
@@ -11,11 +11,11 @@ export namespace StarterTheme {
  */
 export interface ThemeConfig extends DefaultTheme.Config {
   /**
-   * Topbar behavior.
+   * Header behavior.
    */
-  topBar?: Partial<{
+  header?: Partial<{
     /**
-     * Show the home entry on the left side of the topbar.
+     * Show the home entry on the left side of the header.
      * @default true
      */
     addHome: boolean
@@ -23,7 +23,7 @@ export interface ThemeConfig extends DefaultTheme.Config {
     /**
      * Keep the home label visible when there is enough space.
      * Set to false to use the same hover expansion as other links.
-     * @default true
+     * @default false
      */
     homeFixed: boolean
 
@@ -33,9 +33,14 @@ export interface ThemeConfig extends DefaultTheme.Config {
     homeLabel: string
 
     /**
-     * Desktop topbar link sizing/expansion behavior.
+     * Header navigation links.
      */
-    links: Partial<TopBarLinksConfig>
+    nav: HeaderNavLink[]
+
+    /**
+     * Desktop header link sizing/expansion behavior.
+     */
+    links: Partial<HeaderLinksConfig>
   }>
 
   /**
@@ -99,14 +104,20 @@ export interface ThemeConfig extends DefaultTheme.Config {
 
 export type LandingLinkVariant = 'primary' | 'tonal' | 'default' | 'cookie' | 'ribbon'
 
-export type TopBarLinkMode = 'icon' | 'hover' | 'expanded'
+export type HeaderLinkMode = 'icon' | 'hover' | 'expanded'
 
-export interface TopBarLinksConfig {
+export interface HeaderLinksConfig {
+  /**
+   * Expand the active link label automatically.
+   * @default true
+   */
+  activeExpanded: boolean
+
   /**
    * icon: icon-only, hover: expand on hover/focus, expanded: text always visible.
    * @default 'hover'
    */
-  mode: TopBarLinkMode
+  mode: HeaderLinkMode
 
   /**
    * Fixed width for desktop links. When set, links do not size by content.
@@ -124,6 +135,12 @@ export interface TopBarLinksConfig {
    * @default '11rem'
    */
   maxWidth: string
+}
+
+export interface HeaderNavLink {
+  text: string
+  link: string
+  icon?: string
 }
 
 export interface LandingLink {

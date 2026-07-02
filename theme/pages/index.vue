@@ -1,5 +1,5 @@
 <template>
-  <StarterPostList />
+  <LgcPostList />
 </template>
 
 <route lang="yaml">

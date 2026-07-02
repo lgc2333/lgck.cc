@@ -16,17 +16,14 @@ English
 
 ```ts
 import { defineConfig } from 'valaxy'
-import type { ThemeConfig } from 'valaxy-theme-starter'
+import type { ThemeConfig } from 'valaxy-theme-lgcuwukii'
 
 export default defineConfig<ThemeConfig>({
-  // your theme name
-  // valaxy-theme-yun name is 'yun'
-  theme: 'starter',
+  theme: 'lgcuwukii',
 
   themeConfig: {
-    banner: {
-      enable: true,
-      title: '云游君的小站',
+    landing: {
+      showPosts: true,
     },
   },
 })

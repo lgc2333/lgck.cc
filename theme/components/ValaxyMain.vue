@@ -11,14 +11,14 @@ const siteConfig = useSiteConfig()
 
 <template>
   <main>
-    <div w="full" flex="~">
+    <div class="lgc-main-shell">
       <slot name="main">
-        <div class="content" flex="~ col grow" w="full" p="l-4 lt-md:0">
+        <div class="lgc-main-content">
           <slot name="main-header" />
           <slot name="main-header-after" />
 
           <slot name="main-content">
-            <div class="markdown-body max-w-none pb-8 prose dark:prose-invert">
+            <div class="markdown-body lgc-markdown">
               <ValaxyMd :frontmatter="frontmatter">
                 <slot name="main-content-md" />
                 <slot />
@@ -46,3 +46,22 @@ const siteConfig = useSiteConfig()
     <slot name="aside" />
   </main>
 </template>
+
+<style scoped lang="scss">
+.lgc-main-shell {
+  display: flex;
+  width: 100%;
+}
+
+.lgc-main-content {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.lgc-markdown {
+  max-width: none;
+  padding-bottom: 2rem;
+}
+</style>

@@ -8,8 +8,8 @@ const themeConfig = useThemeConfig()
   <LgcLandingHome v-if="themeConfig.landing?.enable !== false" />
 
   <Layout v-else>
-    <div class="divide-y divide-gray-200 dark:divide-gray-700">
-      <StarterHeader />
+    <div class="lgc-home-fallback">
+      <LgcHomeIntro />
 
       <slot>
         <RouterView />
@@ -17,3 +17,10 @@ const themeConfig = useThemeConfig()
     </div>
   </Layout>
 </template>
+
+<style scoped lang="scss">
+.lgc-home-fallback {
+  display: grid;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+</style>

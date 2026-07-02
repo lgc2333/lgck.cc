@@ -9,8 +9,30 @@ export default defineConfig<ThemeConfig>({
   theme: 'lgcuwukii',
 
   themeConfig: {
-    topBar: {
+    header: {
       homeLabel: 'Home',
+      nav: [
+        {
+          text: 'Posts',
+          link: '/posts',
+          icon: 'i-material-symbols-article-outline-rounded',
+        },
+        {
+          text: 'Archives',
+          link: '/archives',
+          icon: 'i-material-symbols-history-rounded',
+        },
+        {
+          text: 'Categories',
+          link: '/categories',
+          icon: 'i-material-symbols-category-outline-rounded',
+        },
+        {
+          text: 'Tags',
+          link: '/tags',
+          icon: 'i-material-symbols-tag-rounded',
+        },
+      ],
     },
     landing: {
       links: [
