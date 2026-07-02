@@ -87,6 +87,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/page/[page]': RouteRecordInfo<
+      '/page/[page]',
+      '/page/:page',
+      { page: ParamValue<true> },
+      { page: ParamValue<false> },
+      | never
+    >,
     '/posts/2024-05-04-01/': RouteRecordInfo<
       '/posts/2024-05-04-01/',
       '/posts/2024-05-04-01',
@@ -198,6 +205,14 @@ declare module 'vue-router/auto-routes' {
         | never
       pathParamNames:
         | never
+    }
+    '../theme/pages/page/[page].vue': {
+      routes:
+        | '/page/[page]'
+      views:
+        | never
+      pathParamNames:
+        | 'page'
     }
     'pages/posts/2024-05-04-01/index.md': {
       routes:

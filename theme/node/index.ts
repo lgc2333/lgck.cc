@@ -54,6 +54,8 @@ export function generateSafelist(options: ResolvedValaxyOptions<ThemeConfig>) {
     'i-material-symbols-light-mode-outline-rounded',
     'i-material-symbols-dark-mode-outline-rounded',
     'i-material-symbols-search-rounded',
+    'i-material-symbols-visibility-off-rounded',
+    'i-material-symbols-visibility-rounded',
     'i-material-symbols-keyboard-arrow-down-rounded',
     'i-material-symbols-keyboard-arrow-up-rounded',
     'i-material-symbols-keyboard-arrow-left-rounded',

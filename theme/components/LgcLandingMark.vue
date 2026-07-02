@@ -34,7 +34,7 @@ defineProps<{
   display: grid;
   justify-items: center;
   gap: 0.55rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.75rem;
 }
 
 .lgc-mark-avatar-wrap {

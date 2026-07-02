@@ -9,8 +9,9 @@ export default antfu(
   prettier,
   {
     rules: {
-      'antfu/if-newline': 'off',
       'antfu/consistent-chaining': 'off',
+      'antfu/consistent-list-newline': 'off',
+      'antfu/if-newline': 'off',
 
       'jsdoc/require-param-description': 'off',
       'jsdoc/require-property-description': 'off',

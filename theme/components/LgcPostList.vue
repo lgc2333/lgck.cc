@@ -15,7 +15,7 @@ const props = withDefaults(
 )
 
 const routes = usePostList({ type: props.type || '' })
-const posts = computed(() => props.posts || routes.value)
+const posts = computed(() => (props.posts || routes.value).filter((post) => !post.hide))
 </script>
 
 <template>

@@ -143,7 +143,8 @@ const emit = defineEmits<{
   transition:
     background-color var(--lgc-motion-short) var(--lgc-easing-standard),
     border-radius var(--lgc-motion-short) var(--lgc-easing-standard),
-    color var(--lgc-motion-short) var(--lgc-easing-standard);
+    color var(--lgc-motion-short) var(--lgc-easing-standard),
+    transform var(--lgc-motion-short) var(--lgc-easing-standard);
 }
 
 .lgc-drawer-link:hover,
@@ -151,6 +152,15 @@ const emit = defineEmits<{
   border-radius: var(--lgc-radius-control-active);
   color: var(--md-sys-color-primary);
   background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.lgc-drawer-link:active {
+  background: color-mix(
+    in srgb,
+    currentColor calc(var(--lgc-state-pressed-opacity) * 100%),
+    transparent
+  );
+  transform: scale(var(--lgc-control-press-scale));
 }
 
 .lgc-drawer-link.router-link-exact-active,

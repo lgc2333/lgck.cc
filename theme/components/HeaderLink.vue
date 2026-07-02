@@ -63,18 +63,21 @@ function normalizePath(path: string) {
 <style scoped lang="scss">
 .lgc-header-link {
   --lgc-header-link-icon-size: 1em;
+  --lgc-header-link-rest-size: var(
+    --lgc-header-link-width,
+    var(--lgc-header-link-min-width, var(--lgc-control-size))
+  );
+  --lgc-header-link-open-size: var(
+    --lgc-header-link-width,
+    min(var(--lgc-header-link-max-width, 11rem), 42vw)
+  );
   --lgc-header-link-rest-padding: calc(
-    (
-        var(--lgc-header-link-min-width, var(--lgc-control-size)) - var(
-            --lgc-header-link-icon-size
-          )
-      ) /
-      2
+    (var(--lgc-header-link-rest-size) - var(--lgc-header-link-icon-size)) / 2
   );
 
   inline-size: var(--lgc-header-link-width, auto);
   min-inline-size: var(--lgc-header-link-min-width, var(--lgc-control-size));
-  max-inline-size: var(--lgc-header-link-min-width, var(--lgc-control-size));
+  max-inline-size: var(--lgc-header-link-rest-size);
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
@@ -84,7 +87,7 @@ function normalizePath(path: string) {
   &:hover,
   &:focus-visible,
   &.is-active-expanded.is-route-active {
-    max-inline-size: min(var(--lgc-header-link-max-width, 11rem), 42vw);
+    max-inline-size: var(--lgc-header-link-open-size);
   }
 
   &.is-route-active {
@@ -102,18 +105,12 @@ function normalizePath(path: string) {
 }
 
 .lgc-header-link.is-icon {
-  max-inline-size: var(
-    --lgc-header-link-width,
-    var(--lgc-header-link-min-width, var(--lgc-control-size))
-  );
+  --lgc-header-link-open-size: var(--lgc-header-link-rest-size);
 
   &:hover,
   &:focus-visible,
   &.is-active-expanded.is-route-active {
-    max-inline-size: var(
-      --lgc-header-link-width,
-      var(--lgc-header-link-min-width, var(--lgc-control-size))
-    );
+    max-inline-size: var(--lgc-header-link-rest-size);
   }
 }
 
@@ -122,20 +119,8 @@ function normalizePath(path: string) {
   max-inline-size: var(--lgc-header-link-width);
 }
 
-.lgc-header-link.is-hover.is-fixed {
-  &:hover,
-  &:focus-visible {
-    max-inline-size: var(--lgc-header-link-width);
-  }
-}
-
 .lgc-header-link.is-expanded {
-  max-inline-size: var(--lgc-header-link-max-width, 11rem);
-}
-
-.lgc-header-link.is-expanded.is-fixed {
-  inline-size: var(--lgc-header-link-width);
-  max-inline-size: var(--lgc-header-link-width);
+  max-inline-size: var(--lgc-header-link-open-size);
 }
 
 .lgc-header-label {
@@ -144,7 +129,7 @@ function normalizePath(path: string) {
   overflow: hidden;
   font-size: 0.875rem;
   font-weight: 800;
-  line-height: 1;
+  line-height: 1.25;
   text-overflow: ellipsis;
   white-space: nowrap;
   opacity: 0;

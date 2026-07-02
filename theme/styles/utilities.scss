@@ -45,41 +45,8 @@
       currentColor calc(var(--lgc-state-pressed-opacity) * 100%),
       transparent
     );
-    transform: scale(0.95);
+    transform: scale(var(--lgc-control-press-scale));
   }
-}
-
-.lgc-header-button {
-  inline-size: var(--lgc-control-size);
-  height: var(--lgc-control-size);
-  border-radius: var(--lgc-radius-control);
-  font-size: 1.5rem;
-
-  &:hover {
-    border-radius: var(--lgc-radius-control-active);
-  }
-}
-
-.lgc-dock-link-base {
-  display: inline-flex;
-  max-width: 100%;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: var(--lgc-radius-control);
-  color: var(--md-sys-color-on-surface);
-  font-size: 0.875rem;
-  font-weight: 800;
-  text-decoration: none;
-
-  @extend .lgc-motion-surface;
-}
-
-.lgc-chip-tonal {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  color: var(--md-sys-color-on-secondary-container);
-  background: var(--md-sys-color-secondary-container);
 }
 
 .lgc-landing-title {

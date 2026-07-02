@@ -7,7 +7,9 @@ defineProps<{
 </script>
 
 <template>
-  <RouterLink class="lgc-article-card" :to="post.path || ''">
+  <RouterLink class="lgc-article-card lgc-card-link" :to="post.path || ''">
+    <LgcPostStatusIcons :post="post" />
+
     <div class="lgc-article-card-date">
       <LgcPostDate :date="post.date" />
     </div>
@@ -19,7 +21,7 @@ defineProps<{
       <div v-if="post.excerpt" class="lgc-article-card-excerpt" v-html="post.excerpt" />
     </div>
 
-    <span class="lgc-article-card-arrow" aria-hidden="true">
+    <span class="lgc-article-card-arrow lgc-card-arrow" aria-hidden="true">
       <span i-material-symbols-arrow-forward-rounded />
     </span>
   </RouterLink>
@@ -27,27 +29,10 @@ defineProps<{
 
 <style scoped lang="scss">
 .lgc-article-card {
-  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
   padding: 1.25rem;
-  overflow: hidden;
-  border-radius: var(--lgc-radius-large);
-  color: var(--md-sys-color-on-surface);
-  text-decoration: none;
-  background: var(--md-sys-color-surface-container-low);
-  transition:
-    background-color var(--lgc-motion-short) var(--lgc-easing-standard),
-    border-radius var(--lgc-motion-medium) var(--lgc-easing-standard),
-    transform var(--lgc-motion-short) var(--lgc-easing-standard);
-
-  &:hover,
-  &:focus-visible {
-    border-radius: calc(var(--lgc-radius-large) - 0.375rem);
-    background: var(--md-sys-color-surface-container);
-    transform: translateY(-2px);
-  }
 }
 
 .lgc-article-card-date {
@@ -94,14 +79,6 @@ defineProps<{
 
 .lgc-article-card-arrow {
   display: none;
-  width: var(--lgc-control-size);
-  height: var(--lgc-control-size);
-  place-items: center;
-  align-self: center;
-  border-radius: var(--lgc-radius-control);
-  color: var(--md-sys-color-primary);
-  font-size: 1.5rem;
-  background: var(--md-sys-color-surface-container-highest);
 }
 
 @media (min-width: 720px) {

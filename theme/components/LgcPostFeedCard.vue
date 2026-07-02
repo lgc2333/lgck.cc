@@ -3,6 +3,8 @@ import type { Post } from 'valaxy'
 import { formatDate } from 'valaxy'
 import { computed } from 'vue'
 
+import { normalizePostListValue } from '../utils/post'
+
 const props = defineProps<{
   post: Post
 }>()
@@ -17,15 +19,19 @@ const date = computed(() => {
   }
 })
 
+const categories = computed(() =>
+  normalizePostListValue(props.post.categories).slice(0, 2),
+)
 const tags = computed(() => {
-  const raw = props.post.tags || props.post.categories || []
-  if (Array.isArray(raw)) return raw.slice(0, 3).map(String)
-  return [String(raw)].filter(Boolean)
+  return normalizePostListValue(props.post.tags).slice(0, 3)
 })
+const hasMetaChips = computed(() => categories.value.length || tags.value.length)
 </script>
 
 <template>
-  <RouterLink class="lgc-post-card" :to="post.path || ''">
+  <RouterLink class="lgc-post-card lgc-card-link" :to="post.path || ''">
+    <LgcPostStatusIcons :post="post" />
+
     <time class="lgc-post-date" :datetime="date.datetime">
       <strong class="lgc-post-date-day">{{ date.day }}</strong>
       <span class="lgc-post-date-rest">{{ date.rest }}</span>
@@ -36,20 +42,38 @@ const tags = computed(() => {
         {{ post.title }}
       </h3>
       <div v-if="post.excerpt" class="lgc-post-excerpt" v-html="post.excerpt" />
-      <div v-if="tags.length" class="lgc-post-tags lgc-post-tags-inline">
+      <div v-if="hasMetaChips" class="lgc-post-tags lgc-post-tags-inline">
+        <span
+          v-for="category in categories"
+          :key="`category-${category}`"
+          class="lgc-post-tag lgc-chip-tonal"
+        >
+          <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
+          {{ category }}
+        </span>
         <span v-for="tag in tags" :key="tag" class="lgc-post-tag lgc-chip-tonal">
+          <span i-material-symbols-tag-rounded aria-hidden="true" />
           {{ tag }}
         </span>
       </div>
     </div>
 
-    <div v-if="tags.length" class="lgc-post-tags lgc-post-tags-mobile">
+    <div v-if="hasMetaChips" class="lgc-post-tags lgc-post-tags-mobile">
+      <span
+        v-for="category in categories"
+        :key="`mobile-category-${category}`"
+        class="lgc-post-tag lgc-chip-tonal"
+      >
+        <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
+        {{ category }}
+      </span>
       <span v-for="tag in tags" :key="tag" class="lgc-post-tag lgc-chip-tonal">
+        <span i-material-symbols-tag-rounded aria-hidden="true" />
         {{ tag }}
       </span>
     </div>
 
-    <span class="lgc-post-arrow" aria-hidden="true">
+    <span class="lgc-post-arrow lgc-card-arrow" aria-hidden="true">
       <span i-material-symbols-arrow-forward-rounded />
     </span>
   </RouterLink>
@@ -57,27 +81,11 @@ const tags = computed(() => {
 
 <style scoped lang="scss">
 .lgc-post-card {
-  position: relative;
   display: grid;
   grid-template-columns: 5.25rem minmax(0, 1fr);
   align-items: start;
   gap: 1rem;
   padding: 1.25rem;
-  overflow: hidden;
-  border-radius: var(--lgc-radius-large);
-  color: var(--md-sys-color-on-surface);
-  text-decoration: none;
-  background: var(--md-sys-color-surface-container-low);
-  transition:
-    background-color var(--lgc-motion-short) var(--lgc-easing-standard),
-    border-radius var(--lgc-motion-medium) var(--lgc-easing-standard),
-    transform var(--lgc-motion-short) var(--lgc-easing-standard);
-
-  &:hover {
-    border-radius: calc(var(--lgc-radius-large) - 0.375rem);
-    background: var(--md-sys-color-surface-container);
-    transform: translateY(-2px);
-  }
 }
 
 .lgc-post-date {
@@ -142,6 +150,7 @@ const tags = computed(() => {
 }
 
 .lgc-post-tag {
+  gap: 0.125rem;
   height: 2rem;
   padding-inline: 0.75rem;
   font-size: 0.75rem;
@@ -150,14 +159,6 @@ const tags = computed(() => {
 
 .lgc-post-arrow {
   display: none;
-  width: var(--lgc-control-size);
-  height: var(--lgc-control-size);
-  align-self: center;
-  place-items: center;
-  border-radius: var(--lgc-radius-control);
-  color: var(--md-sys-color-primary);
-  font-size: 1.5rem;
-  background: var(--md-sys-color-surface-container-highest);
 }
 
 @media (min-width: 640px) {

@@ -115,6 +115,76 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/posts/pagination-test-01': RouteRecordInfo<
+      '/posts/pagination-test-01',
+      '/posts/pagination-test-01',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/pagination-test-02': RouteRecordInfo<
+      '/posts/pagination-test-02',
+      '/posts/pagination-test-02',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/pagination-test-03': RouteRecordInfo<
+      '/posts/pagination-test-03',
+      '/posts/pagination-test-03',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/pagination-test-04': RouteRecordInfo<
+      '/posts/pagination-test-04',
+      '/posts/pagination-test-04',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/pagination-test-05': RouteRecordInfo<
+      '/posts/pagination-test-05',
+      '/posts/pagination-test-05',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/pagination-test-06': RouteRecordInfo<
+      '/posts/pagination-test-06',
+      '/posts/pagination-test-06',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/pagination-test-07': RouteRecordInfo<
+      '/posts/pagination-test-07',
+      '/posts/pagination-test-07',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/pagination-test-08': RouteRecordInfo<
+      '/posts/pagination-test-08',
+      '/posts/pagination-test-08',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/pagination-test-09': RouteRecordInfo<
+      '/posts/pagination-test-09',
+      '/posts/pagination-test-09',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/pagination-test-10': RouteRecordInfo<
+      '/posts/pagination-test-10',
+      '/posts/pagination-test-10',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/posts/test': RouteRecordInfo<
       '/posts/test',
       '/posts/test',
@@ -233,6 +303,86 @@ declare module 'vue-router/auto-routes' {
     'pages/posts/markdown.md': {
       routes:
         | '/posts/markdown'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/pagination-test-01.md': {
+      routes:
+        | '/posts/pagination-test-01'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/pagination-test-02.md': {
+      routes:
+        | '/posts/pagination-test-02'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/pagination-test-03.md': {
+      routes:
+        | '/posts/pagination-test-03'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/pagination-test-04.md': {
+      routes:
+        | '/posts/pagination-test-04'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/pagination-test-05.md': {
+      routes:
+        | '/posts/pagination-test-05'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/pagination-test-06.md': {
+      routes:
+        | '/posts/pagination-test-06'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/pagination-test-07.md': {
+      routes:
+        | '/posts/pagination-test-07'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/pagination-test-08.md': {
+      routes:
+        | '/posts/pagination-test-08'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/pagination-test-09.md': {
+      routes:
+        | '/posts/pagination-test-09'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/pagination-test-10.md': {
+      routes:
+        | '/posts/pagination-test-10'
       views:
         | never
       pathParamNames:

@@ -44,6 +44,22 @@ const showPrev = computed(() => curPage.value > 1)
 const showNext = computed(() => curPage.value < totalPages.value)
 const prevTo = computed(() => getTo(curPage.value - 1))
 const nextTo = computed(() => getTo(curPage.value + 1))
+const paginationPages = computed(() => {
+  const pages: number[] = []
+  let ellipsisOpen = false
+
+  for (let page = 1; page <= totalPages.value; page += 1) {
+    if (showPage(page)) {
+      pages.push(page)
+      ellipsisOpen = false
+    } else if (!ellipsisOpen) {
+      pages.push(-page)
+      ellipsisOpen = true
+    }
+  }
+
+  return pages
+})
 
 const posts = computed(() => {
   if (!props.paginate) return pagePosts.value
@@ -84,47 +100,16 @@ function getTo(page: number) {
       </template>
       <p v-else class="lgc-post-feed-empty">还没有公开文章。</p>
 
-      <nav
+      <LgcPostPagination
         v-if="paginate && totalPages > 1"
-        class="lgc-post-pagination"
-        aria-label="Posts pagination"
-      >
-        <RouterLink
-          v-if="showPrev"
-          class="lgc-post-page-button"
-          :to="prevTo"
-          aria-label="Previous page"
-        >
-          <span i-material-symbols-keyboard-arrow-left-rounded aria-hidden="true" />
-        </RouterLink>
-
-        <template v-for="page in totalPages" :key="page">
-          <RouterLink
-            v-if="showPage(page)"
-            class="lgc-post-page-button"
-            :class="{ 'is-active': curPage === page }"
-            :to="getTo(page)"
-          >
-            {{ page }}
-          </RouterLink>
-          <span
-            v-else-if="page === curPage - surLen || page === curPage + surLen"
-            class="lgc-post-page-ellipsis"
-            aria-hidden="true"
-          >
-            ...
-          </span>
-        </template>
-
-        <RouterLink
-          v-if="showNext"
-          class="lgc-post-page-button"
-          :to="nextTo"
-          aria-label="Next page"
-        >
-          <span i-material-symbols-keyboard-arrow-right-rounded aria-hidden="true" />
-        </RouterLink>
-      </nav>
+        :current-page="curPage"
+        :next-to="nextTo"
+        :pages="paginationPages"
+        :prev-to="prevTo"
+        :show-next="showNext"
+        :show-prev="showPrev"
+        :total-pages="totalPages"
+      />
     </div>
   </section>
 </template>
@@ -169,57 +154,6 @@ function getTo(page: number) {
   border-radius: var(--lgc-radius-large);
   color: var(--md-sys-color-on-surface-variant);
   background: var(--md-sys-color-surface-container);
-}
-
-.lgc-post-pagination {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
-  padding-top: 1rem;
-}
-
-.lgc-post-page-button,
-.lgc-post-page-ellipsis {
-  display: inline-grid;
-  min-width: var(--lgc-control-size-compact);
-  height: var(--lgc-control-size-compact);
-  place-items: center;
-  padding-inline: 0.75rem;
-  border-radius: var(--lgc-radius-control);
-  color: var(--md-sys-color-on-surface-variant);
-  font-weight: 900;
-  text-decoration: none;
-  background: var(--md-sys-color-surface-container-high);
-}
-
-.lgc-post-page-button {
-  transition:
-    background-color var(--lgc-motion-short) var(--lgc-easing-standard),
-    border-radius var(--lgc-motion-short) var(--lgc-easing-standard),
-    color var(--lgc-motion-short) var(--lgc-easing-standard),
-    transform var(--lgc-motion-short) var(--lgc-easing-standard);
-
-  &:hover,
-  &:focus-visible {
-    border-radius: var(--lgc-radius-control-active);
-    color: var(--md-sys-color-primary);
-    background: var(--md-sys-color-surface-container-highest);
-  }
-
-  &:active {
-    transform: scale(0.96);
-  }
-
-  &.is-active {
-    border-radius: var(--lgc-radius-control-active);
-    color: var(--md-sys-color-on-primary-container);
-    background: var(--md-sys-color-primary-container);
-  }
-}
-
-.lgc-post-page-ellipsis {
-  color: var(--md-sys-color-outline);
 }
 
 @media (min-width: 640px) {

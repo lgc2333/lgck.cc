@@ -109,7 +109,7 @@ const router = useRouter()
   }
 
   &:active {
-    transform: scale(0.96);
+    transform: scale(var(--lgc-control-press-scale));
   }
 
   span:first-child {

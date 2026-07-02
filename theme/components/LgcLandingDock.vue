@@ -92,7 +92,7 @@ const variantClass: Record<LandingLinkVariant, string> = {
   }
 
   &:active {
-    transform: translateY(0);
+    transform: scale(var(--lgc-control-press-scale));
   }
 }
 

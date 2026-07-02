@@ -5,6 +5,7 @@ import { capitalize, computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useThemeConfig } from '../composables'
+import { normalizeRepositoryUrl } from '../utils/repository'
 
 const { t } = useI18n()
 const { $t } = useValaxyI18n()
@@ -22,42 +23,43 @@ const showPowered = computed(() => footer.value.powered === true)
 const beian = computed(() => footer.value.beian)
 const year = ref(new Date().getFullYear())
 
-function normalizeRepositoryUrl(repository?: string | { url?: string }) {
-  const url = typeof repository === 'string' ? repository : repository?.url
-
-  return url?.replace(/^git\+/, '').replace(/\.git$/, '') || ''
-}
-
 onMounted(() => {
   year.value = new Date().getFullYear()
 })
 
 const isThisYear = computed(() => !since.value || year.value === since.value)
-
 const valaxyRepository = computed(() => normalizeRepositoryUrl(pkg.repository))
 const themeRepository = computed(() =>
   normalizeRepositoryUrl(themeConfig.value.pkg.repository),
 )
-const footerIconUrl = computed(() => footerIcon.value?.url || themeRepository.value)
-
-const poweredHtml = computed(() =>
-  t('footer.powered', [
-    `<a href="${valaxyRepository.value}" target="_blank" rel="noopener">Valaxy</a> <span class="lgc-footer-version">v${pkg.version}</span>`,
-  ]),
-)
-
 const policeCode = computed(() => {
   const police = beian.value?.police
   if (!police) return ''
 
   return police.match(/(\d+)/)?.[1] || ''
 })
+const policeLink = computed(() =>
+  policeCode.value
+    ? `https://beian.mps.gov.cn/#/query/webSearch?code=${policeCode.value}`
+    : '',
+)
+
+const copyrightYears = computed(() => {
+  if (isThisYear.value) return String(year.value)
+  return `${since.value} - ${year.value}`
+})
+const footerIconLink = computed(() => footerIcon.value?.url || themeRepository.value)
+const valaxyLinkHtml = computed(
+  () =>
+    `<a href="${valaxyRepository.value}" target="_blank" rel="noopener">Valaxy</a> <span class="lgc-footer-version">v${pkg.version}</span>`,
+)
+const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
 </script>
 
 <template>
   <footer class="lgc-footer va-footer">
     <div class="lgc-footer-inner">
-      <div v-if="beian?.enable && beian.icp" class="lgc-footer-row">
+      <div v-if="beian?.enable && beian.icp" class="lgc-footer-row lgc-footer-beian">
         <a
           :href="beian.icpLink || 'https://beian.miit.gov.cn/'"
           target="_blank"
@@ -66,13 +68,9 @@ const policeCode = computed(() => {
           {{ beian.icp }}
         </a>
 
-        <template v-if="beian.police && policeCode">
+        <template v-if="beian.police && policeLink">
           <span class="lgc-footer-separator">/</span>
-          <a
-            :href="`https://beian.mps.gov.cn/#/query/webSearch?code=${policeCode}`"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a :href="policeLink" target="_blank" rel="noreferrer">
             {{ beian.police }}
           </a>
         </template>
@@ -81,15 +79,14 @@ const policeCode = computed(() => {
       <div class="lgc-footer-row lgc-footer-copyright">
         <span>
           &copy;
-          <template v-if="!isThisYear">{{ since }} - </template>
-          {{ year }}
+          {{ copyrightYears }}
         </span>
 
         <a
           v-if="showFooterIcon"
           class="lgc-footer-icon"
           :class="{ 'is-animated': footerIcon?.animated }"
-          :href="footerIconUrl"
+          :href="footerIconLink"
           target="_blank"
           rel="noopener"
           :title="footerIcon?.title"
