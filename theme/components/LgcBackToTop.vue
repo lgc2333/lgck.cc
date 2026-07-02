@@ -1,27 +1,39 @@
 <script lang="ts" setup>
-import { isClient, useWindowScroll } from '@vueuse/core'
+import { useBackToTop } from 'valaxy'
 import { computed } from 'vue'
 
-const { y } = useWindowScroll()
-const showBackToTop = computed(() => y.value > 50)
+const { show, percentage, backToTop } = useBackToTop({ offset: 100 })
 
-function backToTop() {
-  if (!isClient) return
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
+const progressPath =
+  'M 28 1 H 39 A 16 16 0 0 1 55 17 V 39 A 16 16 0 0 1 39 55 H 17 A 16 16 0 0 1 1 39 V 17 A 16 16 0 0 1 17 1 H 28'
+
+const strokeOffset = computed(() => {
+  const progress = Math.min(Math.max(percentage.value, 0), 1)
+  return 1 - progress
+})
 </script>
 
 <template>
   <div class="lgc-back-to-top">
     <Transition name="lgc-back-to-top-fade">
       <button
-        v-if="showBackToTop"
+        v-if="show"
         class="lgc-back-to-top-button lgc-icon-button-base lgc-icon-button-hover"
         type="button"
         aria-label="Back to top"
         @click="backToTop"
       >
         <span i-material-symbols-keyboard-arrow-up-rounded aria-hidden="true" />
+        <svg class="lgc-back-to-top-progress" viewBox="0 0 56 56" aria-hidden="true">
+          <path
+            class="lgc-back-to-top-progress-indicator"
+            :d="progressPath"
+            fill="none"
+            pathLength="1"
+            stroke-dasharray="1"
+            :stroke-dashoffset="strokeOffset"
+          />
+        </svg>
       </button>
     </Transition>
   </div>
@@ -37,17 +49,61 @@ function backToTop() {
 }
 
 .lgc-back-to-top-button {
-  width: var(--lgc-control-size);
-  height: var(--lgc-control-size);
-  border-radius: var(--lgc-radius-control);
+  --lgc-back-to-top-size: 3.5rem;
+
+  position: relative;
+  width: var(--lgc-back-to-top-size);
+  height: var(--lgc-back-to-top-size);
+  overflow: visible;
+  border-radius: 1rem;
   color: var(--md-sys-color-primary);
   font-size: 1.5rem;
   background: var(--md-sys-color-surface-container-high);
+  box-shadow:
+    0 2px 3px -1px rgb(0 0 0 / 0.16),
+    0 4px 8px 0 rgb(0 0 0 / 0.1),
+    0 1px 12px 0 rgb(0 0 0 / 0.08);
+  transition:
+    background-color var(--lgc-motion-short) var(--lgc-easing-standard),
+    border-radius var(--lgc-motion-short) var(--lgc-easing-standard),
+    box-shadow var(--lgc-motion-short) var(--lgc-easing-standard),
+    color var(--lgc-motion-short) var(--lgc-easing-standard),
+    transform var(--lgc-motion-short) var(--lgc-easing-standard);
 
   &:hover,
   &:focus-visible {
-    border-radius: var(--lgc-radius-control-active);
+    border-radius: 0.75rem;
+    color: var(--md-sys-color-primary);
+    background: var(--md-sys-color-surface-container-highest);
+    box-shadow:
+      0 3px 5px -1px rgb(0 0 0 / 0.18),
+      0 6px 10px 0 rgb(0 0 0 / 0.12),
+      0 1px 16px 0 rgb(0 0 0 / 0.1);
   }
+
+  &:active {
+    border-radius: 0.75rem;
+    background: var(--md-sys-color-surface-container-highest);
+  }
+}
+
+.lgc-back-to-top-progress {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.lgc-back-to-top-progress-indicator {
+  stroke-width: 2;
+}
+
+.lgc-back-to-top-progress-indicator {
+  stroke: currentColor;
+  stroke-linecap: round;
+  transition: stroke-dashoffset var(--lgc-motion-short) var(--lgc-easing-standard);
 }
 
 .lgc-back-to-top-fade-enter-active,

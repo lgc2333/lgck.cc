@@ -13,10 +13,10 @@ const props = withDefaults(
   }>(),
   {
     flush: false,
-    label: 'Latest',
+    label: 'Archive',
     limit: 6,
     paginate: false,
-    title: '最近文章',
+    title: '所有文章',
   },
 )
 
@@ -76,7 +76,7 @@ function showPage(page: number) {
 }
 
 function getTo(page: number) {
-  return page === 1 ? '/posts' : `/page/${page}`
+  return `/page/${page}`
 }
 </script>
 

@@ -60,6 +60,8 @@ export function generateSafelist(options: ResolvedValaxyOptions<ThemeConfig>) {
     'i-material-symbols-keyboard-arrow-up-rounded',
     'i-material-symbols-keyboard-arrow-left-rounded',
     'i-material-symbols-keyboard-arrow-right-rounded',
+    'i-material-symbols-arrow-back-ios-new-rounded',
+    'i-material-symbols-arrow-forward-ios-rounded',
     'i-material-symbols-arrow-forward-rounded',
     'i-material-symbols-person-outline-rounded',
     'i-material-symbols-favorite-outline-rounded',

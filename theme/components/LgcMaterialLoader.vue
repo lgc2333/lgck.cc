@@ -10,7 +10,7 @@ const props = withDefaults(
     minVisible?: number
   }>(),
   {
-    size: 72,
+    size: 96,
     minVisible: 650,
   },
 )

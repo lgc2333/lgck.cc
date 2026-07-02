@@ -17,4 +17,4 @@ hide: index
 
 <!-- more -->
 
-<LgcM3LoadingIndicator contained color="#d0e9ff" containerColor="#174d73" size="256px" />
+<LgcM3LoadingIndicator m="8" contained color="#d0e9ff" containerColor="#174d73" size="256px" />

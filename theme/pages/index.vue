@@ -1,5 +1,5 @@
 <template>
-  <LgcPostList />
+  <LgcPostFeed flush paginate />
 </template>
 
 <route lang="yaml">

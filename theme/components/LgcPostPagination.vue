@@ -18,15 +18,21 @@ defineProps<{
       :to="prevTo"
       aria-label="Previous page"
     >
-      <span i-material-symbols-keyboard-arrow-left-rounded aria-hidden="true" />
+      <span i-material-symbols-arrow-back-ios-new-rounded aria-hidden="true" />
     </RouterLink>
 
     <template v-for="page in pages" :key="`page-${page}`">
+      <span
+        v-if="page > 0 && currentPage === page"
+        class="lgc-pagination-control is-active"
+        aria-current="page"
+      >
+        {{ page }}
+      </span>
       <RouterLink
-        v-if="page > 0"
+        v-else-if="page > 0"
         class="lgc-pagination-control"
-        :class="{ 'is-active': currentPage === page }"
-        :to="page === 1 ? '/posts' : `/page/${page}`"
+        :to="`/page/${page}`"
       >
         {{ page }}
       </RouterLink>
@@ -39,7 +45,7 @@ defineProps<{
       :to="nextTo"
       aria-label="Next page"
     >
-      <span i-material-symbols-keyboard-arrow-right-rounded aria-hidden="true" />
+      <span i-material-symbols-arrow-forward-ios-rounded aria-hidden="true" />
     </RouterLink>
   </nav>
 </template>
@@ -49,7 +55,7 @@ defineProps<{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.125rem;
   padding-top: 1rem;
 }
 </style>

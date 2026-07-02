@@ -1,15 +1,20 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
 import { useThemeConfig } from '../composables'
 
+const route = useRoute()
 const themeConfig = useThemeConfig()
+const isPage = computed(() => route.path.startsWith('/page'))
 </script>
 
 <template>
-  <LgcLandingHome v-if="themeConfig.landing?.enable !== false" />
+  <LgcLandingHome v-if="themeConfig.landing?.enable !== false && !isPage" />
 
   <Layout v-else>
     <div class="lgc-home-fallback">
-      <LgcHomeIntro />
+      <LgcHomeIntro v-if="!isPage" />
 
       <slot>
         <RouterView />
@@ -21,6 +26,5 @@ const themeConfig = useThemeConfig()
 <style scoped lang="scss">
 .lgc-home-fallback {
   display: grid;
-  border-top: 1px solid var(--md-sys-color-outline-variant);
 }
 </style>

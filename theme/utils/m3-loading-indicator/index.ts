@@ -190,8 +190,17 @@ function normalizeOptions(
 }
 
 function resolveCanvasColor(canvas: HTMLCanvasElement, value: string) {
-  if (value !== 'currentColor') return value
-  return window.getComputedStyle(canvas).color
+  const colorProbe = document.createElement('span')
+  colorProbe.style.color =
+    value === 'currentColor' ? 'currentColor' : 'var(--lgc-canvas-color)'
+  if (value !== 'currentColor') {
+    colorProbe.style.setProperty('--lgc-canvas-color', value)
+  }
+  colorProbe.style.display = 'none'
+  canvas.append(colorProbe)
+  const resolved = window.getComputedStyle(colorProbe).color
+  colorProbe.remove()
+  return resolved || value
 }
 
 function positiveModulo(num: number, mod: number) {

@@ -1,8 +1,8 @@
 <template>
-  <LgcPostFeed flush label="Archive" paginate title="所有文章" />
+  <LgcPostFeed flush paginate />
 </template>
 
 <route lang="yaml">
 meta:
-  layout: default
+  layout: home
 </route>

@@ -62,7 +62,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
     </section>
 
     <div class="lgc-home-surface">
-      <LgcPostFeed v-if="showPosts" />
+      <LgcPostFeed v-if="showPosts" paginate />
 
       <LgcFooter />
     </div>

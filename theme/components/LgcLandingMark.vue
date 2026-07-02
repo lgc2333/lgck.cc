@@ -77,8 +77,6 @@ defineProps<{
   font-weight: 700;
   white-space: nowrap;
   background: var(--md-sys-color-secondary-container);
-  box-shadow: 0 0.35rem 1.25rem
-    color-mix(in srgb, var(--md-sys-color-secondary) 22%, transparent);
   transition:
     max-inline-size var(--lgc-motion-medium) var(--lgc-easing-standard),
     border-radius var(--lgc-motion-short) var(--lgc-easing-standard),

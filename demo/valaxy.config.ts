@@ -14,7 +14,7 @@ export default defineConfig<ThemeConfig>({
       nav: [
         {
           text: 'Posts',
-          link: '/posts',
+          link: '/page/1',
           icon: 'i-material-symbols-article-outline-rounded',
         },
         {
@@ -38,7 +38,7 @@ export default defineConfig<ThemeConfig>({
       links: [
         {
           text: '博客文章',
-          link: '/posts',
+          link: '/page/1',
           icon: 'i-material-symbols-article-outline-rounded',
           variant: 'primary',
         },
