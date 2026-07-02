@@ -171,6 +171,7 @@
 
   &.is-active:hover,
   &.is-active:focus-visible {
+    border-radius: var(--lgc-radius-control-active);
     color: var(--md-sys-color-on-primary);
     background: var(--md-sys-color-primary);
   }

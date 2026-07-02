@@ -6,6 +6,7 @@ categories:
 tags:
   - pagination
   - test
+cover: https://cdn.yunyoujun.cn/img/bg/girl-in-water-tank.webp
 ---
 
 午后的界面测试常常从一个小列表开始。

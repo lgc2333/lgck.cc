@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useAppStore } from 'valaxy'
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, onMounted } from 'vue'
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     size?: number | string
     color?: string
@@ -18,6 +18,21 @@ withDefaults(
 const app = useAppStore()
 const loaderColor = computed(() => 'var(--md-sys-color-on-primary-container)')
 const loaderContainerColor = computed(() => 'var(--md-sys-color-primary-container)')
+const normalizedSize = computed(() =>
+  typeof props.size === 'number' ? `${props.size}px` : props.size,
+)
+
+let hideTimer: ReturnType<typeof window.setTimeout> | undefined
+
+onMounted(() => {
+  hideTimer = window.setTimeout(() => {
+    app.showLoading = false
+  }, props.minVisible)
+})
+
+onBeforeUnmount(() => {
+  if (hideTimer) window.clearTimeout(hideTimer)
+})
 </script>
 
 <template>
@@ -29,12 +44,18 @@ const loaderContainerColor = computed(() => 'var(--md-sys-color-primary-containe
       aria-live="polite"
       aria-label="Loading"
     >
-      <LgcLoadingIndicator
-        :size="size"
-        :color="color || loaderColor"
-        :container-color="containerColor || loaderContainerColor"
-        contained
-      />
+      <div
+        class="lgc-material-loader-indicator"
+        :style="{ '--lgc-material-loader-size': normalizedSize }"
+      >
+        <LgcLoadingIndicator
+          :size="size"
+          :color="color || loaderColor"
+          :container-color="containerColor || loaderContainerColor"
+          bootstrap
+          contained
+        />
+      </div>
     </div>
   </Transition>
 </template>
@@ -48,6 +69,14 @@ const loaderContainerColor = computed(() => 'var(--md-sys-color-primary-containe
   place-items: center;
   pointer-events: none;
   background: var(--md-sys-color-surface);
+}
+
+.lgc-material-loader-indicator {
+  position: relative;
+  display: grid;
+  width: var(--lgc-material-loader-size);
+  height: var(--lgc-material-loader-size);
+  place-items: center;
 }
 
 .lgc-material-loader-enter-active,

@@ -6,6 +6,8 @@ const props = defineProps<{
   post: Post
 }>()
 
+const draftTitle = computed(() => (props.post.draft ? 'draft' : ''))
+
 const hideTitle = computed(() => {
   if (!props.post.hide) return ''
   return `hide:${props.post.hide === true ? 'all' : props.post.hide}`
@@ -18,7 +20,7 @@ const pinnedTitle = computed(() => {
 })
 
 const title = computed(() =>
-  [pinnedTitle.value, hideTitle.value].filter(Boolean).join(', '),
+  [draftTitle.value, pinnedTitle.value, hideTitle.value].filter(Boolean).join(', '),
 )
 
 const hasStatusIcons = computed(() => Boolean(title.value))
@@ -26,6 +28,12 @@ const hasStatusIcons = computed(() => Boolean(title.value))
 
 <template>
   <div v-if="hasStatusIcons" class="lgc-post-status-icons" :title="title">
+    <span
+      v-if="post.draft"
+      class="lgc-post-status-icon is-draft"
+      i-ri-draft-line
+      aria-hidden="true"
+    />
     <span
       v-if="post.top"
       class="lgc-post-status-icon is-pinned"
@@ -55,6 +63,7 @@ const hasStatusIcons = computed(() => Boolean(title.value))
   top: 0.75rem;
   left: 0.75rem;
   display: inline-flex;
+  flex-direction: column;
   gap: 0.375rem;
 }
 
@@ -75,5 +84,9 @@ const hasStatusIcons = computed(() => Boolean(title.value))
 .lgc-post-status-icon.is-pinned {
   background: var(--md-sys-color-secondary-container);
   transform: rotate(45deg);
+}
+
+.lgc-post-status-icon.is-draft {
+  background: var(--md-sys-color-surface-container-highest);
 }
 </style>

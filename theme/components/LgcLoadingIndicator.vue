@@ -1,8 +1,19 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
-import { createM3LoadingIndicatorCanvas } from '../utils/m3-loading-indicator'
-import type { M3LoadingIndicatorCanvasController } from '../utils/m3-loading-indicator'
+interface M3LoadingIndicatorCanvasOptions {
+  color?: string
+  contained?: boolean
+  containerColor?: string
+  paused?: boolean
+  speed?: number
+}
+
+interface M3LoadingIndicatorCanvasController {
+  destroy: () => void
+  start: () => void
+  update: (nextOptions: M3LoadingIndicatorCanvasOptions) => void
+}
 
 const props = withDefaults(
   defineProps<{
@@ -10,6 +21,7 @@ const props = withDefaults(
     color?: string
     containerColor?: string
     contained?: boolean
+    bootstrap?: boolean
     speed?: number
     paused?: boolean
     label?: string
@@ -17,6 +29,7 @@ const props = withDefaults(
   {
     size: 48,
     color: 'currentColor',
+    bootstrap: false,
     containerColor: 'rgba(0, 0, 0, 0.08)',
     contained: false,
     speed: 1,
@@ -31,6 +44,21 @@ const normalizedSize = computed(() =>
 const canvas = ref<HTMLCanvasElement>()
 
 let controller: M3LoadingIndicatorCanvasController | undefined
+
+function loadingIndicatorGlobal() {
+  return window as Window & {
+    __lgcLoadingIndicator?: {
+      canvas: HTMLCanvasElement
+      controller: M3LoadingIndicatorCanvasController
+    }
+    __lgcLoadingIndicatorRuntime?: {
+      create: (
+        canvas: HTMLCanvasElement,
+        options?: M3LoadingIndicatorCanvasOptions,
+      ) => M3LoadingIndicatorCanvasController
+    }
+  }
+}
 
 function currentOptions() {
   return {
@@ -47,12 +75,32 @@ onMounted(async () => {
 
   if (!canvas.value) return
 
+  const loadingIndicator = loadingIndicatorGlobal()
+
+  if (
+    props.bootstrap &&
+    loadingIndicator.__lgcLoadingIndicator?.canvas === canvas.value
+  ) {
+    controller = loadingIndicator.__lgcLoadingIndicator.controller
+    controller.update(currentOptions())
+    return
+  }
+
+  const createM3LoadingIndicatorCanvas =
+    loadingIndicator.__lgcLoadingIndicatorRuntime?.create
+  if (!createM3LoadingIndicatorCanvas) return
+
   controller = createM3LoadingIndicatorCanvas(canvas.value, currentOptions())
   controller.start()
 })
 
 onBeforeUnmount(() => {
+  const loadingIndicator = loadingIndicatorGlobal()
+
   controller?.destroy()
+  if (loadingIndicator.__lgcLoadingIndicator?.canvas === canvas.value) {
+    loadingIndicator.__lgcLoadingIndicator = undefined
+  }
 })
 
 watch(
@@ -77,6 +125,7 @@ watch(
     class="lgc-m3-loading-indicator"
     :aria-label="label"
     role="img"
+    :data-lgc-loading-indicator="bootstrap ? 'boot' : undefined"
     :style="{
       '--lgc-m3-loading-indicator-size': normalizedSize,
       color,

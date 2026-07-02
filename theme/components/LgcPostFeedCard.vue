@@ -3,7 +3,7 @@ import type { Post } from 'valaxy'
 import { formatDate } from 'valaxy'
 import { computed } from 'vue'
 
-import { normalizePostListValue } from '../utils/post'
+import { normalizePostCategoryPath, normalizePostListValue } from '../utils/post'
 
 const props = defineProps<{
   post: Post
@@ -19,35 +19,87 @@ const date = computed(() => {
   }
 })
 
-const categories = computed(() =>
-  normalizePostListValue(props.post.categories).slice(0, 2),
-)
+const category = computed(() => normalizePostCategoryPath(props.post.categories))
 const tags = computed(() => {
   return normalizePostListValue(props.post.tags).slice(0, 3)
 })
-const hasMetaChips = computed(() => categories.value.length || tags.value.length)
+const hasMetaChips = computed(() => Boolean(category.value) || tags.value.length)
+const hasCover = computed(() => Boolean(props.post.cover))
 </script>
 
 <template>
-  <RouterLink class="lgc-post-card lgc-card-link" :to="post.path || ''">
+  <RouterLink
+    class="lgc-post-card lgc-card-link"
+    :class="{ 'has-cover': hasCover }"
+    :to="post.path || ''"
+  >
     <LgcPostStatusIcons :post="post" />
 
-    <time class="lgc-post-date" :datetime="date.datetime">
-      <strong class="lgc-post-date-day">{{ date.day }}</strong>
-      <span class="lgc-post-date-rest">{{ date.rest }}</span>
-    </time>
+    <LgcPostCoverFrame
+      v-if="post.cover"
+      class="lgc-post-cover-card"
+      :src="post.cover"
+      :alt="post.title || ''"
+      variant="feed"
+    >
+      <div class="lgc-post-cover-layout">
+        <time class="lgc-post-date lgc-post-date-cover" :datetime="date.datetime">
+          <strong class="lgc-post-date-day">{{ date.day }}</strong>
+          <span class="lgc-post-date-rest">{{ date.rest }}</span>
+        </time>
 
-    <div class="lgc-post-body">
-      <h3 class="lgc-post-title">
-        {{ post.title }}
-      </h3>
-      <div v-if="post.excerpt" class="lgc-post-excerpt" v-html="post.excerpt" />
-      <div v-if="hasMetaChips" class="lgc-post-tags lgc-post-tags-inline">
-        <span
-          v-for="category in categories"
-          :key="`category-${category}`"
-          class="lgc-post-tag lgc-chip-tonal"
-        >
+        <div class="lgc-post-body lgc-post-body-cover">
+          <h3 class="lgc-post-title">
+            {{ post.title }}
+          </h3>
+          <div v-if="post.excerpt" class="lgc-post-excerpt" v-html="post.excerpt" />
+          <div v-if="hasMetaChips" class="lgc-post-tags">
+            <span v-if="category" class="lgc-post-tag lgc-chip-tonal">
+              <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
+              {{ category }}
+            </span>
+            <span
+              v-for="tag in tags"
+              :key="`cover-tag-${tag}`"
+              class="lgc-post-tag lgc-chip-tonal"
+            >
+              <span i-material-symbols-tag-rounded aria-hidden="true" />
+              {{ tag }}
+            </span>
+          </div>
+        </div>
+
+        <span class="lgc-post-arrow lgc-card-arrow" aria-hidden="true">
+          <span i-material-symbols-arrow-forward-rounded />
+        </span>
+      </div>
+    </LgcPostCoverFrame>
+
+    <template v-else>
+      <time class="lgc-post-date" :datetime="date.datetime">
+        <strong class="lgc-post-date-day">{{ date.day }}</strong>
+        <span class="lgc-post-date-rest">{{ date.rest }}</span>
+      </time>
+
+      <div class="lgc-post-body">
+        <h3 class="lgc-post-title">
+          {{ post.title }}
+        </h3>
+        <div v-if="post.excerpt" class="lgc-post-excerpt" v-html="post.excerpt" />
+        <div v-if="hasMetaChips" class="lgc-post-tags lgc-post-tags-inline">
+          <span v-if="category" class="lgc-post-tag lgc-chip-tonal">
+            <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
+            {{ category }}
+          </span>
+          <span v-for="tag in tags" :key="tag" class="lgc-post-tag lgc-chip-tonal">
+            <span i-material-symbols-tag-rounded aria-hidden="true" />
+            {{ tag }}
+          </span>
+        </div>
+      </div>
+
+      <div v-if="hasMetaChips" class="lgc-post-tags lgc-post-tags-mobile">
+        <span v-if="category" class="lgc-post-tag lgc-chip-tonal">
           <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
           {{ category }}
         </span>
@@ -56,26 +108,11 @@ const hasMetaChips = computed(() => categories.value.length || tags.value.length
           {{ tag }}
         </span>
       </div>
-    </div>
 
-    <div v-if="hasMetaChips" class="lgc-post-tags lgc-post-tags-mobile">
-      <span
-        v-for="category in categories"
-        :key="`mobile-category-${category}`"
-        class="lgc-post-tag lgc-chip-tonal"
-      >
-        <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
-        {{ category }}
+      <span class="lgc-post-arrow lgc-card-arrow" aria-hidden="true">
+        <span i-material-symbols-arrow-forward-rounded />
       </span>
-      <span v-for="tag in tags" :key="tag" class="lgc-post-tag lgc-chip-tonal">
-        <span i-material-symbols-tag-rounded aria-hidden="true" />
-        {{ tag }}
-      </span>
-    </div>
-
-    <span class="lgc-post-arrow lgc-card-arrow" aria-hidden="true">
-      <span i-material-symbols-arrow-forward-rounded />
-    </span>
+    </template>
   </RouterLink>
 </template>
 
@@ -84,6 +121,30 @@ const hasMetaChips = computed(() => categories.value.length || tags.value.length
   display: grid;
   grid-template-columns: 5.25rem minmax(0, 1fr);
   align-items: start;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.lgc-post-card.has-cover {
+  display: block;
+  padding: 0;
+  color: var(--lgc-post-cover-on-mask);
+  background: var(--md-sys-color-surface-container);
+}
+
+.lgc-post-cover-card {
+  border-radius: inherit;
+}
+
+.lgc-post-cover-layout {
+  position: relative;
+  display: grid;
+  width: 100%;
+  min-height: 100%;
+  grid-template-rows: auto minmax(min-content, 1fr);
+  grid-template-columns: minmax(0, 1fr);
+  align-content: space-between;
+  align-items: stretch;
   gap: 1rem;
   padding: 1.25rem;
 }
@@ -99,6 +160,25 @@ const hasMetaChips = computed(() => categories.value.length || tags.value.length
   border-radius: var(--lgc-radius-large);
   color: var(--md-sys-color-on-primary-container);
   background-color: var(--md-sys-color-primary-container);
+}
+
+.lgc-post-date-cover {
+  position: relative;
+  z-index: 1;
+  grid-row: 1;
+  grid-column: 1;
+  align-self: start;
+  justify-self: start;
+  color: var(--md-sys-color-on-primary-container);
+  background: color-mix(
+    in srgb,
+    var(--md-sys-color-primary-container) 50%,
+    transparent
+  );
+  // box-shadow:
+  //   0 0.75rem 1.75rem rgb(0 0 0 / 0.22),
+  //   0 0.125rem 0.375rem rgb(0 0 0 / 0.14);
+  backdrop-filter: blur(8px);
 }
 
 .lgc-post-date-day {
@@ -119,6 +199,49 @@ const hasMetaChips = computed(() => categories.value.length || tags.value.length
   align-self: center;
 }
 
+.lgc-post-body-cover {
+  position: relative;
+  z-index: 0;
+  grid-row: 2;
+  grid-column: 1;
+  align-self: end;
+  margin: -2.5rem -1.25rem -1.25rem;
+  padding-block: 0;
+  padding-block-start: 2.5rem;
+  padding-block-end: 1.25rem;
+  padding-inline-start: 1.25rem;
+  padding-inline-end: calc(var(--lgc-control-size) + 1rem);
+}
+
+.lgc-post-body-cover::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 74%, transparent) 0%,
+    color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 68%, transparent)
+      22%,
+    color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 52%, transparent)
+      42%,
+    color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 30%, transparent)
+      62%,
+    color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 12%, transparent)
+      86%,
+    color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 3%, transparent) 96%,
+    transparent 100%
+  );
+  // backdrop-filter: blur(1px);
+  content: '';
+}
+
+.lgc-post-card.has-cover .lgc-post-title {
+  max-width: 44rem;
+  color: var(--lgc-post-cover-on-mask);
+  text-align: left;
+  text-shadow: var(--lgc-post-cover-text-shadow);
+}
+
 .lgc-post-excerpt {
   display: -webkit-box;
   margin-top: 0.75rem;
@@ -127,7 +250,17 @@ const hasMetaChips = computed(() => categories.value.length || tags.value.length
   font-size: 0.875rem;
   line-height: 1.75;
   -webkit-box-orient: vertical;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
+}
+
+.lgc-post-card.has-cover .lgc-post-excerpt {
+  max-width: 42rem;
+  color: var(--lgc-post-cover-on-mask-variant);
+  font-weight: 600;
+  text-align: left;
+  text-shadow: 0 0.0625rem 0.25rem
+    color-mix(in srgb, var(--md-sys-color-surface) 24%, transparent);
 }
 
 .lgc-post-excerpt :deep(p) {
@@ -143,6 +276,10 @@ const hasMetaChips = computed(() => categories.value.length || tags.value.length
 .lgc-post-tags-inline {
   display: none;
   margin-top: 0.75rem;
+}
+
+.lgc-post-body-cover .lgc-post-tags {
+  margin-top: 0.625rem;
 }
 
 .lgc-post-tags-mobile {
@@ -161,6 +298,20 @@ const hasMetaChips = computed(() => categories.value.length || tags.value.length
   display: none;
 }
 
+.lgc-post-card.has-cover .lgc-post-arrow {
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  align-self: center;
+  background: color-mix(
+    in srgb,
+    var(--md-sys-color-surface-container-highest) 50%,
+    transparent
+  );
+  backdrop-filter: blur(8px);
+  transform: translateY(-50%);
+}
+
 @media (min-width: 640px) {
   .lgc-post-card {
     grid-template-columns: 120px minmax(0, 1fr) auto;
@@ -168,10 +319,30 @@ const hasMetaChips = computed(() => categories.value.length || tags.value.length
     padding: 1.5rem;
   }
 
+  .lgc-post-card.has-cover {
+    padding: 0;
+  }
+
+  .lgc-post-cover-layout {
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .lgc-post-body-cover {
+    margin: -3rem -1.5rem -1.5rem;
+    padding-block-start: 3rem;
+    padding-block-end: 1.5rem;
+    padding-inline-start: 1.5rem;
+  }
+
+  .lgc-post-card.has-cover .lgc-post-arrow {
+    right: 1.5rem;
+  }
+
   .lgc-post-date {
     width: 6rem;
     height: 6rem;
-    justify-self: center;
+    justify-self: start;
   }
 
   .lgc-post-tags {
@@ -187,8 +358,25 @@ const hasMetaChips = computed(() => categories.value.length || tags.value.length
   }
 
   .lgc-post-arrow {
-    grid-column: 3;
     display: inline-grid;
+  }
+}
+
+@media (max-width: 639px) {
+  .lgc-post-card.has-cover .lgc-post-arrow {
+    display: none;
+  }
+
+  .lgc-post-body-cover {
+    grid-column: 1 / -1;
+    margin-inline-end: -1.25rem;
+    padding-inline-end: 1.25rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 719px) {
+  .lgc-post-cover-layout {
+    align-items: stretch;
   }
 }
 </style>

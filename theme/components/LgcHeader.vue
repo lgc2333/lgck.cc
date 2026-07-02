@@ -123,7 +123,7 @@ function closeDrawer() {
   backdrop-filter: blur(18px);
   background: color-mix(
     in srgb,
-    var(--md-sys-color-primary-container) 34%,
+    var(--md-sys-color-primary-container) 40%,
     transparent
   );
 }

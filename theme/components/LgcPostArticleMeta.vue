@@ -2,6 +2,8 @@
 import { formatDate } from 'valaxy'
 import { computed } from 'vue'
 
+import { normalizePostCategoryPath } from '../utils/post'
+
 const props = defineProps<{
   categories: string[]
   tags: string[]
@@ -15,11 +17,13 @@ const shouldShowUpdated = computed(() => {
 
   return formatDate(props.updated) !== formatDate(props.created)
 })
+
+const category = computed(() => normalizePostCategoryPath(props.categories))
 </script>
 
 <template>
   <div
-    v-if="created || shouldShowUpdated || tags.length || categories.length"
+    v-if="created || shouldShowUpdated || tags.length || category"
     class="lgc-article-meta"
     aria-label="Post metadata"
   >
@@ -31,11 +35,7 @@ const shouldShowUpdated = computed(() => {
       <span i-material-symbols-edit-calendar-outline-rounded aria-hidden="true" />
       <LgcPostDate :date="updated" />
     </span>
-    <span
-      v-for="category in categories"
-      :key="`category-${category}`"
-      class="lgc-post-tag lgc-chip-tonal"
-    >
+    <span v-if="category" class="lgc-post-tag lgc-chip-tonal">
       <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
       {{ category }}
     </span>

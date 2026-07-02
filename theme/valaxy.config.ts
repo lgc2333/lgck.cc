@@ -13,6 +13,17 @@ export default defineTheme<ThemeConfig>((options) => {
   return {
     themeConfig: defaultThemeConfig,
     vite: {
+      build: {
+        rollupOptions: {
+          output: {
+            manualChunks(id) {
+              if (id.replaceAll('\\', '/').includes('/utils/m3-loading-indicator/')) {
+                return 'lgc-loading-indicator'
+              }
+            },
+          },
+        },
+      },
       plugins: [Font.vite(), harmonyOSFontFamilyPlugin(), themePlugin()],
     },
     unocss: {
