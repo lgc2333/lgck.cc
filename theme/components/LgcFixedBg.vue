@@ -4,10 +4,6 @@
 
 <style scoped lang="scss">
 .lgc-fixed-bg {
-  position: fixed;
-  z-index: -1;
-  inset: 0;
-  pointer-events: none;
   background:
     radial-gradient(
       circle,

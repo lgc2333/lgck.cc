@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import { useAppStore, useLocale } from 'valaxy'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+
+import { useThemeConfig } from '../composables'
 
 defineProps<{
   optionalClass?: string
 }>()
 
 const appStore = useAppStore()
+const themeConfig = useThemeConfig()
 const { t, locale } = useI18n()
 const { toggleLocales } = useLocale()
 const languageFlipping = ref(false)
+const showI18n = computed(() => themeConfig.value.header?.i18n !== false)
 
 function toggleLanguage() {
   languageFlipping.value = false
@@ -24,6 +28,7 @@ function toggleLanguage() {
 <template>
   <div class="lgc-header-group">
     <button
+      v-if="showI18n"
       class="lgc-header-button lgc-header-lang lgc-icon-button-base lgc-icon-button-hover"
       :class="optionalClass"
       type="button"
@@ -49,10 +54,10 @@ function toggleLanguage() {
     >
       <span
         v-if="!appStore.isDark"
-        i-material-symbols-dark-mode-outline-rounded
+        i-material-symbols-light-mode-outline-rounded
         aria-hidden="true"
       />
-      <span v-else i-material-symbols-light-mode-outline-rounded aria-hidden="true" />
+      <span v-else i-material-symbols-dark-mode-outline-rounded aria-hidden="true" />
     </button>
 
     <button

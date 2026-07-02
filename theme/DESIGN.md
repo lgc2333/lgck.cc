@@ -36,7 +36,7 @@ The home page is a configurable Valaxy landing screen with optional posts below 
 ## Current Main Screen
 
 - `LgcLandingHome.vue` owns the first viewport and optional posts section.
-- `Header.vue`, `LgcLandingDock.vue`, `LgcLandingSocials.vue`, `LgcLandingMark.vue`, `LgcPostFeed.vue`, and `LgcPostFeedCard.vue` own their local styles.
+- `LgcHeader.vue`, `LgcLandingDock.vue`, `LgcLandingSocials.vue`, `LgcLandingMark.vue`, `LgcPostFeed.vue`, and `LgcPostFeedCard.vue` own their local styles.
 - `theme/styles/index.scss` composes token, base, utility, and markdown styles.
 - `theme/styles/tokens.scss` stores shared Material color roles and reusable lgc typography/motion tokens.
 
@@ -48,7 +48,7 @@ The home page is a configurable Valaxy landing screen with optional posts below 
 - Background atmosphere should be diffuse and soft. Avoid solid-center blur circles, visible decorative orbs, and heavy gradients.
 - Dock links are the main interaction area and should be stronger than social icons.
 - Social icons stay icon-only and visually quiet.
-- `landing.showPosts` controls whether posts and the scroll hint render. It is currently enabled by default so the preview shows the post list.
+- `landing.mode` controls the home shape: `full` is one viewport with posts below, `full-only` is one viewport with footer at the bottom and no posts, `compact` shows posts below a shorter landing, and `disabled` uses the plain home layout.
 
 ## Avatar
 

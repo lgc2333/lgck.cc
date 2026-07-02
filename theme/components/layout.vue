@@ -1,7 +1,7 @@
 <template>
   <div class="lgc-layout">
     <LgcFixedBg />
-    <Header />
+    <LgcHeader />
 
     <div class="lgc-layout-surface">
       <main class="lgc-layout-inner">

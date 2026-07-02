@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useAppStore } from 'valaxy'
-import { computed, onBeforeUnmount, onMounted } from 'vue'
+import { computed } from 'vue'
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     size?: number | string
     color?: string
@@ -18,18 +18,6 @@ const props = withDefaults(
 const app = useAppStore()
 const loaderColor = computed(() => 'var(--md-sys-color-on-primary-container)')
 const loaderContainerColor = computed(() => 'var(--md-sys-color-primary-container)')
-
-let hideTimer = 0
-
-onMounted(() => {
-  hideTimer = window.setTimeout(() => {
-    app.showLoading = false
-  }, props.minVisible)
-})
-
-onBeforeUnmount(() => {
-  window.clearTimeout(hideTimer)
-})
 </script>
 
 <template>
@@ -41,7 +29,7 @@ onBeforeUnmount(() => {
       aria-live="polite"
       aria-label="Loading"
     >
-      <LgcM3LoadingIndicator
+      <LgcLoadingIndicator
         :size="size"
         :color="color || loaderColor"
         :container-color="containerColor || loaderContainerColor"
@@ -54,7 +42,7 @@ onBeforeUnmount(() => {
 <style scoped lang="scss">
 .lgc-material-loader {
   position: fixed;
-  z-index: 1023;
+  z-index: 1030;
   inset: 0;
   display: grid;
   place-items: center;

@@ -129,7 +129,11 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
   font-size: 0.875rem;
   line-height: 1.8;
   text-align: center;
-  background: linear-gradient(180deg, var(--md-sys-color-surface));
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--md-sys-color-surface-container) 100%
+  );
 }
 
 .lgc-footer-inner {

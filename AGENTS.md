@@ -31,7 +31,7 @@ Run `format`, `lint`, and `check` scripts after code changes.
 ## Valaxy Reference
 
 Invoke the local `valaxy` skill before Valaxy theme/site work. If upstream reference is needed, use `temp/valaxy` as a depth-1 clone of `YunYouJun/valaxy`, check out the tag matching the installed `valaxy` package version (for example `v0.28.11`), and read its `AGENTS.md` before exploring it.
-Before implementing theme features, first inspect how the installed default `valaxy-theme-yun` handles the same behavior; use it as a reference, not a template to copy blindly.
+Before implementing theme features, first inspect how the default theme `valaxy-theme-yun` (in `temp/valaxy/packages`) handles the same behavior. Use it as a reference, not a template to copy blindly.
 
 ## Rules
 
@@ -68,6 +68,7 @@ ATTENTION: If you encounter a pitfall that might be reusable, you MUST record it
 - Sass `@extend` cannot cross Vue scoped style / `@use` module boundaries reliably; duplicate small transition declarations or use mixins instead of extending selectors from another stylesheet.
 - PowerShell `Start-Process` cannot redirect stdout and stderr to the same file; use separate log files.
 - Valaxy CLI `valaxy` does not accept Vite-style `--host` / `--port` args directly; use config/default port or the supported Valaxy CLI options.
+- In Valaxy SSG, `Teleport to="body"` rendered during SSR can break hydration and remove `#app`, causing a blank page; wrap body-level teleports in `ClientOnly` or use a stable in-app target.
 
 ## Commit
 

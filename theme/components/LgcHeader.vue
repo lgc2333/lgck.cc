@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useWindowScroll } from '@vueuse/core'
 import { computed, ref } from 'vue'
 
 import { useThemeConfig } from '../composables'
@@ -6,13 +7,15 @@ import type { HeaderLinksConfig, HeaderNavLink } from '../types'
 
 const themeConfig = useThemeConfig()
 const drawerOpen = ref(false)
+const { y: scrollY } = useWindowScroll()
 
 const header = computed(() => themeConfig.value.header || {})
-const addHome = computed(() => header.value.addHome !== false)
-const homeLabel = computed(() => header.value.homeLabel || 'Home')
 const linkOptions = computed<Partial<HeaderLinksConfig>>(() => header.value.links || {})
+const addHome = computed(() => linkOptions.value.addHome !== false)
+const homeLabel = computed(() => linkOptions.value.homeLabel || 'Home')
 const activeExpanded = computed(() => linkOptions.value.activeExpanded !== false)
-const homeFixed = computed(() => header.value.homeFixed === true)
+const isScrolled = computed(() => scrollY.value > 8)
+const homeFixed = computed(() => linkOptions.value.homeFixed === true)
 const linkMode = computed<HeaderLinksConfig['mode']>(
   () => linkOptions.value.mode || 'hover',
 )
@@ -40,7 +43,7 @@ function closeDrawer() {
 </script>
 
 <template>
-  <header class="lgc-header-shell">
+  <header class="lgc-header-shell" :class="{ 'is-scrolled': isScrolled }">
     <nav class="lgc-header" aria-label="Primary navigation">
       <div class="lgc-header-group lgc-header-primary">
         <button
@@ -54,7 +57,7 @@ function closeDrawer() {
           <span i-material-symbols-menu-rounded aria-hidden="true" />
         </button>
 
-        <HeaderLink
+        <LgcHeaderLink
           v-if="addHome"
           :active-expanded="activeExpanded"
           active-match="exact"
@@ -64,7 +67,7 @@ function closeDrawer() {
           :mode="homeLinkMode"
         />
 
-        <HeaderLink
+        <LgcHeaderLink
           v-for="(item, index) in headerLinks"
           :key="`${item.text}-${item.link}`"
           :fixed="Boolean(linkOptions.width)"
@@ -76,17 +79,19 @@ function closeDrawer() {
         />
       </div>
 
-      <HeaderActions optional-class="is-optional" />
+      <LgcHeaderActions optional-class="is-optional" />
     </nav>
   </header>
 
-  <HeaderDrawer
-    :add-home="addHome"
-    :home-label="homeLabel"
-    :links="headerLinks"
-    :open="drawerOpen"
-    @close="closeDrawer"
-  />
+  <ClientOnly>
+    <LgcHeaderDrawer
+      :add-home="addHome"
+      :home-label="homeLabel"
+      :links="headerLinks"
+      :open="drawerOpen"
+      @close="closeDrawer"
+    />
+  </ClientOnly>
 </template>
 
 <style scoped lang="scss">
@@ -107,13 +112,20 @@ function closeDrawer() {
   gap: 1rem;
   padding: 0.5rem;
   margin-inline: auto;
+  background: transparent;
+  border-radius: 0 0 var(--lgc-radius-control) var(--lgc-radius-control);
+  transition:
+    backdrop-filter var(--lgc-motion-medium) var(--lgc-easing-standard),
+    background-color var(--lgc-motion-medium) var(--lgc-easing-standard);
+}
+
+.lgc-header-shell.is-scrolled .lgc-header {
   backdrop-filter: blur(18px);
   background: color-mix(
     in srgb,
     var(--md-sys-color-primary-container) 34%,
     transparent
   );
-  border-radius: 0 0 var(--lgc-radius-control) var(--lgc-radius-control);
 }
 
 .lgc-header-group {

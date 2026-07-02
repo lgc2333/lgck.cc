@@ -6,6 +6,8 @@ categories: Valaxy Notes
 tags:
   - valaxy
   - 笔记
+cover: https://cdn.yunyoujun.cn/img/bg/girl-in-water-tank.webp
+top: 1
 ---
 
 ## Hello, Valaxy!
@@ -23,7 +25,7 @@ export default defineConfig<ThemeConfig>({
 
   themeConfig: {
     landing: {
-      showPosts: true,
+      mode: 'compact',
     },
   },
 })

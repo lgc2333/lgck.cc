@@ -7,10 +7,11 @@ import { useThemeConfig } from '../composables'
 const route = useRoute()
 const themeConfig = useThemeConfig()
 const isPage = computed(() => route.path.startsWith('/page'))
+const landingEnabled = computed(() => themeConfig.value.landing?.mode !== 'disabled')
 </script>
 
 <template>
-  <LgcLandingHome v-if="themeConfig.landing?.enable !== false && !isPage" />
+  <LgcLandingHome v-if="landingEnabled && !isPage" />
 
   <Layout v-else>
     <div class="lgc-home-fallback">

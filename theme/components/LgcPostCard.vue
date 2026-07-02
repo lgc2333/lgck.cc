@@ -70,6 +70,7 @@ defineProps<{
   font-size: 0.9375rem;
   line-height: 1.75;
   -webkit-box-orient: vertical;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
 }
 

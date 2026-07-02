@@ -15,22 +15,10 @@ export interface ThemeConfig extends DefaultTheme.Config {
    */
   header?: Partial<{
     /**
-     * Show the home entry on the left side of the header.
+     * Show the i18n language toggle button in the header.
      * @default true
      */
-    addHome: boolean
-
-    /**
-     * Keep the home label visible when there is enough space.
-     * Set to false to use the same hover expansion as other links.
-     * @default false
-     */
-    homeFixed: boolean
-
-    /**
-     * Optional label next to the home icon when there is enough space.
-     */
-    homeLabel: string
+    i18n: boolean
 
     /**
      * Header navigation links.
@@ -42,6 +30,11 @@ export interface ThemeConfig extends DefaultTheme.Config {
      */
     links: Partial<HeaderLinksConfig>
   }>
+
+  /**
+   * Landing screen
+   */
+  landing?: Partial<LandingConfig>
 
   /**
    * footer
@@ -95,18 +88,32 @@ export interface ThemeConfig extends DefaultTheme.Config {
       police?: string
     }
   }>
-
-  /**
-   * Landing screen
-   */
-  landing?: Partial<LandingConfig>
 }
 
 export type LandingLinkVariant = 'primary' | 'tonal' | 'default' | 'cookie' | 'ribbon'
 
 export type HeaderLinkMode = 'icon' | 'hover' | 'expanded'
 
+export type LandingMode = 'full' | 'full-only' | 'compact' | 'disabled'
+
 export interface HeaderLinksConfig {
+  /**
+   * Show the home entry on the left side of the header.
+   * @default true
+   */
+  addHome: boolean
+
+  /**
+   * Optional label next to the home icon when there is enough space.
+   */
+  homeLabel: string
+
+  /**
+   * Keep the home label visible when there is enough space.
+   * @default false
+   */
+  homeFixed: boolean
+
   /**
    * Expand the active link label automatically.
    * @default true
@@ -152,22 +159,22 @@ export interface LandingLink {
 
 export interface LandingConfig {
   /**
-   * Enable landing home.
-   * @default true
+   * Landing home mode.
+   *
+   * full: one viewport landing with the post feed below.
+   * full-only: one viewport landing with footer pinned to the bottom and no post feed.
+   * compact: shorter landing with the post feed below.
+   * disabled: use the plain home layout without the landing screen.
+   *
+   * @default 'full'
    */
-  enable: boolean
+  mode: LandingMode
 
   /**
-   * Render current posts below first viewport.
-   * @default false
+   * Compact landing height in vh.
+   * @default 65
    */
-  showPosts: boolean
-
-  /**
-   * Use a shorter landing section.
-   * @default false
-   */
-  compact: boolean
+  compactHeight: number
 
   links: LandingLink[]
 }

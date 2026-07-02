@@ -28,6 +28,7 @@ jobs:
           cache: pnpm
       - name: Run Job
         run: |-
+          commit_title="chore(sponsor-ci): update sponsor SVGs"
           pnpm i
           cd blog
           export SPONSORKIT_AFDIAN_TOKEN=${{ secrets.SPONSORKIT_AFDIAN_TOKEN }}
@@ -37,8 +38,13 @@ jobs:
             git add .
             git config user.name github-actions[bot]
             git config user.email github-actions[bot]@users.noreply.github.com
-            git commit -m "chore(sponsor-ci): update sponsor SVGs"
-            git push
+            if [[ "$(git log -1 --pretty=%s)" == "$commit_title" ]]; then
+              git commit --amend --no-edit
+              git push --force-with-lease
+            else
+              git commit -m "$commit_title"
+              git push
+            fi
           else
             echo "No changes detected."
           fi

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useSiteConfig, useValaxyI18n } from 'valaxy'
+import type { StyleValue } from 'vue'
 import { computed } from 'vue'
 
 import { useThemeConfig } from '../composables'
@@ -9,9 +10,16 @@ const themeConfig = useThemeConfig()
 const { $t } = useValaxyI18n()
 
 const landing = computed(() => themeConfig.value.landing || {})
-const landingLinks = computed(() => landing.value.links || [])
-const siteSocials = computed(() => siteConfig.value.social || [])
-const showPosts = computed(() => landing.value.showPosts !== false)
+const landingLinks = computed(() => landing.value.links)
+const siteSocials = computed(() => siteConfig.value.social)
+const landingMode = computed(() => landing.value.mode || 'full')
+const isFullOnlyLanding = computed(() => landingMode.value === 'full-only')
+const showPosts = computed(
+  () => landingMode.value === 'full' || landingMode.value === 'compact',
+)
+const landingStyle = computed<StyleValue>(() => ({
+  '--lgc-landing-compact-height': `${landing.value.compactHeight ?? 65}vh`,
+}))
 const author = computed(() => siteConfig.value.author)
 const title = computed(() => $t(siteConfig.value.title))
 const authorName = computed(() => $t(author.value.name))
@@ -21,16 +29,12 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 </script>
 
 <template>
-  <main class="lgc-home">
+  <main class="lgc-home" :class="`is-${landingMode}`" :style="landingStyle">
     <LgcFixedBg />
-    <Header />
+    <LgcHeader />
 
-    <section
-      class="lgc-landing"
-      :class="{ 'is-compact': landing.compact }"
-      aria-label="Landing"
-    >
-      <div class="lgc-landing-center" :class="{ 'is-compact': landing.compact }">
+    <section class="lgc-landing" aria-label="Landing">
+      <div class="lgc-landing-center">
         <LgcLandingMark
           v-if="avatar"
           :avatar="avatar"
@@ -47,8 +51,8 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
           {{ subtitle }}
         </p>
 
-        <LgcLandingDock :links="landingLinks" />
-        <LgcLandingSocials :socials="siteSocials" />
+        <LgcLandingDock v-if="landingLinks?.length" :links="landingLinks" />
+        <LgcLandingSocials v-if="siteSocials?.length" :socials="siteSocials" />
       </div>
 
       <a
@@ -59,10 +63,12 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
       >
         <span i-material-symbols-keyboard-arrow-down-rounded aria-hidden="true" />
       </a>
+
+      <LgcFooter v-if="isFullOnlyLanding" />
     </section>
 
-    <div class="lgc-home-surface">
-      <LgcPostFeed v-if="showPosts" paginate />
+    <div v-if="showPosts" class="lgc-home-surface">
+      <LgcPostFeed paginate />
 
       <LgcFooter />
     </div>
@@ -73,6 +79,11 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 .lgc-home {
   min-height: 100vh;
   font-family: var(--lgc-font-body);
+}
+
+.lgc-home.is-full-only {
+  min-height: 100dvh;
+  overflow: clip;
 }
 
 .lgc-home-surface {
@@ -99,10 +110,6 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
   min-height: 100vh;
   padding: var(--lgc-header-height) 1rem 5rem;
   overflow: clip;
-
-  &.is-compact {
-    min-height: 76vh;
-  }
 }
 
 .lgc-landing-center {
@@ -118,6 +125,31 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
   padding-top: 1rem;
   margin-inline: auto;
   text-align: center;
+}
+
+.lgc-home.is-full-only .lgc-landing {
+  min-height: 100vh;
+  min-height: 100dvh;
+  grid-template-rows: minmax(0, 1fr) auto;
+  padding-bottom: 0;
+}
+
+.lgc-home.is-full-only .lgc-landing-center {
+  min-height: 0;
+  padding-bottom: 1rem;
+}
+
+.lgc-home.is-full-only :deep(.lgc-footer) {
+  position: relative;
+  z-index: 1;
+}
+
+.lgc-home.is-compact .lgc-landing {
+  min-height: var(--lgc-landing-compact-height);
+}
+
+.lgc-home.is-compact .lgc-landing-center {
+  min-height: calc(var(--lgc-landing-compact-height) - var(--lgc-header-height) - 5rem);
 }
 
 .lgc-landing-subtitle {
@@ -165,10 +197,16 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
   .lgc-landing-center {
     min-height: calc(100vh - var(--lgc-header-height) - 6rem);
     padding-top: 0;
+  }
 
-    &.is-compact {
-      min-height: calc(76vh - var(--lgc-header-height) - 6rem);
-    }
+  .lgc-home.is-full-only .lgc-landing-center {
+    min-height: 0;
+  }
+
+  .lgc-home.is-compact .lgc-landing-center {
+    min-height: calc(
+      var(--lgc-landing-compact-height) - var(--lgc-header-height) - 6rem
+    );
   }
 
   .lgc-landing-subtitle {

@@ -1,3 +1,10 @@
+.lgc-fixed-bg {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+}
+
 .lgc-header-button {
   inline-size: var(--lgc-control-size);
   height: var(--lgc-control-size);

@@ -13,7 +13,7 @@ const props = withDefaults(
   }>(),
   {
     flush: false,
-    label: 'Archive',
+    label: 'Posts',
     limit: 6,
     paginate: false,
     title: '所有文章',

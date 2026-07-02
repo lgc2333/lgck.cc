@@ -10,11 +10,10 @@ export default defineConfig<ThemeConfig>({
 
   themeConfig: {
     header: {
-      homeLabel: 'Home',
       nav: [
         {
           text: 'Posts',
-          link: '/page/1',
+          link: '/page',
           icon: 'i-material-symbols-article-outline-rounded',
         },
         {
@@ -33,8 +32,12 @@ export default defineConfig<ThemeConfig>({
           icon: 'i-material-symbols-tag-rounded',
         },
       ],
+      links: {
+        homeLabel: 'Home',
+      },
     },
     landing: {
+      mode: 'full-only',
       links: [
         {
           text: '博客文章',

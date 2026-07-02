@@ -91,6 +91,14 @@ export default defineSiteConfig({
   ],
 
   comment: {
-    enable: false,
+    enable: true,
+  },
+
+  statistics: {
+    enable: true,
+  },
+
+  redirects: {
+    rules: [{ from: '/page', to: '/page/1' }],
   },
 })

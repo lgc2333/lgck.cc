@@ -44,7 +44,8 @@ defineProps<{
 .lgc-mark-avatar {
   width: 9rem;
   height: 9rem;
-  border: 4px solid var(--md-sys-color-surface);
+  border: 3px solid
+    color-mix(in srgb, var(--md-sys-color-surface-container-high) 20%, transparent);
   border-radius: 30px;
   object-fit: cover;
 }
@@ -71,7 +72,8 @@ defineProps<{
   padding: 0;
   overflow: hidden;
   border-radius: 999px;
-  border: 3px solid var(--md-sys-color-surface);
+  border: 3px solid
+    color-mix(in srgb, var(--md-sys-color-surface-container-high) 20%, transparent);
   color: var(--md-sys-color-on-secondary-container);
   font-size: 0.8125rem;
   font-weight: 700;

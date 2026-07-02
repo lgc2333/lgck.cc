@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@iconify-json/ant-design": "catalog:",
+    "@iconify-json/ic": "catalog:",
     "@iconify-json/material-symbols": "catalog:",
     "@iconify-json/ri": "catalog:",
     "@iconify-json/simple-icons": "catalog:",

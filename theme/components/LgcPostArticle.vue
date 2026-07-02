@@ -20,7 +20,6 @@ const categories = computed(() => normalizePostListValue(frontmatter.value.categ
 <template>
   <article class="lgc-article">
     <header class="lgc-article-header">
-      <LgcPostDate :date="frontmatter.date" />
       <h1 class="lgc-article-title">
         {{ frontmatter.title }}
       </h1>
@@ -29,20 +28,53 @@ const categories = computed(() => normalizePostListValue(frontmatter.value.categ
       </p>
       <LgcPostArticleMeta
         :categories="categories"
+        :created="frontmatter.date"
         :tags="tags"
         :updated="frontmatter.updated"
       />
     </header>
 
-    <div class="lgc-article-shell">
-      <LgcPostArticleRail
-        :frontmatter="frontmatter"
-        :next-post="nextPost"
-        :prev-post="prevPost"
-      />
+    <div class="lgc-article-shell" :class="{ 'has-rail': frontmatter.author }">
+      <LgcPostArticleRail :frontmatter="frontmatter" />
 
-      <div class="lgc-article-content-card">
-        <slot />
+      <div class="lgc-article-main">
+        <div class="lgc-article-content-card">
+          <slot />
+        </div>
+
+        <nav
+          v-if="nextPost?.path || prevPost?.path"
+          class="lgc-article-nav"
+          :class="{ 'has-both': nextPost?.path && prevPost?.path }"
+          aria-label="Post navigation"
+        >
+          <RouterLink
+            v-if="prevPost?.path"
+            class="lgc-article-nav-item lgc-panel-link is-previous"
+            :to="prevPost.path"
+          >
+            <span class="lgc-article-nav-icon" aria-hidden="true">
+              <span i-material-symbols-arrow-back-rounded />
+            </span>
+            <span class="lgc-article-nav-copy">
+              <span>Previous</span>
+              <strong>{{ prevPost.title }}</strong>
+            </span>
+          </RouterLink>
+          <RouterLink
+            v-if="nextPost?.path"
+            class="lgc-article-nav-item lgc-panel-link is-next"
+            :to="nextPost.path"
+          >
+            <span class="lgc-article-nav-copy">
+              <span>Next</span>
+              <strong>{{ nextPost.title }}</strong>
+            </span>
+            <span class="lgc-article-nav-icon" aria-hidden="true">
+              <span i-material-symbols-arrow-forward-rounded />
+            </span>
+          </RouterLink>
+        </nav>
       </div>
     </div>
   </article>
@@ -83,30 +115,118 @@ const categories = computed(() => normalizePostListValue(frontmatter.value.categ
 
 .lgc-article-shell {
   display: grid;
+  width: 100%;
+  max-width: var(--lgc-container-reading);
   gap: 1rem;
   padding-bottom: 4rem;
+  margin-inline: auto;
+}
+
+.lgc-article-main {
+  display: grid;
+  min-width: 0;
+  gap: 1rem;
 }
 
 .lgc-article-content-card {
   min-width: 0;
+  overflow: hidden;
   padding: 1.25rem;
   border-radius: var(--lgc-radius-large);
   background: var(--md-sys-color-surface-container);
+
+  :deep(.lgc-markdown) {
+    min-width: 0;
+    overflow: hidden;
+    padding-bottom: 0;
+  }
+
+  :deep(.lgc-markdown > *) {
+    max-width: 100%;
+  }
+
+  :deep(.markdown-body > :first-child) {
+    margin-top: 0;
+  }
+
+  :deep(.markdown-body > :last-child) {
+    margin-bottom: 0;
+  }
+}
+
+.lgc-article-nav {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.lgc-article-nav-item {
+  gap: 0.5rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.lgc-article-nav-item.is-next {
+  grid-template-columns: minmax(0, 1fr) auto;
+  text-align: right;
+}
+
+.lgc-article-nav-copy {
+  display: grid;
+  min-width: 0;
+  gap: 0.25rem;
+}
+
+.lgc-article-nav-copy span {
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.lgc-article-nav-copy strong {
+  display: -webkit-box;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+}
+
+.lgc-article-nav-icon {
+  display: inline-grid;
+  width: var(--lgc-control-size-compact);
+  height: var(--lgc-control-size-compact);
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: var(--lgc-radius-control-active);
+  color: var(--md-sys-color-primary);
+  font-size: 1.5rem;
+  background: var(--md-sys-color-surface-container-highest);
 }
 
 @media (min-width: 720px) {
   .lgc-article-header {
-    padding-top: 4rem;
+    padding-top: 2.5rem;
   }
 
   .lgc-article-content-card {
     padding: 2rem;
   }
+
+  .lgc-article-nav.has-both {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 1180px) {
-  .lgc-article-shell {
-    grid-template-columns: minmax(15rem, 18rem) minmax(0, 1fr);
+  .lgc-article-shell.has-rail {
+    max-width: 1080px;
+    grid-template-columns: minmax(14rem, 16rem) minmax(0, 1fr);
     align-items: start;
     gap: 1.5rem;
   }
