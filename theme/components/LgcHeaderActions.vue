@@ -124,7 +124,7 @@ function toggleLanguage() {
   font-size: 0.8125rem;
   font-weight: 900;
   line-height: 1;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   white-space: nowrap;
   opacity: 0;
   transition:
