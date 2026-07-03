@@ -20,6 +20,10 @@ export const defaultThemeConfig: ThemeConfig = {
     compactHeight: 65,
     links: [],
   },
+  postFeed: {
+    coverContentMask: 'gradient',
+    coverContentPosition: 'left',
+  },
   header: {
     i18n: true,
     nav: [],

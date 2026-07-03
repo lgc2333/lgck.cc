@@ -4,8 +4,29 @@ import { computed } from 'vue'
 
 const { show, percentage, backToTop } = useBackToTop({ offset: 100 })
 
-const progressPath =
-  'M 28 1 H 39 A 16 16 0 0 1 55 17 V 39 A 16 16 0 0 1 39 55 H 17 A 16 16 0 0 1 1 39 V 17 A 16 16 0 0 1 17 1 H 28'
+const progressViewBoxSize = 56
+const progressStrokeWidth = 2
+const progressInset = progressStrokeWidth / 2
+const progressOuterRadius = 16
+const progressRadius = progressOuterRadius - progressInset
+const progressMin = progressInset
+const progressMax = progressViewBoxSize - progressInset
+const progressStart = progressViewBoxSize / 2
+const progressCornerStart = progressMin + progressRadius
+const progressCornerEnd = progressMax - progressRadius
+
+const progressPath = [
+  `M ${progressStart} ${progressMin}`,
+  `H ${progressCornerEnd}`,
+  `A ${progressRadius} ${progressRadius} 0 0 1 ${progressMax} ${progressCornerStart}`,
+  `V ${progressCornerEnd}`,
+  `A ${progressRadius} ${progressRadius} 0 0 1 ${progressCornerEnd} ${progressMax}`,
+  `H ${progressCornerStart}`,
+  `A ${progressRadius} ${progressRadius} 0 0 1 ${progressMin} ${progressCornerEnd}`,
+  `V ${progressCornerStart}`,
+  `A ${progressRadius} ${progressRadius} 0 0 1 ${progressCornerStart} ${progressMin}`,
+  `H ${progressStart}`,
+].join(' ')
 
 const strokeOffset = computed(() => {
   const progress = Math.min(Math.max(percentage.value, 0), 1)
@@ -30,6 +51,7 @@ const strokeOffset = computed(() => {
             :d="progressPath"
             fill="none"
             pathLength="1"
+            :stroke-width="progressStrokeWidth"
             stroke-dasharray="1"
             :stroke-dashoffset="strokeOffset"
           />
@@ -50,12 +72,13 @@ const strokeOffset = computed(() => {
 
 .lgc-back-to-top-button {
   --lgc-back-to-top-size: 3.5rem;
+  --lgc-back-to-top-radius: 1rem;
 
   position: relative;
   width: var(--lgc-back-to-top-size);
   height: var(--lgc-back-to-top-size);
   overflow: visible;
-  border-radius: 1rem;
+  border-radius: var(--lgc-back-to-top-radius);
   color: var(--md-sys-color-primary);
   font-size: 1.5rem;
   background: var(--md-sys-color-surface-container-high);
@@ -72,7 +95,7 @@ const strokeOffset = computed(() => {
 
   &:hover,
   &:focus-visible {
-    border-radius: 0.75rem;
+    border-radius: var(--lgc-back-to-top-radius);
     color: var(--md-sys-color-primary);
     background: var(--md-sys-color-surface-container-highest);
     box-shadow:
@@ -82,7 +105,7 @@ const strokeOffset = computed(() => {
   }
 
   &:active {
-    border-radius: 0.75rem;
+    border-radius: var(--lgc-back-to-top-radius);
     background: var(--md-sys-color-surface-container-highest);
   }
 }
@@ -94,10 +117,6 @@ const strokeOffset = computed(() => {
   height: 100%;
   overflow: visible;
   pointer-events: none;
-}
-
-.lgc-back-to-top-progress-indicator {
-  stroke-width: 2;
 }
 
 .lgc-back-to-top-progress-indicator {

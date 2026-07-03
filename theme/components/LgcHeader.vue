@@ -12,6 +12,7 @@ const { y: scrollY } = useWindowScroll()
 const header = computed(() => themeConfig.value.header || {})
 const linkOptions = computed<Partial<HeaderLinksConfig>>(() => header.value.links || {})
 const addHome = computed(() => linkOptions.value.addHome !== false)
+const activePathRewrites = computed(() => linkOptions.value.activePathRewrites || [])
 const homeLabel = computed(() => linkOptions.value.homeLabel || 'Home')
 const activeExpanded = computed(() => linkOptions.value.activeExpanded !== false)
 const isScrolled = computed(() => scrollY.value > 8)
@@ -60,6 +61,7 @@ function closeDrawer() {
         <LgcHeaderLink
           v-if="addHome"
           :active-expanded="activeExpanded"
+          :active-path-rewrites="activePathRewrites"
           active-match="exact"
           :fixed="Boolean(linkOptions.width)"
           :item="homeLink"
@@ -75,6 +77,7 @@ function closeDrawer() {
           :link-style="linkStyle"
           :mode="linkMode"
           :active-expanded="activeExpanded"
+          :active-path-rewrites="activePathRewrites"
           :optional="index >= 3"
         />
       </div>
@@ -86,6 +89,7 @@ function closeDrawer() {
   <ClientOnly>
     <LgcHeaderDrawer
       :add-home="addHome"
+      :active-path-rewrites="activePathRewrites"
       :home-label="homeLabel"
       :links="headerLinks"
       :open="drawerOpen"

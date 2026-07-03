@@ -1,5 +1,5 @@
 ---
-title: 分页测试 01：清晨的提交
+title: 分页测试 01：清晨的提交 分页测试 01：清晨的提交
 date: 2026-07-01
 categories:
   - Demo
@@ -7,6 +7,8 @@ tags:
   - pagination
   - test
 hide: index
+cover: https://cdn.yunyoujun.cn/img/bg/girl-in-water-tank.webp
+coverContentPosition: right
 ---
 
 <!-- markdownlint-disable MD033 -->

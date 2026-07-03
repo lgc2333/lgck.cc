@@ -65,6 +65,8 @@ const hasStatusIcons = computed(() => Boolean(title.value))
   display: inline-flex;
   flex-direction: column;
   gap: 0.375rem;
+  filter: drop-shadow(0 0.0625rem 0.0625rem rgb(0 0 0 / 0.24))
+    drop-shadow(0 0.125rem 0.125rem rgb(0 0 0 / 0.16));
 }
 
 .lgc-post-status-icon {
@@ -75,10 +77,6 @@ const hasStatusIcons = computed(() => Boolean(title.value))
   border-radius: 999px;
   font-size: 1.125rem;
   background: var(--md-sys-color-tertiary-container);
-  box-shadow:
-    0 1px 2px 0 rgb(0 0 0 / 0.16),
-    0 2px 4px 0 rgb(0 0 0 / 0.1),
-    0 1px 6px 0 rgb(0 0 0 / 0.08);
 }
 
 .lgc-post-status-icon.is-pinned {

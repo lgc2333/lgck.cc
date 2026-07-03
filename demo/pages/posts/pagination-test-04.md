@@ -6,6 +6,8 @@ categories:
 tags:
   - pagination
   - test
+cover: https://i.pixiv.re/img-master/img/2026/03/09/00/48/28/142076600_p0_master1200.jpg
+coverContentMask: card
 ---
 
 分页按钮最容易暴露细节问题。

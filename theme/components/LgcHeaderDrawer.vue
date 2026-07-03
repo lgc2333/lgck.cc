@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import type { HeaderNavLink } from '../types'
+import { useRoute } from 'vue-router'
 
-defineProps<{
+import type { HeaderActivePathRewrite, HeaderNavLink } from '../types'
+import { isRouteLinkActive } from '../utils/route'
+
+const props = defineProps<{
   addHome?: boolean
+  activePathRewrites?: HeaderActivePathRewrite[]
   homeLabel?: string
   links: HeaderNavLink[]
   open: boolean
@@ -11,6 +15,12 @@ defineProps<{
 const emit = defineEmits<{
   close: []
 }>()
+
+const route = useRoute()
+
+function isDrawerLinkActive(item: HeaderNavLink) {
+  return isRouteLinkActive(route.path, item.link, 'prefix', props.activePathRewrites)
+}
 </script>
 
 <template>
@@ -45,7 +55,7 @@ const emit = defineEmits<{
         </div>
 
         <nav class="lgc-drawer-list" aria-label="Mobile navigation links">
-          <RouterLink
+          <AppLink
             v-if="addHome"
             class="lgc-drawer-link lgc-drawer-home"
             to="/"
@@ -53,12 +63,13 @@ const emit = defineEmits<{
           >
             <span i-material-symbols-home-rounded aria-hidden="true" />
             <span>{{ homeLabel || 'Home' }}</span>
-          </RouterLink>
+          </AppLink>
 
           <AppLink
             v-for="item in links"
             :key="`drawer-${item.text}-${item.link}`"
             class="lgc-drawer-link"
+            :class="{ 'is-route-active': isDrawerLinkActive(item) }"
             :to="item.link"
             @click="emit('close')"
           >
@@ -164,7 +175,8 @@ const emit = defineEmits<{
 }
 
 .lgc-drawer-link.router-link-exact-active,
-.lgc-drawer-link.router-link-active:not(.lgc-drawer-home) {
+.lgc-drawer-link.router-link-active:not(.lgc-drawer-home),
+.lgc-drawer-link.is-route-active {
   border-radius: var(--lgc-radius-control-active);
   color: var(--md-sys-color-on-primary-container);
   background: var(--md-sys-color-primary-container);
@@ -173,7 +185,9 @@ const emit = defineEmits<{
 .lgc-drawer-link.router-link-exact-active:hover,
 .lgc-drawer-link.router-link-exact-active:focus-visible,
 .lgc-drawer-link.router-link-active:not(.lgc-drawer-home):hover,
-.lgc-drawer-link.router-link-active:not(.lgc-drawer-home):focus-visible {
+.lgc-drawer-link.router-link-active:not(.lgc-drawer-home):focus-visible,
+.lgc-drawer-link.is-route-active:hover,
+.lgc-drawer-link.is-route-active:focus-visible {
   border-radius: var(--lgc-radius-control-active);
   color: var(--md-sys-color-on-primary-container);
   background: var(--md-sys-color-primary-container);

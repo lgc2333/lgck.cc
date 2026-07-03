@@ -6,6 +6,9 @@ categories:
 tags:
   - pagination
   - test
+cover: https://cdn.yunyoujun.cn/img/bg/girl-in-water-tank.webp
+coverContentPosition: right
+coverContentMask: card
 ---
 
 这是一篇很短的第五篇测试文章。

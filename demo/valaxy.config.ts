@@ -33,6 +33,7 @@ export default defineConfig<ThemeConfig>({
         },
       ],
       links: {
+        activePathRewrites: [{ from: '/posts', to: '/page' }],
         homeLabel: 'Home',
       },
     },

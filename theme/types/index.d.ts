@@ -1,5 +1,22 @@
 /// <reference path="./font.d.ts" />
 import type { DefaultTheme } from 'valaxy'
+import 'valaxy'
+
+declare module 'valaxy' {
+  interface PostFrontMatter {
+    /**
+     * Mask style used by the post feed cover content.
+     * @default themeConfig.postFeed.coverContentMask
+     */
+    coverContentMask?: CoverContentMask
+
+    /**
+     * Position of the cover card content mask on non-narrow screens.
+     * @default themeConfig.postFeed.coverContentPosition
+     */
+    coverContentPosition?: CoverContentPosition
+  }
+}
 
 export namespace LgcTheme {
   export type Config = ThemeConfig
@@ -35,6 +52,11 @@ export interface ThemeConfig extends DefaultTheme.Config {
    * Landing screen
    */
   landing?: Partial<LandingConfig>
+
+  /**
+   * Post feed behavior.
+   */
+  postFeed?: Partial<PostFeedConfig>
 
   /**
    * footer
@@ -96,6 +118,10 @@ export type HeaderLinkMode = 'icon' | 'hover' | 'expanded'
 
 export type LandingMode = 'full' | 'full-only' | 'compact' | 'disabled'
 
+export type CoverContentMask = 'card' | 'gradient'
+
+export type CoverContentPosition = 'left' | 'right'
+
 export interface HeaderLinksConfig {
   /**
    * Show the home entry on the left side of the header.
@@ -119,6 +145,14 @@ export interface HeaderLinksConfig {
    * @default true
    */
   activeExpanded: boolean
+
+  /**
+   * Rewrite the current route path before matching active header links.
+   *
+   * For example, `{ from: '/posts', to: '/page' }` makes `/posts/foo`
+   * activate a `/page` navigation link.
+   */
+  activePathRewrites: HeaderActivePathRewrite[]
 
   /**
    * icon: icon-only, hover: expand on hover/focus, expanded: text always visible.
@@ -150,6 +184,11 @@ export interface HeaderNavLink {
   icon?: string
 }
 
+export interface HeaderActivePathRewrite {
+  from: string
+  to: string
+}
+
 export interface LandingLink {
   text: string
   link: string
@@ -177,6 +216,20 @@ export interface LandingConfig {
   compactHeight: number
 
   links: LandingLink[]
+}
+
+export interface PostFeedConfig {
+  /**
+   * Mask style used by cover cards in the post feed.
+   * @default 'card'
+   */
+  coverContentMask: CoverContentMask
+
+  /**
+   * Position of cover card content on non-narrow screens.
+   * @default 'left'
+   */
+  coverContentPosition: CoverContentPosition
 }
 
 export type ThemeUserConfig = Partial<ThemeConfig>

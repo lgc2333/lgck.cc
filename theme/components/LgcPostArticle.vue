@@ -130,7 +130,7 @@ const categories = computed(() => normalizePostListValue(frontmatter.value.categ
   align-self: end;
   gap: 1rem;
   margin-top: -3rem;
-  padding: 3rem 1.25rem 2rem;
+  padding: 4rem 1.25rem 2rem;
   color: var(--lgc-post-cover-on-mask);
 }
 
@@ -299,7 +299,7 @@ const categories = computed(() => normalizePostListValue(frontmatter.value.categ
   .lgc-article-header-cover {
     gap: 1.125rem;
     margin-top: -4rem;
-    padding: 3.75rem 2rem 2.5rem;
+    padding: 5rem 2rem 2.5rem;
   }
 
   .lgc-article-content-card {
@@ -308,6 +308,13 @@ const categories = computed(() => normalizePostListValue(frontmatter.value.categ
 
   .lgc-article-nav.has-both {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1280px) {
+  .lgc-article-header-cover .lgc-article-title {
+    font-size: clamp(2.125rem, 4.5vw, 3rem);
+    line-height: 1.08;
   }
 }
 
@@ -327,19 +334,20 @@ const categories = computed(() => normalizePostListValue(frontmatter.value.categ
 @media (max-width: 719px) {
   .lgc-article-header-cover {
     margin-top: -2.25rem;
-    padding-top: 2.25rem;
+    padding-top: 3rem;
     padding-bottom: 1.5rem;
   }
 
   .lgc-article-header-cover .lgc-article-title {
-    font-size: clamp(2.25rem, 12vw, 3.25rem);
+    font-size: clamp(1.875rem, 8vw, 2.5rem);
+    line-height: 1.12;
   }
 }
 
 @media (min-width: 640px) and (max-width: 719px) {
   .lgc-article-header-cover {
     margin-top: -2.75rem;
-    padding-top: 2.625rem;
+    padding-top: 3.5rem;
     padding-bottom: 1.75rem;
   }
 }

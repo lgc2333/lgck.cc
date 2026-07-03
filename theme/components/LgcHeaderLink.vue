@@ -3,12 +3,15 @@ import type { StyleValue } from 'vue'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-import type { HeaderLinkMode, HeaderNavLink } from '../types'
+import type { HeaderActivePathRewrite, HeaderLinkMode, HeaderNavLink } from '../types'
+import type { RouteActiveMatch } from '../utils/route'
+import { isRouteLinkActive } from '../utils/route'
 
 const props = withDefaults(
   defineProps<{
-    activeMatch?: 'exact' | 'prefix'
+    activeMatch?: RouteActiveMatch
     activeExpanded?: boolean
+    activePathRewrites?: HeaderActivePathRewrite[]
     fixed?: boolean
     item: HeaderNavLink
     linkStyle?: StyleValue
@@ -22,20 +25,13 @@ const props = withDefaults(
 
 const route = useRoute()
 const isRouteActive = computed(() => {
-  if (!props.item.link.startsWith('/')) return false
-
-  const current = normalizePath(route.path)
-  const target = normalizePath(props.item.link)
-
-  if (props.activeMatch === 'exact') return current === target
-  if (target === '/') return current === '/'
-  return current === target || current.startsWith(`${target}/`)
+  return isRouteLinkActive(
+    route.path,
+    props.item.link,
+    props.activeMatch,
+    props.activePathRewrites,
+  )
 })
-
-function normalizePath(path: string) {
-  if (path === '/') return path
-  return path.replace(/\/+$/, '')
-}
 </script>
 
 <template>
