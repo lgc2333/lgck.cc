@@ -86,18 +86,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
           </h3>
           <div v-if="post.excerpt" class="lgc-post-excerpt" v-html="post.excerpt" />
           <div v-if="hasMetaChips" class="lgc-post-tags">
-            <span v-if="category" class="lgc-post-tag lgc-chip-tonal">
-              <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
-              {{ category }}
-            </span>
-            <span
-              v-for="tag in tags"
-              :key="`cover-tag-${tag}`"
-              class="lgc-post-tag lgc-chip-tonal"
-            >
-              <span i-material-symbols-tag-rounded aria-hidden="true" />
-              {{ tag }}
-            </span>
+            <LgcPostMetaChips :category="category" :tags="tags" />
           </div>
         </div>
 
@@ -119,26 +108,12 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
         </h3>
         <div v-if="post.excerpt" class="lgc-post-excerpt" v-html="post.excerpt" />
         <div v-if="hasMetaChips" class="lgc-post-tags lgc-post-tags-inline">
-          <span v-if="category" class="lgc-post-tag lgc-chip-tonal">
-            <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
-            {{ category }}
-          </span>
-          <span v-for="tag in tags" :key="tag" class="lgc-post-tag lgc-chip-tonal">
-            <span i-material-symbols-tag-rounded aria-hidden="true" />
-            {{ tag }}
-          </span>
+          <LgcPostMetaChips :category="category" :tags="tags" />
         </div>
       </div>
 
       <div v-if="hasMetaChips" class="lgc-post-tags lgc-post-tags-mobile">
-        <span v-if="category" class="lgc-post-tag lgc-chip-tonal">
-          <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
-          {{ category }}
-        </span>
-        <span v-for="tag in tags" :key="tag" class="lgc-post-tag lgc-chip-tonal">
-          <span i-material-symbols-tag-rounded aria-hidden="true" />
-          {{ tag }}
-        </span>
+        <LgcPostMetaChips :category="category" :tags="tags" />
       </div>
 
       <span class="lgc-post-arrow lgc-card-arrow" aria-hidden="true">
@@ -294,15 +269,11 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 }
 
 .lgc-post-excerpt {
-  // display: -webkit-box;
   margin-top: 0.75rem;
   overflow: hidden;
   color: var(--md-sys-color-on-surface-variant);
   font-size: 0.875rem;
   line-height: 1.75;
-  // -webkit-box-orient: vertical;
-  // line-clamp: 3;
-  // -webkit-line-clamp: 3;
 }
 
 .lgc-post-card.has-cover .lgc-post-excerpt {
@@ -338,14 +309,6 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 
 .lgc-post-tags-mobile {
   grid-column: 1 / -1;
-}
-
-.lgc-post-tag {
-  gap: 0.125rem;
-  height: 2rem;
-  padding-inline: 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 700;
 }
 
 .lgc-post-arrow {

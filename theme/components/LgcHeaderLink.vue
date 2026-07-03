@@ -32,6 +32,11 @@ const isRouteActive = computed(() => {
     props.activePathRewrites,
   )
 })
+const iconClass = computed(() => {
+  return isRouteActive.value
+    ? props.item.activeIcon || props.item.icon
+    : props.item.icon
+})
 </script>
 
 <template>
@@ -50,8 +55,7 @@ const isRouteActive = computed(() => {
     :to="item.link"
     :aria-label="item.text"
   >
-    <span v-if="item.icon" :class="item.icon" aria-hidden="true" />
-    <span v-else class="lgc-header-fallback">{{ item.text.slice(0, 1) }}</span>
+    <span class="lgc-header-icon" :class="iconClass" aria-hidden="true" />
     <span class="lgc-header-label">{{ item.text }}</span>
   </AppLink>
 </template>
@@ -93,7 +97,7 @@ const isRouteActive = computed(() => {
   }
 }
 
-.lgc-header-link > span:first-child {
+.lgc-header-icon {
   flex: 0 0 var(--lgc-header-link-icon-size);
   inline-size: var(--lgc-header-link-icon-size);
   block-size: var(--lgc-header-link-icon-size);
@@ -151,10 +155,5 @@ const isRouteActive = computed(() => {
   max-width: 0;
   margin-left: 0;
   opacity: 0;
-}
-
-.lgc-header-fallback {
-  font-size: 1.25rem;
-  font-weight: 800;
 }
 </style>

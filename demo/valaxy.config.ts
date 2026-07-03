@@ -15,6 +15,7 @@ export default defineConfig<ThemeConfig>({
           text: 'Posts',
           link: '/page',
           icon: 'i-material-symbols-article-outline-rounded',
+          activeIcon: 'i-material-symbols-article-rounded',
         },
         {
           text: 'Archives',
@@ -25,6 +26,7 @@ export default defineConfig<ThemeConfig>({
           text: 'Categories',
           link: '/categories',
           icon: 'i-material-symbols-category-outline-rounded',
+          activeIcon: 'i-material-symbols-category-rounded',
         },
         {
           text: 'Tags',

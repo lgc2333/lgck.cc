@@ -328,8 +328,21 @@ html.dark {
   }
 }
 
-@media (max-width: 639.9px) {
+@media (max-width: 640px) {
   .markdown-body {
+    --va-code-mobile-margin-x: 0;
+
+    div[class*='language-'] {
+      margin-inline: 0;
+      border-radius: calc(var(--lgc-radius-large) - 0.75rem);
+    }
+
+    .vp-code-group .tabs {
+      margin-inline: 0;
+      border-radius: calc(var(--lgc-radius-large) - 0.75rem)
+        calc(var(--lgc-radius-large) - 0.75rem) 0 0;
+    }
+
     h1 {
       font-size: 2rem;
     }

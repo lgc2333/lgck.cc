@@ -31,7 +31,8 @@ const linkStyle = computed(() => ({
 const homeLink = computed<HeaderNavLink>(() => ({
   text: homeLabel.value,
   link: '/',
-  icon: 'i-material-symbols-home-rounded',
+  icon: 'i-material-symbols-home-outline-rounded',
+  activeIcon: 'i-material-symbols-home-rounded',
 }))
 
 const headerLinks = computed<HeaderNavLink[]>(() => {
@@ -82,7 +83,7 @@ function closeDrawer() {
         />
       </div>
 
-      <LgcHeaderActions optional-class="is-optional" />
+      <LgcHeaderActions action-class="is-header-action" optional-class="is-optional" />
     </nav>
   </header>
 
@@ -90,7 +91,7 @@ function closeDrawer() {
     <LgcHeaderDrawer
       :add-home="addHome"
       :active-path-rewrites="activePathRewrites"
-      :home-label="homeLabel"
+      :home-link="homeLink"
       :links="headerLinks"
       :open="drawerOpen"
       @close="closeDrawer"

@@ -1,13 +1,18 @@
 <script setup lang="ts">
+import { useAppStore, useLocale } from 'valaxy'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
+import { useThemeConfig } from '../composables'
 import type { HeaderActivePathRewrite, HeaderNavLink } from '../types'
+import { formatLocaleName } from '../utils/locale'
 import { isRouteLinkActive } from '../utils/route'
 
 const props = defineProps<{
   addHome?: boolean
   activePathRewrites?: HeaderActivePathRewrite[]
-  homeLabel?: string
+  homeLink: HeaderNavLink
   links: HeaderNavLink[]
   open: boolean
 }>()
@@ -17,9 +22,30 @@ const emit = defineEmits<{
 }>()
 
 const route = useRoute()
+const appStore = useAppStore()
+const themeConfig = useThemeConfig()
+const { t, locale } = useI18n()
+const { toggleLocales } = useLocale()
+const languageFlipping = ref(false)
+const showI18n = computed(() => themeConfig.value.header?.i18n !== false)
+const languageName = computed(() => formatLocaleName(locale.value))
 
 function isDrawerLinkActive(item: HeaderNavLink) {
-  return isRouteLinkActive(route.path, item.link, 'prefix', props.activePathRewrites)
+  const activeMatch = item.link === '/' ? 'exact' : 'prefix'
+
+  return isRouteLinkActive(route.path, item.link, activeMatch, props.activePathRewrites)
+}
+
+function getDrawerIcon(item: HeaderNavLink) {
+  return isDrawerLinkActive(item) ? item.activeIcon || item.icon : item.icon
+}
+
+function toggleLanguage() {
+  languageFlipping.value = false
+  requestAnimationFrame(() => {
+    languageFlipping.value = true
+  })
+  toggleLocales()
 }
 </script>
 
@@ -58,11 +84,16 @@ function isDrawerLinkActive(item: HeaderNavLink) {
           <AppLink
             v-if="addHome"
             class="lgc-drawer-link lgc-drawer-home"
-            to="/"
+            :class="{ 'is-route-active': isDrawerLinkActive(homeLink) }"
+            :to="homeLink.link"
             @click="emit('close')"
           >
-            <span i-material-symbols-home-rounded aria-hidden="true" />
-            <span>{{ homeLabel || 'Home' }}</span>
+            <span
+              class="lgc-drawer-icon"
+              :class="getDrawerIcon(homeLink)"
+              aria-hidden="true"
+            />
+            <span>{{ homeLink.text }}</span>
           </AppLink>
 
           <AppLink
@@ -73,11 +104,58 @@ function isDrawerLinkActive(item: HeaderNavLink) {
             :to="item.link"
             @click="emit('close')"
           >
-            <span v-if="item.icon" :class="item.icon" aria-hidden="true" />
-            <span v-else class="lgc-drawer-fallback">{{ item.text.slice(0, 1) }}</span>
+            <span
+              class="lgc-drawer-icon"
+              :class="getDrawerIcon(item)"
+              aria-hidden="true"
+            />
             <span>{{ item.text }}</span>
           </AppLink>
         </nav>
+
+        <div class="lgc-drawer-footer" aria-label="Navigation settings">
+          <button
+            v-if="showI18n"
+            class="lgc-drawer-link lgc-drawer-control"
+            type="button"
+            :aria-label="t('button.toggle_langs')"
+            @click="toggleLanguage"
+          >
+            <span
+              class="lgc-drawer-icon"
+              :class="{ 'is-flipping': languageFlipping }"
+              i-material-symbols-translate-rounded
+              aria-hidden="true"
+              @animationend="languageFlipping = false"
+            />
+            <span>{{ languageName }}</span>
+          </button>
+
+          <button
+            class="lgc-drawer-link lgc-drawer-control"
+            type="button"
+            :aria-label="
+              appStore.isDark ? t('button.toggle_light') : t('button.toggle_dark')
+            "
+            @click="appStore.toggleDarkWithTransition"
+          >
+            <span
+              v-if="!appStore.isDark"
+              class="lgc-drawer-icon"
+              i-material-symbols-light-mode-outline-rounded
+              aria-hidden="true"
+            />
+            <span
+              v-else
+              class="lgc-drawer-icon"
+              i-material-symbols-dark-mode-outline-rounded
+              aria-hidden="true"
+            />
+            <span>
+              {{ appStore.isDark ? t('button.toggle_light') : t('button.toggle_dark') }}
+            </span>
+          </button>
+        </div>
       </aside>
     </Transition>
   </Teleport>
@@ -135,8 +213,17 @@ function isDrawerLinkActive(item: HeaderNavLink) {
 
 .lgc-drawer-list {
   display: grid;
+  flex: 1;
+  align-content: start;
   gap: 0.375rem;
   padding-top: 0.5rem;
+}
+
+.lgc-drawer-footer {
+  display: grid;
+  gap: 0.375rem;
+  padding-top: 1rem;
+  margin-top: auto;
 }
 
 .lgc-drawer-link {
@@ -146,16 +233,25 @@ function isDrawerLinkActive(item: HeaderNavLink) {
   align-items: center;
   gap: 0.875rem;
   padding-inline: 1rem;
+  border: 0;
   border-radius: var(--lgc-radius-control);
   color: var(--md-sys-color-on-surface-variant);
   font-size: 0.9375rem;
   font-weight: 800;
+  text-align: left;
   text-decoration: none;
   transition:
     background-color var(--lgc-motion-short) var(--lgc-easing-standard),
     border-radius var(--lgc-motion-short) var(--lgc-easing-standard),
     color var(--lgc-motion-short) var(--lgc-easing-standard),
     transform var(--lgc-motion-short) var(--lgc-easing-standard);
+}
+
+.lgc-drawer-control {
+  appearance: none;
+  font: inherit;
+  cursor: pointer;
+  background: transparent;
 }
 
 .lgc-drawer-link:hover,
@@ -193,9 +289,24 @@ function isDrawerLinkActive(item: HeaderNavLink) {
   background: var(--md-sys-color-primary-container);
 }
 
-.lgc-drawer-fallback {
-  font-weight: 900;
-  text-align: center;
+.lgc-drawer-icon {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.lgc-drawer-icon.is-flipping {
+  animation: lgc-lang-flip 520ms var(--lgc-easing-standard);
+}
+
+@keyframes lgc-lang-flip {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
 }
 
 .lgc-drawer-fade-enter-active,

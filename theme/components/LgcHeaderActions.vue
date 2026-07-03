@@ -4,17 +4,38 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useThemeConfig } from '../composables'
+import { formatLocaleName } from '../utils/locale'
 
-defineProps<{
-  optionalClass?: string
-}>()
+defineOptions({
+  inheritAttrs: false,
+})
+
+const props = withDefaults(
+  defineProps<{
+    actionClass?: string
+    optionalClass?: string
+    showLanguage?: boolean
+    showSearch?: boolean
+    showTheme?: boolean
+  }>(),
+  {
+    showLanguage: true,
+    showSearch: true,
+    showTheme: true,
+  },
+)
+
+const actionClasses = computed(() => [props.optionalClass, props.actionClass])
 
 const appStore = useAppStore()
 const themeConfig = useThemeConfig()
 const { t, locale } = useI18n()
 const { toggleLocales } = useLocale()
 const languageFlipping = ref(false)
-const showI18n = computed(() => themeConfig.value.header?.i18n !== false)
+const showI18n = computed(() => {
+  return props.showLanguage && themeConfig.value.header?.i18n !== false
+})
+const languageName = computed(() => formatLocaleName(locale.value))
 
 function toggleLanguage() {
   languageFlipping.value = false
@@ -30,13 +51,13 @@ function toggleLanguage() {
     <button
       v-if="showI18n"
       class="lgc-header-button lgc-header-lang lgc-icon-button-base lgc-icon-button-hover"
-      :class="optionalClass"
+      :class="actionClasses"
       type="button"
       :aria-label="t('button.toggle_langs')"
       :title="t('button.toggle_langs')"
       @click="toggleLanguage"
     >
-      <span class="lgc-header-lang-label">{{ locale }}</span>
+      <span class="lgc-header-lang-label">{{ languageName }}</span>
       <span
         class="lgc-header-lang-icon"
         :class="{ 'is-flipping': languageFlipping }"
@@ -47,7 +68,9 @@ function toggleLanguage() {
     </button>
 
     <button
+      v-if="showTheme"
       class="lgc-header-button lgc-icon-button-base lgc-icon-button-hover"
+      :class="actionClasses"
       type="button"
       aria-label="Toggle dark mode"
       @click="appStore.toggleDarkWithTransition"
@@ -61,7 +84,9 @@ function toggleLanguage() {
     </button>
 
     <button
+      v-if="showSearch"
       class="lgc-header-button lgc-icon-button-base lgc-icon-button-hover"
+      :class="actionClasses"
       type="button"
       aria-label="Search"
     >
@@ -88,7 +113,7 @@ function toggleLanguage() {
 
   &:hover,
   &:focus-visible {
-    max-width: 8rem;
+    max-width: 9rem;
   }
 }
 
@@ -110,7 +135,7 @@ function toggleLanguage() {
 
 .lgc-header-lang:hover .lgc-header-lang-label,
 .lgc-header-lang:focus-visible .lgc-header-lang-label {
-  max-width: 4rem;
+  max-width: 5rem;
   margin-right: var(--lgc-gap-compact);
   opacity: 1;
 }
@@ -121,6 +146,16 @@ function toggleLanguage() {
 
 .lgc-header-lang-icon.is-flipping {
   animation: lgc-lang-flip 520ms var(--lgc-easing-standard);
+}
+
+@media (max-width: 720px) {
+  .lgc-header-button.is-header-action {
+    display: none;
+  }
+
+  .lgc-header-button.is-header-action:last-child {
+    display: grid;
+  }
 }
 
 @keyframes lgc-lang-flip {
