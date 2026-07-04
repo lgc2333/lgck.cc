@@ -125,7 +125,7 @@ function closeDrawer() {
 }
 
 .lgc-header-shell.is-scrolled .lgc-header {
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(12px);
   background: color-mix(
     in srgb,
     var(--md-sys-color-primary-container) 40%,

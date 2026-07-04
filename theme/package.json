@@ -26,5 +26,8 @@
     "vite-plugin-font": "catalog:",
     "vue-i18n": "catalog:",
     "vue-router": "catalog:"
+  },
+  "devDependencies": {
+    "valaxy-addon-algolia": "catalog:"
   }
 }

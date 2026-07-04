@@ -182,7 +182,7 @@ function toggleLanguage() {
   padding: 1rem;
   color: var(--md-sys-color-on-surface);
   background: var(--md-sys-color-surface-container-low);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(8px);
   border-radius: 0 var(--lgc-radius-large) var(--lgc-radius-large) 0;
 }
 

@@ -83,15 +83,7 @@ function toggleLanguage() {
       <span v-else i-material-symbols-dark-mode-outline-rounded aria-hidden="true" />
     </button>
 
-    <button
-      v-if="showSearch"
-      class="lgc-header-button lgc-icon-button-base lgc-icon-button-hover"
-      :class="actionClasses"
-      type="button"
-      aria-label="Search"
-    >
-      <span i-material-symbols-search-rounded aria-hidden="true" />
-    </button>
+    <LgcUnifiedSearch v-if="showSearch" :action-class="actionClasses" />
   </div>
 </template>
 
@@ -153,7 +145,8 @@ function toggleLanguage() {
     display: none;
   }
 
-  .lgc-header-button.is-header-action:last-child {
+  .lgc-search.is-header-action,
+  .lgc-search.is-header-action .lgc-header-button.is-header-action {
     display: grid;
   }
 }

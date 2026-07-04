@@ -131,7 +131,7 @@ defineProps<{
     var(--md-sys-color-secondary-container) 78%,
     transparent
   );
-  backdrop-filter: blur(12px);
+  // backdrop-filter: blur(12px);
 }
 
 @media (min-width: 720px) {

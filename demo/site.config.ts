@@ -94,6 +94,11 @@ export default defineSiteConfig({
     enable: true,
   },
 
+  search: {
+    enable: true,
+    // provider: 'local',  // TODO: Bug in upstream framework valaxy, open a issue soon
+  },
+
   statistics: {
     enable: true,
   },
