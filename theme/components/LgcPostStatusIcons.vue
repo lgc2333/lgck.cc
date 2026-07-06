@@ -31,7 +31,7 @@ const hasStatusIcons = computed(() => Boolean(title.value))
     <span
       v-if="post.draft"
       class="lgc-post-status-icon is-draft"
-      i-ri-draft-line
+      i-ri-draft-fill
       aria-hidden="true"
     />
     <span
@@ -41,15 +41,9 @@ const hasStatusIcons = computed(() => Boolean(title.value))
       aria-hidden="true"
     />
     <span
-      v-if="post.hide === 'index'"
+      v-if="post.hide"
       class="lgc-post-status-icon is-hidden"
       i-material-symbols-visibility-off-rounded
-      aria-hidden="true"
-    />
-    <span
-      v-else-if="post.hide"
-      class="lgc-post-status-icon is-hidden"
-      i-material-symbols-visibility-rounded
       aria-hidden="true"
     />
     <span class="sr-only">{{ title }}</span>
@@ -76,15 +70,18 @@ const hasStatusIcons = computed(() => Boolean(title.value))
   place-items: center;
   border-radius: 999px;
   font-size: 1.125rem;
+}
+
+.lgc-post-status-icon.is-hidden {
   background: var(--md-sys-color-tertiary-container);
 }
 
 .lgc-post-status-icon.is-pinned {
-  background: var(--md-sys-color-secondary-container);
+  background: var(--md-sys-color-primary-container);
   transform: rotate(45deg);
 }
 
 .lgc-post-status-icon.is-draft {
-  background: var(--md-sys-color-surface-container-highest);
+  background: var(--md-sys-color-secondary-container);
 }
 </style>
