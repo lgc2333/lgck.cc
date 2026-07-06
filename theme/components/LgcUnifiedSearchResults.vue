@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { nextTick, ref, watch } from 'vue'
+
 import type { SearchItem } from '../types/search'
 import LgcUnifiedSearchResultButton from './LgcUnifiedSearchResultButton.vue'
 
-defineProps<{
+const props = defineProps<{
   hasQuery: boolean
   loading: boolean
   loadingText: string
@@ -16,23 +18,37 @@ defineEmits<{
   navigate: [item: SearchItem]
   select: [index: number]
 }>()
+
+const resultsRef = ref<HTMLElement>()
+
+watch(
+  () => props.selectedIndex,
+  async () => {
+    await nextTick()
+
+    resultsRef.value
+      ?.querySelector('.lgc-search-result.is-selected')
+      ?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+  },
+)
 </script>
 
 <template>
-  <div class="lgc-search-results">
+  <div ref="resultsRef" class="lgc-search-results">
     <div v-if="loading" class="lgc-search-note">{{ loadingText }}</div>
     <div v-else-if="!hasQuery" class="lgc-search-note">{{ placeholder }}</div>
     <div v-else-if="results.length === 0" class="lgc-search-note">
       {{ noResultsText }}
     </div>
-    <LgcUnifiedSearchResultButton
-      v-for="(item, index) in results"
-      v-else
-      :key="item.id"
-      :item="item"
-      :selected="selectedIndex === index"
-      @mouseenter="$emit('select', index)"
-      @click="$emit('navigate', item)"
-    />
+    <div v-else class="lgc-search-result-list">
+      <LgcUnifiedSearchResultButton
+        v-for="(item, index) in results"
+        :key="item.id"
+        :item="item"
+        :selected="selectedIndex === index"
+        @mouseenter="$emit('select', index)"
+        @click="$emit('navigate', item)"
+      />
+    </div>
   </div>
 </template>

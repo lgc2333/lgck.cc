@@ -6,27 +6,34 @@ For docs mainly for AI (like `AGENTS.md`), keep them concise and token efficient
 
 ## Project Structure
 
-- `blog/`: production Valaxy site; content and app code are in `pages/`, `components/`, `styles/`, `setup/`, and `public/`.
-- `theme/`: package `valaxy-theme-lgcuwukii`, with shared code in `components/`, `layouts/`, `composables/`, `styles/`, `client/`, `node/`, and `types/`.
-- `demo/`: demo site that consumes the local theme.
+- pnpm workspace packages are `blog`, `demo`, and `theme`; shared versions live in the `pnpm-workspace.yaml` catalog.
+- `blog/`: production Valaxy site. Edit source in `pages/`, `components/`, `styles/`, `setup/`, `public/`, `site.config.ts`, and `valaxy.config.ts`.
+- `theme/`: package `valaxy-theme-lgcuwukii`; read `theme/AGENTS.md` for its structure map.
+- `demo/`: local theme demo that consumes `theme` through `workspace:*`; includes sample `pages/`, `components/`, `styles/`, `locales/`, and Valaxy config.
+- Generated outputs include `.valaxy/`, `dist/`, feed files, `valaxy-fuse-list.json`, and `*.tsbuildinfo`; do not edit them as source.
 - `temp/`: ignored scratch space; store temporary files in `temp/<sub-category>/`.
 
 ## Commands
 
 ```bash
 pnpm install
+pnpm lint                 # lint TypeScript, Vue, JS, and config files
+pnpm lint:fix             # auto-fix lint issues
+pnpm check                # type-check root, blog, demo, and theme project refs
+pnpm format               # format files with Prettier
 pnpm --dir blog dev       # start the main blog locally
-pnpm --dir demo dev       # start the theme demo locally
 pnpm --dir blog build     # production SSG build
-pnpm --dir demo build     # demo SSG build
-pnpm lint                 # lint TypeScript, Vue, JS, and config files (dir param optional)
-pnpm check                # type-check root workspace projects (dir param optional)
-pnpm format               # format files with Prettier (dir param optional)
+pnpm --dir blog build:spa # SPA build
+pnpm --dir blog serve     # preview built output
 pnpm --dir blog rss       # regenerate RSS output
 pnpm --dir blog sponsor   # regenerate sponsor assets
+pnpm --dir demo dev       # start the theme demo locally
+pnpm --dir demo build     # demo SSG build
+pnpm --dir demo build:spa # demo SPA build
+pnpm --dir demo serve     # preview demo output
 ```
 
-Run `format`, `lint`, and `check` scripts after code changes.
+Run `format`, `lint`, and `check` after code changes. `theme/` has no package scripts; validate theme work through root checks plus `blog`/`demo` builds as relevant.
 
 ## Valaxy Reference
 
@@ -38,11 +45,14 @@ Before implementing theme features, first inspect how the default theme `valaxy-
 ### Engineering
 
 - Prefer thoughtful refactors when tiny patches would create spaghetti code.
+- Keep dependency versions centralized in the workspace catalog unless a package truly needs an exception.
 - If formatter output conflicts with an ESLint style rule, keep the formatter result and disable the conflicting ESLint rule in `eslint.config.mjs`.
 - For M3 loading indicator work, read `theme/utils/m3-loading-indicator/NOTE.md` before editing; official AndroidX/Flutter source is the fact standard, not old staged diffs.
+- When project structure, theme structure, or design rules change, update `AGENTS.md` and related docs such as `theme/AGENTS.md` in the same change.
 
 ### Styling And UI
 
+- For theme structure and design direction, read `theme/AGENTS.md` before reshaping landing, post feed, navigation, search, or Material 3 Expressive styling.
 - Styling: use traditional SCSS for authored theme/site styles. Do not use UnoCSS utilities, shortcuts, or `@apply` for stable UI styling.
 - Keep UnoCSS limited to icon generation and required Valaxy integration in `valaxy.config.ts`; do not add standalone Uno config files. Put real styling in component scoped SCSS or `styles/*.scss`.
 - UI states should have clear layering: base, hover/focus, and active/selected styles must be distinct, with active rules ordered after hover when they overlap.
@@ -53,6 +63,7 @@ Before implementing theme features, first inspect how the default theme `valaxy-
 ### Configuration
 
 - Theme defaults should stay minimal behavior defaults. Put site-owned content such as title, author, avatar, social links, and long example lists in `site.config.ts` or demos, not theme defaults.
+- Theme config types live under `theme/types/`; defaults and Valaxy theme integration live under `theme/node/`.
 
 ### Tools And Files
 

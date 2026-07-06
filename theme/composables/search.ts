@@ -44,7 +44,9 @@ export function useUnifiedSearch() {
   const openInline = ref(false)
   const openDrawer = ref(false)
   const mobileSearchMode = ref(false)
-  const selectedIndex = ref(0)
+  const previewSelectedIndex = ref(0)
+  const drawerSelectedIndex = ref(0)
+  const mobileSelectedIndex = ref(0)
   const fuseLoaded = ref(false)
   const fuseLoading = ref(false)
   const localLoaded = ref(false)
@@ -64,7 +66,14 @@ export function useUnifiedSearch() {
     load: loadLocalSearch,
   } = useLocalSearch(debouncedQuery)
 
-  const loading = computed(() => fuseLoading.value || localLoading.value)
+  const hasQuery = computed(() => query.value.trim().length > 0)
+  const loading = computed(() => {
+    return (
+      fuseLoading.value ||
+      localLoading.value ||
+      (hasQuery.value && query.value.trim() !== debouncedQuery.value.trim())
+    )
+  })
   const results = computed<SearchItem[]>(() => {
     if (!debouncedQuery.value.trim()) return []
 
@@ -75,7 +84,6 @@ export function useUnifiedSearch() {
     return []
   })
   const previewResults = computed(() => results.value.slice(0, PREVIEW_LIMIT))
-  const hasQuery = computed(() => query.value.trim().length > 0)
   const previewOptionsCount = computed(() => {
     return previewResults.value.length > 0 ? previewResults.value.length + 1 : 0
   })
@@ -94,21 +102,16 @@ export function useUnifiedSearch() {
     return 0
   })
   const previewSelectedIsAll = computed(() => {
-    return selectedIndex.value === previewResults.value.length
+    return previewSelectedIndex.value === previewResults.value.length
   })
 
   watch(results, () => {
-    selectedIndex.value = 0
+    resetSelectedIndexes()
   })
 
-  watch(activeOptionsCount, (count) => {
-    if (count <= 0) {
-      selectedIndex.value = 0
-      return
-    }
-
-    selectedIndex.value = Math.min(selectedIndex.value, count - 1)
-  })
+  watch(previewOptionsCount, (count) => clampSelectedIndex(previewSelectedIndex, count))
+  watch(drawerOptionsCount, (count) => clampSelectedIndex(drawerSelectedIndex, count))
+  watch(mobileOptionsCount, (count) => clampSelectedIndex(mobileSelectedIndex, count))
 
   onClickOutside(rootRef, () => {
     if (openInline.value && !openDrawer.value && !mobileSearchMode.value) closeInline()
@@ -147,37 +150,37 @@ export function useUnifiedSearch() {
   function openInlineSearch() {
     mobileSearchMode.value = false
     openInline.value = true
-    selectedIndex.value = 0
+    previewSelectedIndex.value = 0
   }
 
   function openMobilePanel() {
     openInline.value = false
     openDrawer.value = false
     mobileSearchMode.value = true
-    selectedIndex.value = 0
+    mobileSelectedIndex.value = 0
   }
 
   function closeInline() {
     openInline.value = false
     openDrawer.value = false
-    selectedIndex.value = 0
+    previewSelectedIndex.value = 0
   }
 
   function closeDrawer() {
     openDrawer.value = false
-    selectedIndex.value = 0
+    drawerSelectedIndex.value = 0
   }
 
   function closeMobilePanel() {
     mobileSearchMode.value = false
-    selectedIndex.value = 0
+    mobileSelectedIndex.value = 0
   }
 
   function closeAll() {
     openInline.value = false
     openDrawer.value = false
     mobileSearchMode.value = false
-    selectedIndex.value = 0
+    resetSelectedIndexes()
   }
 
   function resetAndClose() {
@@ -252,28 +255,30 @@ export function useUnifiedSearch() {
     const count = activeOptionsCount.value
     if (count <= 0) return
 
-    selectedIndex.value = (selectedIndex.value + offset + count) % count
+    setActiveSelectedIndex((getActiveSelectedIndex() + offset + count) % count)
   }
 
   function activateSelected() {
+    const selectedIndex = getActiveSelectedIndex()
+
     if (activeLayer.value === 'preview') {
       if (previewSelectedIsAll.value) {
         openResultsDrawer()
         return
       }
 
-      const item = previewResults.value[selectedIndex.value]
+      const item = previewResults.value[selectedIndex]
       if (item) navigateToResult(item)
       return
     }
 
-    const item = results.value[selectedIndex.value]
+    const item = results.value[selectedIndex]
     if (item) navigateToResult(item)
   }
 
   function openResultsDrawer() {
     openDrawer.value = true
-    selectedIndex.value = 0
+    drawerSelectedIndex.value = 0
   }
 
   function closeActiveLayer() {
@@ -365,9 +370,29 @@ export function useUnifiedSearch() {
       : undefined
   }
 
+  function getActiveSelectedIndex() {
+    if (activeLayer.value === 'drawer') return drawerSelectedIndex.value
+    if (activeLayer.value === 'mobile') return mobileSelectedIndex.value
+    if (activeLayer.value === 'preview') return previewSelectedIndex.value
+    return 0
+  }
+
+  function setActiveSelectedIndex(index: number) {
+    if (activeLayer.value === 'drawer') drawerSelectedIndex.value = index
+    else if (activeLayer.value === 'mobile') mobileSelectedIndex.value = index
+    else if (activeLayer.value === 'preview') previewSelectedIndex.value = index
+  }
+
+  function resetSelectedIndexes() {
+    previewSelectedIndex.value = 0
+    drawerSelectedIndex.value = 0
+    mobileSelectedIndex.value = 0
+  }
+
   return {
     algoliaLoaded,
     closeDrawer,
+    drawerSelectedIndex,
     handleSearchKeydown,
     hasQuery,
     isAlgolia,
@@ -381,12 +406,22 @@ export function useUnifiedSearch() {
     openSearch,
     previewResults,
     previewSelectedIsAll,
+    previewSelectedIndex,
     query,
     resetAndClose,
     results,
     rootRef,
-    selectedIndex,
+    mobileSelectedIndex,
   }
+}
+
+function clampSelectedIndex(selectedIndex: { value: number }, count: number) {
+  if (count <= 0) {
+    selectedIndex.value = 0
+    return
+  }
+
+  selectedIndex.value = Math.min(selectedIndex.value, count - 1)
 }
 
 function normalizePath(path: string) {

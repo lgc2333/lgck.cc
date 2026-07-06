@@ -16,6 +16,7 @@ const { t } = useI18n()
 const {
   algoliaLoaded,
   closeDrawer,
+  drawerSelectedIndex,
   handleSearchKeydown,
   hasQuery,
   isAlgolia,
@@ -29,11 +30,12 @@ const {
   openSearch,
   previewResults,
   previewSelectedIsAll,
+  previewSelectedIndex,
   query,
   resetAndClose,
   results,
   rootRef,
-  selectedIndex,
+  mobileSelectedIndex,
 } = useUnifiedSearch()
 const inlineFocusKey = ref(0)
 
@@ -64,10 +66,10 @@ function closeDrawerAndFocusInline() {
         :no-results-text="t('search.no_results_hint')"
         :placeholder="t('search.placeholder')"
         :preview-results="previewResults"
-        :selected-index="selectedIndex"
+        :selected-index="previewSelectedIndex"
         :view-all-selected="previewSelectedIsAll"
         @navigate="navigateToResult"
-        @select="selectedIndex = $event"
+        @select="previewSelectedIndex = $event"
         @view-all="openResultsDrawer"
       />
     </div>
@@ -91,22 +93,24 @@ function closeDrawerAndFocusInline() {
 
     <Teleport to="body">
       <ClientOnly>
-        <LgcUnifiedSearchDrawer
-          v-if="openDrawer"
-          v-model="query"
-          :count-text="t('search.hits', results.length || 0)"
-          :has-query="hasQuery"
-          :loading="loading"
-          :loading-text="t('search.loading')"
-          :no-results-text="t('search.no_results_hint')"
-          :placeholder="t('search.placeholder')"
-          :results="results"
-          :selected-index="selectedIndex"
-          @close="closeDrawerAndFocusInline"
-          @keydown="handleSearchKeydown"
-          @navigate="navigateToResult"
-          @select="selectedIndex = $event"
-        />
+        <Transition name="lgc-search-drawer">
+          <LgcUnifiedSearchDrawer
+            v-if="openDrawer"
+            v-model="query"
+            :count-text="t('search.hits', results.length || 0)"
+            :has-query="hasQuery"
+            :loading="loading"
+            :loading-text="t('search.loading')"
+            :no-results-text="t('search.no_results_hint')"
+            :placeholder="t('search.placeholder')"
+            :results="results"
+            :selected-index="drawerSelectedIndex"
+            @close="closeDrawerAndFocusInline"
+            @keydown="handleSearchKeydown"
+            @navigate="navigateToResult"
+            @select="drawerSelectedIndex = $event"
+          />
+        </Transition>
 
         <LgcUnifiedSearchMobile
           v-if="mobileSearchMode"
@@ -117,11 +121,11 @@ function closeDrawerAndFocusInline() {
           :no-results-text="t('search.no_results_hint')"
           :placeholder="t('search.placeholder')"
           :results="results"
-          :selected-index="selectedIndex"
+          :selected-index="mobileSelectedIndex"
           @close="resetAndClose"
           @keydown="handleSearchKeydown"
           @navigate="navigateToResult"
-          @select="selectedIndex = $event"
+          @select="mobileSelectedIndex = $event"
         />
 
         <AlgoliaSearchBox v-if="algoliaLoaded" class="lgc-search-algolia" />
