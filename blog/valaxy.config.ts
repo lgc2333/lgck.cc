@@ -14,6 +14,10 @@ const safelist = [
   'i-ri-price-tag-3-line',
 ]
 
+const giscusCssCorsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+}
+
 export default defineValaxyConfig<ThemeConfig>({
   theme: 'lgcuwukii',
   themeConfig: {
@@ -51,4 +55,8 @@ export default defineValaxyConfig<ThemeConfig>({
   },
   addons: [addonComponents()],
   unocss: { safelist },
+  vite: {
+    preview: { headers: giscusCssCorsHeaders },
+    server: { headers: giscusCssCorsHeaders },
+  },
 })

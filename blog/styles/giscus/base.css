@@ -1,0 +1,78 @@
+html {
+  /* __GISCUS_FORWARDED_VARS__ */
+}
+
+:host,
+html {
+  font-family: var(--va-font-sans);
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--va-font-mono);
+}
+
+main {
+  --color-fg-default: var(--md-sys-color-on-surface);
+  --color-fg-muted: var(--md-sys-color-on-surface-variant);
+  --color-fg-subtle: var(--md-sys-color-outline);
+  --color-canvas-default: var(--md-sys-color-surface);
+  --color-canvas-overlay: var(--md-sys-color-surface);
+  --color-canvas-inset: var(--md-sys-color-surface-container-low);
+  --color-canvas-subtle: var(--md-sys-color-surface-container);
+  --color-border-default: var(--md-sys-color-outline-variant);
+  --color-border-muted: var(--md-sys-color-outline-variant);
+  --color-neutral-muted: color-mix(
+    in srgb,
+    var(--md-sys-color-primary-container) 50%,
+    transparent
+  );
+  --color-accent-fg: var(--md-sys-color-primary);
+  --color-accent-emphasis: var(--md-sys-color-primary);
+  --color-accent-muted: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 42%,
+    transparent
+  );
+  --color-accent-subtle: var(--md-sys-color-primary-container);
+  --color-attention-fg: var(--md-sys-color-tertiary);
+  --color-attention-subtle: var(--md-sys-color-tertiary-container);
+  --color-btn-text: var(--md-sys-color-on-surface);
+  --color-btn-bg: var(--md-sys-color-surface-container-high);
+  --color-btn-border: transparent;
+  --color-btn-shadow: none;
+  --color-btn-inset-shadow: none;
+  --color-btn-hover-bg: var(--md-sys-color-primary-container);
+  --color-btn-hover-border: transparent;
+  --color-btn-active-bg: var(--md-sys-color-primary-container);
+  --color-btn-active-border: transparent;
+  --color-btn-selected-bg: var(--md-sys-color-primary-container);
+  --color-btn-primary-text: var(--md-sys-color-on-primary);
+  --color-btn-primary-bg: var(--md-sys-color-primary);
+  --color-btn-primary-border: transparent;
+  --color-btn-primary-shadow: none;
+  --color-btn-primary-inset-shadow: none;
+  --color-btn-primary-hover-bg: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 88%,
+    var(--md-sys-color-on-primary)
+  );
+  --color-btn-primary-hover-border: transparent;
+  --color-btn-primary-selected-bg: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 80%,
+    var(--md-sys-color-on-primary)
+  );
+  --color-action-list-item-default-hover-bg: color-mix(
+    in srgb,
+    var(--md-sys-color-primary-container) 50%,
+    transparent
+  );
+  --color-segmented-control-bg: var(--md-sys-color-surface-container-low);
+  --color-segmented-control-button-bg: var(--md-sys-color-surface);
+  --color-segmented-control-button-selected-border: var(--md-sys-color-outline-variant);
+  --color-social-reaction-bg-hover: var(--md-sys-color-primary-container);
+  --color-social-reaction-bg-reacted-hover: var(--md-sys-color-secondary-container);
+}

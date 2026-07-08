@@ -11,6 +11,9 @@ const harmonyOSFontFaceFamilyRE =
 const harmonyOSLocalSourceRE =
   /src\s*:\s*local\(["']?HarmonyOS Sans(?: SC)?(?: (?:Thin|Light|Medium|Bold|Black))?["']?\),\s*/g
 const fontFaceBlockRE = /@font-face\s*\{[^}]*\}/g
+const fontImportRE =
+  /@import\s+url\(["']?https:\/\/fonts\.googleapis\.com\/[^"')]+["']?\);/g
+const emittedFontCssFileName = 'assets/giscus-fonts.css'
 
 function normalizeHarmonyOSFontFaceFamilies(css: string) {
   return css.replace(fontFaceBlockRE, (block) => {
@@ -22,6 +25,13 @@ function normalizeHarmonyOSFontFaceFamilies(css: string) {
       .replace(harmonyOSFontFaceFamilyRE, `font-family:"${harmonyOSUnifiedFamily}"`)
       .replace(harmonyOSLocalSourceRE, 'src:')
   })
+}
+
+function extractFontCss(css: string) {
+  return [
+    ...css.matchAll(fontImportRE).map(([rule]) => rule),
+    ...css.matchAll(fontFaceBlockRE).map(([rule]) => rule),
+  ]
 }
 
 export function harmonyOSFontFamilyPlugin(): Plugin {
@@ -41,6 +51,8 @@ export function harmonyOSFontFamilyPlugin(): Plugin {
     },
 
     generateBundle(_, bundle) {
+      const fontCss: string[] = []
+
       Object.values(bundle).forEach((chunk) => {
         if (
           chunk.type !== 'asset' ||
@@ -50,7 +62,19 @@ export function harmonyOSFontFamilyPlugin(): Plugin {
           return
         }
 
-        chunk.source = normalizeHarmonyOSFontFaceFamilies(chunk.source)
+        const normalized = normalizeHarmonyOSFontFaceFamilies(chunk.source)
+        chunk.source = normalized
+        fontCss.push(...extractFontCss(normalized))
+      })
+
+      if (!fontCss.length) {
+        return
+      }
+
+      this.emitFile({
+        type: 'asset',
+        fileName: emittedFontCssFileName,
+        source: `${[...new Set(fontCss)].join('\n')}\n`,
       })
     },
   }
