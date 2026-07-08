@@ -1,6 +1,6 @@
 .lgc-fixed-bg {
   position: fixed;
-  z-index: -1;
+  z-index: var(--lgc-layer-background);
   inset: 0;
   pointer-events: none;
 }

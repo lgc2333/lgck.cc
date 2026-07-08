@@ -34,9 +34,9 @@ Read `utils/m3-loading-indicator/NOTE.md` before editing the loading indicator.
 - `types/`: public theme config and Valaxy module augmentation. Keep configurable behavior typed here before using it in `node/` or components.
 - `components/`: auto-registered Vue components. `Lgc*` files own theme UI; Valaxy-compatible names such as `ValaxyApp.vue`, `ValaxyMain.vue`, or `layout.vue` override framework/theme slots.
 - `layouts/`: Valaxy layouts for default, home, post, and 404 routes.
-- `composables/`: runtime state and adapters, including theme config and unified search.
+- `composables/`: runtime state and adapters, including theme config, header state, language icon motion, and unified search helpers.
 - `utils/`: pure helpers for locale, post, routes, repository URLs, search text, and the Material 3 loading indicator.
-- `styles/`: global SCSS entry and shared layers. `styles/index.ts` imports fonts and `index.scss`.
+- `styles/`: global SCSS entry, shared layers, helper mixins, and global search styles. `styles/index.ts` imports fonts and `index.scss`.
 - `assets/`: bundled static assets, especially HarmonyOS font files.
 - `locales/`: theme i18n messages.
 - `pages/`: theme-provided Valaxy pages/routes such as paginated home.
@@ -56,11 +56,12 @@ The theme is a Valaxy blog theme with a configurable landing home, floating head
 - `ValaxyApp.vue` owns global route transition timing and keeps framework theme/user app mounting behavior; `.lgc-page-surface` marks the content areas that visually animate.
 - `LgcLandingHome.vue` owns the first viewport and optional posts section.
 - `LgcHeader.vue`, `LgcHeaderActions.vue`, `LgcHeaderDrawer.vue`, and `LgcHeaderLink.vue` own navigation, i18n/dark/search actions, and responsive drawer behavior.
-- `LgcUnifiedSearch.vue` coordinates local/fuse/Algolia search; field, preview, drawer, mobile, result button, and result list components own their display states.
-- `LgcPostFeed.vue`, `LgcPostFeedCard.vue`, `LgcPostArticle*.vue`, `LgcPostCoverFrame.vue`, `LgcPostMetaChips.vue`, and pagination/nav components own post browsing and reading surfaces.
+- `LgcUnifiedSearch.vue` coordinates local/fuse/Algolia search; `composables/search*.ts` own provider adapters, layer state, and keyboard behavior; field, preview, drawer, mobile, result button, and result list components own display states.
+- `ValaxyMain.vue` owns the reading shell, content card, post navigation slot, and comment slot; `LgcPostArticleHeader.vue`, `LgcPostArticleNav.vue`, `LgcPostCoverFrame.vue`, `LgcPostMetaChips.vue`, `LgcPostFeed.vue`, `LgcPostFeedCard.vue`, `LgcPostFeedPlainCard.vue`, `LgcPostFeedCoverCardMask.vue`, `LgcPostFeedCoverGradientMask.vue`, and pagination components own post browsing and reading pieces.
 - `LgcLoading.vue` and `LgcLoadingIndicator.vue` use `utils/m3-loading-indicator/`; read its `NOTE.md` before changing that implementation.
-- `theme/styles/index.scss` composes token, base, utility, and markdown styles.
+- `theme/styles/index.scss` composes token, base, utility, search, and markdown styles.
 - `theme/styles/tokens.scss` stores shared Material color roles and reusable lgc typography/motion tokens.
+- `theme/styles/helpers.scss` stores SCSS-only breakpoints and shared layout mixins; use it for media queries because CSS custom properties cannot drive them.
 
 ## Landing Rules
 

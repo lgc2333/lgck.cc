@@ -1,5 +1,4 @@
 import { onClickOutside, useDebounce } from '@vueuse/core'
-import type { FuseListItem, LocalSearchResult } from 'valaxy'
 import {
   getAddonModule,
   isEmptyAddon,
@@ -13,18 +12,11 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import type { SearchItem } from '../types/search'
-import {
-  buildSnippetSegments,
-  buildTextSegments,
-  cleanSearchText,
-  findFuseMatch,
-  highlightTerms,
-  segmentsToText,
-  truncateText,
-} from '../utils/search'
+import { useSearchResultAdapters } from './searchAdapters'
+import { useSearchKeyboard } from './searchKeyboard'
+import { useSearchLayers } from './searchLayers'
 
 const PREVIEW_LIMIT = 5
-const MOBILE_QUERY = '(max-width: 720px)'
 
 export function useUnifiedSearch() {
   const siteConfig = useSiteConfig()
@@ -41,16 +33,25 @@ export function useUnifiedSearch() {
   const rootRef = ref<HTMLElement>()
   const query = ref('')
   const debouncedQuery = useDebounce(query, 180)
-  const openInline = ref(false)
-  const openDrawer = ref(false)
-  const mobileSearchMode = ref(false)
+  const {
+    activeLayer,
+    closeAllLayers,
+    closeDrawer: closeSearchDrawer,
+    closeInline: closeInlineLayer,
+    isMobile,
+    mobileSearchMode,
+    openDrawer,
+    openInline,
+    openInlineSearch: openInlineLayer,
+    openMobilePanel: openMobileLayer,
+    openResultsDrawer: openResultsDrawerLayer,
+  } = useSearchLayers()
   const previewSelectedIndex = ref(0)
   const drawerSelectedIndex = ref(0)
   const mobileSelectedIndex = ref(0)
   const fuseLoaded = ref(false)
   const fuseLoading = ref(false)
   const localLoaded = ref(false)
-  const isMobile = ref(false)
   const algoliaLoaded = ref(false)
   const algoliaAddon = getAddonModule<typeof addonAlgolia>(addonAlgolia)
   const algolia =
@@ -59,12 +60,15 @@ export function useUnifiedSearch() {
       : undefined
 
   const { results: fuseResults, fetchFuseListData } = useFuseSearch(debouncedQuery)
-  type FuseSearchResult = (typeof fuseResults.value)[number]
   const {
     results: localResults,
     loading: localLoading,
     load: loadLocalSearch,
   } = useLocalSearch(debouncedQuery)
+  const { normalizeFuseResult, normalizeLocalResult } = useSearchResultAdapters({
+    locale,
+    query: debouncedQuery,
+  })
 
   const hasQuery = computed(() => query.value.trim().length > 0)
   const loading = computed(() => {
@@ -89,12 +93,6 @@ export function useUnifiedSearch() {
   })
   const drawerOptionsCount = computed(() => results.value.length)
   const mobileOptionsCount = computed(() => results.value.length)
-  const activeLayer = computed<'drawer' | 'mobile' | 'preview' | 'none'>(() => {
-    if (openDrawer.value) return 'drawer'
-    if (mobileSearchMode.value) return 'mobile'
-    if (openInline.value) return 'preview'
-    return 'none'
-  })
   const activeOptionsCount = computed(() => {
     if (activeLayer.value === 'drawer') return drawerOptionsCount.value
     if (activeLayer.value === 'mobile') return mobileOptionsCount.value
@@ -103,6 +101,16 @@ export function useUnifiedSearch() {
   })
   const previewSelectedIsAll = computed(() => {
     return previewSelectedIndex.value === previewResults.value.length
+  })
+  const { handleSearchKeydown, onGlobalKeydown } = useSearchKeyboard({
+    activateSelected,
+    activeLayer,
+    activeOptionsCount,
+    closeActiveLayer,
+    getActiveSelectedIndex,
+    isSupported,
+    openSearch,
+    setActiveSelectedIndex,
   })
 
   watch(results, () => {
@@ -118,21 +126,11 @@ export function useUnifiedSearch() {
   })
 
   onMounted(() => {
-    const mediaQuery = window.matchMedia(MOBILE_QUERY)
-    const updateMobile = () => {
-      isMobile.value = mediaQuery.matches
-      if (isMobile.value && openInline.value) openMobilePanel()
-      else if (!isMobile.value && mobileSearchMode.value) closeMobilePanel()
-    }
-
-    updateMobile()
-    mediaQuery.addEventListener('change', updateMobile)
     window.addEventListener('keydown', onGlobalKeydown)
+  })
 
-    onUnmounted(() => {
-      mediaQuery.removeEventListener('change', updateMobile)
-      window.removeEventListener('keydown', onGlobalKeydown)
-    })
+  onUnmounted(() => {
+    window.removeEventListener('keydown', onGlobalKeydown)
   })
 
   async function openSearch() {
@@ -148,38 +146,27 @@ export function useUnifiedSearch() {
   }
 
   function openInlineSearch() {
-    mobileSearchMode.value = false
-    openInline.value = true
+    openInlineLayer()
     previewSelectedIndex.value = 0
   }
 
   function openMobilePanel() {
-    openInline.value = false
-    openDrawer.value = false
-    mobileSearchMode.value = true
+    openMobileLayer()
     mobileSelectedIndex.value = 0
   }
 
   function closeInline() {
-    openInline.value = false
-    openDrawer.value = false
+    closeInlineLayer()
     previewSelectedIndex.value = 0
   }
 
   function closeDrawer() {
-    openDrawer.value = false
+    closeSearchDrawer()
     drawerSelectedIndex.value = 0
   }
 
-  function closeMobilePanel() {
-    mobileSearchMode.value = false
-    mobileSelectedIndex.value = 0
-  }
-
   function closeAll() {
-    openInline.value = false
-    openDrawer.value = false
-    mobileSearchMode.value = false
+    closeAllLayers()
     resetSelectedIndexes()
   }
 
@@ -216,48 +203,6 @@ export function useUnifiedSearch() {
     algolia.dispatchEvent()
   }
 
-  function onGlobalKeydown(event: KeyboardEvent) {
-    if (!isSupported.value) return
-
-    if (event.key.toLowerCase() === 'k' && (event.ctrlKey || event.metaKey)) {
-      event.preventDefault()
-      openSearch()
-      return
-    }
-
-    if (activeLayer.value === 'none' || isEditingContent(event)) return
-
-    handleSearchKeydown(event)
-  }
-
-  function handleSearchKeydown(event: KeyboardEvent) {
-    switch (event.key) {
-      case 'ArrowDown':
-        event.preventDefault()
-        selectByOffset(1)
-        break
-      case 'ArrowUp':
-        event.preventDefault()
-        selectByOffset(-1)
-        break
-      case 'Enter':
-        event.preventDefault()
-        activateSelected()
-        break
-      case 'Escape':
-        event.preventDefault()
-        closeActiveLayer()
-        break
-    }
-  }
-
-  function selectByOffset(offset: number) {
-    const count = activeOptionsCount.value
-    if (count <= 0) return
-
-    setActiveSelectedIndex((getActiveSelectedIndex() + offset + count) % count)
-  }
-
   function activateSelected() {
     const selectedIndex = getActiveSelectedIndex()
 
@@ -277,7 +222,7 @@ export function useUnifiedSearch() {
   }
 
   function openResultsDrawer() {
-    openDrawer.value = true
+    openResultsDrawerLayer()
     drawerSelectedIndex.value = 0
   }
 
@@ -298,76 +243,6 @@ export function useUnifiedSearch() {
   function navigateToResult(item: SearchItem) {
     router.push(item.to)
     resetAndClose()
-  }
-
-  function normalizeFuseResult(result: FuseSearchResult): SearchItem {
-    const item = result.item
-    const to = normalizePath(item.link || item.path || '/')
-    const title = normalizeTitle(item.title) || to
-    const titleMatch = findFuseMatch(result.matches, 'title')
-    const excerptSegments = getFuseExcerptSegments(result)
-    const titleSegments = titleMatch
-      ? buildTextSegments(titleMatch.value || title, titleMatch.indices)
-      : highlightTerms(title, getQueryTerms())
-
-    return {
-      id: `fuse:${to}:${title}`,
-      title,
-      titleSegments,
-      excerpt: segmentsToText(excerptSegments),
-      excerptSegments,
-      path: stripHtmlSuffix(to),
-      to,
-      provider: 'fuse',
-    }
-  }
-
-  function normalizeLocalResult(result: LocalSearchResult): SearchItem {
-    const to = stripHtmlSuffix(result.id)
-    const section = [...(result.titles || []), result.title].filter(Boolean).join(' > ')
-    const path = stripHtmlSuffix(result.id.replace(/#.*$/, '')) || '/'
-    const terms = result.terms.length > 0 ? result.terms : getQueryTerms()
-    const titleSegments = highlightTerms(result.title || getPageTitle(path), terms)
-    const sectionSegments = section ? highlightTerms(section, terms) : undefined
-
-    return {
-      id: `local:${result.id}`,
-      title: result.title || getPageTitle(path),
-      titleSegments,
-      section,
-      sectionSegments,
-      path,
-      to,
-      provider: 'local',
-    }
-  }
-
-  function normalizeTitle(title: FuseListItem['title']): string {
-    if (typeof title === 'string') return title
-
-    return title?.[locale.value] || title?.en || Object.values(title || {})[0] || ''
-  }
-
-  function getQueryTerms() {
-    return debouncedQuery.value.trim().split(/\s+/).filter(Boolean)
-  }
-
-  function getFuseExcerptSegments(result: FuseSearchResult) {
-    const matches = result.matches || []
-    const match =
-      findFuseMatch(matches, 'content') ||
-      findFuseMatch(matches, 'excerpt') ||
-      findFuseMatch(matches, 'title') ||
-      findFuseMatch(matches, 'tags') ||
-      findFuseMatch(matches, 'categories') ||
-      findFuseMatch(matches, 'author')
-
-    if (match) return buildSnippetSegments(match.value || '', match.indices)
-
-    const fallback = cleanSearchText(result.item.excerpt || result.item.content || '')
-    return fallback
-      ? highlightTerms(truncateText(fallback), getQueryTerms())
-      : undefined
   }
 
   function getActiveSelectedIndex() {
@@ -399,19 +274,19 @@ export function useUnifiedSearch() {
     isSupported,
     loading,
     mobileSearchMode,
+    mobileSelectedIndex,
     navigateToResult,
     openDrawer,
     openInline,
     openResultsDrawer,
     openSearch,
     previewResults,
-    previewSelectedIsAll,
     previewSelectedIndex,
+    previewSelectedIsAll,
     query,
     resetAndClose,
     results,
     rootRef,
-    mobileSelectedIndex,
   }
 }
 
@@ -422,28 +297,4 @@ function clampSelectedIndex(selectedIndex: { value: number }, count: number) {
   }
 
   selectedIndex.value = Math.min(selectedIndex.value, count - 1)
-}
-
-function normalizePath(path: string) {
-  return stripHtmlSuffix(path.startsWith('/') ? path : `/${path}`)
-}
-
-function stripHtmlSuffix(path: string) {
-  return path.replace(/\.html(?=($|#))/, '')
-}
-
-function getPageTitle(path: string): string {
-  return path.replace(/^\//, '') || '/'
-}
-
-function isEditingContent(event: KeyboardEvent): boolean {
-  const element = event.target as HTMLElement | null
-  const tagName = element?.tagName
-
-  return Boolean(
-    element?.isContentEditable ||
-    tagName === 'INPUT' ||
-    tagName === 'SELECT' ||
-    tagName === 'TEXTAREA',
-  )
 }

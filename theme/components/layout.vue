@@ -18,6 +18,8 @@
 </template>
 
 <style scoped lang="scss">
+@use '../styles/helpers' as *;
+
 .lgc-layout {
   -webkit-font-smoothing: antialiased;
   color: var(--md-sys-color-on-surface);
@@ -46,14 +48,14 @@
   margin-top: auto;
 }
 
-@media (min-width: 640px) {
+@include compact-up {
   .lgc-layout-inner {
     padding-top: calc(var(--lgc-header-height) + 2rem);
     padding-inline: 1.5rem;
   }
 }
 
-@media (min-width: 1280px) {
+@include wide-up {
   .lgc-layout-inner {
     max-width: var(--lgc-container-wide);
     padding-inline: 0;

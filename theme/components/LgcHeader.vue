@@ -100,9 +100,11 @@ function closeDrawer() {
 </template>
 
 <style scoped lang="scss">
+@use '../styles/helpers' as *;
+
 .lgc-header-shell {
   position: fixed;
-  z-index: 30;
+  z-index: var(--lgc-layer-header);
   top: 0;
   right: 0;
   left: 0;
@@ -144,7 +146,7 @@ function closeDrawer() {
   display: none;
 }
 
-@media (max-width: 720px) {
+@include nav-down {
   .lgc-header-menu {
     display: grid;
   }
@@ -158,7 +160,7 @@ function closeDrawer() {
   }
 }
 
-@media (min-width: 640px) {
+@include compact-up {
   .lgc-header-shell {
     padding-inline: 1rem;
   }

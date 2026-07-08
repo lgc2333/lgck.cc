@@ -1,0 +1,52 @@
+$lgc-breakpoint-compact: 640px;
+$lgc-breakpoint-nav: 720px;
+$lgc-breakpoint-reading-wide: 1180px;
+$lgc-breakpoint-wide: 1280px;
+
+@mixin compact-up {
+  @media (min-width: $lgc-breakpoint-compact) {
+    @content;
+  }
+}
+
+@mixin nav-down {
+  @media (max-width: $lgc-breakpoint-nav) {
+    @content;
+  }
+}
+
+@mixin nav-up {
+  @media (min-width: $lgc-breakpoint-nav) {
+    @content;
+  }
+}
+
+@mixin reading-wide-up {
+  @media (min-width: $lgc-breakpoint-reading-wide) {
+    @content;
+  }
+}
+
+@mixin wide-up {
+  @media (min-width: $lgc-breakpoint-wide) {
+    @content;
+  }
+}
+
+@mixin reading-panel {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 1.25rem;
+  border-radius: var(--lgc-radius-large);
+  color: var(--md-sys-color-on-surface);
+  background: var(--md-sys-color-surface-container);
+
+  @include nav-up {
+    padding: 2rem;
+  }
+
+  @include reading-wide-up {
+    padding: 2.5rem;
+  }
+}

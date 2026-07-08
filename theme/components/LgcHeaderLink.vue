@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import type { StyleValue } from 'vue'
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { toRef } from 'vue'
 
+import { useHeaderNavItemState } from '../composables'
 import type { HeaderActivePathRewrite, HeaderLinkMode, HeaderNavLink } from '../types'
 import type { RouteActiveMatch } from '../utils/route'
-import { isRouteLinkActive } from '../utils/route'
 
 const props = withDefaults(
   defineProps<{
@@ -23,19 +22,10 @@ const props = withDefaults(
   },
 )
 
-const route = useRoute()
-const isRouteActive = computed(() => {
-  return isRouteLinkActive(
-    route.path,
-    props.item.link,
-    props.activeMatch,
-    props.activePathRewrites,
-  )
-})
-const iconClass = computed(() => {
-  return isRouteActive.value
-    ? props.item.activeIcon || props.item.icon
-    : props.item.icon
+const { iconClass, isRouteActive } = useHeaderNavItemState({
+  activeMatch: toRef(props, 'activeMatch'),
+  activePathRewrites: toRef(props, 'activePathRewrites'),
+  item: toRef(props, 'item'),
 })
 </script>
 

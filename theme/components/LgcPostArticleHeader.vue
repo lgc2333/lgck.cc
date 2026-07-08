@@ -59,6 +59,8 @@ const description = computed(() =>
 </template>
 
 <style scoped lang="scss">
+@use '../styles/helpers' as *;
+
 .lgc-article-header {
   display: grid;
   justify-items: center;
@@ -144,7 +146,7 @@ const description = computed(() =>
   // backdrop-filter: blur(12px);
 }
 
-@media (min-width: 720px) {
+@include nav-up {
   .lgc-article-header {
     padding-top: 2.5rem;
   }
@@ -156,14 +158,14 @@ const description = computed(() =>
   }
 }
 
-@media (min-width: 720px) and (max-width: 1280px) {
+@media (min-width: $lgc-breakpoint-nav) and (max-width: $lgc-breakpoint-wide) {
   .lgc-article-header-cover .lgc-article-title {
     font-size: clamp(2.125rem, 4.5vw, 3rem);
     line-height: 1.08;
   }
 }
 
-@media (max-width: 719px) {
+@media (max-width: ($lgc-breakpoint-nav - 1px)) {
   .lgc-article-header-cover {
     margin-top: -2.25rem;
     padding-top: 3rem;
@@ -176,7 +178,7 @@ const description = computed(() =>
   }
 }
 
-@media (min-width: 640px) and (max-width: 719px) {
+@media (min-width: $lgc-breakpoint-compact) and (max-width: ($lgc-breakpoint-nav - 1px)) {
   .lgc-article-header-cover {
     margin-top: -2.75rem;
     padding-top: 3.5rem;

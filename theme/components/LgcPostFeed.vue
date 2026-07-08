@@ -117,6 +117,8 @@ function getTo(page: number) {
 </template>
 
 <style scoped lang="scss">
+@use '../styles/helpers' as *;
+
 .lgc-post-feed {
   scroll-margin-top: 1rem;
 }
@@ -158,7 +160,7 @@ function getTo(page: number) {
   background: var(--md-sys-color-surface-container);
 }
 
-@media (min-width: 640px) {
+@include compact-up {
   .lgc-post-feed-inner {
     padding-block: 2.5rem;
     padding-inline: 1.5rem;

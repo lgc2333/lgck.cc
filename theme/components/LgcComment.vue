@@ -14,25 +14,9 @@ const hasContent = computed(() => Boolean(slots.default))
 </template>
 
 <style scoped lang="scss">
+@use '../styles/helpers' as *;
+
 .lgc-comment {
-  width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-  padding: 1.25rem;
-  border-radius: var(--lgc-radius-large);
-  background: var(--md-sys-color-surface-container);
-  color: var(--md-sys-color-on-surface);
-}
-
-@media (min-width: 720px) {
-  .lgc-comment {
-    padding: 2rem;
-  }
-}
-
-@media (min-width: 1180px) {
-  .lgc-comment {
-    padding: 2.5rem;
-  }
+  @include reading-panel;
 }
 </style>

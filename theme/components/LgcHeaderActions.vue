@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useAppStore, useLocale } from 'valaxy'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useThemeConfig } from '../composables'
+import { useLanguageFlip, useThemeConfig } from '../composables'
 import { formatLocaleName } from '../utils/locale'
 
 defineOptions({
@@ -31,17 +31,14 @@ const appStore = useAppStore()
 const themeConfig = useThemeConfig()
 const { t, locale } = useI18n()
 const { toggleLocales } = useLocale()
-const languageFlipping = ref(false)
+const { flipLanguageIcon, languageFlipping, stopLanguageFlip } = useLanguageFlip()
 const showI18n = computed(() => {
   return props.showLanguage && themeConfig.value.header?.i18n !== false
 })
 const languageName = computed(() => formatLocaleName(locale.value))
 
 function toggleLanguage() {
-  languageFlipping.value = false
-  requestAnimationFrame(() => {
-    languageFlipping.value = true
-  })
+  flipLanguageIcon()
   toggleLocales()
 }
 </script>
@@ -63,7 +60,7 @@ function toggleLanguage() {
         :class="{ 'is-flipping': languageFlipping }"
         i-material-symbols-translate-rounded
         aria-hidden="true"
-        @animationend="languageFlipping = false"
+        @animationend="stopLanguageFlip"
       />
     </button>
 
@@ -88,6 +85,8 @@ function toggleLanguage() {
 </template>
 
 <style scoped lang="scss">
+@use '../styles/helpers' as *;
+
 .lgc-header-lang {
   --lgc-header-lang-icon-size: 1.5rem;
   --lgc-header-lang-padding: calc(
@@ -140,7 +139,7 @@ function toggleLanguage() {
   animation: lgc-lang-flip 520ms var(--lgc-easing-standard);
 }
 
-@media (max-width: 720px) {
+@include nav-down {
   .lgc-header-button.is-header-action {
     display: none;
   }

@@ -4,7 +4,7 @@
   &::before {
     content: '';
     position: fixed;
-    z-index: 1024;
+    z-index: var(--lgc-layer-progress);
     top: 0;
     left: 0;
     width: 100%;
@@ -14,7 +14,7 @@
 
   .bar {
     position: fixed;
-    z-index: 1025;
+    z-index: var(--lgc-layer-progress-runner);
     top: 0;
     left: 0;
     width: 100%;

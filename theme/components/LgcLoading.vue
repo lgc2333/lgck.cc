@@ -63,7 +63,7 @@ onBeforeUnmount(() => {
 <style scoped lang="scss">
 .lgc-material-loader {
   position: fixed;
-  z-index: 1030;
+  z-index: var(--lgc-layer-loading);
   inset: 0;
   display: grid;
   place-items: center;

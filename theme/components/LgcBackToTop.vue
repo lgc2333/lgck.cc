@@ -64,7 +64,7 @@ const strokeOffset = computed(() => {
 <style scoped lang="scss">
 .lgc-back-to-top {
   position: fixed;
-  z-index: 40;
+  z-index: var(--lgc-layer-floating);
   right: 2rem;
   bottom: 2rem;
   display: none;

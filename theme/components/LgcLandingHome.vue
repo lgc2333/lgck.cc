@@ -76,6 +76,8 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 </template>
 
 <style scoped lang="scss">
+@use '../styles/helpers' as *;
+
 .lgc-home {
   min-height: 100vh;
   font-family: var(--lgc-font-body);
@@ -184,7 +186,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
   }
 }
 
-@media (min-width: 640px) {
+@include compact-up {
   .lgc-home-surface :deep(.lgc-post-feed) {
     padding-top: calc(var(--lgc-header-height) + 2rem);
     padding-bottom: 2rem;

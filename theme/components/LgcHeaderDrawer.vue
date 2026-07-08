@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { useAppStore, useLocale } from 'valaxy'
-import { computed, ref } from 'vue'
+import { computed, toRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
-import { useThemeConfig } from '../composables'
+import {
+  resolveHeaderNavItemState,
+  useHeaderNavItemState,
+  useLanguageFlip,
+  useThemeConfig,
+} from '../composables'
 import type { HeaderActivePathRewrite, HeaderNavLink } from '../types'
 import { formatLocaleName } from '../utils/locale'
-import { isRouteLinkActive } from '../utils/route'
 
 const props = defineProps<{
   addHome?: boolean
@@ -21,30 +25,44 @@ const emit = defineEmits<{
   close: []
 }>()
 
-const route = useRoute()
 const appStore = useAppStore()
+const route = useRoute()
 const themeConfig = useThemeConfig()
 const { t, locale } = useI18n()
 const { toggleLocales } = useLocale()
-const languageFlipping = ref(false)
+const { flipLanguageIcon, languageFlipping, stopLanguageFlip } = useLanguageFlip()
 const showI18n = computed(() => themeConfig.value.header?.i18n !== false)
 const languageName = computed(() => formatLocaleName(locale.value))
+const homeLinkState = useHeaderNavItemState({
+  activeMatch: 'exact',
+  activePathRewrites: toRef(props, 'activePathRewrites'),
+  item: toRef(props, 'homeLink'),
+})
 
 function isDrawerLinkActive(item: HeaderNavLink) {
-  const activeMatch = item.link === '/' ? 'exact' : 'prefix'
+  if (item.link === props.homeLink.link) return homeLinkState.isRouteActive.value
 
-  return isRouteLinkActive(route.path, item.link, activeMatch, props.activePathRewrites)
+  return resolveHeaderNavItemState(
+    route.path,
+    item,
+    item.link === '/' ? 'exact' : 'prefix',
+    props.activePathRewrites,
+  ).isRouteActive
 }
 
 function getDrawerIcon(item: HeaderNavLink) {
-  return isDrawerLinkActive(item) ? item.activeIcon || item.icon : item.icon
+  if (item.link === props.homeLink.link) return homeLinkState.iconClass.value
+
+  return resolveHeaderNavItemState(
+    route.path,
+    item,
+    item.link === '/' ? 'exact' : 'prefix',
+    props.activePathRewrites,
+  ).iconClass
 }
 
 function toggleLanguage() {
-  languageFlipping.value = false
-  requestAnimationFrame(() => {
-    languageFlipping.value = true
-  })
+  flipLanguageIcon()
   toggleLocales()
 }
 </script>
@@ -126,7 +144,7 @@ function toggleLanguage() {
               :class="{ 'is-flipping': languageFlipping }"
               i-material-symbols-translate-rounded
               aria-hidden="true"
-              @animationend="languageFlipping = false"
+              @animationend="stopLanguageFlip"
             />
             <span>{{ languageName }}</span>
           </button>
@@ -164,7 +182,7 @@ function toggleLanguage() {
 <style scoped lang="scss">
 .lgc-drawer-backdrop {
   position: fixed;
-  z-index: 80;
+  z-index: var(--lgc-layer-overlay);
   inset: 0;
   border: 0;
   background: color-mix(in srgb, var(--md-sys-color-scrim, #000) 42%, transparent);
@@ -172,7 +190,7 @@ function toggleLanguage() {
 
 .lgc-drawer {
   position: fixed;
-  z-index: 90;
+  z-index: var(--lgc-layer-modal);
   top: 0;
   bottom: 0;
   left: 0;
@@ -313,7 +331,9 @@ function toggleLanguage() {
 .lgc-drawer-fade-leave-active,
 .lgc-drawer-slide-enter-active,
 .lgc-drawer-slide-leave-active {
-  transition: all var(--lgc-motion-medium) var(--lgc-easing-standard);
+  transition:
+    opacity var(--lgc-motion-medium) var(--lgc-easing-standard),
+    transform var(--lgc-motion-medium) var(--lgc-easing-standard);
 }
 
 .lgc-drawer-fade-enter-from,
