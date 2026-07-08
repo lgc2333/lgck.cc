@@ -32,7 +32,7 @@ Read `utils/m3-loading-indicator/NOTE.md` before editing the loading indicator.
 - `client/`: client exports consumed by Valaxy users; currently re-exports theme composables.
 - `node/`: theme defaults and build-time integration: config defaults, HarmonyOS font plugin, loading bootstrap plugin, and dynamic icon safelist generation.
 - `types/`: public theme config and Valaxy module augmentation. Keep configurable behavior typed here before using it in `node/` or components.
-- `components/`: auto-registered Vue components. `Lgc*` files own theme UI; Valaxy-compatible names such as `ValaxyMain.vue` or `layout.vue` override framework/theme slots.
+- `components/`: auto-registered Vue components. `Lgc*` files own theme UI; Valaxy-compatible names such as `ValaxyApp.vue`, `ValaxyMain.vue`, or `layout.vue` override framework/theme slots.
 - `layouts/`: Valaxy layouts for default, home, post, and 404 routes.
 - `composables/`: runtime state and adapters, including theme config and unified search.
 - `utils/`: pure helpers for locale, post, routes, repository URLs, search text, and the Material 3 loading indicator.
@@ -53,6 +53,7 @@ The theme is a Valaxy blog theme with a configurable landing home, floating head
 
 ## Surface Map
 
+- `ValaxyApp.vue` owns global route transition timing and keeps framework theme/user app mounting behavior; `.lgc-page-surface` marks the content areas that visually animate.
 - `LgcLandingHome.vue` owns the first viewport and optional posts section.
 - `LgcHeader.vue`, `LgcHeaderActions.vue`, `LgcHeaderDrawer.vue`, and `LgcHeaderLink.vue` own navigation, i18n/dark/search actions, and responsive drawer behavior.
 - `LgcUnifiedSearch.vue` coordinates local/fuse/Algolia search; field, preview, drawer, mobile, result button, and result list components own their display states.

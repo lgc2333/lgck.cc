@@ -1,13 +1,11 @@
-@import url('/css/fonts/index.css');
-
 :host,
 html {
-  font-family: 'HarmonyOS Sans SC', sans-serif;
+  font-family: var(--va-font-sans);
 }
 
 code,
 kbd,
 pre,
 samp {
-  font-family: 'Victor Mono', monospace;
+  font-family: var(--va-font-mono);
 }

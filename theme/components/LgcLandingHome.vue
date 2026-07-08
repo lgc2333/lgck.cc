@@ -33,7 +33,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
     <LgcFixedBg />
     <LgcHeader />
 
-    <section class="lgc-landing" aria-label="Landing">
+    <section class="lgc-landing lgc-page-surface" aria-label="Landing">
       <div class="lgc-landing-center">
         <LgcLandingMark
           v-if="avatar"
@@ -67,7 +67,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
       <LgcFooter v-if="isFullOnlyLanding" />
     </section>
 
-    <div v-if="showPosts" class="lgc-home-surface">
+    <div v-if="showPosts" class="lgc-home-surface lgc-page-surface">
       <LgcPostFeed paginate />
 
       <LgcFooter />

@@ -2,10 +2,15 @@
 import type { Post } from 'valaxy'
 import { formatDate } from 'valaxy'
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useThemeConfig } from '../composables'
 import type { CoverContentMask, CoverContentPosition } from '../types'
-import { normalizePostCategoryPath, normalizePostListValue } from '../utils/post'
+import {
+  normalizeLocaleText,
+  normalizePostCategoryPath,
+  normalizePostListValue,
+} from '../utils/post'
 
 type LgcPost = Post & {
   /**
@@ -26,6 +31,7 @@ const props = defineProps<{
 }>()
 
 const themeConfig = useThemeConfig()
+const { locale } = useI18n()
 
 const date = computed(() => {
   const formatted = formatDate(props.post.date || '')
@@ -41,6 +47,7 @@ const category = computed(() => normalizePostCategoryPath(props.post.categories)
 const tags = computed(() => {
   return normalizePostListValue(props.post.tags).slice(0, 3)
 })
+const title = computed(() => normalizeLocaleText(props.post.title, locale.value))
 const hasMetaChips = computed(() => Boolean(category.value) || tags.value.length)
 const hasCover = computed(() => Boolean(props.post.cover))
 const coverContentMask = computed<CoverContentMask>(() => {
@@ -56,14 +63,13 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 </script>
 
 <template>
-  <RouterLink
+  <article
     class="lgc-post-card lgc-card-link"
     :class="[
       { 'has-cover': hasCover },
       hasCover ? `cover-mask-${coverContentMask}` : '',
       hasCover ? `cover-content-${coverContentPosition}` : '',
     ]"
-    :to="post.path || ''"
   >
     <LgcPostStatusIcons :post="post" />
 
@@ -71,7 +77,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
       v-if="post.cover"
       class="lgc-post-cover-card"
       :src="post.cover"
-      :alt="post.title || ''"
+      :alt="title"
       variant="feed"
     >
       <div class="lgc-post-cover-layout">
@@ -82,17 +88,23 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 
         <div class="lgc-post-body lgc-post-body-cover">
           <h3 class="lgc-post-title">
-            {{ post.title }}
+            <RouterLink class="lgc-post-title-link" :to="post.path || ''">
+              {{ title }}
+            </RouterLink>
           </h3>
-          <div v-if="post.excerpt" class="lgc-post-excerpt" v-html="post.excerpt" />
+          <LgcPostExcerpt :excerpt="post.excerpt" :excerpt-type="post.excerpt_type" />
           <div v-if="hasMetaChips" class="lgc-post-tags">
             <LgcPostMetaChips :category="category" :tags="tags" />
           </div>
         </div>
 
-        <span class="lgc-post-arrow lgc-card-arrow" aria-hidden="true">
+        <RouterLink
+          class="lgc-post-arrow lgc-card-arrow"
+          :to="post.path || ''"
+          aria-label="Read post"
+        >
           <span i-material-symbols-arrow-forward-rounded />
-        </span>
+        </RouterLink>
       </div>
     </LgcPostCoverFrame>
 
@@ -104,9 +116,11 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 
       <div class="lgc-post-body">
         <h3 class="lgc-post-title">
-          {{ post.title }}
+          <RouterLink class="lgc-post-title-link" :to="post.path || ''">
+            {{ title }}
+          </RouterLink>
         </h3>
-        <div v-if="post.excerpt" class="lgc-post-excerpt" v-html="post.excerpt" />
+        <LgcPostExcerpt :excerpt="post.excerpt" :excerpt-type="post.excerpt_type" />
         <div v-if="hasMetaChips" class="lgc-post-tags lgc-post-tags-inline">
           <LgcPostMetaChips :category="category" :tags="tags" />
         </div>
@@ -116,27 +130,69 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
         <LgcPostMetaChips :category="category" :tags="tags" />
       </div>
 
-      <span class="lgc-post-arrow lgc-card-arrow" aria-hidden="true">
+      <RouterLink
+        class="lgc-post-arrow lgc-card-arrow"
+        :to="post.path || ''"
+        aria-label="Read post"
+      >
         <span i-material-symbols-arrow-forward-rounded />
-      </span>
+      </RouterLink>
     </template>
-  </RouterLink>
+  </article>
 </template>
 
 <style scoped lang="scss">
 .lgc-post-card {
+  --lgc-post-card-rest-bg: var(--md-sys-color-surface-container-low);
+
+  position: relative;
   display: grid;
   grid-template-columns: 5.25rem minmax(0, 1fr);
   align-items: start;
   gap: 1rem;
   padding: 1.25rem;
+  background: var(--lgc-post-card-rest-bg);
+}
+
+.lgc-post-card:focus-within {
+  border-radius: calc(var(--lgc-radius-large) - 0.375rem);
+  background: var(--md-sys-color-surface-container);
+}
+
+.lgc-post-card > :not(.lgc-post-status-icons) {
+  position: relative;
+  z-index: 0;
+}
+
+.lgc-post-card.lgc-card-link:hover {
+  transform: none;
+}
+
+.lgc-post-card.lgc-card-link:active {
+  background: var(--lgc-post-card-rest-bg);
+  transform: none;
+}
+
+.lgc-post-card.lgc-card-link:has(
+    .lgc-post-title-link:hover,
+    .lgc-post-title-link:focus-visible,
+    .lgc-post-arrow:hover,
+    .lgc-post-arrow:focus-visible
+  ) {
+  transform: translateY(-2px);
+}
+
+.lgc-post-card.lgc-card-link:has(.lgc-post-title-link:active, .lgc-post-arrow:active) {
+  background: var(--md-sys-color-surface-container-high);
+  transform: scale(var(--lgc-card-press-scale));
 }
 
 .lgc-post-card.has-cover {
+  --lgc-post-card-rest-bg: var(--md-sys-color-surface-container);
+
   display: block;
   padding: 0;
   color: var(--lgc-post-cover-on-mask);
-  background: var(--md-sys-color-surface-container);
 }
 
 .lgc-post-cover-card {
@@ -261,6 +317,16 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
   max-width: 44rem;
   color: var(--md-sys-color-on-surface);
   text-align: left;
+}
+
+.lgc-post-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.lgc-post-title-link:hover,
+.lgc-post-title-link:focus-visible {
+  color: var(--md-sys-color-primary);
 }
 
 .lgc-post-card.has-cover.cover-mask-gradient .lgc-post-title {

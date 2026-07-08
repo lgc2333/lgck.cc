@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useFrontmatter, usePostList } from 'valaxy'
+import { useFrontmatter, usePostList, useSiteConfig } from 'valaxy'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -8,10 +8,14 @@ import { normalizePostListValue } from '../utils/post'
 const frontmatter = useFrontmatter()
 const route = useRoute()
 const posts = usePostList()
+const siteConfig = useSiteConfig()
 
 const currentIndex = computed(() => posts.value.findIndex((p) => p.path === route.path))
 const nextPost = computed(() => posts.value[currentIndex.value - 1])
 const prevPost = computed(() => posts.value[currentIndex.value + 1])
+const showComment = computed(
+  () => siteConfig.value.comment.enable && frontmatter.value.comment !== false,
+)
 
 const tags = computed(() => normalizePostListValue(frontmatter.value.tags))
 const categories = computed(() => normalizePostListValue(frontmatter.value.categories))
@@ -32,6 +36,8 @@ const categories = computed(() => normalizePostListValue(frontmatter.value.categ
         </div>
 
         <LgcPostArticleNav :next-post="nextPost" :prev-post="prevPost" />
+
+        <LgcComment v-if="showComment" />
       </div>
     </div>
   </article>

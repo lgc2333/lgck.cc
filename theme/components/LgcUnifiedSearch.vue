@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ComponentPublicInstance, HTMLAttributes, VNodeRef } from 'vue'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -9,7 +10,7 @@ import LgcUnifiedSearchMobile from './LgcUnifiedSearchMobile.vue'
 import LgcUnifiedSearchPreview from './LgcUnifiedSearchPreview.vue'
 
 defineProps<{
-  actionClass?: unknown
+  actionClass?: HTMLAttributes['class']
 }>()
 
 const { t } = useI18n()
@@ -43,10 +44,19 @@ function closeDrawerAndFocusInline() {
   closeDrawer()
   inlineFocusKey.value += 1
 }
+
+const setRootRef: VNodeRef = (element) => {
+  const rootElement =
+    element instanceof HTMLElement
+      ? element
+      : (element as ComponentPublicInstance | null)?.$el
+
+  rootRef.value = rootElement instanceof HTMLElement ? rootElement : undefined
+}
 </script>
 
 <template>
-  <div v-if="isSupported" ref="rootRef" class="lgc-search" :class="actionClass">
+  <div v-if="isSupported" :ref="setRootRef" class="lgc-search" :class="actionClass">
     <div v-if="!isAlgolia" class="lgc-search-inline" :class="{ 'is-open': openInline }">
       <LgcUnifiedSearchField
         v-model="query"
@@ -91,8 +101,8 @@ function closeDrawerAndFocusInline() {
       <span i-material-symbols-search-rounded aria-hidden="true" />
     </button>
 
-    <Teleport to="body">
-      <ClientOnly>
+    <ClientOnly>
+      <Teleport to="body">
         <Transition name="lgc-search-drawer">
           <LgcUnifiedSearchDrawer
             v-if="openDrawer"
@@ -129,7 +139,7 @@ function closeDrawerAndFocusInline() {
         />
 
         <AlgoliaSearchBox v-if="algoliaLoaded" class="lgc-search-algolia" />
-      </ClientOnly>
-    </Teleport>
+      </Teleport>
+    </ClientOnly>
   </div>
 </template>

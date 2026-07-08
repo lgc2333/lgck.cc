@@ -1,11 +1,21 @@
 <script setup lang="ts">
 import type { Post } from 'valaxy'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-defineProps<{
+import { normalizeLocaleText } from '../utils/post'
+
+const props = defineProps<{
   categories: string[]
   frontmatter: Post
   tags: string[]
 }>()
+
+const { locale } = useI18n()
+const title = computed(() => normalizeLocaleText(props.frontmatter.title, locale.value))
+const description = computed(() =>
+  normalizeLocaleText(props.frontmatter.description, locale.value),
+)
 </script>
 
 <template>
@@ -13,15 +23,15 @@ defineProps<{
     v-if="frontmatter.cover"
     class="lgc-article-cover"
     :src="frontmatter.cover"
-    :alt="frontmatter.title || ''"
+    :alt="title"
     variant="article"
   >
     <header class="lgc-article-header lgc-article-header-cover">
       <h1 class="lgc-article-title">
-        {{ frontmatter.title }}
+        {{ title }}
       </h1>
-      <p v-if="frontmatter.description" class="lgc-article-description">
-        {{ frontmatter.description }}
+      <p v-if="description" class="lgc-article-description">
+        {{ description }}
       </p>
       <LgcPostArticleMeta
         :categories="categories"
@@ -34,10 +44,10 @@ defineProps<{
 
   <header v-else class="lgc-article-header">
     <h1 class="lgc-article-title">
-      {{ frontmatter.title }}
+      {{ title }}
     </h1>
-    <p v-if="frontmatter.description" class="lgc-article-description">
-      {{ frontmatter.description }}
+    <p v-if="description" class="lgc-article-description">
+      {{ description }}
     </p>
     <LgcPostArticleMeta
       :categories="categories"

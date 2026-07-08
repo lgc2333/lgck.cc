@@ -33,7 +33,9 @@ const pagePosts = computed(() => {
 })
 
 const curPage = computed(() => {
-  const page = Number.parseInt(String(route.params.page || '1'))
+  const rawPage = 'page' in route.params ? route.params.page : undefined
+  const pageValue = Array.isArray(rawPage) ? rawPage[0] : rawPage
+  const page = Number.parseInt(String(pageValue || '1'))
   return Number.isFinite(page) && page > 0 ? page : 1
 })
 const totalPages = computed(() => Math.ceil(pagePosts.value.length / pageSize.value))

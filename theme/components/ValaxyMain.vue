@@ -37,7 +37,9 @@ const siteConfig = useSiteConfig()
         <slot
           v-if="siteConfig.comment.enable && frontmatter.comment !== false"
           name="comment"
-        />
+        >
+          <LgcComment />
+        </slot>
 
         <slot name="footer" />
       </slot>
@@ -51,6 +53,8 @@ const siteConfig = useSiteConfig()
 .lgc-main-shell {
   display: flex;
   width: 100%;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .lgc-main-content {

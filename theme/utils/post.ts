@@ -7,3 +7,13 @@ export function normalizePostListValue(value: unknown) {
 export function normalizePostCategoryPath(value: unknown) {
   return normalizePostListValue(value).join(' / ')
 }
+
+export function normalizeLocaleText(
+  value: string | Record<string, string> | undefined,
+  locale = 'en',
+) {
+  if (!value) return ''
+  if (typeof value === 'string') return value
+
+  return value[locale] || value.en || Object.values(value)[0] || ''
+}

@@ -1,5 +1,7 @@
 <template>
   <Layout>
-    <RouterView />
+    <div class="lgc-page-surface">
+      <RouterView />
+    </div>
   </Layout>
 </template>

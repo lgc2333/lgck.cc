@@ -22,7 +22,7 @@ const normalizedSize = computed(() =>
   typeof props.size === 'number' ? `${props.size}px` : props.size,
 )
 
-let hideTimer: ReturnType<typeof window.setTimeout> | undefined
+let hideTimer: number | undefined
 
 onMounted(() => {
   hideTimer = window.setTimeout(() => {

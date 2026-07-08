@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import Giscus from '@giscus/vue'
 import { useAppStore } from 'valaxy'
-import YunComment from 'valaxy-theme-yun/components/YunComment.vue'
+import LgcCommentFrame from 'valaxy-theme-lgcuwukii/components/LgcComment.vue'
 
 const store = useAppStore()
 </script>
 
 <template>
-  <YunComment>
+  <LgcCommentFrame>
     <Giscus
       repo="lgc2333/blog"
       repo-id="R_kgDOLr1GDQ"
@@ -21,6 +21,6 @@ const store = useAppStore()
       :theme="`https://blog.lgc2333.top/css/giscus/${store.isDark ? 'dark' : 'light'}.css`"
       lang="zh-CN"
       loading="lazy"
-    ></Giscus>
-  </YunComment>
+    />
+  </LgcCommentFrame>
 </template>

@@ -1,0 +1,1 @@
+../../demo/.valaxy/components.d.ts

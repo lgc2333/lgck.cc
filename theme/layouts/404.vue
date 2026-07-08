@@ -6,7 +6,10 @@ const router = useRouter()
 
 <template>
   <Layout>
-    <section class="lgc-not-found" aria-labelledby="lgc-not-found-title">
+    <section
+      class="lgc-not-found lgc-page-surface"
+      aria-labelledby="lgc-not-found-title"
+    >
       <div class="lgc-not-found-mark" aria-hidden="true">
         <span i-material-symbols-travel-explore-rounded />
       </div>

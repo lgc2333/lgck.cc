@@ -5,6 +5,24 @@
   pointer-events: none;
 }
 
+.lgc-page-enter-active,
+.lgc-page-leave-active {
+  overflow-anchor: none;
+}
+
+.lgc-page-enter-active :where(.lgc-page-surface),
+.lgc-page-leave-active :where(.lgc-page-surface) {
+  transition:
+    opacity var(--lgc-motion-medium) var(--lgc-easing-standard),
+    transform var(--lgc-motion-medium) var(--lgc-easing-standard);
+}
+
+.lgc-page-enter-from :where(.lgc-page-surface),
+.lgc-page-leave-to :where(.lgc-page-surface) {
+  opacity: 0;
+  transform: translateY(0.75rem);
+}
+
 .lgc-header-button {
   inline-size: var(--lgc-control-size);
   height: var(--lgc-control-size);

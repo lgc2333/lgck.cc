@@ -8,6 +8,7 @@ node_modules
 *.tsbuildinfo
 
 components.d.ts
+!theme/.valaxy/components.d.ts
 
 # vite-ssg
 .vite-ssg-dist

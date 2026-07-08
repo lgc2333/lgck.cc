@@ -1,5 +1,3 @@
-<script lang="ts" setup></script>
-
 <template>
   <div class="ai-generated-excerpt rounded-lg bg-$va-c-bg-alt p-4">
     <div font="black" flex items-center>

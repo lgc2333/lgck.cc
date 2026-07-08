@@ -7,23 +7,21 @@
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "paths": {
-      "~/*": ["./*"]
-    },
     "resolveJsonModule": true,
     "types": [
       "vite/client",
       "valaxy/client",
       "vite-plugin-vue-layouts-next/client",
-      "unplugin-vue-router/client"
+      "vue-router",
+      "vitest"
     ],
+    "allowJs": true,
     "checkJs": true,
     "strict": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipDefaultLibCheck": true,
     "skipLibCheck": true
   }
 }
