@@ -74,6 +74,17 @@ html.dark {
   --lgc-state-pressed-opacity: 0.12;
   --lgc-control-press-scale: 0.95;
   --lgc-card-press-scale: 0.985;
+  --lgc-elevation-shadow-color: 0 0 0;
+  --lgc-elevation-shadow-level-0: none;
+  --lgc-elevation-shadow-level-1:
+    0 0.0625rem 0.125rem rgb(var(--lgc-elevation-shadow-color) / 0.18),
+    0 0.0625rem 0.1875rem 0.0625rem rgb(var(--lgc-elevation-shadow-color) / 0.1);
+  --lgc-elevation-shadow-level-2:
+    0 0.0625rem 0.125rem rgb(var(--lgc-elevation-shadow-color) / 0.14),
+    0 0.125rem 0.375rem 0.125rem rgb(var(--lgc-elevation-shadow-color) / 0.1);
+  --lgc-elevation-shadow-level-3:
+    0 0.0625rem 0.1875rem rgb(var(--lgc-elevation-shadow-color) / 0.16),
+    0 0.25rem 0.5rem 0.1875rem rgb(var(--lgc-elevation-shadow-color) / 0.1);
 
   --lgc-container-reading: 900px;
   --lgc-container-wide: 1180px;

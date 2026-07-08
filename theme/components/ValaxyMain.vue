@@ -13,7 +13,9 @@ const siteConfig = useSiteConfig()
   <main class="lgc-main">
     <div class="lgc-main-shell">
       <slot name="main">
-        <slot name="main-header" />
+        <slot name="main-header">
+          <LgcPostArticleHeader :frontmatter="frontmatter" />
+        </slot>
         <slot name="main-header-after" />
 
         <div class="lgc-main-content-card">

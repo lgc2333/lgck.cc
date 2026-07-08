@@ -121,9 +121,11 @@ function closeDrawer() {
   margin-inline: auto;
   background: transparent;
   border-radius: 0 0 var(--lgc-radius-control) var(--lgc-radius-control);
+  box-shadow: var(--lgc-elevation-shadow-level-0);
   transition:
     backdrop-filter var(--lgc-motion-medium) var(--lgc-easing-standard),
-    background-color var(--lgc-motion-medium) var(--lgc-easing-standard);
+    background-color var(--lgc-motion-medium) var(--lgc-easing-standard),
+    box-shadow var(--lgc-motion-medium) var(--lgc-easing-standard);
 }
 
 .lgc-header-shell.is-scrolled .lgc-header {
@@ -133,6 +135,7 @@ function closeDrawer() {
     var(--md-sys-color-primary-container) 40%,
     transparent
   );
+  box-shadow: var(--lgc-elevation-shadow-level-2);
 }
 
 .lgc-header-group {

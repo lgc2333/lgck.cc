@@ -82,10 +82,7 @@ const strokeOffset = computed(() => {
   color: var(--md-sys-color-primary);
   font-size: 1.5rem;
   background: var(--md-sys-color-surface-container-high);
-  box-shadow:
-    0 2px 3px -1px rgb(0 0 0 / 0.16),
-    0 4px 8px 0 rgb(0 0 0 / 0.1),
-    0 1px 12px 0 rgb(0 0 0 / 0.08);
+  box-shadow: var(--lgc-elevation-shadow-level-2);
   transition:
     background-color var(--lgc-motion-short) var(--lgc-easing-standard),
     border-radius var(--lgc-motion-short) var(--lgc-easing-standard),
@@ -98,10 +95,7 @@ const strokeOffset = computed(() => {
     border-radius: var(--lgc-back-to-top-radius);
     color: var(--md-sys-color-primary);
     background: var(--md-sys-color-surface-container-highest);
-    box-shadow:
-      0 3px 5px -1px rgb(0 0 0 / 0.18),
-      0 6px 10px 0 rgb(0 0 0 / 0.12),
-      0 1px 16px 0 rgb(0 0 0 / 0.1);
+    box-shadow: var(--lgc-elevation-shadow-level-3);
   }
 
   &:active {

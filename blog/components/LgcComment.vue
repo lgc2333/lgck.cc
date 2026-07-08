@@ -2,77 +2,52 @@
 import Giscus from '@giscus/vue'
 import { useAppStore } from 'valaxy'
 import LgcCommentFrame from 'valaxy-theme-lgcuwukii/components/LgcComment.vue'
-import { nextTick, onMounted, ref, watch } from 'vue'
-
-import giscusBaseCss from '../styles/giscus/base.css?raw'
-import giscusDarkCss from '../styles/giscus/dark.css?raw'
-import giscusLightCss from '../styles/giscus/light.css?raw'
+import { onMounted, ref, watch } from 'vue'
 
 const store = useAppStore()
 
 const theme = ref(getFallbackGiscusTheme(store.isDark))
 
-const forwardedVars = [
-  '--lgc-font-family-cjk',
-  '--lgc-font-family-mono',
-  '--lgc-font-family-system',
-  '--lgc-font-family-sans',
-  '--va-font-sans',
-  '--va-font-mono',
-  '--md-sys-color-primary',
-  '--md-sys-color-on-primary',
-  '--md-sys-color-primary-container',
-  '--md-sys-color-on-primary-container',
-  '--md-sys-color-secondary-container',
-  '--md-sys-color-tertiary',
-  '--md-sys-color-tertiary-container',
-  '--md-sys-color-surface',
-  '--md-sys-color-surface-container-low',
-  '--md-sys-color-surface-container',
-  '--md-sys-color-surface-container-high',
-  '--md-sys-color-on-surface',
-  '--md-sys-color-on-surface-variant',
-  '--md-sys-color-outline',
-  '--md-sys-color-outline-variant',
-] as const
-
-const forwardedVarsPlaceholder = '/* __GISCUS_FORWARDED_VARS__ */'
-const fontCssPath = '/assets/giscus-fonts.css'
+const giscusLightThemePath = '/assets/giscus/light.css'
+const giscusDarkThemePath = '/assets/giscus/dark.css'
 
 function getFallbackGiscusTheme(isDark: boolean) {
   return isDark ? 'dark' : 'light'
 }
 
 function updateTheme() {
-  theme.value = buildGiscusThemeDataUrl(store.isDark)
+  theme.value = getGiscusTheme(store.isDark)
 }
 
-function buildGiscusThemeDataUrl(isDark: boolean) {
-  const themeCss = isDark ? giscusDarkCss : giscusLightCss
-  const css = [
-    `@import url('${getSiteUrl(fontCssPath)}');`,
-    themeCss,
-    giscusBaseCss.replace(
-      forwardedVarsPlaceholder,
-      getForwardedCssVars(getComputedStyle(document.documentElement)),
-    ),
-  ].join('\n')
+function getGiscusTheme(isDark: boolean) {
+  if (shouldUseFallbackTheme()) {
+    return getFallbackGiscusTheme(isDark)
+  }
 
-  return `data:text/css;charset=utf-8,${encodeURIComponent(css)}`
+  return getSiteUrl(isDark ? giscusDarkThemePath : giscusLightThemePath)
 }
 
 function getSiteUrl(path: string) {
   return new URL(path, window.location.origin).href
 }
 
-function getForwardedCssVars(style: CSSStyleDeclaration) {
-  return forwardedVars
-    .map((name) => {
-      const value = style.getPropertyValue(name).trim().replace(/\s+/g, ' ')
-      return value ? `${name}: ${value};` : ''
-    })
-    .filter(Boolean)
-    .join('\n  ')
+function shouldUseFallbackTheme() {
+  return (
+    window.location.protocol !== 'https:' || isPrivateHost(window.location.hostname)
+  )
+}
+
+function isPrivateHost(hostname: string) {
+  return (
+    hostname === 'localhost' ||
+    hostname === '0.0.0.0' ||
+    hostname === '::1' ||
+    /^127\./.test(hostname) ||
+    /^10\./.test(hostname) ||
+    /^192\.168\./.test(hostname) ||
+    /^172\.(?:1[6-9]|2\d|3[01])\./.test(hostname) ||
+    /^169\.254\./.test(hostname)
+  )
 }
 
 onMounted(() => {
@@ -81,8 +56,7 @@ onMounted(() => {
 
 watch(
   () => store.isDark,
-  async () => {
-    await nextTick()
+  () => {
     updateTheme()
   },
 )

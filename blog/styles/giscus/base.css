@@ -1,7 +1,3 @@
-html {
-  /* __GISCUS_FORWARDED_VARS__ */
-}
-
 :host,
 html {
   font-family: var(--va-font-sans);
@@ -15,6 +11,46 @@ samp {
 }
 
 main {
+  --lgc-giscus-control-height: 2.75rem;
+  --lgc-giscus-action-height: 2rem;
+  --lgc-giscus-control-radius: var(--lgc-radius-control, 1.5rem);
+  --lgc-giscus-control-radius-active: var(--lgc-radius-control-active, 1rem);
+  --lgc-giscus-panel-radius: var(--lgc-radius-large, 1.75rem);
+  --lgc-giscus-panel-radius-active: calc(var(--lgc-giscus-panel-radius) - 0.375rem);
+  --lgc-giscus-compact-radius: calc(var(--lgc-giscus-panel-radius) - 0.75rem);
+  --lgc-giscus-small-radius: 0.75rem;
+  --lgc-giscus-easing: var(--lgc-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+  --lgc-giscus-motion-short: var(--lgc-motion-short, 160ms);
+  --lgc-giscus-press-scale: var(--lgc-control-press-scale, 0.95);
+  --lgc-giscus-card-bg: var(--md-sys-color-surface-container-low);
+  --lgc-giscus-card-bg-high: var(--md-sys-color-surface-container-high);
+  --lgc-giscus-card-bg-lowest: var(--md-sys-color-surface-container-lowest);
+  --lgc-giscus-card-bg-nested: var(--md-sys-color-surface-container);
+  --lgc-giscus-border: color-mix(
+    in srgb,
+    var(--md-sys-color-outline-variant) 76%,
+    transparent
+  );
+  --lgc-giscus-subtle-border: color-mix(
+    in srgb,
+    var(--md-sys-color-outline-variant) 46%,
+    transparent
+  );
+  --lgc-giscus-hover-state: color-mix(
+    in srgb,
+    currentColor calc(var(--lgc-state-hover-opacity, 0.08) * 100%),
+    transparent
+  );
+  --lgc-giscus-pressed-state: color-mix(
+    in srgb,
+    currentColor calc(var(--lgc-state-pressed-opacity, 0.12) * 100%),
+    transparent
+  );
+  --lgc-giscus-focus-ring: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 56%,
+    transparent
+  );
   --color-fg-default: var(--md-sys-color-on-surface);
   --color-fg-muted: var(--md-sys-color-on-surface-variant);
   --color-fg-subtle: var(--md-sys-color-outline);
@@ -24,6 +60,9 @@ main {
   --color-canvas-subtle: var(--md-sys-color-surface-container);
   --color-border-default: var(--md-sys-color-outline-variant);
   --color-border-muted: var(--md-sys-color-outline-variant);
+  --color-danger-fg: var(--md-sys-color-tertiary);
+  --color-danger-emphasis: var(--md-sys-color-tertiary);
+  --color-danger-subtle: var(--md-sys-color-tertiary-container);
   --color-neutral-muted: color-mix(
     in srgb,
     var(--md-sys-color-primary-container) 50%,
@@ -70,9 +109,697 @@ main {
     var(--md-sys-color-primary-container) 50%,
     transparent
   );
+  --color-input-bg: var(--md-sys-color-surface-container-low);
+  --color-input-contrast-bg: var(--md-sys-color-surface-container-low);
+  --color-input-border: var(--md-sys-color-outline-variant);
+  --color-input-disabled-bg: var(--md-sys-color-surface-container);
+  --color-input-disabled-border: transparent;
+  --color-input-disabled-fg: var(--md-sys-color-outline);
   --color-segmented-control-bg: var(--md-sys-color-surface-container-low);
   --color-segmented-control-button-bg: var(--md-sys-color-surface);
   --color-segmented-control-button-selected-border: var(--md-sys-color-outline-variant);
   --color-social-reaction-bg-hover: var(--md-sys-color-primary-container);
   --color-social-reaction-bg-reacted-hover: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-surface);
+  background: transparent;
+}
+
+body {
+  margin: 0;
+  color: var(--md-sys-color-on-surface);
+  background: transparent;
+}
+
+a {
+  color: var(--md-sys-color-primary);
+  text-underline-offset: 0.18em;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+textarea::placeholder {
+  color: var(--md-sys-color-outline);
+  opacity: 1;
+}
+
+main .gsc-main {
+  gap: 1.125rem;
+}
+
+main .gsc-reactions {
+  gap: 0.5rem;
+  min-height: 4.5rem;
+  padding: 0.75rem 0 0.25rem;
+}
+
+main .gsc-reactions-count {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+main .gsc-social-reaction-summary-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--lgc-giscus-action-height);
+  min-width: 2rem;
+  border: 0;
+  border-radius: var(--lgc-giscus-control-radius);
+  background: var(--lgc-giscus-card-bg-high);
+  color: var(--md-sys-color-on-surface-variant);
+  padding-inline: 0.55rem;
+  transition:
+    background-color var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    border-radius var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    color var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    transform var(--lgc-giscus-motion-short) var(--lgc-giscus-easing);
+}
+
+main .gsc-social-reaction-summary-item:hover:enabled {
+  border-radius: var(--lgc-giscus-small-radius);
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+main .gsc-social-reaction-summary-item:active:enabled {
+  transform: scale(var(--lgc-giscus-press-scale));
+}
+
+main .gsc-header {
+  align-items: flex-end;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 0;
+}
+
+main .gsc-left-header {
+  align-items: baseline;
+  gap: 0.4rem 0.55rem;
+  min-width: 0;
+}
+
+main .gsc-comments-count,
+main .gsc-comments-count-separator {
+  color: var(--md-sys-color-on-surface);
+}
+
+main .gsc-comments-count,
+main .gsc-replies-count {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+main .gsc-left-header em {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+main .gsc-right-header.BtnGroup {
+  flex-shrink: 0;
+  gap: 0.45rem;
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
+  padding: 0;
+}
+
+main .gsc-right-header .BtnGroup-item {
+  border: 0;
+  border-radius: var(--lgc-giscus-control-radius) !important;
+  background: transparent;
+  padding: 0;
+}
+
+main .gsc-right-header .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--lgc-giscus-control-height);
+  border: 0;
+  border-radius: var(--lgc-giscus-control-radius) !important;
+  background: var(--lgc-giscus-card-bg-high);
+  color: var(--md-sys-color-on-surface-variant);
+  font-weight: 700;
+  padding-inline: 1rem;
+  transition:
+    background-color var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    border-radius var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    color var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    transform var(--lgc-giscus-motion-short) var(--lgc-giscus-easing);
+}
+
+main .gsc-right-header .btn:hover {
+  border-radius: var(--lgc-giscus-control-radius-active) !important;
+  background: var(--lgc-giscus-hover-state);
+  color: var(--md-sys-color-on-surface);
+}
+
+main .gsc-right-header .BtnGroup-item--selected .btn {
+  border-radius: var(--lgc-giscus-control-radius) !important;
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+main .gsc-right-header .btn:active {
+  transform: scale(var(--lgc-giscus-press-scale));
+}
+
+main .gsc-comment-box:not(.gsc-comment-box-is-reply) {
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--lgc-giscus-panel-radius);
+  background: var(--lgc-giscus-card-bg);
+  padding: 1rem 0.75rem 0.75rem;
+}
+
+main .gsc-comment-box.gsc-comment-box-is-reply {
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: var(--lgc-giscus-compact-radius) !important;
+  background: var(--lgc-giscus-card-bg-nested) !important;
+  margin-block-start: 0.85rem !important;
+  padding: 1rem 0.75rem 0.75rem !important;
+}
+
+main .gsc-comment-box-tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0 !important;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0.25rem;
+}
+
+main .gsc-comment-box-tabs > * {
+  margin: 0 !important;
+}
+
+main .gsc-comment-box-tabs > div:not(.gsc-comment-box-md-toolbar) {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+main .gsc-comment-box-md-toolbar {
+  gap: 0.15rem;
+  margin: 0 !important;
+  border: 0;
+  background: transparent;
+  padding: 0.25rem;
+}
+
+main .gsc-comment-box-tabs button,
+main .gsc-toolbar-item,
+main .gsc-reactions-button,
+main .gsc-direct-reaction-button,
+main .gsc-upvote-button {
+  transition:
+    background-color var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    border-radius var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    color var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    transform var(--lgc-giscus-motion-short) var(--lgc-giscus-easing);
+}
+
+main .gsc-comment-box-tabs button {
+  min-height: 2.5rem;
+  margin: 0 !important;
+  border: 0;
+  border-radius: var(--lgc-giscus-control-radius-active) !important;
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  font-weight: 700;
+}
+
+main .gsc-comment-box-tabs button:hover {
+  border-radius: var(--lgc-giscus-control-radius-active) !important;
+  background: var(--lgc-giscus-hover-state);
+  color: var(--md-sys-color-on-surface);
+}
+
+main .gsc-toolbar-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  margin: 0 !important;
+  border: 0;
+  border-radius: var(--lgc-giscus-control-radius-active) !important;
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  padding: 0 0.55rem;
+}
+
+main .gsc-toolbar-item:hover:enabled {
+  border-radius: var(--lgc-giscus-control-radius-active) !important;
+  background: var(--lgc-giscus-hover-state);
+  color: var(--md-sys-color-on-surface);
+}
+
+main .gsc-toolbar-item:active:enabled {
+  transform: scale(var(--lgc-giscus-press-scale));
+}
+
+main .gsc-comment-box-tabs button[aria-selected='true'],
+main .gsc-comment-box-tabs button.selected,
+main .gsc-comment-box-tabs button.color-bg-canvas {
+  border-radius: var(--lgc-giscus-control-radius-active) !important;
+  background: var(--lgc-giscus-card-bg-high);
+  color: var(--md-sys-color-on-surface);
+}
+
+main .gsc-comment-box-main {
+  margin: 0;
+  padding: 0.5rem 0 0;
+}
+
+main .gsc-comment-box-preview {
+  border-bottom: 0 !important;
+}
+
+main .gsc-comment-box-write {
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--lgc-giscus-compact-radius) !important;
+  background: var(--lgc-giscus-card-bg-high);
+}
+
+main .gsc-comment-box-write:focus-within {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+main .gsc-comment-box-textarea {
+  min-height: 5.75rem;
+  border: 0;
+  border-radius: var(--lgc-giscus-compact-radius) var(--lgc-giscus-compact-radius) 0 0 !important;
+  border-bottom: 1px dashed var(--lgc-giscus-subtle-border);
+  background: transparent;
+  color: var(--md-sys-color-on-surface);
+  resize: vertical;
+}
+
+main .gsc-comment-box-textarea:focus {
+  border-color: var(--lgc-giscus-subtle-border);
+  box-shadow: inset 0 0 0 2px var(--lgc-giscus-focus-ring);
+  outline: none;
+}
+
+main .gsc-comment-box-textarea-extras {
+  border: 0;
+  border-radius: 0 0 var(--lgc-giscus-compact-radius) var(--lgc-giscus-compact-radius) !important;
+  background: transparent;
+}
+
+main .gsc-comment-box-bottom {
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0.75rem 0.5rem 0.25rem;
+}
+
+main .gsc-comment-box-markdown-hint {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+main .gsc-comment-box-buttons {
+  gap: 0.5rem;
+}
+
+main .btn,
+main .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  border: 0;
+  border-radius: var(--lgc-giscus-control-radius) !important;
+  box-shadow: none;
+  font-weight: 700;
+  transition:
+    background-color var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    border-radius var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    color var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    transform var(--lgc-giscus-motion-short) var(--lgc-giscus-easing);
+}
+
+main .btn:hover,
+main .btn-primary:hover {
+  border-radius: var(--lgc-giscus-control-radius-active) !important;
+}
+
+main .btn:active,
+main .btn-primary:active {
+  transform: scale(var(--lgc-giscus-press-scale));
+}
+
+main .btn:disabled,
+main .btn-primary:disabled {
+  opacity: 0.58;
+  transform: none;
+}
+
+main .gsc-timeline {
+  gap: 1.125rem;
+}
+
+main .gsc-comments {
+  gap: 1.125rem;
+}
+
+main .gsc-comment {
+  overflow: visible;
+  border: 0;
+  border-radius: var(--lgc-giscus-panel-radius);
+  background: var(--lgc-giscus-card-bg);
+  padding: 0.75rem;
+}
+
+main .gsc-comment > div {
+  min-width: 0;
+}
+
+main .gsc-comment > .color-bg-primary {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+main .gsc-comment-header {
+  min-height: 3rem;
+  padding: 0.25rem 0.25rem 0.5rem;
+  background: transparent;
+}
+
+main .gsc-comment-author {
+  gap: 0.55rem;
+}
+
+main .gsc-comment-author-avatar img,
+main .gsc-reply-author-avatar img {
+  border-radius: 50%;
+}
+
+main .gsc-comment-author a,
+main .gsc-reply-author a {
+  color: var(--md-sys-color-on-surface);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+main .gsc-comment-author a:hover,
+main .gsc-reply-author a:hover {
+  color: var(--md-sys-color-primary);
+  text-decoration: underline;
+}
+
+main .gsc-comment-content {
+  border-radius: 0;
+  background: transparent !important;
+  color: var(--md-sys-color-on-surface);
+  padding: 0.75rem 0.25rem;
+}
+
+main .gsc-comment-content.markdown,
+main .gsc-reply-content.markdown {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+main .gsc-comment-footer,
+main .gsc-reply-footer {
+  align-items: center;
+  margin: 0;
+  padding: 0 0.25rem 0.25rem;
+}
+
+main .gsc-comment-reactions,
+main .gsc-reply-reactions {
+  align-items: center;
+  gap: 0.45rem;
+}
+
+main .gsc-comment-reactions {
+  margin-inline-start: 0 !important;
+  padding-inline-start: 0 !important;
+}
+
+main .gsc-upvote-button:disabled,
+main .gsc-reactions-button.popover-only {
+  border: 0;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+main .gsc-upvote-button,
+main .gsc-reactions-button,
+main .gsc-reactions-button.popover-only,
+main .gsc-direct-reaction-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--lgc-giscus-action-height);
+  min-height: var(--lgc-giscus-action-height);
+  min-width: var(--lgc-giscus-action-height);
+  border: 0;
+  border-radius: var(--lgc-giscus-control-radius);
+  background: var(--lgc-giscus-card-bg-high);
+  color: var(--md-sys-color-on-surface-variant);
+  padding-block: 0;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+main .gsc-upvote-button > *,
+main .gsc-reactions-button > *,
+main .gsc-reactions-button.popover-only > *,
+main .gsc-direct-reaction-button > * {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+main .gsc-upvote-button svg,
+main .gsc-reactions-button svg,
+main .gsc-reactions-button.popover-only svg,
+main .gsc-direct-reaction-button svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+main .gsc-upvote-button :is(svg, span, .Counter, .octicon) {
+  margin: 0 !important;
+}
+
+main .gsc-upvote-button:hover,
+main .gsc-reactions-button:hover,
+main .gsc-reactions-button.popover-only:hover {
+  border-radius: var(--lgc-giscus-control-radius-active) !important;
+  background: var(--lgc-giscus-hover-state) !important;
+  color: var(--md-sys-color-primary);
+}
+
+main .gsc-upvote-button {
+  background: var(--lgc-giscus-card-bg-high) !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+  gap: 0.4rem !important;
+  width: auto !important;
+  min-width: 3rem;
+  padding-inline: 0.7rem !important;
+}
+
+main
+  .gsc-upvote-button:is(
+    [aria-pressed='true'],
+    [aria-checked='true'],
+    .selected,
+    .color-bg-accent,
+    .color-bg-primary,
+    .color-bg-success
+  ) {
+  background: var(--md-sys-color-primary-container) !important;
+  color: var(--md-sys-color-on-primary-container) !important;
+}
+
+main .gsc-reactions-button {
+  padding-inline: 0.45rem;
+}
+
+main .gsc-direct-reaction-buttons {
+  gap: 0.4rem;
+}
+
+main .gsc-direct-reaction-button {
+  padding-inline: 0.6rem;
+}
+
+main .gsc-direct-reaction-button:hover:enabled {
+  border-radius: var(--lgc-giscus-control-radius-active) !important;
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+main .gsc-comment-replies-count {
+  margin: 0 !important;
+  margin-inline-end: 0 !important;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+main .gsc-replies {
+  overflow: visible;
+  border-top: 0;
+  border-radius: 0 !important;
+  background: transparent;
+  margin-inline-start: 0 !important;
+  padding-inline-start: 0 !important;
+  padding-block-start: 0.75rem;
+}
+
+main .gsc-reply {
+  overflow: visible;
+  margin-inline-start: 0 !important;
+  margin-block-start: 0.5rem;
+  border-radius: var(--lgc-giscus-compact-radius);
+  background: var(--lgc-giscus-card-bg-nested);
+  padding: 0.85rem 0.75rem;
+}
+
+main .gsc-tl-line {
+  background: var(--lgc-giscus-subtle-border);
+}
+
+main .gsc-reply-header {
+  align-items: center;
+}
+
+main .gsc-reply-content {
+  color: var(--md-sys-color-on-surface);
+  background: transparent !important;
+}
+
+main .gsc-reply-box {
+  border-top: 0 !important;
+  border-radius: 0;
+  background: transparent;
+  margin-inline-start: 0 !important;
+  margin-block-start: 0.75rem;
+  padding: 0;
+}
+
+main .gsc-reply-box .gsc-comment-box {
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--lgc-giscus-compact-radius);
+  background: var(--lgc-giscus-card-bg-nested);
+}
+
+main .gsc-reply-box .gsc-comment-box-main {
+  padding: 0.65rem 0 0;
+}
+
+main .gsc-reply-box .gsc-comment-box-textarea {
+  min-height: 2.75rem;
+  border: 0;
+  border-radius: var(--lgc-giscus-compact-radius);
+  background: transparent;
+}
+
+main .gsc-reply-box > button.form-control {
+  width: 100%;
+  min-height: 2.75rem;
+  border: 0;
+  border-radius: var(--lgc-giscus-compact-radius) !important;
+  background: var(--lgc-giscus-card-bg-nested);
+  color: var(--md-sys-color-on-surface);
+  padding-inline: 0.65rem !important;
+  text-align: start;
+  transition:
+    background-color var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    border-radius var(--lgc-giscus-motion-short) var(--lgc-giscus-easing),
+    color var(--lgc-giscus-motion-short) var(--lgc-giscus-easing);
+}
+
+main .gsc-reply-box > button.form-control:hover {
+  border-radius: var(--lgc-giscus-control-radius-active) !important;
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+main .gsc-reactions-popover {
+  border-color: var(--lgc-giscus-border);
+  border-radius: var(--lgc-giscus-compact-radius);
+  background: var(--md-sys-color-surface-container-high);
+}
+
+main .gsc-emoji-button {
+  border-color: var(--lgc-giscus-subtle-border);
+}
+
+main .gsc-emoji-button:first-child {
+  border-start-start-radius: var(--lgc-giscus-compact-radius);
+}
+
+main .gsc-emoji-button:nth-child(4) {
+  border-start-end-radius: var(--lgc-giscus-compact-radius);
+}
+
+main .gsc-emoji-button:nth-last-child(4) {
+  border-end-start-radius: var(--lgc-giscus-compact-radius);
+}
+
+main .gsc-emoji-button:last-child {
+  border-end-end-radius: var(--lgc-giscus-compact-radius);
+}
+
+main .gsc-pagination {
+  margin: 0;
+}
+
+main .gsc-pagination-button {
+  border: 0;
+  border-radius: var(--lgc-giscus-control-radius);
+  background: var(--lgc-giscus-card-bg);
+  color: var(--md-sys-color-primary);
+}
+
+main :is(button, a, textarea, summary):focus-visible {
+  outline: 2px solid var(--lgc-giscus-focus-ring);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  main .gsc-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  main .gsc-right-header.BtnGroup {
+    align-self: flex-start;
+  }
+
+  main .gsc-comment {
+    border-radius: var(--lgc-giscus-compact-radius);
+  }
+
+  main .gsc-comment-footer,
+  main .gsc-reply-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  main .gsc-comment-reactions,
+  main .gsc-reply-reactions {
+    margin-inline-start: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main *,
+  main *::before,
+  main *::after {
+    transition-duration: 0.01ms !important;
+  }
 }

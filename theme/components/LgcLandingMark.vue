@@ -71,7 +71,7 @@ defineProps<{
   gap: 0;
   padding: 0;
   overflow: hidden;
-  border-radius: 999px;
+  border-radius: 18px;
   border: 3px solid
     color-mix(in srgb, var(--md-sys-color-surface-container-high) 20%, transparent);
   color: var(--md-sys-color-on-secondary-container);

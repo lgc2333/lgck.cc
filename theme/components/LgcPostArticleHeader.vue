@@ -3,12 +3,10 @@ import type { Post } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { normalizeLocaleText } from '../utils/post'
+import { normalizeLocaleText, normalizePostListValue } from '../utils/post'
 
 const props = defineProps<{
-  categories: string[]
   frontmatter: Post
-  tags: string[]
 }>()
 
 const { locale } = useI18n()
@@ -16,24 +14,53 @@ const title = computed(() => normalizeLocaleText(props.frontmatter.title, locale
 const description = computed(() =>
   normalizeLocaleText(props.frontmatter.description, locale.value),
 )
+const icon = computed(() => props.frontmatter.icon)
+const titleColorStyle = computed(() =>
+  props.frontmatter.color ? { color: props.frontmatter.color } : undefined,
+)
+const tags = computed(() => normalizePostListValue(props.frontmatter.tags))
+const categories = computed(() => normalizePostListValue(props.frontmatter.categories))
+const hasMeta = computed(() =>
+  Boolean(
+    props.frontmatter.date ||
+    props.frontmatter.updated ||
+    tags.value.length ||
+    categories.value.length,
+  ),
+)
+const hasHeaderContent = computed(() =>
+  Boolean(title.value || description.value || icon.value || hasMeta.value),
+)
 </script>
 
 <template>
   <LgcPostCoverFrame
-    v-if="frontmatter.cover"
+    v-if="frontmatter.cover && hasHeaderContent"
     class="lgc-article-cover"
     :src="frontmatter.cover"
     :alt="title"
     variant="article"
   >
     <header class="lgc-article-header lgc-article-header-cover">
-      <h1 class="lgc-article-title">
-        {{ title }}
+      <h1
+        v-if="title || icon"
+        class="lgc-article-title"
+        :class="frontmatter.pageTitleClass"
+        :style="titleColorStyle"
+      >
+        <span
+          v-if="icon"
+          class="lgc-article-title-icon"
+          :class="icon"
+          aria-hidden="true"
+        />
+        <span v-if="title">{{ title }}</span>
       </h1>
       <p v-if="description" class="lgc-article-description">
         {{ description }}
       </p>
       <LgcPostArticleMeta
+        v-if="hasMeta"
         :categories="categories"
         :created="frontmatter.date"
         :tags="tags"
@@ -42,14 +69,26 @@ const description = computed(() =>
     </header>
   </LgcPostCoverFrame>
 
-  <header v-else class="lgc-article-header">
-    <h1 class="lgc-article-title">
-      {{ title }}
+  <header v-else-if="hasHeaderContent" class="lgc-article-header">
+    <h1
+      v-if="title || icon"
+      class="lgc-article-title"
+      :class="frontmatter.pageTitleClass"
+      :style="titleColorStyle"
+    >
+      <span
+        v-if="icon"
+        class="lgc-article-title-icon"
+        :class="icon"
+        aria-hidden="true"
+      />
+      <span v-if="title">{{ title }}</span>
     </h1>
     <p v-if="description" class="lgc-article-description">
       {{ description }}
     </p>
     <LgcPostArticleMeta
+      v-if="hasMeta"
       :categories="categories"
       :created="frontmatter.date"
       :tags="tags"
@@ -106,6 +145,10 @@ const description = computed(() =>
 }
 
 .lgc-article-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   max-width: 820px;
   margin: 0;
   color: var(--md-sys-color-on-surface);
@@ -113,6 +156,11 @@ const description = computed(() =>
   font-weight: 900;
   line-height: 1.15;
   letter-spacing: 0;
+}
+
+.lgc-article-title-icon {
+  flex: 0 0 auto;
+  font-size: 0.9em;
 }
 
 .lgc-article-header-cover .lgc-article-title {
