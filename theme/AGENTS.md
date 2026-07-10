@@ -1,153 +1,152 @@
 # Theme Guidelines
 
-Concise AI guide for `valaxy-theme-lgcuwukii`. Follow root `../AGENTS.md` first; this file owns theme structure and design direction.
+AI guide for `valaxy-theme-lgcuwukii`. Follow root `../AGENTS.md` first; this file owns structure, design direction, and full styling policy. Keep this doc concise.
 
 ## References
 
-If a Material 3 Expressive decision is unclear, search and review official references before implementing. Do this before relying on memory or copying older theme decisions.
+If an M3 Expressive decision is unclear, check official refs before implementing (not memory / old theme choices).
 
-Recommended starting points:
-
-- [Material Design 3](https://m3.material.io/)
-- [Material 3 Expressive announcement](https://m3.material.io/blog/building-with-m3-expressive)
-- [Expressive Material Design research](https://design.google/library/expressive-material-design-google-research)
-- [Material 3 styles](https://m3.material.io/styles)
-- [Material 3 color](https://m3.material.io/styles/color/overview)
-- [Material 3 elevation](https://m3.material.io/styles/elevation/overview)
-- [Material 3 motion](https://m3.material.io/styles/motion/overview)
-
-Useful search terms:
-
-- `Material 3 Expressive official guidelines`
-- `Material 3 Expressive color shape motion`
-- `Material 3 surface container tonal elevation`
-- `Material 3 state layer hover pressed focus`
-
-Read `utils/m3-loading-indicator/NOTE.md` before editing the loading indicator.
+- [M3](https://m3.material.io/) · [Expressive](https://m3.material.io/blog/building-with-m3-expressive) · [research](https://design.google/library/expressive-material-design-google-research)
+- [styles](https://m3.material.io/styles) · [color](https://m3.material.io/styles/color/overview) · [elevation](https://m3.material.io/styles/elevation/overview) · [motion](https://m3.material.io/styles/motion/overview)
+- Search: `Material 3 Expressive official guidelines`, `color shape motion`, `surface container tonal elevation`, `state layer hover pressed focus`
+- Loading indicator: read `utils/m3-loading-indicator/NOTE.md` first
 
 ## Structure
 
-- `valaxy.config.ts`: `defineTheme()` entry; wires defaults, Vite plugins, font plugin, UnoCSS safelist, and icon collections.
-- `App.vue`: theme-level app shell; currently mounts `LgcLoading`.
-- `client/`: client exports consumed by Valaxy users; currently re-exports theme composables.
-- `node/`: theme defaults and build-time integration: config defaults, HarmonyOS font plugin, loading bootstrap plugin, and dynamic icon safelist generation.
-- `types/`: public theme config and Valaxy module augmentation. Keep configurable behavior typed here before using it in `node/` or components.
-- `components/`: auto-registered Vue components. `Lgc*` files own theme UI; Valaxy-compatible names such as `ValaxyApp.vue`, `ValaxyMain.vue`, or `layout.vue` override framework/theme slots.
-- `layouts/`: Valaxy layouts for default, home, post, and 404 routes.
-- `composables/`: runtime state and adapters, including theme config, header state, language icon motion, and unified search helpers.
-- `utils/`: pure helpers for locale, post, routes, repository URLs, search text, and the Material 3 loading indicator.
-- `styles/`: global SCSS entry, shared layers, helper mixins, and global search styles. `styles/index.ts` imports fonts and `index.scss`.
-- `assets/`: bundled static assets, especially HarmonyOS font files.
-- `locales/`: theme i18n messages.
-- `pages/`: theme-provided Valaxy pages/routes such as paginated home.
+- `valaxy.config.ts`: `defineTheme()` — defaults, Vite plugins, fonts, Uno safelist/icons
+- `App.vue`: theme shell (`LgcLoading`)
+- `client/`: user-facing exports; `node/`: defaults, font plugin, loading bootstrap, icon safelist
+- `types/`: public config + Valaxy augmentation (type before wiring)
+- `components/`: auto-registered; `Lgc*` = theme UI; `ValaxyApp` / `ValaxyMain` / `layout` override slots
+- `layouts/`: default, home, post, 404
+- `composables/`: config, header, language motion, search
+- `utils/`: locale, post, routes, repo URLs, search text, M3 loading
+- `styles/`: global SCSS + tokens (`index.ts` → fonts + `index.scss`)
+- `assets/fonts/`, `locales/`, `pages/` (theme routes)
 
 ## Direction
 
-The theme is a Valaxy blog theme with a configurable landing home, floating header, unified search, post feed, post layouts, footer, and Material 3 loading indicator. Visual direction: **Material 3 Expressive x soft blue character site**.
+Valaxy blog: landing home, floating header, unified search, post feed/layouts, footer, M3 loading. Visual: **M3 Expressive × soft blue character site**.
 
-- Blue is the primary color.
-- Character impression comes from soft blue and white surfaces, cookie-brown and ribbon-pink accents, rounded shapes, light dot texture, and gentle expressive motion.
-- Prefer filled tonal surfaces over outlines and shadows.
-- Keep article, post, and search reading surfaces calmer and denser than the landing screen.
-- The theme must work without bundled character images.
+- Blue primary; soft blue/white, cookie-brown + ribbon-pink accents, rounded shapes, light dots, gentle motion
+- Filled tonal surfaces over outlines/shadows; reading surfaces calmer than landing
+- Works without bundled character images
 
 ## Surface Map
 
-- `ValaxyApp.vue` owns global route transition timing and keeps framework theme/user app mounting behavior; `.lgc-page-surface` marks the content areas that visually animate.
-- `LgcLandingHome.vue` owns the first viewport and optional posts section.
-- `LgcHeader.vue`, `LgcHeaderActions.vue`, `LgcHeaderDrawer.vue`, and `LgcHeaderLink.vue` own navigation, i18n/dark/search actions, and responsive drawer behavior.
-- `LgcUnifiedSearch.vue` coordinates local/fuse/Algolia search; `composables/search*.ts` own provider adapters, layer state, and keyboard behavior; field, preview, `LgcUnifiedSearchPanel` (`variant: drawer | mobile`), result button, and result list components own display states.
-- `ValaxyMain.vue` owns the post shell: `main-header` (article cover/title) is full width of `layout-inner` so covers can span `--lgc-container-wide` on ultra-wide screens; body/nav/comment live in `.lgc-main-reading` at `--lgc-container-reading`. `LgcPostArticleHeader.vue`, `LgcPostArticleNav.vue`, `LgcPostCoverFrame.vue`, `LgcPostMetaChips.vue`, `LgcPostFeed.vue`, `LgcPostFeedCard.vue`, `LgcPostFeedPlainCard.vue`, `LgcPostFeedCoverMask.vue` (`mask: card | gradient`), and pagination components own post browsing and reading pieces.
-- `LgcLoading.vue` and `LgcLoadingIndicator.vue` use `utils/m3-loading-indicator/`; read its `NOTE.md` before changing that implementation.
-- `utils/pagination.ts` owns post-feed page windowing and page path helpers; `utils/post.ts` owns post date formatting (`formatPostDate`, `formatPostDateParts`, `shouldShowPostUpdated`) and locale/list normalizers.
-- `theme/styles/index.scss` composes token, base, utility, search, and markdown styles.
-- `theme/styles/tokens.scss` is the sole definition site for MD color roles and lgc tokens: type (rem), semantic space + radius roles (px), control/chrome sizes, measure, elevation, motion, layers.
-- Responsive layout uses Uno breakpoints from `valaxy.config.ts` (`sm` 600 / `md` 840 / `lg` 1200 / `xl` 1600). Prefer `sm:`/`md:` utilities on elements and `@apply 'md:…'`; root token tweaks may use `@screen sm`.
+- `ValaxyApp.vue`: route transition timing; `.lgc-page-surface` animates
+- `LgcLandingHome.vue`: first viewport + optional posts
+- Header: `LgcHeader` / `LgcHeaderActions` / `LgcHeaderDrawer` / `LgcHeaderLink`
+- Search: `LgcUnifiedSearch` + `composables/search*.ts` (local/fuse/Algolia); field/preview/panel/results own display
+- `ValaxyMain.vue`: post shell — `main-header` full `layout-inner` width; body/nav/comment in `.lgc-main-reading` (`--lgc-container-reading`). Pieces: `LgcPostArticleHeader/Nav`, `LgcPostCoverFrame`, `LgcPostMetaChips`, `LgcPostFeed*`, pagination
+- Loading: `LgcLoading*` + `utils/m3-loading-indicator/`
+- `utils/pagination.ts`, `utils/post.ts` (dates/locale)
+- `styles/tokens.scss`: sole MD + `--lgc-*` token source
+- Breakpoints (`valaxy.config.ts`): sm 600 / md 840 / lg 1200 / xl 1600
 
-## Landing Rules
+## Landing
 
-- Use one full viewport landing surface.
-- Topbar floats over the landing and uses rounded icon buttons with Material state layers.
-- Center content is optically centered. Do not reintroduce a vertical center line.
-- Background atmosphere should be diffuse and soft. Avoid solid-center blur circles, visible decorative orbs, and heavy gradients.
-- Dock links are the main interaction area and should be stronger than social icons.
-- Social icons stay icon-only and visually quiet.
-- `landing.mode` controls the home shape: `full` is one viewport with posts below, `full-only` is one viewport with footer at the bottom and no posts, `compact` shows posts below a shorter landing, and `disabled` uses the plain home layout.
+- Full-viewport surface; floating topbar, rounded icon buttons, state layers
+- Optical center only — no vertical center line
+- Soft diffuse bg; no solid blur orbs / heavy gradients
+- Dock = primary interaction; socials icon-only and quiet
+- `landing.mode`: `full` | `full-only` | `compact` | `disabled`
 
 ## Header And Search
 
-- Header controls should keep stable icon anchors, dimensions, and padding across rest, hover, active, drawer, and mobile states.
-- Header links can be icon-only, hover-expanded, or always expanded. Preserve active-link expansion and path rewrite behavior from `types/header.d.ts`.
-- Search supports local, fuse, and Algolia providers. Keep keyboard navigation, selected-index ownership per surface, and mobile panel behavior intact.
-- Search result surfaces should be scan-friendly: clear title, path/section, provider context when useful, and highlighted terms without loud decoration.
-- Use icon buttons for compact actions; text labels belong where the control's width is intentionally designed for them.
+- Stable icon anchors/size/padding across rest/hover/active/drawer/mobile
+- Links: icon-only / hover-expand / always-expand; keep active expand + path rewrite (`types/header.d.ts`)
+- Search: keyboard nav, selected-index per surface, mobile panel intact
+- Results: title, path/section, optional provider, quiet highlights
+- Icon buttons for compact actions; labels only when width is intentional
 
 ## Post Surfaces
 
-- Post feed cards may use `card` or `gradient` cover content masks and left/right placement on wider screens.
-- Feed cards can be more expressive than article pages; article pages should stay calm, readable, and typographically stable.
-- Metadata chips, date/status icons, post nav, and pagination should feel like one control family: consistent icon sizing, state layers, and shape feedback.
-- Cover frames and masks must keep text legible on mobile and on image-heavy posts.
+- Feed: `card` | `gradient` masks; L/R placement on wide; more expressive than articles
+- Articles: calm, readable, stable type
+- Chips / dates / nav / pagination = one control family
+- Covers stay legible on mobile and image-heavy posts
 
 ## Avatar
 
-- Do not simulate an avatar with CSS.
-- Use `siteConfig.author.avatar` when present.
-- If `author.avatar` is empty, hide the avatar area completely.
-- The landing title uses `siteConfig.title`; author-owned fields should stay in `site.config.ts` and render alongside the site title only when needed.
-- Do not add decorative badges below or on top of the avatar unless they are a real configurable feature.
+- No CSS-fake avatar. Use `siteConfig.author.avatar` or hide entirely
+- Title from `siteConfig.title`; author fields in `site.config.ts`
+- No decorative badges unless real configurable feature
 
 ## Style Constraints
 
-- Author UI with **UnoCSS Wind4 + attributify** (Tailwind-compatible syntax). Valaxy already enables wind4, attributify, and `@apply` transformers.
-- Prefer attributify for same-prefix groups (`flex`, `text`, `bg`, `p`, `rounded`, …); put ungroupable or conflicting utilities in `class`. Use `un-` prefix when an attribute conflicts with a DOM/Vue prop.
-- **Anchors:** never attributify `text="…"` on `<a>` / `AppLink` / `RouterLink` — maps to legacy `HTMLAnchorElement.text` and wipes slot/children. Use child host or `class` / residual CSS for `text-*` color/size.
-- **Responsive show/hide:** never bare HTML `hidden` for Uno; use `class="hidden max-md:grid"` (UA `[hidden]` is `display:none !important`).
-- **CSS vars:** never default an inline override to `var(--same-name)` (self-ref invalidates the prop). Header link open width broke that way after tokenize (`--lgc-header-link-max-width`).
-- **Motion overrides:** Wind4 `hover:-translate-y-*` uses `translate`, not `transform`. Card-link lift that post cards suppress must use classic `transform` (or reset `translate` too).
-- Do **not** add Uno `shortcuts` or theme color/spacing scales. Reference CSS vars with `$token` (`bg-$md-sys-color-primary`, `p-$lgc-space-lg`).
-- **Class policy:** single-use styles → inline on the element. Multi-use / state / transition → keep a class driven by `@apply '…'` plus residual raw CSS when needed.
-- **Always quote** `@apply` when using `$` or variants with `:` under SCSS: `@apply 'hover:bg-$md-sys-color-surface-container'`.
-- Pitfalls: `text-$token` = color; font-size = `text-size-$token` / `font-size-$token`. `border-$token` = border-color; width = `border-width-$token`.
-- Avoid casual scoped `:deep`. Prefer class fallthrough / props / CSS vars / Uno `[&_.child]:…` or `has-[.child:hover]:…`. Styles live with the node owner.
-- Responsive: `sm`/`md`/`lg`/`xl` from theme Uno config only. Prefer Uno variants over free-form layout `@media (min-width: Npx)`. Root token breakpoint overrides use `@screen sm` (same breakpoints). Complex gradients/keyframes/bleed geometry may stay raw CSS.
-- Shared global styles live in `styles/*`; component-only rules in the component `<style>` (prefer plain CSS when only `@apply`/utilities remain).
-- Custom theme tokens use the `--lgc-*` prefix; sole definition site is `styles/tokens.scss`.
-- **Numeric keep-set (unify here):** **radius (px)**, **type/font sizes** (incl. article/display clamps), **elevation/shadow**, **icon sizes**. Do not invent parallel one-off scales for the same role across files.
-- **Layout / spacing chrome may stay bare px** (landing pads, header dense gaps, cover insets, date-badge boxes, etc.). MD3 flavor layout does **not** need every magic number as a global token.
-- **`calc` hygiene:** do **not** put multi-token layout `calc(...)` in template attributify / `class="…"`. Define a **local custom property** on the owning component or shared class (`--content-pad-top: calc(...)`; then `padding-top: var(--content-pad-top)`). Residual CSS may keep one-off geometry calc. Prefer this over promoting every formula into `tokens.scss`.
-- **Breakpoints (Wind4, theme `unocss.theme.breakpoint` sm 600 / md 840 / lg 1200 / xl 1600):**
-  - **Works:** `sm:`/`md:`/`lg:`/`xl:` (min-width), **`max-sm:`/`max-md:`** (max-width, emits e.g. `width<=599.9px`), also `lt-sm` / `at-sm` from wind4.
-  - **Does not work:** `min-sm:` / `min-md:` (empty CSS). Use plain `sm:` / `md:` for min-width.
-  - Prefer `@screen sm` for token overrides; plain `@media (width <= 599.9px)` is fine when matching `max-sm`.
-- **Space scale** (`--lgc-space-*`) remains for common rhythm; one-offs need not join it.
-- **Radius:** use role tokens (`--lgc-radius-control`, `--lgc-radius-large-active`, …) or scale names; shape morph uses named roles.
-- **Call sites:** prefer `$lgc-*` / `$md-sys-*` for keep-set and MD colors. Residual CSS may use `var(--lgc-*)`. Component API locals (header link width, cover on-mask) may use `var(--…)` when they are clear component-owned APIs.
-- **JS:** variant classes are `is-*` (or other semantic names) only — **no** color utilities built in `<script>` strings (`text-[#…]`, `bg-$md-…`, cookie/ribbon hex). Template attributify/`class` may still use `$md` color utilities.
-- Residual CSS is for gradients, keyframes, `:has`, blur, bleed geometry, viewport clamps, and local layout chrome / calc vars.
-- Do not create one-off CSS variables for values used only once unless they are a clear component API or a local calc owner.
-- Keep Uno icons/safelist in `valaxy.config.ts`; no standalone Uno config files.
-- Use Material Symbols Rounded as the primary icon language. Additional rounded icon sets are fine when needed.
-- Iconify icons used by config must be safelisted or loaded through the theme's Uno icon collections.
-- HarmonyOS font loading is theme-owned; keep font integration in `styles/fonts.ts`, `assets/fonts/`, and `node/font.ts`.
+### Priority: Uno first, SCSS second
 
-## Material Feel
+**Authored UI = UnoCSS Wind4 + attributify. SCSS/CSS is auxiliary — do not grow SCSS when utilities cover it.**
 
-- No default outlines on cards/buttons. Use state layers and tonal containers.
-- No default shadows for landing controls, search surfaces, or post cards unless a component has a strong reason.
-- Shape is expressive but disciplined: pills for selected icons and scroll hint, large rounded cards for posts, smaller rounded states on hover.
-- Motion should be subtle shape/position feedback and must respect `prefers-reduced-motion`.
-- Text must fit on mobile. Do not use viewport-scaled font sizes except for the landing title.
+- Prefer: utilities on the element; `$token` vs CSS vars; short multi-use `@apply` classes
+- Avoid: Uno `shortcuts` / theme color·spacing scales; parallel one-off scales; huge `@apply` walls; single-use rules left as named classes
 
-## Theme Config Shape
+**Class policy**
 
-- Theme defaults live in `node/config.ts` and should stay minimal behavior defaults.
-- Public config types live in `types/`; add or update types before wiring new options into components or `node/`.
-- Put site-owned content such as `title`, `subtitle`, `author`, `avatar`, nav labels, landing links, and social links in `site.config.ts`, `themeConfig`, or demos, not hard-coded theme defaults.
+1. Single-use: utilities on element (attributify + `class`); **drop classname + CSS rule**
+2. Multi-use / state / transition: keep class; `@apply '…'` (quote `$` / `:` under SCSS); residual only for non-utility bits
+3. Reusable `@apply` must stay under Prettier `printWidth` 88 — split rules/children/residual props
+4. Global shared → `styles/*`; component residual → component `<style>` (plain CSS fine if only `@apply`)
+
+**Residual SCSS/CSS only when hard:** multi-layer gradient/shadow, keyframes, blur stacks, bleed, viewport clamps, local calc owners, unavoidable trees. Prefer owner styles / fallthrough / props / `[&_.child]:…` / `has-[…]` over casual `:deep`. Hard values can still be CSS vars + `$` in Uno instead of a full SCSS block.
+
+### Tooling
+
+- Attributify same-prefix groups (`flex`/`text`/`bg`/`p`/`rounded`…); leftovers in `class`; `un-` if attr conflicts with DOM/Vue prop
+- Tokens in `styles/tokens.scss`; call with `$token` (`bg-$md-sys-color-surface`, `p-$lgc-space-lg`)
+- Icons/safelist only in `valaxy.config.ts` (no standalone Uno config). Material Symbols Rounded primary; Iconify config icons must be safelisted/collections-loaded
+- Fonts: `styles/fonts.ts`, `assets/fonts/`, `node/font.ts`
+
+### Tokens
+
+- Prefix `--lgc-*`; sole defs in `styles/tokens.scss`
+- **Unify:** radius, type/font size, elevation/shadow, icon size — no parallel scales
+- Layout chrome may stay bare px (landing pads, dense gaps, cover insets, date badges)
+- Space `--lgc-space-*` for rhythm; one-offs need not join. Radius: role tokens (`--lgc-radius-control`, …)
+- Prefer `$lgc-*` / `$md-sys-*`; residual may `var(--lgc-*)`; component APIs may `var(--…)`
+- No one-off CSS var for a single use unless clear API or calc owner
+- JS: semantic `is-*` classes only — **no** color utilities built in script strings
+
+### Calc
+
+- **No `calc(...)` in Uno `[]` or long template class strings**
+- Own a local custom prop on the component/shared class, then `$` / `var(--…)`: e.g. `--content-pad-top: calc(...)` → `p-t="$content-pad-top"`
+- Prefer component-local calc vars over dumping formulas into `tokens.scss`
+
+### Responsive (Wind4)
+
+Breakpoints only from theme config (sm/md/lg/xl above). Prefer Uno variants over free-form layout `@media`.
+
+- Works: `sm:`/`md:`/`lg:`/`xl:` (min), `max-sm:`/`max-md:` (max), wind4 `lt-sm`/`at-sm`
+- Broken: `min-sm:` / `min-md:` (empty) — use plain `sm:` / `md:`
+- Token overrides: `@screen sm`. Matching max-sm: `@media (width <= 599.9px)` ok
+
+### Utility name pitfalls
+
+- `text-$token` = color; size = `text-size-$token` / `font-size-$token`
+- `border-$token` = border-color; width = `border-width-$token`
+- Quote SCSS `@apply` with `$` or `:`: `@apply 'hover:bg-$md-sys-color-surface-container'`
+- Vue/Uno gotchas (anchor `text=`, bare `hidden`, CSS var self-ref, Wind4 `translate`≠`transform`) → root `../AGENTS.md` Gotchas only
+
+### Material Feel
+
+- No default outlines; state layers + tonal containers. No default shadows on landing/search/post cards unless strong reason
+- Shape: pills for selected icons/scroll hint; large rounded post cards; smaller radius on hover/active
+- States distinct (base / hover·focus / active); active after hover when overlapping
+- Expand/collapse: stable icon anchors/padding; animate size/opacity, not gap/padding mid-transition
+- Icon size/padding consistent in a group; prefer `1em` from button font
+- Motion subtle; respect `prefers-reduced-motion`
+- Text fits mobile; no viewport-scaled type except landing title
+
+## Theme Config
+
+- Defaults `node/config.ts` = minimal behavior only
+- Types in `types/` before wiring options
+- Site content (title, author, avatar, nav, landing links, socials) → `site.config.ts` / `themeConfig` / demos, not hard-coded defaults
 
 ## Before Finalizing
 
-- Update this file and root `../AGENTS.md` when changing theme structure, config surface, or design direction.
-- Build the demo site and confirm Iconify classes are emitted in the CSS.
-- Verify desktop and mobile layouts.
-- If the design starts drifting from M3 Expressive, pause and re-check the official references above.
+- Update this file + root `../AGENTS.md` when structure/config/design direction changes
+- Demo build; confirm Iconify classes in CSS; check desktop + mobile
+- If drifting from M3 Expressive, re-check refs above
