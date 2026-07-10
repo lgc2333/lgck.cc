@@ -26,12 +26,25 @@ export function normalizeLocaleText(
   return value[locale] || value.en || Object.values(value)[0] || ''
 }
 
+export function formatPostDate(date?: string | number | Date) {
+  return formatDate(date || '')
+}
+
 export function formatPostDateParts(date?: string | number | Date): PostDateParts {
-  const formatted = formatDate(date || '')
+  const formatted = formatPostDate(date)
   const parts = formatted.split('-')
   return {
     day: parts[2] || formatted,
     rest: parts.length >= 2 ? `${parts[0]}.${parts[1]}` : '',
     datetime: formatted,
   }
+}
+
+export function shouldShowPostUpdated(
+  created?: string | number | Date,
+  updated?: string | number | Date,
+) {
+  if (updated == null || updated === '') return false
+  if (created == null || created === '') return true
+  return formatPostDate(updated) !== formatPostDate(created)
 }

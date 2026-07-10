@@ -1,5 +1,7 @@
 <script setup lang="ts">
-defineProps<{
+import { computed } from 'vue'
+
+const props = defineProps<{
   category?: string
   excerpt?: string
   excerptType?: string
@@ -7,6 +9,13 @@ defineProps<{
   tags: string[]
   title: string
 }>()
+
+const shouldRenderAsTemplate = computed(() => {
+  if (!props.excerpt) return false
+  if (props.excerptType === 'html') return true
+
+  return /<[A-Z][\w.-]*(?:\s|\/?>)/.test(props.excerpt)
+})
 </script>
 
 <template>
@@ -16,7 +25,10 @@ defineProps<{
         {{ title }}
       </RouterLink>
     </h3>
-    <LgcPostExcerpt :excerpt="excerpt" :excerpt-type="excerptType" />
+    <div v-if="excerpt && shouldRenderAsTemplate" class="lgc-post-excerpt">
+      <ValaxyDynamicComponent :template-str="excerpt" />
+    </div>
+    <div v-else-if="excerpt" class="lgc-post-excerpt" v-html="excerpt" />
     <div v-if="category || tags.length" class="lgc-post-tags">
       <LgcPostMetaChips :category="category" :tags="tags" />
     </div>

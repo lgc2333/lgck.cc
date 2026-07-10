@@ -4,9 +4,8 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useUnifiedSearch } from '../composables'
-import LgcUnifiedSearchDrawer from './LgcUnifiedSearchDrawer.vue'
 import LgcUnifiedSearchField from './LgcUnifiedSearchField.vue'
-import LgcUnifiedSearchMobile from './LgcUnifiedSearchMobile.vue'
+import LgcUnifiedSearchPanel from './LgcUnifiedSearchPanel.vue'
 import LgcUnifiedSearchPreview from './LgcUnifiedSearchPreview.vue'
 
 defineProps<{
@@ -104,9 +103,10 @@ const setRootRef: VNodeRef = (element) => {
     <ClientOnly>
       <Teleport to="body">
         <Transition name="lgc-search-drawer">
-          <LgcUnifiedSearchDrawer
+          <LgcUnifiedSearchPanel
             v-if="openDrawer"
             v-model="query"
+            variant="drawer"
             :count-text="t('search.hits', results.length || 0)"
             :has-query="hasQuery"
             :loading="loading"
@@ -122,9 +122,10 @@ const setRootRef: VNodeRef = (element) => {
           />
         </Transition>
 
-        <LgcUnifiedSearchMobile
+        <LgcUnifiedSearchPanel
           v-if="mobileSearchMode"
           v-model="query"
+          variant="mobile"
           :has-query="hasQuery"
           :loading="loading"
           :loading-text="t('search.loading')"

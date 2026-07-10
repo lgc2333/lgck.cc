@@ -3,7 +3,12 @@ import type { Post } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { normalizeLocaleText, normalizePostListValue } from '../utils/post'
+import {
+  normalizeLocaleText,
+  normalizePostCategoryPath,
+  normalizePostListValue,
+  shouldShowPostUpdated,
+} from '../utils/post'
 
 const props = defineProps<{
   frontmatter: Post
@@ -19,13 +24,13 @@ const titleColorStyle = computed(() =>
   props.frontmatter.color ? { color: props.frontmatter.color } : undefined,
 )
 const tags = computed(() => normalizePostListValue(props.frontmatter.tags))
-const categories = computed(() => normalizePostListValue(props.frontmatter.categories))
+const category = computed(() => normalizePostCategoryPath(props.frontmatter.categories))
 const hasMeta = computed(() =>
   Boolean(
     props.frontmatter.date ||
-    props.frontmatter.updated ||
+    shouldShowPostUpdated(props.frontmatter.date, props.frontmatter.updated) ||
     tags.value.length ||
-    categories.value.length,
+    category.value,
   ),
 )
 const hasHeaderContent = computed(() =>
@@ -60,13 +65,14 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
       <p v-if="description" class="lgc-article-description">
         {{ description }}
       </p>
-      <LgcPostArticleMeta
-        v-if="hasMeta"
-        :categories="categories"
-        :created="frontmatter.date"
-        :tags="tags"
-        :updated="frontmatter.updated"
-      />
+      <div v-if="hasMeta" class="lgc-article-meta" aria-label="Post metadata">
+        <LgcPostMetaChips
+          :category="category"
+          :created="frontmatter.date"
+          :tags="tags"
+          :updated="frontmatter.updated"
+        />
+      </div>
     </header>
   </LgcPostCoverFrame>
 
@@ -88,13 +94,14 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
     <p v-if="description" class="lgc-article-description">
       {{ description }}
     </p>
-    <LgcPostArticleMeta
-      v-if="hasMeta"
-      :categories="categories"
-      :created="frontmatter.date"
-      :tags="tags"
-      :updated="frontmatter.updated"
-    />
+    <div v-if="hasMeta" class="lgc-article-meta" aria-label="Post metadata">
+      <LgcPostMetaChips
+        :category="category"
+        :created="frontmatter.date"
+        :tags="tags"
+        :updated="frontmatter.updated"
+      />
+    </div>
   </header>
 </template>
 
@@ -107,6 +114,14 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
   gap: var(--lgc-space-md);
   padding: var(--lgc-space-2xl) 0 2rem;
   text-align: center;
+}
+
+.lgc-article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  line-height: 1.4;
 }
 
 .lgc-article-cover {
