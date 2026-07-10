@@ -11,6 +11,8 @@ defineProps<{
   <nav
     v-if="nextPost?.path || prevPost?.path"
     class="lgc-article-nav"
+    grid
+    gap="$lgc-space-md"
     :class="{ 'has-both': nextPost?.path && prevPost?.path }"
     aria-label="Post navigation"
   >
@@ -44,66 +46,41 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
-@use '../styles/helpers' as *;
-
-.lgc-article-nav {
-  display: grid;
-  gap: var(--lgc-space-md);
+.lgc-article-nav.has-both {
+  @apply 'md:grid-cols-2';
 }
 
 .lgc-article-nav-item {
-  gap: var(--lgc-space-sm);
+  @apply 'grid min-w-0 items-center gap-$lgc-space-sm overflow-hidden';
   grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  min-width: 0;
-  overflow: hidden;
 }
 
 .lgc-article-nav-item.is-next {
   grid-template-columns: minmax(0, 1fr) auto;
-  text-align: right;
+  @apply 'text-right';
 }
 
 .lgc-article-nav-copy {
-  display: grid;
-  min-width: 0;
-  gap: var(--lgc-space-xs);
+  @apply 'grid min-w-0 gap-$lgc-space-xs';
 }
 
 .lgc-article-nav-copy span {
-  color: var(--md-sys-color-on-surface-variant);
-  font-size: var(--lgc-label-small);
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  @apply 'text-$md-sys-color-on-surface-variant text-size-$lgc-label-small';
+  @apply 'font-900 tracking-[0.04em] uppercase';
 }
 
 .lgc-article-nav-copy strong {
+  // Residual: multi-line clamp needs -webkit-box.
   display: -webkit-box;
   overflow-wrap: anywhere;
-  overflow: hidden;
-  font-size: var(--lgc-body-medium);
-  line-height: 1.45;
   -webkit-box-orient: vertical;
-  line-clamp: 2;
-  -webkit-line-clamp: 2;
+  @apply 'overflow-hidden text-size-$lgc-body-medium leading-[1.45] line-clamp-2';
 }
 
 .lgc-article-nav-icon {
-  display: inline-grid;
-  width: var(--lgc-control-size-compact);
-  height: var(--lgc-control-size-compact);
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: var(--lgc-radius-control-active);
-  color: var(--md-sys-color-primary);
-  font-size: var(--lgc-icon-size);
-  background: var(--md-sys-color-surface-container-highest);
-}
-
-@include nav-up {
-  .lgc-article-nav.has-both {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  @apply 'inline-grid flex-none place-items-center';
+  @apply 'w-$lgc-control-size-compact h-$lgc-control-size-compact';
+  @apply 'rounded-$lgc-radius-control-active text-$md-sys-color-primary';
+  @apply 'text-size-$lgc-icon-size bg-$md-sys-color-surface-container-highest';
 }
 </style>

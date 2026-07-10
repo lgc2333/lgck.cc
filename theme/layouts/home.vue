@@ -14,7 +14,7 @@ const landingEnabled = computed(() => themeConfig.value.landing?.mode !== 'disab
   <LgcLandingHome v-if="landingEnabled && !isPage" />
 
   <Layout v-else>
-    <div class="lgc-home-fallback lgc-page-surface">
+    <div class="lgc-page-surface" grid>
       <LgcHomeIntro v-if="!isPage" />
 
       <slot>
@@ -23,9 +23,3 @@ const landingEnabled = computed(() => themeConfig.value.landing?.mode !== 'disab
     </div>
   </Layout>
 </template>
-
-<style scoped lang="scss">
-.lgc-home-fallback {
-  display: grid;
-}
-</style>

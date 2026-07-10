@@ -57,9 +57,23 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
 </script>
 
 <template>
-  <footer class="lgc-footer va-footer">
-    <div class="lgc-footer-inner">
-      <div v-if="beian?.enable && beian.icp" class="lgc-footer-row lgc-footer-beian">
+  <footer
+    class="lgc-footer va-footer [&_.lgc-footer-version]:text-$md-sys-color-on-surface-variant [&_.lgc-footer-version]:opacity-72"
+    relative
+    flex-none
+    px="$lgc-space-lg"
+    pt="$lgc-space-4xl"
+    pb="$lgc-space-3xl"
+    text="$md-sys-color-on-surface-variant size-$lgc-body-small center"
+    leading="[1.8]"
+  >
+    <div grid w="full" max-w="$lgc-container-reading" gap="1.5" mx-auto>
+      <div
+        v-if="beian?.enable && beian.icp"
+        flex="~ wrap items-center justify-center"
+        gap-x="2.5"
+        gap-y="1.5"
+      >
         <a
           :href="beian.icpLink || 'https://beian.miit.gov.cn/'"
           target="_blank"
@@ -69,14 +83,20 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
         </a>
 
         <template v-if="beian.police && policeLink">
-          <span class="lgc-footer-separator">/</span>
+          <span text="$md-sys-color-on-surface-variant" opacity-72> / </span>
           <a :href="policeLink" target="_blank" rel="noreferrer">
             {{ beian.police }}
           </a>
         </template>
       </div>
 
-      <div class="lgc-footer-row lgc-footer-copyright">
+      <div
+        flex="~ wrap items-center justify-center"
+        gap-x="2.5"
+        gap-y="1.5"
+        text="$md-sys-color-on-surface"
+        font="800"
+      >
         <span>
           &copy;
           {{ copyrightYears }}
@@ -85,6 +105,8 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
         <a
           v-if="showFooterIcon"
           class="lgc-footer-icon"
+          inline-grid
+          place-items="center"
           :class="{ 'is-animated': footerIcon?.animated }"
           :href="footerIconLink"
           target="_blank"
@@ -92,15 +114,26 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
           :title="footerIcon?.title"
           :style="{ color: footerIcon?.color }"
         >
-          <span :class="footerIcon?.name" aria-hidden="true" />
+          <!-- font-size on icon host; never text= on <a> (legacy .text prop) -->
+          <span
+            class="text-size-$lgc-body-large"
+            :class="footerIcon?.name"
+            aria-hidden="true"
+          />
         </a>
 
         <span>{{ $t(siteConfig.author.name) }}</span>
       </div>
 
-      <div v-if="showPowered" class="lgc-footer-row lgc-footer-powered">
+      <div
+        v-if="showPowered"
+        flex="~ wrap items-center justify-center"
+        gap-x="2.5"
+        gap-y="1.5"
+        text="size-$lgc-label-medium"
+      >
         <span v-html="poweredHtml" />
-        <span class="lgc-footer-separator">/</span>
+        <span text="$md-sys-color-on-surface-variant" opacity-72> / </span>
         <span>
           {{ t('footer.theme') }}
           <a
@@ -111,7 +144,13 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
           >
             {{ capitalize(config.theme) }}
           </a>
-          <span class="lgc-footer-version">v{{ themeConfig.pkg.version }}</span>
+          <span
+            class="lgc-footer-version"
+            text="$md-sys-color-on-surface-variant"
+            opacity-72
+          >
+            v{{ themeConfig.pkg.version }}
+          </span>
         </span>
       </div>
 
@@ -121,14 +160,8 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
 </template>
 
 <style scoped lang="scss">
+// Residual: multi-stop footer fade gradient + pulse keyframes.
 .lgc-footer {
-  position: relative;
-  flex: 0 0 auto;
-  padding: var(--lgc-space-4xl) var(--lgc-space-lg) var(--lgc-space-3xl);
-  color: var(--md-sys-color-on-surface-variant);
-  font-size: var(--lgc-body-small);
-  line-height: 1.8;
-  text-align: center;
   background: linear-gradient(
     180deg,
     color-mix(in srgb, var(--md-sys-color-surface-container) 0%, transparent) 0%,
@@ -141,55 +174,13 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
   );
 }
 
-.lgc-footer-inner {
-  display: grid;
-  width: 100%;
-  max-width: var(--lgc-container-reading);
-  gap: 6px;
-  margin-inline: auto;
-}
-
-.lgc-footer-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 6px 10px;
-}
-
 .lgc-footer a {
-  color: inherit;
-  font-weight: 700;
-  text-decoration: none;
-
-  &:hover {
-    color: var(--md-sys-color-primary);
-  }
+  @apply 'text-inherit font-700 no-underline';
+  @apply 'hover:text-$md-sys-color-primary';
 }
 
-.lgc-footer-copyright {
-  color: var(--md-sys-color-on-surface);
-  font-weight: 800;
-}
-
-.lgc-footer-icon {
-  display: inline-grid;
-  place-items: center;
-  font-size: var(--lgc-body-large);
-
-  &.is-animated {
-    animation: lgc-footer-pulse 1.8s var(--lgc-easing-standard) infinite;
-  }
-}
-
-.lgc-footer-powered {
-  font-size: var(--lgc-label-medium);
-}
-
-.lgc-footer-separator,
-:deep(.lgc-footer-version) {
-  color: var(--md-sys-color-on-surface-variant);
-  opacity: 0.72;
+.lgc-footer-icon.is-animated {
+  animation: lgc-footer-pulse 1.8s var(--lgc-easing-standard) infinite;
 }
 
 @keyframes lgc-footer-pulse {

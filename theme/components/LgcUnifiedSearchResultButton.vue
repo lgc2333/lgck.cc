@@ -41,7 +41,7 @@ const SearchTextSegments = defineComponent({
           segment.highlighted ? 'mark' : 'span',
           {
             key: index,
-            class: segment.highlighted ? 'lgc-search-result-highlight' : undefined,
+            class: segment.highlighted ? 'lgc-search-highlight' : undefined,
           },
           segment.text,
         ),
@@ -70,6 +70,8 @@ const SearchTextSegments = defineComponent({
     <span v-if="preview && previewDetailSegments" class="lgc-search-result-excerpt">
       <SearchTextSegments :segments="previewDetailSegments" />
     </span>
-    <span v-if="!preview" class="lgc-search-result-meta">{{ item.path }}</span>
+    <span v-if="!preview" class="lgc-search-result-meta">
+      {{ item.path }}
+    </span>
   </button>
 </template>

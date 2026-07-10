@@ -1,17 +1,12 @@
 <template>
   <div class="lgc-fixed-bg" aria-hidden="true">
-    <div class="bg" />
-    <div class="mask" />
+    <div class="bg absolute inset-0" />
+    <div class="mask absolute inset-0" />
   </div>
 </template>
 
 <style scoped lang="scss">
 .lgc-fixed-bg {
-  * {
-    position: absolute;
-    inset: 0;
-  }
-
   .mask {
     background: color-mix(
       in srgb,

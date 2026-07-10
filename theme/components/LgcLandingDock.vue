@@ -6,7 +6,7 @@ defineProps<{
 }>()
 
 const variantClass: Record<LandingLinkVariant, string> = {
-  default: '',
+  default: 'is-default',
   primary: 'is-primary',
   tonal: 'is-tonal',
   cookie: 'is-cookie',
@@ -15,108 +15,89 @@ const variantClass: Record<LandingLinkVariant, string> = {
 </script>
 
 <template>
-  <nav class="lgc-dock" aria-label="Landing links">
+  <nav
+    class="lgc-dock"
+    flex="~ wrap items-center justify-center"
+    max-w="$lgc-measure-wide"
+    mt="28px sm:36px"
+    gap="$lgc-space-sm sm:$lgc-space-md"
+    aria-label="Landing links"
+  >
     <AppLink
       v-for="item in links"
       :key="`${item.text}-${item.link}`"
-      class="lgc-dock-link lgc-dock-link-base"
+      class="lgc-dock-link"
+      min-h="$lgc-control-size-compact sm:$lgc-control-size"
+      px="$lgc-space-lg sm:$lgc-space-xl"
       :class="variantClass[item.variant || 'default']"
       :to="item.link"
     >
       <span
         v-if="item.icon"
-        class="lgc-dock-link-icon"
+        text="size-$lgc-icon-font-sm"
         :class="item.icon"
         aria-hidden="true"
       />
-      <span class="lgc-dock-link-text">{{ item.text }}</span>
+      <span overflow-hidden text-ellipsis whitespace-nowrap>
+        {{ item.text }}
+      </span>
     </AppLink>
   </nav>
 </template>
 
 <style scoped lang="scss">
-@use '../styles/helpers' as *;
-
-.lgc-dock {
-  display: flex;
-  max-width: var(--lgc-measure-wide);
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: var(--lgc-space-sm);
-  margin-top: 28px;
-}
-
+// Residual: variant CSS custom properties drive color/bg (JS must not build color utils).
 .lgc-dock-link {
+  --lgc-dock-color: var(--md-sys-color-on-surface);
+  --lgc-dock-bg: transparent;
   --lgc-dock-hover-color: var(--md-sys-color-primary);
   --lgc-dock-hover-bg: var(--md-sys-color-surface-container-highest);
 
-  min-height: var(--lgc-control-size-compact);
-  padding-inline: var(--lgc-space-lg);
+  @apply 'inline-flex max-w-full items-center gap-$lgc-space-sm';
+  @apply 'rounded-$lgc-radius-control text-size-$lgc-body-small font-800 no-underline';
+  // Residual: Uno leaves transition-[…max-inline-size…] untransformed in dist.
+  transition-property:
+    background-color, border-radius, color, max-inline-size, transform;
+  @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
+  color: var(--lgc-dock-color);
+  background: var(--lgc-dock-bg);
 
   &.is-primary {
+    --lgc-dock-color: var(--md-sys-color-on-primary);
+    --lgc-dock-bg: var(--md-sys-color-primary);
     --lgc-dock-hover-color: var(--md-sys-color-on-primary-container);
     --lgc-dock-hover-bg: var(--md-sys-color-primary-container);
-
-    color: var(--md-sys-color-on-primary);
-    background: var(--md-sys-color-primary);
   }
 
   &.is-tonal {
+    --lgc-dock-color: var(--md-sys-color-on-secondary-container);
+    --lgc-dock-bg: var(--md-sys-color-secondary-container);
     --lgc-dock-hover-color: var(--md-sys-color-on-secondary-container);
     --lgc-dock-hover-bg: var(--md-sys-color-secondary-container);
-
-    color: var(--md-sys-color-on-secondary-container);
-    background: var(--md-sys-color-secondary-container);
   }
 
   &.is-cookie {
-    --lgc-dock-hover-color: #2b1a10;
-    --lgc-dock-hover-bg: #ffd8a9;
-
-    color: #2b1a10;
-    background: #f4c892;
+    --lgc-dock-color: var(--lgc-color-cookie-on);
+    --lgc-dock-bg: var(--lgc-color-cookie);
+    --lgc-dock-hover-color: var(--lgc-color-cookie-on);
+    --lgc-dock-hover-bg: var(--lgc-color-cookie-hover);
   }
 
   &.is-ribbon {
-    --lgc-dock-hover-color: #3a0717;
-    --lgc-dock-hover-bg: #ffd8e4;
-
-    color: #3a0717;
-    background: #ffc2d8;
+    --lgc-dock-color: var(--lgc-color-ribbon-on);
+    --lgc-dock-bg: var(--lgc-color-ribbon);
+    --lgc-dock-hover-color: var(--lgc-color-ribbon-on);
+    --lgc-dock-hover-bg: var(--lgc-color-ribbon-hover);
   }
 
   &:hover {
-    border-radius: var(--lgc-radius-control-morph);
+    @apply 'rounded-$lgc-radius-control-morph -translate-y-1px';
     color: var(--lgc-dock-hover-color);
     background: var(--lgc-dock-hover-bg);
-    transform: translateY(-1px);
   }
 
   &:active {
-    transform: scale(var(--lgc-control-press-scale));
-  }
-}
-
-.lgc-dock-link-icon {
-  font-size: var(--lgc-icon-font-sm);
-}
-
-.lgc-dock-link-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-@include compact-up {
-  .lgc-dock {
-    gap: var(--lgc-space-md);
-    margin-top: 36px;
-  }
-
-  .lgc-dock-link {
-    min-height: var(--lgc-control-size);
-    padding-inline: var(--lgc-space-xl);
+    @apply 'scale-$lgc-control-press-scale';
   }
 }
 </style>

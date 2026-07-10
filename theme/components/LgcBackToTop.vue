@@ -35,25 +35,55 @@ const strokeOffset = computed(() => {
 </script>
 
 <template>
-  <div class="lgc-back-to-top">
+  <div
+    class="lgc-back-to-top-host hidden md:block"
+    fixed
+    z="$lgc-layer-floating"
+    right="$lgc-space-3xl"
+    bottom="$lgc-space-3xl"
+  >
     <Transition name="lgc-back-to-top-fade">
       <button
         v-if="show"
-        class="lgc-back-to-top-button lgc-icon-button-base lgc-icon-button-hover"
+        class="lgc-icon-button-base lgc-icon-button-hover"
+        relative
+        overflow-visible
+        w="$lgc-back-to-top-size"
+        h="$lgc-back-to-top-size"
+        rounded="$lgc-radius-control-active"
+        text="$md-sys-color-primary size-$lgc-icon-size"
+        bg="$md-sys-color-surface-container-high hover:$md-sys-color-surface-container-highest active:$md-sys-color-surface-container-highest"
+        shadow="$lgc-elevation-shadow-level-2 hover:$lgc-elevation-shadow-level-3"
+        transition="[background-color,border-radius,box-shadow,color,transform]"
+        duration="$lgc-motion-short"
+        ease="$lgc-easing-standard"
+        hover="text-$md-sys-color-primary rounded-$lgc-radius-control-active"
+        focus-visible="rounded-$lgc-radius-control-active text-$md-sys-color-primary bg-$md-sys-color-surface-container-highest shadow-$lgc-elevation-shadow-level-3"
         type="button"
         aria-label="Back to top"
         @click="backToTop"
       >
         <span i-material-symbols-keyboard-arrow-up-rounded aria-hidden="true" />
-        <svg class="lgc-back-to-top-progress" viewBox="0 0 56 56" aria-hidden="true">
+        <svg
+          absolute
+          inset-0
+          w="full"
+          h="full"
+          overflow-visible
+          pointer-events-none
+          viewBox="0 0 56 56"
+          aria-hidden="true"
+        >
           <path
-            class="lgc-back-to-top-progress-indicator"
+            class="transition-[stroke-dashoffset] duration-$lgc-motion-short ease-$lgc-easing-standard"
+            stroke-current
             :d="progressPath"
             fill="none"
             pathLength="1"
             :stroke-width="progressStrokeWidth"
             stroke-dasharray="1"
             :stroke-dashoffset="strokeOffset"
+            stroke-linecap="round"
           />
         </svg>
       </button>
@@ -62,78 +92,14 @@ const strokeOffset = computed(() => {
 </template>
 
 <style scoped lang="scss">
-@use '../styles/helpers' as *;
-
-.lgc-back-to-top {
-  position: fixed;
-  z-index: var(--lgc-layer-floating);
-  right: var(--lgc-space-3xl);
-  bottom: var(--lgc-space-3xl);
-  display: none;
-}
-
-.lgc-back-to-top-button {
-  position: relative;
-  width: var(--lgc-back-to-top-size);
-  height: var(--lgc-back-to-top-size);
-  overflow: visible;
-  border-radius: var(--lgc-radius-control-active);
-  color: var(--md-sys-color-primary);
-  font-size: var(--lgc-icon-size);
-  background: var(--md-sys-color-surface-container-high);
-  box-shadow: var(--lgc-elevation-shadow-level-2);
-  transition:
-    background-color var(--lgc-motion-short) var(--lgc-easing-standard),
-    border-radius var(--lgc-motion-short) var(--lgc-easing-standard),
-    box-shadow var(--lgc-motion-short) var(--lgc-easing-standard),
-    color var(--lgc-motion-short) var(--lgc-easing-standard),
-    transform var(--lgc-motion-short) var(--lgc-easing-standard);
-
-  &:hover,
-  &:focus-visible {
-    border-radius: var(--lgc-radius-control-active);
-    color: var(--md-sys-color-primary);
-    background: var(--md-sys-color-surface-container-highest);
-    box-shadow: var(--lgc-elevation-shadow-level-3);
-  }
-
-  &:active {
-    border-radius: var(--lgc-radius-control-active);
-    background: var(--md-sys-color-surface-container-highest);
-  }
-}
-
-.lgc-back-to-top-progress {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.lgc-back-to-top-progress-indicator {
-  stroke: currentColor;
-  stroke-linecap: round;
-  transition: stroke-dashoffset var(--lgc-motion-short) var(--lgc-easing-standard);
-}
-
 .lgc-back-to-top-fade-enter-active,
 .lgc-back-to-top-fade-leave-active {
-  transition:
-    opacity var(--lgc-motion-short) var(--lgc-easing-standard),
-    transform var(--lgc-motion-short) var(--lgc-easing-standard);
+  @apply 'transition-[opacity,transform] duration-$lgc-motion-short';
+  @apply 'ease-$lgc-easing-standard';
 }
 
 .lgc-back-to-top-fade-enter-from,
 .lgc-back-to-top-fade-leave-to {
-  opacity: 0;
-  transform: translateY(var(--lgc-space-sm));
-}
-
-@include nav-up {
-  .lgc-back-to-top {
-    display: block;
-  }
+  @apply 'opacity-0 translate-y-$lgc-space-sm';
 }
 </style>

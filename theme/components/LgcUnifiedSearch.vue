@@ -55,8 +55,29 @@ const setRootRef: VNodeRef = (element) => {
 </script>
 
 <template>
-  <div v-if="isSupported" :ref="setRootRef" class="lgc-search" :class="actionClass">
-    <div v-if="!isAlgolia" class="lgc-search-inline" :class="{ 'is-open': openInline }">
+  <div
+    v-if="isSupported"
+    :ref="setRootRef"
+    class="lgc-search"
+    relative
+    inline-flex
+    flex-none
+    items-center
+    justify-end
+    gap="$lgc-space-sm"
+    :class="actionClass"
+  >
+    <div
+      v-if="!isAlgolia"
+      class="lgc-search-inline"
+      grid
+      justify-items-end
+      overflow-hidden
+      rounded="$lgc-radius-control-active"
+      pointer-events-none
+      max-md="hidden"
+      :class="{ 'is-open': openInline }"
+    >
       <LgcUnifiedSearchField
         v-model="query"
         :autofocus="openInline"
@@ -139,7 +160,7 @@ const setRootRef: VNodeRef = (element) => {
           @select="mobileSelectedIndex = $event"
         />
 
-        <AlgoliaSearchBox v-if="algoliaLoaded" class="lgc-search-algolia" />
+        <AlgoliaSearchBox v-if="algoliaLoaded" class="hidden" />
       </Teleport>
     </ClientOnly>
   </div>

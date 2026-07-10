@@ -21,13 +21,23 @@ const linkMode = computed<HeaderLinksConfig['mode']>(
   () => linkOptions.value.mode || 'hover',
 )
 const homeLinkMode = computed(() => (homeFixed.value ? 'expanded' : linkMode.value))
-const linkStyle = computed(() => ({
-  '--lgc-header-link-width': linkOptions.value.width || undefined,
-  '--lgc-header-link-min-width':
-    linkOptions.value.minWidth || 'var(--lgc-control-size)',
-  '--lgc-header-link-max-width':
-    linkOptions.value.maxWidth || 'var(--lgc-header-link-max-width)',
-}))
+// Only set overrides when config provides them. Never
+// `--lgc-header-link-max-width: var(--lgc-header-link-max-width)` (self-ref =
+// invalid at computed-value time; open-size becomes empty and expand motion breaks).
+// Default open max comes from :root `--lgc-header-link-max-width` (176px / was 11rem).
+const linkStyle = computed(() => {
+  const style: Record<string, string> = {
+    '--lgc-header-link-min-width':
+      linkOptions.value.minWidth || 'var(--lgc-control-size)',
+  }
+  if (linkOptions.value.width) {
+    style['--lgc-header-link-width'] = linkOptions.value.width
+  }
+  if (linkOptions.value.maxWidth) {
+    style['--lgc-header-link-max-width'] = linkOptions.value.maxWidth
+  }
+  return style
+})
 
 const homeLink = computed<HeaderNavLink>(() => ({
   text: homeLabel.value,
@@ -46,9 +56,39 @@ function closeDrawer() {
 </script>
 
 <template>
-  <header class="lgc-header-shell" :class="{ 'is-scrolled': isScrolled }">
-    <nav class="lgc-header" aria-label="Primary navigation">
-      <div class="lgc-header-group lgc-header-primary">
+  <header
+    class="lgc-header-shell"
+    fixed
+    top-0
+    right-0
+    left-0
+    z="$lgc-layer-header"
+    sm="px-$lgc-space-lg"
+    :class="{ 'is-scrolled': isScrolled }"
+  >
+    <nav
+      class="lgc-header"
+      flex="~ items-center justify-between"
+      w="full"
+      max-w="$lgc-container-wide"
+      gap="$lgc-space-lg"
+      p="$lgc-space-sm sm:[14px]"
+      sm="px-$lgc-space-md"
+      mx-auto
+      bg-transparent
+      rounded="b-$lgc-radius-control"
+      shadow="$lgc-elevation-shadow-level-0"
+      transition="[backdrop-filter,background-color,box-shadow]"
+      duration="$lgc-motion-medium"
+      ease="$lgc-easing-standard"
+      aria-label="Primary navigation"
+    >
+      <div
+        class="lgc-header-primary"
+        flex="~ items-center"
+        min-w="0"
+        gap="$lgc-space-sm"
+      >
         <button
           class="lgc-header-button lgc-header-menu lgc-icon-button-base lgc-icon-button-hover"
           type="button"
@@ -101,34 +141,8 @@ function closeDrawer() {
 </template>
 
 <style scoped lang="scss">
-@use '../styles/helpers' as *;
-
-.lgc-header-shell {
-  position: fixed;
-  z-index: var(--lgc-layer-header);
-  top: 0;
-  right: 0;
-  left: 0;
-}
-
-.lgc-header {
-  display: flex;
-  width: 100%;
-  max-width: var(--lgc-container-wide);
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--lgc-space-lg);
-  padding: var(--lgc-space-sm);
-  margin-inline: auto;
-  background: transparent;
-  border-radius: 0 0 var(--lgc-radius-control) var(--lgc-radius-control);
-  box-shadow: var(--lgc-elevation-shadow-level-0);
-  transition:
-    backdrop-filter var(--lgc-motion-medium) var(--lgc-easing-standard),
-    background-color var(--lgc-motion-medium) var(--lgc-easing-standard),
-    box-shadow var(--lgc-motion-medium) var(--lgc-easing-standard);
-}
-
+// Residual: scrolled scrim blur + color-mix; cascade for optional/mobile hide.
+// Do not use bare HTML `hidden` for menu — UA [hidden] is display:none !important.
 .lgc-header-shell.is-scrolled .lgc-header {
   backdrop-filter: blur(12px);
   background: color-mix(
@@ -136,42 +150,18 @@ function closeDrawer() {
     var(--md-sys-color-primary-container) 40%,
     transparent
   );
-  box-shadow: var(--lgc-elevation-shadow-level-2);
-}
-
-.lgc-header-group {
-  display: flex;
-  min-width: 0;
-  align-items: center;
-  gap: var(--lgc-space-sm);
+  @apply 'shadow-$lgc-elevation-shadow-level-2';
 }
 
 .lgc-header-menu {
-  display: none;
+  @apply 'hidden max-md:grid';
 }
 
-@include nav-down {
-  .lgc-header-menu {
-    display: grid;
-  }
-
-  .lgc-header-primary .lgc-header-link {
-    display: none;
-  }
-
-  .lgc-header-button.is-optional {
-    display: none;
-  }
+.lgc-header-primary .lgc-header-link {
+  @apply 'max-md:hidden';
 }
 
-@include compact-up {
-  .lgc-header-shell {
-    padding-inline: var(--lgc-space-lg);
-  }
-
-  .lgc-header {
-    padding: 14px;
-    padding-inline: var(--lgc-space-md);
-  }
+.lgc-header-primary .lgc-header-link.is-optional {
+  @apply 'max-md:hidden';
 }
 </style>

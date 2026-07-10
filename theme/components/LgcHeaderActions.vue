@@ -44,7 +44,7 @@ function toggleLanguage() {
 </script>
 
 <template>
-  <div class="lgc-header-group">
+  <div flex="~ items-center" min-w="0" gap="$lgc-space-sm">
     <button
       v-if="showI18n"
       class="lgc-header-button lgc-header-lang lgc-icon-button-base lgc-icon-button-hover"
@@ -56,7 +56,8 @@ function toggleLanguage() {
     >
       <span class="lgc-header-lang-label">{{ languageName }}</span>
       <span
-        class="lgc-header-lang-icon lgc-lang-flip-icon"
+        class="lgc-lang-flip-icon"
+        flex-none
         :class="{ 'is-flipping': languageFlipping }"
         i-material-symbols-translate-rounded
         aria-hidden="true"
@@ -85,38 +86,26 @@ function toggleLanguage() {
 </template>
 
 <style scoped lang="scss">
-@use '../styles/helpers' as *;
-
+// Residual: expand on hover uses local calc padding.
 .lgc-header-lang {
   --lgc-header-lang-icon-size: var(--lgc-icon-size);
   --lgc-header-lang-padding: calc(
     (var(--lgc-control-size) - var(--lgc-header-lang-icon-size)) / 2
   );
 
-  display: inline-flex;
-  width: auto;
-  min-width: var(--lgc-control-size);
-  max-width: var(--lgc-control-size);
-  align-items: center;
-  justify-content: flex-end;
-  padding-inline: var(--lgc-header-lang-padding);
-  overflow: hidden;
+  @apply 'inline-flex w-auto min-w-$lgc-control-size max-w-$lgc-control-size';
+  @apply 'items-center justify-end overflow-hidden px-$lgc-header-lang-padding';
 
   &:hover,
   &:focus-visible {
-    max-width: var(--lgc-label-width);
+    @apply 'max-w-$lgc-label-width';
   }
 }
 
 .lgc-header-lang-label {
-  max-width: 0;
-  margin-right: 0;
-  overflow: hidden;
-  font-size: var(--lgc-label-medium);
-  font-weight: 900;
-  line-height: 1;
-  white-space: nowrap;
-  opacity: 0;
+  @apply 'max-w-0 mr-0 overflow-hidden text-size-$lgc-label-medium';
+  @apply 'font-900 leading-none whitespace-nowrap opacity-0';
+  // Residual: multi-duration list (medium width, short opacity).
   transition:
     margin-right var(--lgc-motion-medium) var(--lgc-easing-standard),
     max-width var(--lgc-motion-medium) var(--lgc-easing-standard),
@@ -125,23 +114,17 @@ function toggleLanguage() {
 
 .lgc-header-lang:hover .lgc-header-lang-label,
 .lgc-header-lang:focus-visible .lgc-header-lang-label {
-  max-width: 80px;
-  margin-right: var(--lgc-gap-compact);
-  opacity: 1;
+  // 80px open target matches pre-migration lang label (tighter than --lgc-label-width).
+  @apply 'max-w-[80px] mr-$lgc-gap-compact opacity-100';
 }
 
-.lgc-header-lang-icon {
-  flex: 0 0 auto;
+// Mobile: hide chrome actions except search (owner styles — not parent scoped).
+.lgc-header-button.is-header-action {
+  @apply 'max-md:hidden';
 }
 
-@include nav-down {
-  .lgc-header-button.is-header-action {
-    display: none;
-  }
-
-  .lgc-search.is-header-action,
-  .lgc-search.is-header-action .lgc-header-button.is-header-action {
-    display: grid;
-  }
+.lgc-search.is-header-action,
+.lgc-search.is-header-action .lgc-header-button.is-header-action {
+  @apply 'max-md:grid';
 }
 </style>

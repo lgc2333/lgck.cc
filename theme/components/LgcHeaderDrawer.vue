@@ -73,6 +73,10 @@ function toggleLanguage() {
       <button
         v-if="open"
         class="lgc-drawer-backdrop"
+        fixed
+        inset-0
+        z="$lgc-layer-overlay"
+        border-0
         type="button"
         aria-label="Close navigation"
         @click="emit('close')"
@@ -84,12 +88,38 @@ function toggleLanguage() {
         v-if="open"
         id="lgc-mobile-drawer"
         class="lgc-drawer"
+        flex="~ col"
+        fixed
+        top-0
+        bottom-0
+        left-0
+        z="$lgc-layer-modal"
+        p="$lgc-space-lg"
+        text="$md-sys-color-on-surface"
+        bg="$md-sys-color-surface-container-low"
         aria-label="Mobile navigation"
       >
-        <div class="lgc-drawer-header">
-          <span class="lgc-drawer-title">Navigation</span>
+        <div
+          flex="~ items-center justify-between"
+          min-h="$lgc-control-size"
+          gap="$lgc-space-lg"
+          mb="$lgc-space-sm"
+        >
+          <span
+            text="$md-sys-color-on-surface-variant size-$lgc-label-medium"
+            font="900"
+            tracking="[0.04em]"
+            uppercase
+          >
+            Navigation
+          </span>
           <button
-            class="lgc-drawer-close lgc-icon-button-base lgc-icon-button-hover"
+            class="lgc-icon-button-base lgc-icon-button-hover"
+            grid
+            w="$lgc-control-size-compact"
+            h="$lgc-control-size-compact"
+            rounded-full
+            text="size-$lgc-icon-size"
             type="button"
             aria-label="Close navigation"
             @click="emit('close')"
@@ -98,7 +128,14 @@ function toggleLanguage() {
           </button>
         </div>
 
-        <nav class="lgc-drawer-list" aria-label="Mobile navigation links">
+        <nav
+          grid
+          flex-1
+          content-start
+          gap="1.5"
+          pt="$lgc-space-sm"
+          aria-label="Mobile navigation links"
+        >
           <AppLink
             v-if="addHome"
             class="lgc-drawer-link lgc-drawer-home"
@@ -131,7 +168,7 @@ function toggleLanguage() {
           </AppLink>
         </nav>
 
-        <div class="lgc-drawer-footer" aria-label="Navigation settings">
+        <div grid gap="1.5" pt="$lgc-space-lg" mt-auto aria-label="Navigation settings">
           <button
             v-if="showI18n"
             class="lgc-drawer-link lgc-drawer-control"
@@ -180,102 +217,39 @@ function toggleLanguage() {
 </template>
 
 <style scoped lang="scss">
+// Residual: scrim color-mix, drawer width min(), blur, state-layer color-mix.
 .lgc-drawer-backdrop {
-  position: fixed;
-  z-index: var(--lgc-layer-overlay);
-  inset: 0;
-  border: 0;
   background: color-mix(in srgb, var(--md-sys-color-scrim, #000) 42%, transparent);
 }
 
 .lgc-drawer {
-  position: fixed;
-  z-index: var(--lgc-layer-modal);
-  top: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  width: min(var(--lgc-drawer-width), calc(100vw - var(--lgc-control-size)));
-  flex-direction: column;
-  padding: var(--lgc-space-lg);
-  color: var(--md-sys-color-on-surface);
-  background: var(--md-sys-color-surface-container-low);
+  --drawer-panel-width: min(
+    var(--lgc-drawer-width),
+    calc(100vw - var(--lgc-control-size))
+  );
+  width: var(--drawer-panel-width);
   backdrop-filter: blur(var(--lgc-surface-blur));
   border-radius: 0 var(--lgc-radius-large) var(--lgc-radius-large) 0;
 }
 
-.lgc-drawer-header {
-  display: flex;
-  min-height: var(--lgc-control-size);
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--lgc-space-lg);
-  margin-bottom: var(--lgc-space-sm);
-}
-
-.lgc-drawer-title {
-  color: var(--md-sys-color-on-surface-variant);
-  font-size: var(--lgc-label-medium);
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.lgc-drawer-close {
-  display: grid;
-  width: var(--lgc-control-size-compact);
-  height: var(--lgc-control-size-compact);
-  border-radius: calc(var(--lgc-control-size-compact) / 2);
-  font-size: var(--lgc-icon-size);
-}
-
-.lgc-drawer-list {
-  display: grid;
-  flex: 1;
-  align-content: start;
-  gap: 6px;
-  padding-top: var(--lgc-space-sm);
-}
-
-.lgc-drawer-footer {
-  display: grid;
-  gap: 6px;
-  padding-top: var(--lgc-space-lg);
-  margin-top: auto;
-}
-
 .lgc-drawer-link {
-  display: grid;
-  min-height: var(--lgc-control-size);
-  grid-template-columns: var(--lgc-icon-size) minmax(0, 1fr);
-  align-items: center;
-  gap: 14px;
-  padding-inline: var(--lgc-space-lg);
-  border: 0;
-  border-radius: var(--lgc-radius-control);
-  color: var(--md-sys-color-on-surface-variant);
-  font-size: var(--lgc-body-medium);
-  font-weight: 800;
-  text-align: left;
-  text-decoration: none;
-  transition:
-    background-color var(--lgc-motion-short) var(--lgc-easing-standard),
-    border-radius var(--lgc-motion-short) var(--lgc-easing-standard),
-    color var(--lgc-motion-short) var(--lgc-easing-standard),
-    transform var(--lgc-motion-short) var(--lgc-easing-standard);
+  --drawer-link-cols: var(--lgc-icon-size) minmax(0, 1fr);
+  grid-template-columns: var(--drawer-link-cols);
+  @apply 'grid min-h-$lgc-control-size items-center gap-[14px]';
+  @apply 'px-$lgc-space-lg border-0 rounded-$lgc-radius-control';
+  @apply 'text-$md-sys-color-on-surface-variant text-size-$lgc-body-medium';
+  @apply 'font-800 text-left no-underline';
+  @apply 'transition-[background-color,border-radius,color,transform]';
+  @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
 }
 
 .lgc-drawer-control {
-  appearance: none;
-  font: inherit;
-  cursor: pointer;
-  background: transparent;
+  @apply 'appearance-none bg-transparent cursor-pointer font-inherit';
 }
 
 .lgc-drawer-link:hover,
 .lgc-drawer-link:focus-visible {
-  border-radius: var(--lgc-radius-control-active);
-  color: var(--md-sys-color-primary);
+  @apply 'rounded-$lgc-radius-control-active text-$md-sys-color-primary';
   background: color-mix(in srgb, currentColor 10%, transparent);
 }
 
@@ -285,15 +259,14 @@ function toggleLanguage() {
     currentColor calc(var(--lgc-state-pressed-opacity) * 100%),
     transparent
   );
-  transform: scale(var(--lgc-control-press-scale));
+  @apply 'scale-$lgc-control-press-scale';
 }
 
 .lgc-drawer-link.router-link-exact-active,
 .lgc-drawer-link.router-link-active:not(.lgc-drawer-home),
 .lgc-drawer-link.is-route-active {
-  border-radius: var(--lgc-radius-control-active);
-  color: var(--md-sys-color-on-primary-container);
-  background: var(--md-sys-color-primary-container);
+  @apply 'rounded-$lgc-radius-control-active';
+  @apply 'text-$md-sys-color-on-primary-container bg-$md-sys-color-primary-container';
 }
 
 .lgc-drawer-link.router-link-exact-active:hover,
@@ -302,33 +275,29 @@ function toggleLanguage() {
 .lgc-drawer-link.router-link-active:not(.lgc-drawer-home):focus-visible,
 .lgc-drawer-link.is-route-active:hover,
 .lgc-drawer-link.is-route-active:focus-visible {
-  border-radius: var(--lgc-radius-control-active);
-  color: var(--md-sys-color-on-primary-container);
-  background: var(--md-sys-color-primary-container);
+  @apply 'rounded-$lgc-radius-control-active';
+  @apply 'text-$md-sys-color-on-primary-container bg-$md-sys-color-primary-container';
 }
 
 .lgc-drawer-icon {
-  inline-size: var(--lgc-icon-size);
-  block-size: var(--lgc-icon-size);
-  font-size: var(--lgc-icon-size);
+  @apply 'w-$lgc-icon-size h-$lgc-icon-size text-size-$lgc-icon-size';
 }
 
 .lgc-drawer-fade-enter-active,
 .lgc-drawer-fade-leave-active,
 .lgc-drawer-slide-enter-active,
 .lgc-drawer-slide-leave-active {
-  transition:
-    opacity var(--lgc-motion-medium) var(--lgc-easing-standard),
-    transform var(--lgc-motion-medium) var(--lgc-easing-standard);
+  @apply 'transition-[opacity,transform] duration-$lgc-motion-medium';
+  @apply 'ease-$lgc-easing-standard';
 }
 
 .lgc-drawer-fade-enter-from,
 .lgc-drawer-fade-leave-to {
-  opacity: 0;
+  @apply 'opacity-0';
 }
 
 .lgc-drawer-slide-enter-from,
 .lgc-drawer-slide-leave-to {
-  transform: translateX(-100%);
+  @apply '-translate-x-full';
 }
 </style>

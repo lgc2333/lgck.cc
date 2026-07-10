@@ -8,7 +8,7 @@ For docs mainly for AI (like `AGENTS.md`), keep them concise and token efficient
 
 - pnpm workspace packages are `blog`, `demo`, and `theme`; shared versions live in the `pnpm-workspace.yaml` catalog.
 - `blog/`: production Valaxy site. Edit source in `pages/`, `components/`, `styles/`, `setup/`, `public/`, `site.config.ts`, and `valaxy.config.ts`.
-- `theme/`: package `valaxy-theme-lgcuwukii`; read `theme/AGENTS.md` for its structure map. Theme media queries must use `theme/styles/helpers.scss` mixins, not raw px breakpoints.
+- `theme/`: package `valaxy-theme-lgcuwukii`; read `theme/AGENTS.md` for its structure map. Theme responsive layout uses Uno breakpoints (`sm`/`md`/`lg`/`xl` from theme `valaxy.config.ts`), not free-form `@media` px queries.
 - `demo/`: local theme demo that consumes `theme` through `workspace:*`; includes sample `pages/`, `components/`, `styles/`, `locales/`, and Valaxy config.
 - Generated outputs include `.valaxy/`, `dist/`, feed files, `valaxy-fuse-list.json`, and `*.tsbuildinfo`; do not edit them as source.
 - `temp/`: ignored scratch space; store temporary files in `temp/<sub-category>/`.
@@ -53,9 +53,15 @@ Before implementing theme features, first inspect how the default theme `valaxy-
 ### Styling And UI
 
 - For theme structure and design direction, read `theme/AGENTS.md` before reshaping landing, post feed, navigation, search, or Material 3 Expressive styling.
-- Styling: use traditional SCSS for authored theme/site styles. Do not use UnoCSS utilities, shortcuts, or `@apply` for stable UI styling.
-- Theme layout/shape sizes go through `--lgc-*` tokens in `theme/styles/tokens.scss` (semantic space + radius roles + control sizes in px, type in rem). No bare rem for gap/padding/radius/chrome; no numbered space scale; see `theme/AGENTS.md` Style Constraints.
-- Keep UnoCSS limited to icon generation and required Valaxy integration in `valaxy.config.ts`; do not add standalone Uno config files. Put real styling in component scoped SCSS or `styles/*.scss`.
+- Styling: **UnoCSS Wind4 + attributify** for authored UI. Write Tailwind-compatible utilities; group same-prefix utilities with attributify; put leftovers in `class`.
+- Do **not** define Uno `shortcuts` or theme color/spacing scales. Reference CSS variables with `$token` (`p-$lgc-space-lg`, `bg-$md-sys-color-surface`). Token definitions stay in `theme/styles/tokens.scss`.
+- Shared multi-use classes use CSS + `@apply '…'` (quote when using `$` or `:` variants). Single-use rules inline onto the element and delete the CSS rule.
+- Responsive: use `sm:`/`md:`/`lg:`/`xl:` and **`max-sm:`/`max-md:`** from theme Uno breakpoints (Wind4). **`min-sm:` is unsupported** — use `sm:` for min-width. Prefer Uno variants over free-form layout `@media`. Root token tweaks may use `@screen sm`.
+- **Numeric tokens to unify:** radius, type/font size, elevation/shadow, icon size. Layout chrome may stay bare px. Multi-token layout **`calc` belongs in residual CSS as a local custom property**, not in template attributify. JS must not build color utilities. See `theme/AGENTS.md`.
+- Pitfalls: `text-$token` is **color**; font-size is `text-size-$token` / `font-size-$token`. `border-$token` is border-color; width is `border-width-$token`. SCSS + `@apply` with `$` must be quoted.
+- Avoid casual scoped `:deep`. Prefer owner styles, class fallthrough, props, or Uno `[&_.child]:…` / `has-[.child:hover]:…`. Reserve `:deep` for cases that truly cannot own the node.
+- Complex non-utility CSS (multi-layer gradients, keyframes, `:deep` trees) may stay as raw CSS on the class.
+- Keep Uno icons/safelist wiring in theme `valaxy.config.ts`; no standalone Uno config files.
 - UI states should have clear layering: base, hover/focus, and active/selected styles must be distinct, with active rules ordered after hover when they overlap.
 - Prefer shape feedback: controls may be rounder at rest and should use smaller rounded-rectangle radii on hover/active.
 - For expanding/collapsing controls, keep icon anchors, padding, and layout stable; animate container/text size or opacity instead of changing gap/padding mid-transition.
@@ -82,7 +88,14 @@ ATTENTION: If you encounter a pitfall that might be reusable, you MUST RECORD IT
 
 ### Styling
 
-- Sass `@extend` cannot cross Vue scoped style / `@use` module boundaries reliably; duplicate small transition declarations or use mixins instead of extending selectors from another stylesheet.
+- Sass `@extend` cannot cross Vue scoped style / `@use` module boundaries reliably; prefer `@apply` shared classes or duplicate small declarations.
+- Under `lang="scss"`, always quote `@apply '…$token…'` so Sass does not treat `$token` as a Sass variable.
+- Uno `@apply` may leave multi-property `transition-[…,max-inline-size,…]` untransformed (raw `@apply` in dist CSS / lightningcss warning). Use residual `transition-property: …` for lists that include `max-inline-size` (or other props that fail transform); keep `duration-`/`ease-` as `@apply`.
+- **Never put Uno attributify `text="…"` on `<a>`, `AppLink`, or `RouterLink`.** `HTMLAnchorElement` has a legacy `.text` DOM property (alias of `textContent`). Vue sets it as a prop and **replaces all children** with the attribute string (e.g. social icons become literal `size-$lgc-icon-font-sm`, titles become `inherit hover:…`). Put color/size on a child span via `class`/`text=`, or use residual CSS / `class="text-…"`.
+- **Never use bare HTML `hidden` as an Uno hide utility.** Vue emits the boolean `hidden` attribute; UA CSS is `[hidden] { display: none !important }`, so `max-md="grid"` / `md="block"` cannot override it. Use `class="hidden max-md:grid"` (or residual `@apply 'hidden max-md:grid'`), not a lone `hidden` attribute.
+- Parent scoped CSS does **not** match non-root nodes inside child components. Header mobile hide for action buttons must live in `LgcHeaderActions` (or use `:deep`), not only in `LgcHeader`.
+- **Do not set a CSS custom property to itself** (e.g. inline `--lgc-header-link-max-width: var(--lgc-header-link-max-width)` as a “default”). Self-reference is invalid at computed-value time; dependents like `--lgc-header-link-open-size` become empty and header-link expand width stops animating. Omit the inline override so `:root` token applies, or set a concrete value (`11rem` / `176px`).
+- **Wind4 `translate`/`scale` ≠ `transform`:** Uno `hover:-translate-y-*` / `active:scale-*` set the individual `translate` / `scale` properties. Suppressing with `transform: none` does **not** cancel them (post-card whole-surface lift bug). Prefer residual classic `transform: translateY/scale(...)` for shared motion that other rules must override, or also reset `translate`/`scale`.
 
 ### Valaxy
 

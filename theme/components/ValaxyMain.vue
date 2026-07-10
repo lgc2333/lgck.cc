@@ -10,19 +10,25 @@ const siteConfig = useSiteConfig()
 </script>
 
 <template>
-  <main class="lgc-main">
-    <div class="lgc-main-shell">
+  <main relative w="full" isolate text="$md-sys-color-on-surface">
+    <div grid w="full" gap="$lgc-space-lg" pb="$lgc-space-6xl">
       <slot name="main">
         <slot name="main-header">
           <LgcPostArticleHeader :frontmatter="frontmatter" />
         </slot>
         <slot name="main-header-after" />
 
-        <div class="lgc-main-reading">
-          <div class="lgc-main-content-card">
-            <div class="lgc-main-content">
+        <div grid w="full" max-w="$lgc-container-reading" gap="$lgc-space-lg" mx-auto>
+          <div class="lgc-reading-panel" overflow-hidden>
+            <div flex="~ col" w="full" min-w="0">
               <slot name="main-content">
-                <div class="markdown-body lgc-markdown">
+                <div
+                  class="markdown-body"
+                  max-w="none"
+                  min-w="0"
+                  overflow-hidden
+                  pb="0"
+                >
                   <ValaxyMd :frontmatter="frontmatter">
                     <slot name="main-content-md" />
                     <slot />
@@ -54,61 +60,3 @@ const siteConfig = useSiteConfig()
     <slot name="aside" />
   </main>
 </template>
-
-<style scoped lang="scss">
-@use '../styles/helpers' as *;
-
-.lgc-main {
-  position: relative;
-  width: 100%;
-  isolation: isolate;
-  color: var(--md-sys-color-on-surface);
-}
-
-.lgc-main-shell {
-  display: grid;
-  width: 100%;
-  gap: var(--lgc-space-lg);
-  padding-bottom: var(--lgc-space-6xl);
-}
-
-.lgc-main-reading {
-  display: grid;
-  width: 100%;
-  max-width: var(--lgc-container-reading);
-  gap: var(--lgc-space-lg);
-  margin-inline: auto;
-}
-
-.lgc-main-content {
-  display: flex;
-  width: 100%;
-  min-width: 0;
-  flex-direction: column;
-}
-
-.lgc-main-content-card {
-  @include reading-panel;
-
-  overflow: hidden;
-
-  :deep(.lgc-markdown) {
-    max-width: none;
-    min-width: 0;
-    overflow: hidden;
-    padding-bottom: 0;
-  }
-
-  :deep(.lgc-markdown > *) {
-    max-width: 100%;
-  }
-
-  :deep(.markdown-body > :first-child) {
-    margin-top: 0;
-  }
-
-  :deep(.markdown-body > :last-child) {
-    margin-bottom: 0;
-  }
-}
-</style>

@@ -1,22 +1,17 @@
 .link {
-  color: var(--md-sys-color-primary);
+  @apply 'text-$md-sys-color-primary';
 }
 
 html {
-  color: var(--md-sys-color-on-surface);
-  background: var(--md-sys-color-surface);
-  scroll-behavior: smooth;
+  @apply 'text-$md-sys-color-on-surface bg-$md-sys-color-surface scroll-smooth';
 }
 
 #app {
-  isolation: isolate;
-  min-height: 100vh;
+  @apply isolate min-h-screen;
 }
 
 body {
-  color: var(--md-sys-color-on-surface);
-  background: var(--md-sys-color-surface);
-  font-family: var(--lgc-font-body);
+  @apply 'text-$md-sys-color-on-surface bg-$md-sys-color-surface font-$lgc-font-body';
 }
 
 i,

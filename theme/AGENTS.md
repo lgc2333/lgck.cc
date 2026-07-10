@@ -62,7 +62,7 @@ The theme is a Valaxy blog theme with a configurable landing home, floating head
 - `utils/pagination.ts` owns post-feed page windowing and page path helpers; `utils/post.ts` owns post date formatting (`formatPostDate`, `formatPostDateParts`, `shouldShowPostUpdated`) and locale/list normalizers.
 - `theme/styles/index.scss` composes token, base, utility, search, and markdown styles.
 - `theme/styles/tokens.scss` is the sole definition site for MD color roles and lgc tokens: type (rem), semantic space + radius roles (px), control/chrome sizes, measure, elevation, motion, layers.
-- `theme/styles/helpers.scss` stores SCSS-only breakpoints and shared layout mixins (`compact-up/down`, `nav-up/down`, `between-*`); always use these for `@media` because CSS custom properties cannot drive media queries. `--lgc-breakpoint-*` in tokens is documentation/non-media only.
+- Responsive layout uses Uno breakpoints from `valaxy.config.ts` (`sm` 600 / `md` 840 / `lg` 1200 / `xl` 1600). Prefer `sm:`/`md:` utilities on elements and `@apply 'md:…'`; root token tweaks may use `@screen sm`.
 
 ## Landing Rules
 
@@ -99,18 +99,34 @@ The theme is a Valaxy blog theme with a configurable landing home, floating head
 
 ## Style Constraints
 
-- Use traditional SCSS for authored theme styles.
-- Component-specific SCSS belongs in the component's scoped `<style>`.
-- Add global SCSS only for behavior shared across the theme.
-- Do not use UnoCSS utilities, shortcuts, or `@apply` for stable UI styling.
-- Keep UnoCSS limited to icon generation and required Valaxy integration in `valaxy.config.ts`; do not add standalone Uno config files.
+- Author UI with **UnoCSS Wind4 + attributify** (Tailwind-compatible syntax). Valaxy already enables wind4, attributify, and `@apply` transformers.
+- Prefer attributify for same-prefix groups (`flex`, `text`, `bg`, `p`, `rounded`, …); put ungroupable or conflicting utilities in `class`. Use `un-` prefix when an attribute conflicts with a DOM/Vue prop.
+- **Anchors:** never attributify `text="…"` on `<a>` / `AppLink` / `RouterLink` — maps to legacy `HTMLAnchorElement.text` and wipes slot/children. Use child host or `class` / residual CSS for `text-*` color/size.
+- **Responsive show/hide:** never bare HTML `hidden` for Uno; use `class="hidden max-md:grid"` (UA `[hidden]` is `display:none !important`).
+- **CSS vars:** never default an inline override to `var(--same-name)` (self-ref invalidates the prop). Header link open width broke that way after tokenize (`--lgc-header-link-max-width`).
+- **Motion overrides:** Wind4 `hover:-translate-y-*` uses `translate`, not `transform`. Card-link lift that post cards suppress must use classic `transform` (or reset `translate` too).
+- Do **not** add Uno `shortcuts` or theme color/spacing scales. Reference CSS vars with `$token` (`bg-$md-sys-color-primary`, `p-$lgc-space-lg`).
+- **Class policy:** single-use styles → inline on the element. Multi-use / state / transition → keep a class driven by `@apply '…'` plus residual raw CSS when needed.
+- **Always quote** `@apply` when using `$` or variants with `:` under SCSS: `@apply 'hover:bg-$md-sys-color-surface-container'`.
+- Pitfalls: `text-$token` = color; font-size = `text-size-$token` / `font-size-$token`. `border-$token` = border-color; width = `border-width-$token`.
+- Avoid casual scoped `:deep`. Prefer class fallthrough / props / CSS vars / Uno `[&_.child]:…` or `has-[.child:hover]:…`. Styles live with the node owner.
+- Responsive: `sm`/`md`/`lg`/`xl` from theme Uno config only. Prefer Uno variants over free-form layout `@media (min-width: Npx)`. Root token breakpoint overrides use `@screen sm` (same breakpoints). Complex gradients/keyframes/bleed geometry may stay raw CSS.
+- Shared global styles live in `styles/*`; component-only rules in the component `<style>` (prefer plain CSS when only `@apply`/utilities remain).
 - Custom theme tokens use the `--lgc-*` prefix; sole definition site is `styles/tokens.scss`.
-- **Token unit policy:** type scale uses `rem`; space/radius/control/chrome use `px`; icons relative to control font use `1em`; letter-spacing may use `em`. Borders/shadow offsets/blur use `px` (`--lgc-hairline`, elevation tokens).
-- **Space:** only semantic rhythm tokens (`--lgc-space-xs` … `--lgc-space-6xl`, plus `--lgc-gap-compact`). No numbered reference scale. Rare/one-off distances may be plain `px`; control/icon/header sizes use dedicated size tokens, not space.
-- **Radius:** use role tokens (`--lgc-radius-control`, `--lgc-radius-large-active`, …) or scale names; shape morph uses named roles, not `calc(radius - rem)`.
-- **Call sites:** prefer `var(--lgc-*)` for recurring gap/padding/radius/control/font roles. Do not invent bare `rem` for layout or shape.
-- `calc()` may combine tokens with viewport/`env()` units only. Hairline `1px` borders may stay literal when not using `--lgc-hairline`.
-- Do not create one-off CSS variables for values used only once unless they are a clear component API (e.g. header link width props).
+- **Numeric keep-set (unify here):** **radius (px)**, **type/font sizes** (incl. article/display clamps), **elevation/shadow**, **icon sizes**. Do not invent parallel one-off scales for the same role across files.
+- **Layout / spacing chrome may stay bare px** (landing pads, header dense gaps, cover insets, date-badge boxes, etc.). MD3 flavor layout does **not** need every magic number as a global token.
+- **`calc` hygiene:** do **not** put multi-token layout `calc(...)` in template attributify / `class="…"`. Define a **local custom property** on the owning component or shared class (`--content-pad-top: calc(...)`; then `padding-top: var(--content-pad-top)`). Residual CSS may keep one-off geometry calc. Prefer this over promoting every formula into `tokens.scss`.
+- **Breakpoints (Wind4, theme `unocss.theme.breakpoint` sm 600 / md 840 / lg 1200 / xl 1600):**
+  - **Works:** `sm:`/`md:`/`lg:`/`xl:` (min-width), **`max-sm:`/`max-md:`** (max-width, emits e.g. `width<=599.9px`), also `lt-sm` / `at-sm` from wind4.
+  - **Does not work:** `min-sm:` / `min-md:` (empty CSS). Use plain `sm:` / `md:` for min-width.
+  - Prefer `@screen sm` for token overrides; plain `@media (width <= 599.9px)` is fine when matching `max-sm`.
+- **Space scale** (`--lgc-space-*`) remains for common rhythm; one-offs need not join it.
+- **Radius:** use role tokens (`--lgc-radius-control`, `--lgc-radius-large-active`, …) or scale names; shape morph uses named roles.
+- **Call sites:** prefer `$lgc-*` / `$md-sys-*` for keep-set and MD colors. Residual CSS may use `var(--lgc-*)`. Component API locals (header link width, cover on-mask) may use `var(--…)` when they are clear component-owned APIs.
+- **JS:** variant classes are `is-*` (or other semantic names) only — **no** color utilities built in `<script>` strings (`text-[#…]`, `bg-$md-…`, cookie/ribbon hex). Template attributify/`class` may still use `$md` color utilities.
+- Residual CSS is for gradients, keyframes, `:has`, blur, bleed geometry, viewport clamps, and local layout chrome / calc vars.
+- Do not create one-off CSS variables for values used only once unless they are a clear component API or a local calc owner.
+- Keep Uno icons/safelist in `valaxy.config.ts`; no standalone Uno config files.
 - Use Material Symbols Rounded as the primary icon language. Additional rounded icon sets are fine when needed.
 - Iconify icons used by config must be safelisted or loaded through the theme's Uno icon collections.
 - HarmonyOS font loading is theme-owned; keep font integration in `styles/fonts.ts`, `assets/fonts/`, and `node/font.ts`.

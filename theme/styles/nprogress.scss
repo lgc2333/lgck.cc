@@ -1,67 +1,50 @@
 #nprogress {
-  pointer-events: none;
-
-  &::before {
-    content: '';
-    position: fixed;
-    z-index: var(--lgc-layer-progress);
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--lgc-progress-height);
-    background: var(--md-sys-color-surface-container-highest);
-  }
-
-  .bar {
-    position: fixed;
-    z-index: var(--lgc-layer-progress-runner);
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--lgc-progress-height);
-    border-radius: 0 var(--lgc-radius-full) var(--lgc-radius-full) 0;
-    background: var(--md-sys-color-primary);
-    box-shadow:
-      0 0 0 var(--lgc-hairline)
-        color-mix(in srgb, var(--md-sys-color-on-primary) 18%, transparent),
-      0 var(--lgc-space-xs) var(--lgc-space-md)
-        color-mix(in srgb, var(--md-sys-color-primary) 28%, transparent);
-  }
-
-  .peg {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 96px;
-    height: 100%;
-    border-radius: inherit;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      color-mix(in srgb, var(--md-sys-color-tertiary) 72%, var(--md-sys-color-primary))
-    );
-    opacity: 0.88;
-  }
-
-  .spinner {
-    display: none;
-  }
+  @apply pointer-events-none;
 }
 
-html.dark #nprogress {
-  &::before {
-    background: color-mix(
-      in srgb,
-      var(--md-sys-color-surface-container-highest) 78%,
-      transparent
-    );
-  }
+#nprogress::before {
+  content: '';
+  @apply 'fixed top-0 left-0 w-full z-$lgc-layer-progress';
+  @apply 'h-$lgc-progress-height bg-$md-sys-color-surface-container-highest';
+}
 
-  .bar {
-    box-shadow:
-      0 0 0 var(--lgc-hairline)
-        color-mix(in srgb, var(--md-sys-color-on-primary) 10%, transparent),
-      0 var(--lgc-space-xs) var(--lgc-space-md)
-        color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent);
-  }
+#nprogress .bar {
+  @apply 'fixed top-0 left-0 w-full z-$lgc-layer-progress-runner';
+  @apply 'h-$lgc-progress-height bg-$md-sys-color-primary';
+  border-radius: 0 var(--lgc-radius-full) var(--lgc-radius-full) 0;
+  box-shadow:
+    0 0 0 var(--lgc-hairline)
+      color-mix(in srgb, var(--md-sys-color-on-primary) 18%, transparent),
+    0 var(--lgc-space-xs) var(--lgc-space-md)
+      color-mix(in srgb, var(--md-sys-color-primary) 28%, transparent);
+}
+
+#nprogress .peg {
+  @apply 'absolute top-0 right-0 h-full w-24 opacity-88';
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--md-sys-color-tertiary) 72%, var(--md-sys-color-primary))
+  );
+}
+
+#nprogress .spinner {
+  @apply hidden;
+}
+
+html.dark #nprogress::before {
+  background: color-mix(
+    in srgb,
+    var(--md-sys-color-surface-container-highest) 78%,
+    transparent
+  );
+}
+
+html.dark #nprogress .bar {
+  box-shadow:
+    0 0 0 var(--lgc-hairline)
+      color-mix(in srgb, var(--md-sys-color-on-primary) 10%, transparent),
+    0 var(--lgc-space-xs) var(--lgc-space-md)
+      color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent);
 }

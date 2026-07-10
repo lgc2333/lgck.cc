@@ -34,7 +34,19 @@ defineExpose({ focus })
 </script>
 
 <template>
-  <label class="lgc-search-field" :class="{ 'has-icon': hasIcon, 'is-open': open }">
+  <label
+    class="lgc-search-field"
+    grid
+    items-center
+    gap="$lgc-space-sm"
+    h="$lgc-control-size"
+    px="$lgc-space-lg"
+    overflow-hidden
+    rounded="$lgc-radius-control"
+    text="$md-sys-color-on-surface-variant"
+    bg="$md-sys-color-surface-container-high"
+    :class="{ 'has-icon': hasIcon, 'is-open': open }"
+  >
     <span v-if="hasIcon" i-material-symbols-search-rounded aria-hidden="true" />
     <input
       ref="inputRef"

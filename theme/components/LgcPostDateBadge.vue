@@ -7,46 +7,25 @@ defineProps<{
 </script>
 
 <template>
-  <time class="lgc-post-date" :datetime="datetime">
-    <strong class="lgc-post-date-day">{{ day }}</strong>
-    <span class="lgc-post-date-rest">{{ rest }}</span>
+  <time
+    flex="~ col items-center justify-center"
+    w="[84px] sm:[96px]"
+    h="[84px] sm:[96px]"
+    justify-self="start"
+    rounded="$lgc-radius-large"
+    text="$md-sys-color-on-primary-container"
+    bg="$md-sys-color-primary-container"
+    :datetime="datetime"
+  >
+    <strong text="size-$lgc-date-badge-day" leading-none>{{ day }}</strong>
+    <span
+      mt="$lgc-space-xs"
+      text="size-$lgc-label-small"
+      font="800"
+      tracking="[0.08em]"
+      uppercase
+    >
+      {{ rest }}
+    </span>
   </time>
 </template>
-
-<style scoped lang="scss">
-@use '../styles/helpers' as *;
-
-.lgc-post-date {
-  display: flex;
-  width: 84px;
-  height: 84px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  justify-self: start;
-  border-radius: var(--lgc-radius-large);
-  color: var(--md-sys-color-on-primary-container);
-  background-color: var(--md-sys-color-primary-container);
-}
-
-.lgc-post-date-day {
-  font-size: 32px;
-  line-height: 1;
-}
-
-.lgc-post-date-rest {
-  margin-top: var(--lgc-space-xs);
-  font-size: var(--lgc-label-small);
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-@include compact-up {
-  .lgc-post-date {
-    width: 96px;
-    height: 96px;
-    justify-self: start;
-  }
-}
-</style>

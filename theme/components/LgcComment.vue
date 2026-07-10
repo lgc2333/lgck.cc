@@ -6,17 +6,9 @@ const hasContent = computed(() => Boolean(slots.default))
 </script>
 
 <template>
-  <section v-if="hasContent" class="lgc-comment" aria-label="Comments">
+  <section v-if="hasContent" class="lgc-reading-panel" aria-label="Comments">
     <ClientOnly>
       <slot />
     </ClientOnly>
   </section>
 </template>
-
-<style scoped lang="scss">
-@use '../styles/helpers' as *;
-
-.lgc-comment {
-  @include reading-panel;
-}
-</style>

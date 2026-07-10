@@ -28,6 +28,16 @@ export default defineTheme<ThemeConfig>((options) => {
     },
     unocss: {
       safelist: generateSafelist(options),
+      // MD3 window breakpoints as short variants (dp ≈ px).
+      // Compact = base (< 600). https://m3.material.io/foundations/layout/breakpoints
+      theme: {
+        breakpoint: {
+          sm: '600px', // medium
+          md: '840px', // expanded
+          lg: '1200px', // large
+          xl: '1600px', // extra-large
+        },
+      },
     },
     unocssPresets: {
       icons: {

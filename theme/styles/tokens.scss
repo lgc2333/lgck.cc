@@ -1,5 +1,3 @@
-@use './helpers' as *;
-
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 :root {
@@ -50,9 +48,9 @@ html.dark {
   --md-sys-color-outline-variant: #414b55;
 }
 
-// Layout/shape tokens use px (MD3 dp-like, stable vs root font).
-// Type tokens use rem (user font scaling). Icons relative to control: 1em.
-// Call sites must use var(--lgc-*), not bare rem for spacing/radius/chrome.
+// Numeric keep-set: radius (px), type sizes, elevation/shadow, icon sizes.
+// Layout/spacing chrome (landing pads, dense gaps, cover insets, …) may stay bare px at call sites.
+// Non-numeric roles: MD colors, motion, layers, font families, brand accents.
 :root {
   // --- Font families ---
   --lgc-font-family-cjk: 'HarmonyOS Sans LgCuwukii', system-ui;
@@ -70,7 +68,7 @@ html.dark {
   --lgc-font-display: var(--lgc-font-family-sans);
   --lgc-font-body: var(--va-font-family-base);
 
-  // --- Type scale (rem) ---
+  // --- Type scale (keep-set) ---
   --lgc-display-large: clamp(40px, 7.4vw, 82px);
   --lgc-headline-large: clamp(28px, 4vw, 44px);
   --lgc-title-large: 22px;
@@ -84,7 +82,11 @@ html.dark {
   --lgc-icon-font-sm: 1.25rem;
   --lgc-icon-font-lg: 1.875rem;
   --lgc-display-error: clamp(2.25rem, 6vw, 4.25rem);
-  // Markdown article type (rem; only defined here)
+  --lgc-article-title: clamp(32px, 5vw, 48px);
+  --lgc-article-title-on-cover: clamp(44px, 7vw, 68px);
+  --lgc-article-title-on-cover-mid: clamp(34px, 4.5vw, 48px);
+  --lgc-article-title-on-cover-compact: clamp(30px, 8vw, 40px);
+  --lgc-date-badge-day: 32px;
   --lgc-md-h1: 2.25rem;
   --lgc-md-h1-compact: 2rem;
   --lgc-md-h2: 1.875rem;
@@ -94,7 +96,6 @@ html.dark {
   --lgc-md-h4: 1.1875rem;
   --lgc-md-h5: 1.0625rem;
   --lgc-md-h6: 0.9375rem;
-  --lgc-radius-content: var(--lgc-radius-lg);
 
   // --- Motion ---
   --lgc-motion-short: 160ms;
@@ -106,7 +107,7 @@ html.dark {
   --lgc-control-press-scale: 0.95;
   --lgc-card-press-scale: 0.985;
 
-  // --- Elevation (px offsets) ---
+  // --- Elevation / shadow (keep-set) ---
   --lgc-elevation-shadow-color: 0 0 0;
   --lgc-elevation-shadow-level-0: none;
   --lgc-elevation-shadow-level-1:
@@ -121,7 +122,7 @@ html.dark {
   --lgc-elevation-shadow-overlay: 0 16px 40px
     color-mix(in srgb, var(--md-sys-color-scrim, #000) 16%, transparent);
 
-  // --- Space (semantic rhythm only; rare values stay px at call sites) ---
+  // --- Space rhythm (shared scale; one-off layout chrome may use bare px) ---
   --lgc-space-xs: 4px;
   --lgc-space-sm: 8px;
   --lgc-space-md: 12px;
@@ -134,7 +135,7 @@ html.dark {
   --lgc-space-6xl: 64px;
   --lgc-gap-compact: 7px;
 
-  // --- Radius reference scale (px) ---
+  // --- Radius (keep-set) ---
   --lgc-radius-none: 0;
   --lgc-radius-xs: 4px;
   --lgc-radius-sm: 6px;
@@ -148,8 +149,7 @@ html.dark {
   --lgc-radius-3xl-active: 22px;
   --lgc-radius-4xl: 32px;
   --lgc-radius-full: 999px;
-
-  // Semantic radius aliases
+  --lgc-radius-content: var(--lgc-radius-lg);
   --lgc-radius-control: var(--lgc-radius-2xl);
   --lgc-radius-control-active: var(--lgc-radius-lg);
   --lgc-radius-control-morph: var(--lgc-radius-2xl-active);
@@ -158,12 +158,12 @@ html.dark {
   --lgc-radius-pagination: var(--lgc-radius-md);
   --lgc-radius-pagination-hover: var(--lgc-radius-lg-plus);
 
-  // --- Size / chrome ---
+  // --- Icon sizes (keep-set) + control/chrome used by many components ---
+  --lgc-icon-size: 24px;
+  --lgc-icon-size-sm: 20px;
   --lgc-control-size: 48px;
   --lgc-control-size-compact: 44px;
   --lgc-control-size-sm: 32px;
-  --lgc-icon-size: 24px;
-  --lgc-icon-size-sm: 20px;
   --lgc-header-height: 72px;
   --lgc-header-link-max-width: 176px;
   --lgc-search-inline-width: 320px;
@@ -177,17 +177,26 @@ html.dark {
   --lgc-focus-ring: 3px;
   --lgc-hairline: 1px;
 
-  // --- Measure / layout ---
+  // --- Brand accents (dock cookie / ribbon; colors, not layout chrome) ---
+  --lgc-color-cookie: #f4c892;
+  --lgc-color-cookie-on: #2b1a10;
+  --lgc-color-cookie-hover: #ffd8a9;
+  --lgc-color-ribbon: #ffc2d8;
+  --lgc-color-ribbon-on: #3a0717;
+  --lgc-color-ribbon-hover: #ffd8e4;
+
+  // --- Measure ---
   --lgc-container-reading: 900px;
   --lgc-container-wide: 1180px;
   --lgc-measure-narrow: 620px;
   --lgc-measure-medium: 680px;
   --lgc-measure-wide: 760px;
   --lgc-measure-title: 820px;
-  // Mirror helpers.scss breakpoints for documentation / non-media use only.
-  // Always use helpers mixins for `@media` queries.
-  --lgc-breakpoint-compact: 640px;
-  --lgc-breakpoint-nav: 720px;
+  // Docs mirrors of Uno theme breakpoints (sm/md from valaxy.config.ts).
+  --lgc-breakpoint-sm: 600px;
+  --lgc-breakpoint-md: 840px;
+  --lgc-breakpoint-lg: 1200px;
+  --lgc-breakpoint-xl: 1600px;
 
   // --- Layers ---
   --lgc-layer-background: -1;
@@ -210,7 +219,7 @@ html.dark {
   );
 }
 
-@include compact-up {
+@screen sm {
   :root {
     --lgc-header-height: 88px;
   }

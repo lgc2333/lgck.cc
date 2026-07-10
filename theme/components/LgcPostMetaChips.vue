@@ -3,12 +3,19 @@ import { computed } from 'vue'
 
 import { formatPostDate, shouldShowPostUpdated } from '../utils/post'
 
-const props = defineProps<{
-  category?: string
-  tags?: string[]
-  created?: string | number | Date
-  updated?: string | number | Date
-}>()
+const props = withDefaults(
+  defineProps<{
+    category?: string
+    tags?: string[]
+    created?: string | number | Date
+    updated?: string | number | Date
+    /** Cover-on-image chip tone (owned here; no parent :deep). */
+    tone?: 'default' | 'on-cover'
+  }>(),
+  {
+    tone: 'default',
+  },
+)
 
 const createdText = computed(() =>
   props.created != null && props.created !== '' ? formatPostDate(props.created) : '',
@@ -18,22 +25,27 @@ const updatedText = computed(() =>
     ? formatPostDate(props.updated)
     : '',
 )
+
+const tagClass = computed(() => [
+  'lgc-post-tag',
+  props.tone === 'on-cover' ? 'is-on-cover' : '',
+])
 </script>
 
 <template>
-  <span v-if="createdText" class="lgc-post-tag lgc-chip-tonal" title="Created">
+  <span v-if="createdText" :class="tagClass" title="Created">
     <span i-material-symbols-calendar-month-outline-rounded aria-hidden="true" />
-    <time class="lgc-post-tag-time" :datetime="createdText">{{ createdText }}</time>
+    <time :datetime="createdText">{{ createdText }}</time>
   </span>
-  <span v-if="updatedText" class="lgc-post-tag lgc-chip-tonal" title="Updated">
+  <span v-if="updatedText" :class="tagClass" title="Updated">
     <span i-material-symbols-edit-calendar-outline-rounded aria-hidden="true" />
-    <time class="lgc-post-tag-time" :datetime="updatedText">{{ updatedText }}</time>
+    <time :datetime="updatedText">{{ updatedText }}</time>
   </span>
-  <span v-if="category" class="lgc-post-tag lgc-chip-tonal">
+  <span v-if="category" :class="tagClass">
     <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
     {{ category }}
   </span>
-  <span v-for="tag in tags" :key="tag" class="lgc-post-tag lgc-chip-tonal">
+  <span v-for="tag in tags" :key="tag" :class="tagClass">
     <span i-material-symbols-tag-rounded aria-hidden="true" />
     {{ tag }}
   </span>
@@ -41,17 +53,19 @@ const updatedText = computed(() =>
 
 <style scoped lang="scss">
 .lgc-post-tag {
-  gap: 2px;
-  min-height: var(--lgc-meta-chip-min-height);
-  padding-inline: var(--lgc-space-md);
-  font-size: var(--lgc-label-small);
-  font-weight: 700;
+  @apply 'inline-flex items-center gap-[2px] min-h-$lgc-meta-chip-min-height';
+  @apply 'px-$lgc-space-md rounded-$lgc-radius-full';
+  @apply 'text-$md-sys-color-on-secondary-container text-size-$lgc-label-small';
+  @apply 'font-700 bg-$md-sys-color-secondary-container';
 }
 
-.lgc-post-tag-time {
-  color: inherit;
-  font-size: inherit;
-  font-weight: inherit;
-  line-height: inherit;
+// Residual: color-mix on-cover tone.
+.lgc-post-tag.is-on-cover {
+  color: color-mix(in srgb, var(--md-sys-color-on-secondary-container) 88%, white);
+  background: color-mix(
+    in srgb,
+    var(--md-sys-color-secondary-container) 78%,
+    transparent
+  );
 }
 </style>

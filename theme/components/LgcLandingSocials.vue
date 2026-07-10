@@ -7,43 +7,28 @@ defineProps<{
 </script>
 
 <template>
-  <nav v-if="socials.length" class="lgc-socials" aria-label="Social links">
+  <nav
+    v-if="socials.length"
+    flex="~ wrap items-center justify-center"
+    mt="$lgc-space-2xl"
+    gap="$lgc-space-sm"
+    aria-label="Social links"
+  >
     <AppLink
       v-for="item in socials"
       :key="`${item.name}-${item.link}`"
       class="lgc-social-link lgc-icon-button-base lgc-icon-button-hover"
+      w="$lgc-control-size-compact"
+      h="$lgc-control-size-compact"
+      rounded="full hover:$lgc-radius-lg-plus"
+      hover="-translate-y-1px"
+      active="scale-$lgc-control-press-scale"
       :to="item.link"
       :aria-label="item.name"
       rel="noopener"
     >
-      <span :class="item.icon" aria-hidden="true" />
+      <!-- font-size on icon host, not AppLink: HTMLAnchorElement.text wipes children -->
+      <span class="text-size-$lgc-icon-font-sm" :class="item.icon" aria-hidden="true" />
     </AppLink>
   </nav>
 </template>
-
-<style scoped lang="scss">
-.lgc-socials {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: var(--lgc-space-sm);
-  margin-top: var(--lgc-space-2xl);
-}
-
-.lgc-social-link {
-  width: var(--lgc-control-size-compact);
-  height: var(--lgc-control-size-compact);
-  border-radius: calc(var(--lgc-control-size-compact) / 2);
-  font-size: var(--lgc-icon-font-sm);
-
-  &:hover {
-    border-radius: var(--lgc-radius-lg-plus);
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: scale(var(--lgc-control-press-scale));
-  }
-}
-</style>

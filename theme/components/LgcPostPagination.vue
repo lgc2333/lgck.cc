@@ -11,7 +11,13 @@ defineProps<{
 </script>
 
 <template>
-  <nav v-if="totalPages > 1" class="lgc-post-pagination" aria-label="Posts pagination">
+  <nav
+    v-if="totalPages > 1"
+    flex="~ wrap justify-center"
+    gap="[2px]"
+    pt="$lgc-space-lg"
+    aria-label="Posts pagination"
+  >
     <RouterLink
       v-if="showPrev"
       class="lgc-pagination-control"
@@ -49,13 +55,3 @@ defineProps<{
     </RouterLink>
   </nav>
 </template>
-
-<style scoped lang="scss">
-.lgc-post-pagination {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2px;
-  padding-top: var(--lgc-space-lg);
-}
-</style>

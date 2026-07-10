@@ -51,6 +51,8 @@ const { iconClass, isRouteActive } = useHeaderNavItemState({
 </template>
 
 <style scoped lang="scss">
+// Residual: config-driven width tokens + rest padding calc + expand transitions.
+// open-size fallback 176px = giscus 11rem; never self-ref --lgc-header-link-max-width.
 .lgc-header-link {
   --lgc-header-link-icon-size: 1em;
   --lgc-header-link-rest-size: var(
@@ -59,19 +61,16 @@ const { iconClass, isRouteActive } = useHeaderNavItemState({
   );
   --lgc-header-link-open-size: var(
     --lgc-header-link-width,
-    min(var(--lgc-header-link-max-width), 42vw)
+    min(var(--lgc-header-link-max-width, 176px), 42vw)
   );
   --lgc-header-link-rest-padding: calc(
     (var(--lgc-header-link-rest-size) - var(--lgc-header-link-icon-size)) / 2
   );
 
+  @apply 'inline-flex items-center justify-start overflow-hidden';
   inline-size: var(--lgc-header-link-width, auto);
   min-inline-size: var(--lgc-header-link-min-width, var(--lgc-control-size));
   max-inline-size: var(--lgc-header-link-rest-size);
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-start;
-  overflow: hidden;
   padding-inline: var(--lgc-header-link-rest-padding);
 
   &:hover,
@@ -81,14 +80,13 @@ const { iconClass, isRouteActive } = useHeaderNavItemState({
   }
 
   &.is-route-active {
-    border-radius: var(--lgc-radius-control-active);
-    color: var(--md-sys-color-on-primary-container);
-    background: var(--md-sys-color-primary-container);
+    @apply 'rounded-$lgc-radius-control-active';
+    @apply 'text-$md-sys-color-on-primary-container bg-$md-sys-color-primary-container';
   }
 }
 
 .lgc-header-icon {
-  flex: 0 0 var(--lgc-header-link-icon-size);
+  @apply 'flex-none';
   inline-size: var(--lgc-header-link-icon-size);
   block-size: var(--lgc-header-link-icon-size);
   font-size: var(--lgc-header-link-icon-size);
@@ -114,15 +112,9 @@ const { iconClass, isRouteActive } = useHeaderNavItemState({
 }
 
 .lgc-header-label {
-  max-width: 0;
-  margin-left: 0;
-  overflow: hidden;
-  font-size: var(--lgc-body-small);
-  font-weight: 800;
-  line-height: 1.25;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  opacity: 0;
+  @apply 'max-w-0 ml-0 overflow-hidden text-size-$lgc-body-small';
+  @apply 'font-800 leading-tight whitespace-nowrap opacity-0 text-ellipsis';
+  // Residual: multi-duration list (medium width, short opacity).
   transition:
     margin-left var(--lgc-motion-medium) var(--lgc-easing-standard),
     max-width var(--lgc-motion-medium) var(--lgc-easing-standard),
@@ -133,17 +125,13 @@ const { iconClass, isRouteActive } = useHeaderNavItemState({
 .lgc-header-link:focus-visible .lgc-header-label,
 .lgc-header-link.is-expanded .lgc-header-label,
 .lgc-header-link.is-active-expanded.is-route-active .lgc-header-label {
-  max-width: var(--lgc-label-width);
-  margin-left: var(--lgc-gap-compact);
-  opacity: 1;
+  @apply 'max-w-$lgc-label-width ml-$lgc-gap-compact opacity-100';
 }
 
 .lgc-header-link.is-icon .lgc-header-label,
 .lgc-header-link.is-icon:hover .lgc-header-label,
 .lgc-header-link.is-icon:focus-visible .lgc-header-label,
 .lgc-header-link.is-icon.is-active-expanded.is-route-active .lgc-header-label {
-  max-width: 0;
-  margin-left: 0;
-  opacity: 0;
+  @apply 'max-w-0 ml-0 opacity-0';
 }
 </style>

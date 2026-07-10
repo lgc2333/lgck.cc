@@ -39,13 +39,23 @@ onBeforeUnmount(() => {
   <Transition name="lgc-material-loader">
     <div
       v-if="app.showLoading"
-      class="lgc-material-loader"
+      fixed
+      inset-0
+      z="$lgc-layer-loading"
+      grid
+      place-items="center"
+      pointer-events-none
+      bg="$md-sys-color-surface"
       role="status"
       aria-live="polite"
       aria-label="Loading"
     >
       <div
-        class="lgc-material-loader-indicator"
+        relative
+        grid
+        place-items="center"
+        w="$lgc-material-loader-size"
+        h="$lgc-material-loader-size"
         :style="{ '--lgc-material-loader-size': normalizedSize }"
       >
         <LgcLoadingIndicator
@@ -61,34 +71,15 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped lang="scss">
-.lgc-material-loader {
-  position: fixed;
-  z-index: var(--lgc-layer-loading);
-  inset: 0;
-  display: grid;
-  place-items: center;
-  pointer-events: none;
-  background: var(--md-sys-color-surface);
-}
-
-.lgc-material-loader-indicator {
-  position: relative;
-  display: grid;
-  width: var(--lgc-material-loader-size);
-  height: var(--lgc-material-loader-size);
-  place-items: center;
-}
-
 .lgc-material-loader-enter-active,
 .lgc-material-loader-leave-active {
-  transition:
-    opacity var(--lgc-motion-medium) var(--lgc-easing-standard),
-    filter var(--lgc-motion-medium) var(--lgc-easing-standard);
+  @apply 'transition-[opacity,filter] duration-$lgc-motion-medium';
+  @apply 'ease-$lgc-easing-standard';
 }
 
 .lgc-material-loader-enter-from,
 .lgc-material-loader-leave-to {
+  @apply 'opacity-0';
   filter: blur(var(--lgc-surface-blur));
-  opacity: 0;
 }
 </style>

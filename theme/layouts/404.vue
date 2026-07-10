@@ -7,30 +7,74 @@ const router = useRouter()
 <template>
   <Layout>
     <section
-      class="lgc-not-found lgc-page-surface"
+      class="lgc-page-surface"
+      grid
+      flex-1
+      content-center
+      justify-items="center"
+      gap="$lgc-space-2xl"
+      pt="0"
+      pb="$lgc-space-3xl"
+      text-center
       aria-labelledby="lgc-not-found-title"
     >
-      <div class="lgc-not-found-mark" aria-hidden="true">
+      <div
+        grid
+        w="96px"
+        h="96px"
+        place-items="center"
+        rounded="$lgc-radius-4xl"
+        text="$md-sys-color-on-primary-container size-48px"
+        bg="$md-sys-color-primary-container"
+        aria-hidden="true"
+      >
         <span i-material-symbols-travel-explore-rounded />
       </div>
 
-      <div class="lgc-not-found-copy">
-        <h1 id="lgc-not-found-title">404</h1>
-        <p>页面不见了</p>
+      <div grid max-w="$lgc-measure-narrow" gap="$lgc-space-md">
+        <h1
+          id="lgc-not-found-title"
+          m="0"
+          text="$md-sys-color-on-surface size-$lgc-display-error"
+          font="900"
+          leading-none
+          tracking-normal
+        >
+          404
+        </h1>
+        <p
+          m="0"
+          text="$md-sys-color-on-surface-variant size-$lgc-body-large"
+          leading="[1.75]"
+        >
+          页面不见了
+        </p>
       </div>
 
-      <div class="lgc-not-found-actions">
+      <div flex="~ wrap justify-center" gap="$lgc-space-md">
         <RouterLink class="lgc-not-found-action is-primary" to="/">
-          <span i-material-symbols-home-rounded aria-hidden="true" />
+          <span
+            i-material-symbols-home-rounded
+            text="size-$lgc-icon-font-sm"
+            aria-hidden="true"
+          />
           <span>首页</span>
         </RouterLink>
         <button class="lgc-not-found-action" type="button" @click="router.back()">
-          <span i-material-symbols-keyboard-return-rounded aria-hidden="true" />
+          <span
+            i-material-symbols-keyboard-return-rounded
+            text="size-$lgc-icon-font-sm"
+            aria-hidden="true"
+          />
           <span>返回</span>
         </button>
       </div>
 
-      <div class="lgc-not-found-content">
+      <div
+        max-w="$lgc-measure-narrow"
+        text="$md-sys-color-on-surface-variant"
+        leading="[1.75]"
+      >
         <RouterView />
       </div>
     </section>
@@ -38,91 +82,21 @@ const router = useRouter()
 </template>
 
 <style scoped lang="scss">
-.lgc-not-found {
-  display: grid;
-  flex: 1;
-  align-content: center;
-  justify-items: center;
-  gap: var(--lgc-space-2xl);
-  padding-block: 0 var(--lgc-space-3xl);
-  text-align: center;
-}
-
-.lgc-not-found-mark {
-  display: grid;
-  width: 96px;
-  height: 96px;
-  place-items: center;
-  border-radius: var(--lgc-radius-4xl);
-  color: var(--md-sys-color-on-primary-container);
-  font-size: 48px;
-  background: var(--md-sys-color-primary-container);
-}
-
-.lgc-not-found-copy {
-  display: grid;
-  max-width: var(--lgc-measure-narrow);
-  gap: var(--lgc-space-md);
-
-  h1 {
-    margin: 0;
-    color: var(--md-sys-color-on-surface);
-    font-size: var(--lgc-display-error);
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: 0;
-  }
-
-  p {
-    margin: 0;
-    color: var(--md-sys-color-on-surface-variant);
-    font-size: var(--lgc-body-large);
-    line-height: 1.75;
-  }
-}
-
-.lgc-not-found-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--lgc-space-md);
-}
-
 .lgc-not-found-action {
-  display: inline-flex;
-  min-height: var(--lgc-control-size);
-  align-items: center;
-  gap: var(--lgc-space-sm);
-  padding-inline: var(--lgc-space-lg);
-  border: 0;
-  border-radius: var(--lgc-radius-control);
-  color: var(--md-sys-color-on-surface);
-  background: var(--md-sys-color-surface-container-high);
-  font: inherit;
-  font-weight: 900;
-  text-decoration: none;
-  transition:
-    background-color var(--lgc-motion-short) var(--lgc-easing-standard),
-    border-radius var(--lgc-motion-short) var(--lgc-easing-standard),
-    transform var(--lgc-motion-short) var(--lgc-easing-standard);
-
-  &:hover {
-    border-radius: var(--lgc-radius-control-active);
-    background: var(--md-sys-color-surface-container-highest);
-  }
-
-  &:active {
-    transform: scale(var(--lgc-control-press-scale));
-  }
-
-  span:first-child {
-    font-size: var(--lgc-icon-font-sm);
-  }
+  @apply 'inline-flex min-h-$lgc-control-size items-center gap-$lgc-space-sm';
+  @apply 'px-$lgc-space-lg border-0 rounded-$lgc-radius-control';
+  @apply 'text-$md-sys-color-on-surface bg-$md-sys-color-surface-container-high';
+  @apply 'font-inherit font-900 no-underline';
+  @apply 'transition-[background-color,border-radius,transform]';
+  @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
+  @apply 'hover:rounded-$lgc-radius-control-active';
+  @apply 'hover:bg-$md-sys-color-surface-container-highest';
+  @apply 'active:scale-$lgc-control-press-scale';
 }
 
+// Residual: color-mix primary hover.
 .lgc-not-found-action.is-primary {
-  color: var(--md-sys-color-on-primary);
-  background: var(--md-sys-color-primary);
+  @apply 'text-$md-sys-color-on-primary bg-$md-sys-color-primary';
 
   &:hover {
     background: color-mix(
@@ -131,11 +105,5 @@ const router = useRouter()
       var(--md-sys-color-on-primary)
     );
   }
-}
-
-.lgc-not-found-content {
-  max-width: var(--lgc-measure-narrow);
-  color: var(--md-sys-color-on-surface-variant);
-  line-height: 1.75;
 }
 </style>

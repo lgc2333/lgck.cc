@@ -16,7 +16,7 @@ defineProps<{
   <LgcPostDateBadge v-bind="date" />
 
   <LgcPostFeedCardDetails
-    class="lgc-post-body-plain"
+    tags-desktop-only
     :category="category"
     :excerpt="excerpt"
     :excerpt-type="excerptType"
@@ -25,44 +25,22 @@ defineProps<{
     :title="title"
   />
 
-  <div v-if="category || tags.length" class="lgc-post-tags-mobile">
+  <div
+    v-if="category || tags.length"
+    class="col-span-full"
+    flex="~ wrap"
+    gap="$lgc-space-sm"
+    sm="hidden"
+  >
     <LgcPostMetaChips :category="category" :tags="tags" />
   </div>
 
-  <RouterLink class="lgc-post-arrow lgc-card-arrow" :to="path" aria-label="Read post">
+  <RouterLink
+    class="lgc-post-arrow lgc-card-arrow max-sm:hidden"
+    sm="inline-grid"
+    :to="path"
+    aria-label="Read post"
+  >
     <span i-material-symbols-arrow-forward-rounded />
   </RouterLink>
 </template>
-
-<style scoped lang="scss">
-@use '../styles/helpers' as *;
-
-.lgc-post-body-plain :deep(.lgc-post-tags) {
-  display: none;
-}
-
-.lgc-post-tags-mobile {
-  display: flex;
-  grid-column: 1 / -1;
-  flex-wrap: wrap;
-  gap: var(--lgc-space-sm);
-}
-
-.lgc-post-arrow {
-  display: none;
-}
-
-@include compact-up {
-  .lgc-post-body-plain :deep(.lgc-post-tags) {
-    display: flex;
-  }
-
-  .lgc-post-tags-mobile {
-    display: none;
-  }
-
-  .lgc-post-arrow {
-    display: inline-grid;
-  }
-}
-</style>

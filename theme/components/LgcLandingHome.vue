@@ -29,12 +29,40 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 </script>
 
 <template>
-  <main class="lgc-home" :class="`is-${landingMode}`" :style="landingStyle">
+  <main
+    class="lgc-home"
+    min-h="screen"
+    font="$lgc-font-body"
+    :class="`is-${landingMode}`"
+    :style="landingStyle"
+  >
     <LgcFixedBg />
     <LgcHeader />
 
-    <section class="lgc-landing lgc-page-surface" aria-label="Landing">
-      <div class="lgc-landing-center">
+    <section
+      class="lgc-landing lgc-page-surface"
+      relative
+      isolate
+      grid
+      min-h="screen"
+      overflow-clip
+      pt="$lgc-header-height"
+      px="$lgc-space-lg sm:$lgc-space-2xl"
+      pb="80px sm:96px"
+      aria-label="Landing"
+    >
+      <div
+        class="lgc-landing-center"
+        relative
+        z-1
+        flex="~ col items-center justify-center"
+        w="full"
+        min-h="$landing-center-min-h"
+        max-w="$lgc-container-wide"
+        pt="$lgc-space-lg sm:0"
+        mx-auto
+        text-center
+      >
         <LgcLandingMark
           v-if="avatar"
           :avatar="avatar"
@@ -43,11 +71,25 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
           :title="title"
         />
 
-        <h1 class="lgc-landing-title">
+        <h1
+          class="font-$lgc-font-display font-900"
+          m="0"
+          max-w="$landing-title-max-w"
+          text="$md-sys-color-on-surface size-$lgc-display-large"
+          leading="[0.96]"
+          tracking-normal
+        >
           {{ title }}
         </h1>
 
-        <p v-if="subtitle" class="lgc-landing-subtitle">
+        <p
+          v-if="subtitle"
+          m="0"
+          mt="$lgc-space-xl"
+          max-w="$lgc-measure-narrow"
+          text="$md-sys-color-on-surface-variant size-$lgc-body-large sm:size-$lgc-title-medium"
+          leading="[2]"
+        >
           {{ subtitle }}
         </p>
 
@@ -58,161 +100,101 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
       <a
         v-if="showPosts"
         class="lgc-scroll-hint"
+        absolute
+        bottom="$lgc-space-2xl"
+        left="1/2"
+        grid
+        w="$lgc-control-size"
+        h="$lgc-control-size"
+        place-items="center"
+        no-underline
         href="#posts"
         aria-label="Scroll to posts"
       >
-        <span i-material-symbols-keyboard-arrow-down-rounded aria-hidden="true" />
+        <!-- text-* via class/CSS only on <a>: HTMLAnchorElement.text wipes children -->
+        <span
+          class="text-size-$lgc-icon-font-lg"
+          i-material-symbols-keyboard-arrow-down-rounded
+          aria-hidden="true"
+        />
       </a>
 
-      <LgcFooter v-if="isFullOnlyLanding" />
+      <LgcFooter v-if="isFullOnlyLanding" class="relative z-1" />
     </section>
 
-    <div v-if="showPosts" class="lgc-home-surface lgc-page-surface">
-      <LgcPostFeed paginate />
+    <div
+      v-if="showPosts"
+      class="lgc-page-surface"
+      flex="~ col"
+      min-h="screen"
+      bg="$lgc-surface-mask-bg"
+    >
+      <LgcPostFeed
+        class="lgc-content-under-header"
+        flex="[1_0_auto]"
+        pb="$lgc-space-lg sm:$lgc-space-3xl"
+        paginate
+      />
 
-      <LgcFooter />
+      <LgcFooter class="mt-auto" />
     </div>
   </main>
 </template>
 
 <style scoped lang="scss">
-@use '../styles/helpers' as *;
-
-.lgc-home {
-  min-height: 100vh;
-  font-family: var(--lgc-font-body);
-}
-
-.lgc-home.is-full-only {
-  min-height: 100dvh;
-  overflow: clip;
-}
-
-.lgc-home-surface {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  background: var(--lgc-surface-mask-bg);
-}
-
-.lgc-home-surface :deep(.lgc-post-feed) {
-  flex: 1 0 auto;
-  padding-top: calc(var(--lgc-header-height) + var(--lgc-space-lg));
-  padding-bottom: var(--lgc-space-lg);
-}
-
-.lgc-home-surface :deep(.lgc-footer) {
-  margin-top: auto;
-}
-
-.lgc-landing {
-  position: relative;
-  isolation: isolate;
-  display: grid;
-  min-height: 100vh;
-  padding: var(--lgc-header-height) var(--lgc-space-lg) 80px;
-  overflow: clip;
-}
-
+// Local calc owners for landing viewport math (not template [calc(...)]).
 .lgc-landing-center {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  width: 100%;
-  max-width: var(--lgc-container-wide);
-  min-height: calc(100vh - var(--lgc-header-height) - 80px);
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: var(--lgc-space-lg);
-  margin-inline: auto;
-  text-align: center;
+  --landing-center-min-h: calc(100vh - var(--lgc-header-height) - 80px);
+  --landing-title-max-w: calc(var(--lgc-container-wide) - 80px);
+}
+
+// Anchor styles in residual CSS — avoid attributify `text=` on <a>.
+.lgc-scroll-hint {
+  @apply 'rounded-$lgc-radius-control text-$md-sys-color-primary';
+  @apply 'bg-$md-sys-color-surface-container-high -translate-x-1/2';
+  @apply 'transition-[border-radius,transform] duration-$lgc-motion-short';
+  @apply 'ease-$lgc-easing-standard';
+
+  &:hover {
+    @apply 'rounded-$lgc-radius-control-active -translate-x-1/2 translate-y-$lgc-space-sm';
+  }
+}
+
+@screen sm {
+  .lgc-landing-center {
+    --landing-center-min-h: calc(100vh - var(--lgc-header-height) - 96px);
+  }
+}
+
+// Mode variants: parent-state cascades stay as residual selectors.
+.lgc-home.is-full-only {
+  @apply 'min-h-dvh overflow-clip';
 }
 
 .lgc-home.is-full-only .lgc-landing {
-  min-height: 100vh;
-  min-height: 100dvh;
-  grid-template-rows: minmax(0, 1fr) auto;
-  padding-bottom: 0;
+  @apply 'min-h-screen min-h-dvh grid-rows-[minmax(0,1fr)_auto] pb-0';
 }
 
 .lgc-home.is-full-only .lgc-landing-center {
-  min-height: 0;
-  padding-bottom: var(--lgc-space-lg);
-}
-
-.lgc-home.is-full-only :deep(.lgc-footer) {
-  position: relative;
-  z-index: 1;
+  --landing-center-min-h: 0;
+  @apply 'pb-$lgc-space-lg';
 }
 
 .lgc-home.is-compact .lgc-landing {
-  min-height: var(--lgc-landing-compact-height);
+  @apply 'min-h-$lgc-landing-compact-height';
 }
 
 .lgc-home.is-compact .lgc-landing-center {
-  min-height: calc(var(--lgc-landing-compact-height) - var(--lgc-header-height) - 80px);
+  --landing-center-min-h: calc(
+    var(--lgc-landing-compact-height) - var(--lgc-header-height) - 80px
+  );
 }
 
-.lgc-landing-subtitle {
-  max-width: var(--lgc-measure-narrow);
-  margin: var(--lgc-space-xl) 0 0;
-  color: var(--md-sys-color-on-surface-variant);
-  font-size: var(--lgc-body-large);
-  line-height: 2;
-}
-
-.lgc-scroll-hint {
-  position: absolute;
-  bottom: var(--lgc-space-2xl);
-  left: 50%;
-  display: grid;
-  width: var(--lgc-control-size);
-  height: var(--lgc-control-size);
-  place-items: center;
-  border-radius: var(--lgc-radius-control);
-  color: var(--md-sys-color-primary);
-  font-size: var(--lgc-icon-font-lg);
-  text-decoration: none;
-  background: var(--md-sys-color-surface-container-high);
-  transform: translateX(-50%);
-  transition:
-    border-radius var(--lgc-motion-short) var(--lgc-easing-standard),
-    transform var(--lgc-motion-short) var(--lgc-easing-standard);
-
-  &:hover {
-    border-radius: var(--lgc-radius-control-active);
-    transform: translate(-50%, var(--lgc-space-sm));
-  }
-}
-
-@include compact-up {
-  .lgc-home-surface :deep(.lgc-post-feed) {
-    padding-top: calc(var(--lgc-header-height) + var(--lgc-space-3xl));
-    padding-bottom: var(--lgc-space-3xl);
-  }
-
-  .lgc-landing {
-    padding: var(--lgc-header-height) var(--lgc-space-2xl) 96px;
-  }
-
-  .lgc-landing-center {
-    min-height: calc(100vh - var(--lgc-header-height) - 96px);
-    padding-top: 0;
-  }
-
-  .lgc-home.is-full-only .lgc-landing-center {
-    min-height: 0;
-  }
-
+@screen sm {
   .lgc-home.is-compact .lgc-landing-center {
-    min-height: calc(
+    --landing-center-min-h: calc(
       var(--lgc-landing-compact-height) - var(--lgc-header-height) - 96px
     );
-  }
-
-  .lgc-landing-subtitle {
-    font-size: var(--lgc-title-medium);
   }
 }
 </style>

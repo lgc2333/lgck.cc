@@ -1,14 +1,23 @@
 <template>
-  <div class="lgc-layout">
+  <div antialiased text="$md-sys-color-on-surface">
     <LgcFixedBg />
     <LgcHeader />
 
-    <div class="lgc-layout-surface">
-      <main class="lgc-layout-inner">
+    <div flex="~ col" min-h="screen" bg="$lgc-surface-mask-bg">
+      <main
+        class="lgc-content-under-header"
+        box-border
+        flex="~ col"
+        w="full"
+        max-w="$lgc-container-reading lg:$lgc-container-wide"
+        flex-1
+        mx-auto
+        px="$lgc-space-lg sm:$lgc-space-2xl lg:0"
+      >
         <slot />
       </main>
 
-      <LgcFooter>
+      <LgcFooter class="mt-auto">
         <slot name="footer" />
       </LgcFooter>
     </div>
@@ -16,49 +25,3 @@
     <LgcBackToTop />
   </div>
 </template>
-
-<style scoped lang="scss">
-@use '../styles/helpers' as *;
-
-.lgc-layout {
-  -webkit-font-smoothing: antialiased;
-  color: var(--md-sys-color-on-surface);
-}
-
-.lgc-layout-surface {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  background: var(--lgc-surface-mask-bg);
-}
-
-.lgc-layout-inner {
-  display: flex;
-  width: 100%;
-  max-width: var(--lgc-container-reading);
-  box-sizing: border-box;
-  flex: 1 0 auto;
-  flex-direction: column;
-  padding-top: calc(var(--lgc-header-height) + var(--lgc-space-lg));
-  padding-inline: var(--lgc-space-lg);
-  margin-inline: auto;
-}
-
-.lgc-layout-surface :deep(.lgc-footer) {
-  margin-top: auto;
-}
-
-@include compact-up {
-  .lgc-layout-inner {
-    padding-top: calc(var(--lgc-header-height) + var(--lgc-space-3xl));
-    padding-inline: var(--lgc-space-2xl);
-  }
-}
-
-@include wide-up {
-  .lgc-layout-inner {
-    max-width: var(--lgc-container-wide);
-    padding-inline: 0;
-  }
-}
-</style>

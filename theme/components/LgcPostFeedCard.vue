@@ -39,6 +39,11 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 <template>
   <article
     class="lgc-post-card lgc-card-link"
+    relative
+    grid
+    items-start
+    gap="$lgc-space-lg sm:$lgc-space-2xl"
+    p="$lgc-space-xl sm:$lgc-space-2xl"
     :class="{
       'has-cover': hasCover,
     }"
@@ -73,35 +78,37 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 </template>
 
 <style scoped lang="scss">
-@use '../styles/helpers' as *;
-
+// Residual: grid tracks, rest bg token, title/arrow-owned lift (giscus).
 .lgc-post-card {
   --lgc-post-card-rest-bg: var(--md-sys-color-surface-container-low);
-
-  position: relative;
-  display: grid;
-  grid-template-columns: 84px minmax(0, 1fr);
-  align-items: start;
-  gap: var(--lgc-space-lg);
-  padding: var(--lgc-space-xl);
+  --post-card-cols: 84px minmax(0, 1fr);
+  grid-template-columns: var(--post-card-cols);
   background: var(--lgc-post-card-rest-bg);
 }
 
+@screen sm {
+  .lgc-post-card:not(.has-cover) {
+    --post-card-cols: 120px minmax(0, 1fr) auto;
+  }
+}
+
 .lgc-post-card:focus-within {
-  border-radius: var(--lgc-radius-large-active);
-  background: var(--md-sys-color-surface-container);
+  @apply 'rounded-$lgc-radius-large-active bg-$md-sys-color-surface-container';
 }
 
 .lgc-post-card > :not(.lgc-post-status-icons) {
-  position: relative;
-  z-index: var(--lgc-layer-local-base);
+  @apply 'relative z-$lgc-layer-local-base';
 }
 
+// Whole-card hover: keep rest shape/lift (no radius morph, no translate).
+// Lift + radius morph only when title or arrow is the target.
 .lgc-post-card.lgc-card-link:hover {
+  @apply 'rounded-$lgc-radius-large';
   transform: none;
 }
 
 .lgc-post-card.lgc-card-link:active {
+  @apply 'rounded-$lgc-radius-large';
   background: var(--lgc-post-card-rest-bg);
   transform: none;
 }
@@ -112,6 +119,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
     :deep(.lgc-post-arrow:hover),
     :deep(.lgc-post-arrow:focus-visible)
   ) {
+  @apply 'rounded-$lgc-radius-large-active';
   transform: translateY(-2px);
 }
 
@@ -119,27 +127,14 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
     :deep(.lgc-post-title-link:active),
     :deep(.lgc-post-arrow:active)
   ) {
+  @apply 'rounded-$lgc-radius-large-active';
   background: var(--md-sys-color-surface-container-high);
   transform: scale(var(--lgc-card-press-scale));
 }
 
 .lgc-post-card.has-cover {
   --lgc-post-card-rest-bg: var(--md-sys-color-surface-container);
-
-  display: block;
-  padding: 0;
+  @apply 'block p-0';
   color: var(--lgc-post-cover-on-mask);
-}
-
-@include compact-up {
-  .lgc-post-card {
-    grid-template-columns: 120px minmax(0, 1fr) auto;
-    gap: var(--lgc-space-2xl);
-    padding: var(--lgc-space-2xl);
-  }
-
-  .lgc-post-card.has-cover {
-    padding: 0;
-  }
 }
 </style>

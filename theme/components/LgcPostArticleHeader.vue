@@ -42,12 +42,23 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
 <template>
   <LgcPostCoverFrame
     v-if="hasCover && hasHeaderContent"
-    class="lgc-article-cover"
+    w="full"
+    mb="$lgc-space-lg"
+    rounded="$lgc-radius-large"
     :src="frontmatter.cover!"
     :alt="title"
     variant="article"
   >
-    <header class="lgc-article-header lgc-article-header-cover">
+    <header
+      class="lgc-article-header-cover"
+      relative
+      z-0
+      self-end
+      grid
+      justify-items="center"
+      gap="$lgc-space-lg md:$lgc-space-xl"
+      text-center
+    >
       <h1
         v-if="title || icon"
         class="lgc-article-title"
@@ -56,7 +67,8 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
       >
         <span
           v-if="icon"
-          class="lgc-article-title-icon"
+          shrink-0
+          text="size-[0.9em]"
           :class="icon"
           aria-hidden="true"
         />
@@ -65,8 +77,15 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
       <p v-if="description" class="lgc-article-description">
         {{ description }}
       </p>
-      <div v-if="hasMeta" class="lgc-article-meta" aria-label="Post metadata">
+      <div
+        v-if="hasMeta"
+        flex="~ wrap justify-center"
+        gap="$lgc-space-sm"
+        leading="[1.4]"
+        aria-label="Post metadata"
+      >
         <LgcPostMetaChips
+          tone="on-cover"
           :category="category"
           :created="frontmatter.date"
           :tags="tags"
@@ -76,25 +95,34 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
     </header>
   </LgcPostCoverFrame>
 
-  <header v-else-if="hasHeaderContent" class="lgc-article-header">
+  <header
+    v-else-if="hasHeaderContent"
+    grid
+    justify-items="center"
+    gap="$lgc-space-md"
+    pt="$lgc-space-2xl md:$lgc-space-4xl"
+    pb="$lgc-space-3xl"
+    text-center
+  >
     <h1
       v-if="title || icon"
       class="lgc-article-title"
       :class="frontmatter.pageTitleClass"
       :style="titleColorStyle"
     >
-      <span
-        v-if="icon"
-        class="lgc-article-title-icon"
-        :class="icon"
-        aria-hidden="true"
-      />
+      <span v-if="icon" shrink-0 text="size-[0.9em]" :class="icon" aria-hidden="true" />
       <span v-if="title">{{ title }}</span>
     </h1>
     <p v-if="description" class="lgc-article-description">
       {{ description }}
     </p>
-    <div v-if="hasMeta" class="lgc-article-meta" aria-label="Post metadata">
+    <div
+      v-if="hasMeta"
+      flex="~ wrap justify-center"
+      gap="$lgc-space-sm"
+      leading="[1.4]"
+      aria-label="Post metadata"
+    >
       <LgcPostMetaChips
         :category="category"
         :created="frontmatter.date"
@@ -106,44 +134,39 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
 </template>
 
 <style scoped lang="scss">
-@use '../styles/helpers' as *;
-
-.lgc-article-header {
-  display: grid;
-  justify-items: center;
-  gap: var(--lgc-space-md);
-  padding: var(--lgc-space-2xl) 0 var(--lgc-space-3xl);
-  text-align: center;
-}
-
-.lgc-article-meta {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--lgc-space-sm);
-  line-height: 1.4;
-}
-
-.lgc-article-cover {
-  width: 100%;
-  margin-bottom: var(--lgc-space-lg);
-  border-radius: var(--lgc-radius-large);
-}
-
+// Residual: cover bleed insets (bare px layout chrome) + gradient scrim + on-mask tokens.
 .lgc-article-header-cover {
-  position: relative;
-  z-index: 0;
-  align-self: end;
-  gap: var(--lgc-space-lg);
-  margin-top: calc(var(--lgc-space-5xl) * -1);
-  padding: var(--lgc-space-6xl) var(--lgc-space-xl) var(--lgc-space-3xl);
+  --article-cover-pad-block-start: var(--lgc-space-5xl);
+  --article-cover-pad-block-end: var(--lgc-space-2xl);
+  --article-cover-pad-inline: var(--lgc-space-xl);
+  --article-cover-pull: -36px;
+
+  margin-top: var(--article-cover-pull);
+  padding: var(--article-cover-pad-block-start) var(--article-cover-pad-inline)
+    var(--article-cover-pad-block-end);
   color: var(--lgc-post-cover-on-mask);
 }
 
+@screen sm {
+  .lgc-article-header-cover {
+    --article-cover-pull: -44px;
+    --article-cover-pad-block-start: 56px;
+    --article-cover-pad-block-end: 28px;
+  }
+}
+
+@screen md {
+  .lgc-article-header-cover {
+    --article-cover-pull: -64px;
+    --article-cover-pad-block-start: 80px;
+    --article-cover-pad-block-end: var(--lgc-space-4xl);
+    --article-cover-pad-inline: var(--lgc-space-3xl);
+  }
+}
+
 .lgc-article-header-cover::before {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
+  @apply 'absolute -z-1 inset-0';
+  content: '';
   background: linear-gradient(
     to top,
     color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 76%, transparent) 0%,
@@ -157,95 +180,30 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
       92%,
     transparent 100%
   );
-  content: '';
 }
 
 .lgc-article-title {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--lgc-space-sm);
-  max-width: var(--lgc-measure-title);
-  margin: 0;
-  color: var(--md-sys-color-on-surface);
-  font-size: clamp(32px, 5vw, 48px);
-  font-weight: 900;
-  line-height: 1.15;
-  letter-spacing: 0;
-}
-
-.lgc-article-title-icon {
-  flex: 0 0 auto;
-  font-size: 0.9em;
+  @apply 'inline-flex items-center justify-center gap-$lgc-space-sm';
+  @apply 'max-w-$lgc-measure-title m-0 text-$md-sys-color-on-surface';
+  @apply 'text-size-$lgc-article-title font-900 tracking-normal leading-[1.15]';
 }
 
 .lgc-article-header-cover .lgc-article-title {
+  @apply 'text-size-$lgc-article-title-on-cover-compact leading-[1.12]';
+  @apply 'md:text-size-$lgc-article-title-on-cover-mid md:leading-[1.08]';
+  @apply 'lg:text-size-$lgc-article-title-on-cover lg:leading-[1.05]';
   color: var(--lgc-post-cover-on-mask);
-  font-size: clamp(44px, 7vw, 68px);
-  line-height: 1.05;
   text-shadow: var(--lgc-post-cover-text-shadow);
 }
 
 .lgc-article-description {
-  max-width: var(--lgc-measure-medium);
-  margin: 0;
-  color: var(--md-sys-color-on-surface-variant);
-  font-size: var(--lgc-body-large);
-  line-height: 1.75;
+  @apply 'max-w-$lgc-measure-medium m-0 text-$md-sys-color-on-surface-variant';
+  @apply 'text-size-$lgc-body-large leading-[1.75]';
 }
 
 .lgc-article-header-cover .lgc-article-description {
+  @apply 'font-700';
   color: var(--lgc-post-cover-on-mask-variant);
-  font-weight: 700;
   text-shadow: var(--lgc-post-cover-text-shadow);
-}
-
-.lgc-article-header-cover :deep(.lgc-post-tag) {
-  color: color-mix(in srgb, var(--md-sys-color-on-secondary-container) 88%, white);
-  background: color-mix(
-    in srgb,
-    var(--md-sys-color-secondary-container) 78%,
-    transparent
-  );
-}
-
-@include nav-up {
-  .lgc-article-header {
-    padding-top: var(--lgc-space-4xl);
-  }
-
-  .lgc-article-header-cover {
-    gap: var(--lgc-space-xl);
-    margin-top: calc(var(--lgc-space-6xl) * -1);
-    padding: 80px var(--lgc-space-3xl) var(--lgc-space-4xl);
-  }
-}
-
-@include between-nav-wide {
-  .lgc-article-header-cover .lgc-article-title {
-    font-size: clamp(34px, 4.5vw, 48px);
-    line-height: 1.08;
-  }
-}
-
-@include nav-down {
-  .lgc-article-header-cover {
-    margin-top: calc(36px * -1);
-    padding-top: var(--lgc-space-5xl);
-    padding-bottom: var(--lgc-space-2xl);
-  }
-
-  .lgc-article-header-cover .lgc-article-title {
-    font-size: clamp(30px, 8vw, 40px);
-    line-height: 1.12;
-  }
-}
-
-@include between-compact-nav {
-  .lgc-article-header-cover {
-    margin-top: -44px;
-    padding-top: 56px;
-    padding-bottom: 28px;
-  }
 }
 </style>

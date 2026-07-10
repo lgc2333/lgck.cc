@@ -24,25 +24,41 @@ const title = computed(() =>
 )
 
 const hasStatusIcons = computed(() => Boolean(title.value))
+
+const iconClass =
+  'lgc-post-status-icon inline-grid w-$lgc-control-size-sm h-$lgc-control-size-sm place-items-center rounded-$lgc-radius-full text-size-$lgc-title-medium'
 </script>
 
 <template>
-  <div v-if="hasStatusIcons" class="lgc-post-status-icons" :title="title">
+  <div
+    v-if="hasStatusIcons"
+    class="lgc-post-status-icons"
+    flex="~ col"
+    absolute
+    z-1
+    top="$lgc-space-md"
+    left="$lgc-space-md"
+    gap="[6px]"
+    :title="title"
+  >
     <span
       v-if="post.draft"
-      class="lgc-post-status-icon is-draft"
+      class="is-draft bg-$md-sys-color-secondary-container"
+      :class="iconClass"
       i-ri-draft-fill
       aria-hidden="true"
     />
     <span
       v-if="post.top"
-      class="lgc-post-status-icon is-pinned"
+      class="is-pinned bg-$md-sys-color-primary-container rotate-45"
+      :class="iconClass"
       i-ic-round-push-pin
       aria-hidden="true"
     />
     <span
       v-if="post.hide"
-      class="lgc-post-status-icon is-hidden"
+      class="is-hidden bg-$md-sys-color-tertiary-container"
+      :class="iconClass"
       i-material-symbols-visibility-off-rounded
       aria-hidden="true"
     />
@@ -51,37 +67,9 @@ const hasStatusIcons = computed(() => Boolean(title.value))
 </template>
 
 <style scoped lang="scss">
+// Residual: multi-layer drop-shadow not expressible cleanly as utilities.
 .lgc-post-status-icons {
-  position: absolute;
-  z-index: 1;
-  top: var(--lgc-space-md);
-  left: var(--lgc-space-md);
-  display: inline-flex;
-  flex-direction: column;
-  gap: 6px;
   filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.24))
     drop-shadow(0 2px 2px rgb(0 0 0 / 0.16));
-}
-
-.lgc-post-status-icon {
-  display: inline-grid;
-  width: var(--lgc-control-size-sm);
-  height: var(--lgc-control-size-sm);
-  place-items: center;
-  border-radius: var(--lgc-radius-full);
-  font-size: var(--lgc-title-medium);
-}
-
-.lgc-post-status-icon.is-hidden {
-  background: var(--md-sys-color-tertiary-container);
-}
-
-.lgc-post-status-icon.is-pinned {
-  background: var(--md-sys-color-primary-container);
-  transform: rotate(45deg);
-}
-
-.lgc-post-status-icon.is-draft {
-  background: var(--md-sys-color-secondary-container);
 }
 </style>

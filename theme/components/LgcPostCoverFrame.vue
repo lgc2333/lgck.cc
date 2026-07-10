@@ -13,31 +13,37 @@ withDefaults(
 </script>
 
 <template>
-  <div class="lgc-post-cover-frame" :class="`is-${variant}`">
+  <div
+    class="lgc-post-cover-frame"
+    relative
+    grid
+    overflow-hidden
+    isolate
+    bg="$md-sys-color-surface-container"
+    :class="`is-${variant}`"
+  >
     <img
-      class="lgc-post-cover-image"
+      absolute
+      inset-0
+      z="-2"
+      w="full"
+      h="full"
+      object-cover
       :src="src"
       :alt="alt"
       loading="lazy"
       decoding="async"
     />
-    <div class="lgc-post-cover-mask" aria-hidden="true" />
-    <div class="lgc-post-cover-content">
+    <div absolute inset-0 z="-1" pointer-events-none aria-hidden="true" />
+    <div col-start-1 row-start-1 grid min-w="0">
       <slot />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-@use '../styles/helpers' as *;
-
 .lgc-post-cover-frame {
-  position: relative;
-  display: grid;
-  overflow: hidden;
-  isolation: isolate;
   color: var(--lgc-post-cover-on-mask);
-  background: var(--md-sys-color-surface-container);
   --lgc-post-cover-mask-solid: color-mix(
     in srgb,
     var(--md-sys-color-surface-container-lowest) 88%,
@@ -78,54 +84,21 @@ html.dark .lgc-post-cover-frame {
 
 .lgc-post-cover-frame.is-feed {
   --lgc-post-cover-ratio-size: 28.5714%;
+  @apply 'max-md:[--lgc-post-cover-ratio-size:38.0952%]';
 }
 
 .lgc-post-cover-frame.is-article {
   --lgc-post-cover-ratio-size: 38.0952%;
   --lgc-post-cover-min-height: 320px;
+  @apply 'max-sm:[--lgc-post-cover-ratio-size:75%]';
+  @apply 'max-sm:[--lgc-post-cover-min-height:288px]';
 }
 
+// Residual: aspect-ratio spacer via padding-block-end percentage.
 .lgc-post-cover-frame::before {
-  grid-area: 1 / 1;
+  @apply 'col-start-1 row-start-1';
   min-height: var(--lgc-post-cover-min-height, 0);
   padding-block-end: var(--lgc-post-cover-ratio-size);
   content: '';
-}
-
-.lgc-post-cover-image,
-.lgc-post-cover-mask {
-  position: absolute;
-  inset: 0;
-}
-
-.lgc-post-cover-image {
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.lgc-post-cover-mask {
-  z-index: -1;
-  pointer-events: none;
-}
-
-.lgc-post-cover-content {
-  grid-area: 1 / 1;
-  display: grid;
-  min-width: 0;
-}
-
-@include nav-down {
-  .lgc-post-cover-frame.is-feed {
-    --lgc-post-cover-ratio-size: 38.0952%;
-  }
-}
-
-@include compact-down {
-  .lgc-post-cover-frame.is-article {
-    --lgc-post-cover-ratio-size: 75%;
-    --lgc-post-cover-min-height: 288px;
-  }
 }
 </style>

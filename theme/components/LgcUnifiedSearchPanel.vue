@@ -33,16 +33,35 @@ const isDrawer = computed(() => props.variant === 'drawer')
   <div
     v-if="isDrawer"
     class="lgc-search-drawer-layer"
+    fixed
+    inset-0
+    z="$lgc-layer-overlay"
     @keydown="$emit('keydown', $event)"
   >
     <button
       class="lgc-search-scrim"
+      absolute
+      inset-0
+      border-0
+      opacity-100
       type="button"
       aria-label="Close search"
       @click="$emit('close')"
     />
-    <aside class="lgc-search-drawer" aria-label="Search results">
-      <div class="lgc-search-drawer-head">
+    <aside
+      class="lgc-search-drawer"
+      absolute
+      top-0
+      right-0
+      grid
+      h-full
+      p="$lgc-space-lg"
+      translate-x-0
+      text="$md-sys-color-on-surface"
+      bg="$md-sys-color-surface-container-low"
+      aria-label="Search results"
+    >
+      <div class="lgc-search-drawer-head" grid items-center gap="$lgc-space-sm">
         <LgcUnifiedSearchField
           v-model="query"
           autofocus
@@ -53,6 +72,10 @@ const isDrawer = computed(() => props.variant === 'drawer')
         />
         <button
           class="lgc-search-close lgc-icon-button-base lgc-icon-button-hover"
+          w="$lgc-control-size"
+          h="$lgc-control-size"
+          rounded="$lgc-radius-control"
+          text="size-$lgc-icon-size"
           type="button"
           aria-label="Close search"
           @click="$emit('close')"
@@ -61,7 +84,17 @@ const isDrawer = computed(() => props.variant === 'drawer')
         </button>
       </div>
 
-      <div v-if="countText" class="lgc-search-count">{{ countText }}</div>
+      <div
+        v-if="countText"
+        class="lgc-search-count"
+        pt="$lgc-space-md"
+        px="$lgc-space-xs"
+        pb="$lgc-space-sm"
+        text="$md-sys-color-on-surface-variant size-$lgc-label-medium"
+        font="800"
+      >
+        {{ countText }}
+      </div>
       <LgcUnifiedSearchResults
         :has-query="hasQuery"
         :loading="loading"
@@ -76,10 +109,22 @@ const isDrawer = computed(() => props.variant === 'drawer')
     </aside>
   </div>
 
-  <div v-else class="lgc-search-mobile">
-    <div class="lgc-search-mobile-head">
+  <div
+    v-else
+    class="lgc-search-mobile hidden max-md:grid text-$md-sys-color-on-surface"
+    fixed
+    inset-0
+    z="$lgc-layer-modal"
+    p="$lgc-space-sm"
+    bg="$md-sys-color-surface-container-low"
+  >
+    <div class="lgc-search-mobile-head" grid items-center gap="$lgc-space-sm">
       <button
         class="lgc-search-close lgc-icon-button-base lgc-icon-button-hover"
+        w="$lgc-control-size"
+        h="$lgc-control-size"
+        rounded="$lgc-radius-control"
+        text="size-$lgc-icon-size"
         type="button"
         aria-label="Close search"
         @click="$emit('close')"

@@ -1,8 +1,16 @@
 <template>
-  <div class="lgc-fixed-bg" aria-hidden="true" />
+  <div
+    class="lgc-fixed-bg"
+    fixed
+    inset-0
+    z="$lgc-layer-background"
+    pointer-events-none
+    aria-hidden="true"
+  />
 </template>
 
 <style scoped lang="scss">
+// Multi-layer atmosphere stays raw CSS (not expressible cleanly as utilities).
 .lgc-fixed-bg {
   background:
     radial-gradient(
@@ -54,10 +62,8 @@
 
 .lgc-fixed-bg::before {
   content: '';
-  position: absolute;
-  inset: 0;
+  @apply 'absolute inset-0 opacity-82';
   backdrop-filter: blur(42px);
   mask-image: radial-gradient(ellipse at 50% 42%, black 0 44%, transparent 76%);
-  opacity: 0.82;
 }
 </style>

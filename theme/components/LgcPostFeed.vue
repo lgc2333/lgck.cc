@@ -59,24 +59,40 @@ const posts = computed(() => {
 </script>
 
 <template>
-  <section
-    id="posts"
-    class="lgc-post-feed"
-    :class="{ 'is-flush': flush }"
-    aria-label="Posts"
-  >
-    <div class="lgc-post-feed-inner">
-      <div class="lgc-post-feed-header">
+  <section id="posts" scroll-mt="$lgc-space-lg" aria-label="Posts">
+    <div
+      grid
+      box-border
+      w="full"
+      max-w="$lgc-container-reading"
+      gap="$lgc-space-lg"
+      class="pb-$lgc-space-3xl mx-auto sm:py-$lgc-space-4xl"
+      :class="flush ? 'px-0' : 'px-$lgc-space-lg sm:px-$lgc-space-2xl'"
+    >
+      <div flex="~ items-end justify-between" mb="$lgc-space-sm" gap="$lgc-space-lg">
         <div>
-          <p class="lgc-post-feed-label">{{ label }}</p>
-          <h2 class="lgc-section-title">{{ title }}</h2>
+          <p m="0" text="$md-sys-color-primary size-$lgc-body-small" font="800">
+            {{ label }}
+          </p>
+          <h2 class="m-0 text-size-$lgc-headline-large font-900 leading-tight">
+            {{ title }}
+          </h2>
         </div>
       </div>
 
       <template v-if="posts.length">
         <LgcPostFeedCard v-for="post in posts" :key="post.path" :post="post" />
       </template>
-      <p v-else class="lgc-post-feed-empty">还没有公开文章。</p>
+      <p
+        v-else
+        m="0"
+        p="$lgc-space-2xl"
+        rounded="$lgc-radius-large"
+        text="$md-sys-color-on-surface-variant"
+        bg="$md-sys-color-surface-container"
+      >
+        还没有公开文章。
+      </p>
 
       <LgcPostPagination
         v-if="paginate && totalPages > 1"
@@ -91,59 +107,3 @@ const posts = computed(() => {
     </div>
   </section>
 </template>
-
-<style scoped lang="scss">
-@use '../styles/helpers' as *;
-
-.lgc-post-feed {
-  scroll-margin-top: var(--lgc-space-lg);
-}
-
-.lgc-post-feed-inner {
-  display: grid;
-  width: 100%;
-  max-width: var(--lgc-container-reading);
-  box-sizing: border-box;
-  gap: var(--lgc-space-lg);
-  padding: 0 var(--lgc-space-lg) var(--lgc-space-3xl);
-  margin-inline: auto;
-}
-
-.lgc-post-feed.is-flush .lgc-post-feed-inner {
-  padding-inline: 0;
-}
-
-.lgc-post-feed-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--lgc-space-lg);
-  margin-bottom: var(--lgc-space-sm);
-}
-
-.lgc-post-feed-label {
-  margin: 0;
-  color: var(--md-sys-color-primary);
-  font-size: var(--lgc-body-small);
-  font-weight: 800;
-}
-
-.lgc-post-feed-empty {
-  padding: var(--lgc-space-2xl);
-  margin: 0;
-  border-radius: var(--lgc-radius-large);
-  color: var(--md-sys-color-on-surface-variant);
-  background: var(--md-sys-color-surface-container);
-}
-
-@include compact-up {
-  .lgc-post-feed-inner {
-    padding-block: var(--lgc-space-4xl);
-    padding-inline: var(--lgc-space-2xl);
-  }
-
-  .lgc-post-feed.is-flush .lgc-post-feed-inner {
-    padding-inline: 0;
-  }
-}
-</style>

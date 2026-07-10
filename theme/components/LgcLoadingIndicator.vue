@@ -122,7 +122,9 @@ watch(
 <template>
   <canvas
     ref="canvas"
-    class="lgc-m3-loading-indicator"
+    block
+    w="$lgc-m3-loading-indicator-size"
+    h="$lgc-m3-loading-indicator-size"
     :aria-label="label"
     role="img"
     :data-lgc-loading-indicator="bootstrap ? 'boot' : undefined"
@@ -132,11 +134,3 @@ watch(
     }"
   />
 </template>
-
-<style scoped lang="scss">
-.lgc-m3-loading-indicator {
-  display: block;
-  width: var(--lgc-m3-loading-indicator-size);
-  height: var(--lgc-m3-loading-indicator-size);
-}
-</style>

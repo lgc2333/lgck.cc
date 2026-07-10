@@ -34,13 +34,53 @@ watch(
 </script>
 
 <template>
-  <div ref="resultsRef" class="lgc-search-results">
-    <div v-if="loading" class="lgc-search-note">{{ loadingText }}</div>
-    <div v-else-if="!hasQuery" class="lgc-search-note">{{ placeholder }}</div>
-    <div v-else-if="results.length === 0" class="lgc-search-note">
+  <div
+    ref="resultsRef"
+    class="lgc-search-results"
+    grid
+    min-h-0
+    content-start
+    overflow-auto
+    overscroll-contain
+    rounded="$lgc-radius-control"
+  >
+    <div
+      v-if="loading"
+      class="lgc-search-note"
+      p="$lgc-space-xl"
+      text="$md-sys-color-on-surface-variant size-$lgc-body-small"
+      text-center
+      font="750"
+    >
+      {{ loadingText }}
+    </div>
+    <div
+      v-else-if="!hasQuery"
+      class="lgc-search-note"
+      p="$lgc-space-xl"
+      text="$md-sys-color-on-surface-variant size-$lgc-body-small"
+      text-center
+      font="750"
+    >
+      {{ placeholder }}
+    </div>
+    <div
+      v-else-if="results.length === 0"
+      class="lgc-search-note"
+      p="$lgc-space-xl"
+      text="$md-sys-color-on-surface-variant size-$lgc-body-small"
+      text-center
+      font="750"
+    >
       {{ noResultsText }}
     </div>
-    <div v-else class="lgc-search-result-list">
+    <div
+      v-else
+      class="lgc-search-result-list"
+      grid
+      gap="$lgc-hairline"
+      p="$lgc-hairline"
+    >
       <LgcUnifiedSearchResultButton
         v-for="(item, index) in results"
         :key="item.id"
