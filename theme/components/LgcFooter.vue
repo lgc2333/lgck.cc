@@ -126,7 +126,7 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
   flex: 0 0 auto;
   padding: 2.5rem 1rem 2rem;
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 0.875rem;
+  font-size: var(--lgc-body-small);
   line-height: 1.8;
   text-align: center;
   background: linear-gradient(
@@ -144,7 +144,7 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
 .lgc-footer-inner {
   display: grid;
   width: 100%;
-  max-width: 900px;
+  max-width: var(--lgc-container-reading);
   gap: 0.375rem;
   margin-inline: auto;
 }
@@ -183,7 +183,7 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
 }
 
 .lgc-footer-powered {
-  font-size: 0.8125rem;
+  font-size: var(--lgc-label-medium);
 }
 
 .lgc-footer-separator,

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { formatDate } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useThemeConfig } from '../composables'
 import type { CoverContentMask, CoverContentPosition, LgcPost } from '../types'
 import {
+  formatPostDateParts,
   normalizeLocaleText,
   normalizePostCategoryPath,
   normalizePostListValue,
@@ -18,16 +18,7 @@ const props = defineProps<{
 const themeConfig = useThemeConfig()
 const { locale } = useI18n()
 
-const date = computed(() => {
-  const formatted = formatDate(props.post.date || '')
-  const parts = formatted.split('-')
-  return {
-    day: parts[2] || formatted,
-    rest: parts.length >= 2 ? `${parts[0]}.${parts[1]}` : '',
-    datetime: formatted,
-  }
-})
-
+const date = computed(() => formatPostDateParts(props.post.date))
 const category = computed(() => normalizePostCategoryPath(props.post.categories))
 const tags = computed(() => normalizePostListValue(props.post.tags).slice(0, 3))
 const title = computed(() => normalizeLocaleText(props.post.title, locale.value))
@@ -54,26 +45,14 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
   >
     <LgcPostStatusIcons :post="post" />
 
-    <LgcPostFeedCoverGradientMask
-      v-if="post.cover && coverContentMask === 'gradient'"
+    <LgcPostFeedCoverMask
+      v-if="post.cover"
       :category="category"
       :cover="post.cover"
       :date="date"
       :excerpt="post.excerpt"
       :excerpt-type="post.excerpt_type"
-      :path="postPath"
-      :position="coverContentPosition"
-      :tags="tags"
-      :title="title"
-    />
-
-    <LgcPostFeedCoverCardMask
-      v-else-if="post.cover"
-      :category="category"
-      :cover="post.cover"
-      :date="date"
-      :excerpt="post.excerpt"
-      :excerpt-type="post.excerpt_type"
+      :mask="coverContentMask"
       :path="postPath"
       :position="coverContentPosition"
       :tags="tags"
@@ -103,8 +82,8 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
   display: grid;
   grid-template-columns: 5.25rem minmax(0, 1fr);
   align-items: start;
-  gap: 1rem;
-  padding: 1.25rem;
+  gap: var(--lgc-space-lg);
+  padding: var(--lgc-space-xl);
   background: var(--lgc-post-card-rest-bg);
 }
 
@@ -155,8 +134,8 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 @include compact-up {
   .lgc-post-card {
     grid-template-columns: 120px minmax(0, 1fr) auto;
-    gap: 1.5rem;
-    padding: 1.5rem;
+    gap: var(--lgc-space-2xl);
+    padding: var(--lgc-space-2xl);
   }
 
   .lgc-post-card.has-cover {

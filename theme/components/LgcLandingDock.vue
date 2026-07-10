@@ -35,13 +35,15 @@ const variantClass: Record<LandingLinkVariant, string> = {
 </template>
 
 <style scoped lang="scss">
+@use '../styles/helpers' as *;
+
 .lgc-dock {
   display: flex;
-  max-width: 760px;
+  max-width: var(--lgc-measure-wide);
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: var(--lgc-space-sm);
   margin-top: 1.75rem;
 }
 
@@ -106,15 +108,15 @@ const variantClass: Record<LandingLinkVariant, string> = {
   white-space: nowrap;
 }
 
-@media (min-width: 640px) {
+@include compact-up {
   .lgc-dock {
-    gap: 0.75rem;
+    gap: var(--lgc-space-md);
     margin-top: 2.25rem;
   }
 
   .lgc-dock-link {
     min-height: 3rem;
-    padding-inline: 1.25rem;
+    padding-inline: var(--lgc-space-xl);
   }
 }
 </style>

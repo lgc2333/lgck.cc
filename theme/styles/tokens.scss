@@ -1,3 +1,5 @@
+@use './helpers' as *;
+
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 :root {
@@ -66,9 +68,15 @@ html.dark {
   --lgc-display-large: clamp(40px, 7.4vw, 82px);
   --lgc-headline-large: clamp(28px, 4vw, 44px);
   --lgc-title-large: 22px;
+  --lgc-label-small: 0.75rem;
+  --lgc-label-medium: 0.8125rem;
+  --lgc-body-small: 0.875rem;
+  --lgc-body-medium: 0.9375rem;
+  --lgc-body-large: 1rem;
 
   --lgc-motion-short: 160ms;
   --lgc-motion-medium: 260ms;
+  --lgc-motion-lang-flip: 520ms;
   --lgc-easing-standard: cubic-bezier(0.2, 0, 0, 1);
   --lgc-state-hover-opacity: 0.08;
   --lgc-state-pressed-opacity: 0.12;
@@ -86,8 +94,20 @@ html.dark {
     0 0.0625rem 0.1875rem rgb(var(--lgc-elevation-shadow-color) / 0.16),
     0 0.25rem 0.5rem 0.1875rem rgb(var(--lgc-elevation-shadow-color) / 0.1);
 
+  --lgc-space-sm: 0.5rem;
+  --lgc-space-md: 0.75rem;
+  --lgc-space-lg: 1rem;
+  --lgc-space-xl: 1.25rem;
+  --lgc-space-2xl: 1.5rem;
+
   --lgc-container-reading: 900px;
   --lgc-container-wide: 1180px;
+  --lgc-measure-narrow: 620px;
+  --lgc-measure-medium: 680px;
+  --lgc-measure-wide: 760px;
+  --lgc-measure-title: 820px;
+  // Mirror helpers.scss breakpoints for documentation / non-media use only.
+  // Always use helpers mixins for `@media` queries.
   --lgc-breakpoint-compact: 640px;
   --lgc-breakpoint-nav: 720px;
   --lgc-layer-background: -1;
@@ -103,13 +123,16 @@ html.dark {
   --lgc-header-height: 4.5rem;
   --lgc-control-size: 3rem;
   --lgc-control-size-compact: 2.75rem;
+  --lgc-icon-size: 1.5rem;
   --lgc-search-inline-width: 20rem;
   --lgc-search-drawer-width: 30rem;
   --lgc-radius-control: 1.5rem;
   --lgc-radius-control-active: 1rem;
   --lgc-radius-large: 1.75rem;
+  --lgc-radius-full: 999px;
   --lgc-gap-compact: 0.45rem;
   --lgc-label-width: 9rem;
+  --lgc-surface-blur: 8px;
   --lgc-surface-mask-bg: color-mix(
     in srgb,
     var(--md-sys-color-surface) 20%,
@@ -117,7 +140,7 @@ html.dark {
   );
 }
 
-@media (min-width: 640px) {
+@include compact-up {
   :root {
     --lgc-header-height: 5.5rem;
   }

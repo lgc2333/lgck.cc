@@ -61,8 +61,8 @@ const router = useRouter()
 
 .lgc-not-found-copy {
   display: grid;
-  max-width: 620px;
-  gap: 0.75rem;
+  max-width: var(--lgc-measure-narrow);
+  gap: var(--lgc-space-md);
 
   h1 {
     margin: 0;
@@ -134,7 +134,7 @@ const router = useRouter()
 }
 
 .lgc-not-found-content {
-  max-width: 620px;
+  max-width: var(--lgc-measure-narrow);
   color: var(--md-sys-color-on-surface-variant);
   line-height: 1.75;
 }

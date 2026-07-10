@@ -31,13 +31,14 @@ const hasMeta = computed(() =>
 const hasHeaderContent = computed(() =>
   Boolean(title.value || description.value || icon.value || hasMeta.value),
 )
+const hasCover = computed(() => Boolean(props.frontmatter.cover))
 </script>
 
 <template>
   <LgcPostCoverFrame
-    v-if="frontmatter.cover && hasHeaderContent"
+    v-if="hasCover && hasHeaderContent"
     class="lgc-article-cover"
-    :src="frontmatter.cover"
+    :src="frontmatter.cover!"
     :alt="title"
     variant="article"
   >
@@ -103,14 +104,14 @@ const hasHeaderContent = computed(() =>
 .lgc-article-header {
   display: grid;
   justify-items: center;
-  gap: 0.75rem;
-  padding: 1.5rem 0 2rem;
+  gap: var(--lgc-space-md);
+  padding: var(--lgc-space-2xl) 0 2rem;
   text-align: center;
 }
 
 .lgc-article-cover {
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: var(--lgc-space-lg);
   border-radius: var(--lgc-radius-large);
 }
 
@@ -118,9 +119,9 @@ const hasHeaderContent = computed(() =>
   position: relative;
   z-index: 0;
   align-self: end;
-  gap: 1rem;
+  gap: var(--lgc-space-lg);
   margin-top: -3rem;
-  padding: 4rem 1.25rem 2rem;
+  padding: 4rem var(--lgc-space-xl) 2rem;
   color: var(--lgc-post-cover-on-mask);
 }
 
@@ -148,8 +149,8 @@ const hasHeaderContent = computed(() =>
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  max-width: 820px;
+  gap: var(--lgc-space-sm);
+  max-width: var(--lgc-measure-title);
   margin: 0;
   color: var(--md-sys-color-on-surface);
   font-size: clamp(2rem, 5vw, 3rem);
@@ -171,10 +172,10 @@ const hasHeaderContent = computed(() =>
 }
 
 .lgc-article-description {
-  max-width: 680px;
+  max-width: var(--lgc-measure-medium);
   margin: 0;
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 1rem;
+  font-size: var(--lgc-body-large);
   line-height: 1.75;
 }
 
@@ -191,7 +192,6 @@ const hasHeaderContent = computed(() =>
     var(--md-sys-color-secondary-container) 78%,
     transparent
   );
-  // backdrop-filter: blur(12px);
 }
 
 @include nav-up {
@@ -206,18 +206,18 @@ const hasHeaderContent = computed(() =>
   }
 }
 
-@media (min-width: $lgc-breakpoint-nav) and (max-width: $lgc-breakpoint-wide) {
+@include between-nav-wide {
   .lgc-article-header-cover .lgc-article-title {
     font-size: clamp(2.125rem, 4.5vw, 3rem);
     line-height: 1.08;
   }
 }
 
-@media (max-width: ($lgc-breakpoint-nav - 1px)) {
+@include nav-down {
   .lgc-article-header-cover {
     margin-top: -2.25rem;
     padding-top: 3rem;
-    padding-bottom: 1.5rem;
+    padding-bottom: var(--lgc-space-2xl);
   }
 
   .lgc-article-header-cover .lgc-article-title {
@@ -226,7 +226,7 @@ const hasHeaderContent = computed(() =>
   }
 }
 
-@media (min-width: $lgc-breakpoint-compact) and (max-width: ($lgc-breakpoint-nav - 1px)) {
+@include between-compact-nav {
   .lgc-article-header-cover {
     margin-top: -2.75rem;
     padding-top: 3.5rem;

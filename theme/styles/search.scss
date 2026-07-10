@@ -18,7 +18,7 @@
 
 .lgc-search-drawer,
 .lgc-search-mobile {
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(var(--lgc-surface-blur));
 }
 
 .lgc-search-trigger.is-active {
@@ -31,7 +31,7 @@
   width: var(--lgc-control-size);
   height: var(--lgc-control-size);
   border-radius: var(--lgc-radius-control);
-  font-size: 1.5rem;
+  font-size: var(--lgc-icon-size);
 }
 
 .lgc-search-algolia {
@@ -188,7 +188,7 @@
 .lgc-search-count {
   padding: 0.75rem 0.25rem 0.5rem;
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 0.8125rem;
+  font-size: var(--lgc-label-medium);
   font-weight: 800;
 }
 
@@ -275,7 +275,7 @@
 }
 
 .lgc-search-result-title {
-  font-size: 0.9375rem;
+  font-size: var(--lgc-body-medium);
   font-weight: 900;
   line-height: 1.25;
   white-space: nowrap;
@@ -284,7 +284,7 @@
 .lgc-search-result-meta,
 .lgc-search-result-section {
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 0.75rem;
+  font-size: var(--lgc-label-small);
   font-weight: 750;
   line-height: 1.35;
   white-space: nowrap;
@@ -304,7 +304,7 @@
 .lgc-search-result-excerpt {
   display: -webkit-box;
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 0.8125rem;
+  font-size: var(--lgc-label-medium);
   font-weight: 600;
   line-height: 1.5;
   -webkit-box-orient: vertical;

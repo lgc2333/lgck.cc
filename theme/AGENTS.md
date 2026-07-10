@@ -57,11 +57,12 @@ The theme is a Valaxy blog theme with a configurable landing home, floating head
 - `LgcLandingHome.vue` owns the first viewport and optional posts section.
 - `LgcHeader.vue`, `LgcHeaderActions.vue`, `LgcHeaderDrawer.vue`, and `LgcHeaderLink.vue` own navigation, i18n/dark/search actions, and responsive drawer behavior.
 - `LgcUnifiedSearch.vue` coordinates local/fuse/Algolia search; `composables/search*.ts` own provider adapters, layer state, and keyboard behavior; field, preview, drawer, mobile, result button, and result list components own display states.
-- `ValaxyMain.vue` owns the reading shell, content card, post navigation slot, and comment slot; `LgcPostArticleHeader.vue`, `LgcPostArticleNav.vue`, `LgcPostCoverFrame.vue`, `LgcPostMetaChips.vue`, `LgcPostFeed.vue`, `LgcPostFeedCard.vue`, `LgcPostFeedPlainCard.vue`, `LgcPostFeedCoverCardMask.vue`, `LgcPostFeedCoverGradientMask.vue`, and pagination components own post browsing and reading pieces.
+- `ValaxyMain.vue` owns the post shell: `main-header` (article cover/title) is full width of `layout-inner` so covers can span `--lgc-container-wide` on ultra-wide screens; body/nav/comment live in `.lgc-main-reading` at `--lgc-container-reading`. `LgcPostArticleHeader.vue`, `LgcPostArticleNav.vue`, `LgcPostCoverFrame.vue`, `LgcPostMetaChips.vue`, `LgcPostFeed.vue`, `LgcPostFeedCard.vue`, `LgcPostFeedPlainCard.vue`, `LgcPostFeedCoverMask.vue` (`mask: card | gradient`), and pagination components own post browsing and reading pieces.
 - `LgcLoading.vue` and `LgcLoadingIndicator.vue` use `utils/m3-loading-indicator/`; read its `NOTE.md` before changing that implementation.
+- `utils/pagination.ts` owns post-feed page windowing and page path helpers; `utils/post.ts` owns date-part formatting and locale/list normalizers.
 - `theme/styles/index.scss` composes token, base, utility, search, and markdown styles.
-- `theme/styles/tokens.scss` stores shared Material color roles and reusable lgc typography/motion tokens.
-- `theme/styles/helpers.scss` stores SCSS-only breakpoints and shared layout mixins; use it for media queries because CSS custom properties cannot drive them.
+- `theme/styles/tokens.scss` stores shared Material color roles and reusable lgc typography, space, measure, icon, blur, and motion tokens.
+- `theme/styles/helpers.scss` stores SCSS-only breakpoints and shared layout mixins (`compact-up/down`, `nav-up/down`, `between-*`); always use these for `@media` because CSS custom properties cannot drive media queries. `--lgc-breakpoint-*` in tokens is documentation/non-media only.
 
 ## Landing Rules
 

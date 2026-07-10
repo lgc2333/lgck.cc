@@ -56,7 +56,7 @@ function toggleLanguage() {
     >
       <span class="lgc-header-lang-label">{{ languageName }}</span>
       <span
-        class="lgc-header-lang-icon"
+        class="lgc-header-lang-icon lgc-lang-flip-icon"
         :class="{ 'is-flipping': languageFlipping }"
         i-material-symbols-translate-rounded
         aria-hidden="true"
@@ -88,7 +88,7 @@ function toggleLanguage() {
 @use '../styles/helpers' as *;
 
 .lgc-header-lang {
-  --lgc-header-lang-icon-size: 1.5rem;
+  --lgc-header-lang-icon-size: var(--lgc-icon-size);
   --lgc-header-lang-padding: calc(
     (var(--lgc-control-size) - var(--lgc-header-lang-icon-size)) / 2
   );
@@ -112,10 +112,9 @@ function toggleLanguage() {
   max-width: 0;
   margin-right: 0;
   overflow: hidden;
-  font-size: 0.8125rem;
+  font-size: var(--lgc-label-medium);
   font-weight: 900;
   line-height: 1;
-  // text-transform: uppercase;
   white-space: nowrap;
   opacity: 0;
   transition:
@@ -135,10 +134,6 @@ function toggleLanguage() {
   flex: 0 0 auto;
 }
 
-.lgc-header-lang-icon.is-flipping {
-  animation: lgc-lang-flip 520ms var(--lgc-easing-standard);
-}
-
 @include nav-down {
   .lgc-header-button.is-header-action {
     display: none;
@@ -147,16 +142,6 @@ function toggleLanguage() {
   .lgc-search.is-header-action,
   .lgc-search.is-header-action .lgc-header-button.is-header-action {
     display: grid;
-  }
-}
-
-@keyframes lgc-lang-flip {
-  from {
-    transform: rotateY(0deg);
-  }
-
-  to {
-    transform: rotateY(360deg);
   }
 }
 </style>

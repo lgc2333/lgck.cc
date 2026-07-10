@@ -88,7 +88,7 @@ onBeforeUnmount(() => {
 
 .lgc-material-loader-enter-from,
 .lgc-material-loader-leave-to {
-  filter: blur(8px);
+  filter: blur(var(--lgc-surface-blur));
   opacity: 0;
 }
 </style>

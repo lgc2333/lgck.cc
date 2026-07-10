@@ -155,10 +155,10 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 }
 
 .lgc-landing-subtitle {
-  max-width: 620px;
-  margin: 1.25rem 0 0;
+  max-width: var(--lgc-measure-narrow);
+  margin: var(--lgc-space-xl) 0 0;
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 1rem;
+  font-size: var(--lgc-body-large);
   line-height: 2;
 }
 

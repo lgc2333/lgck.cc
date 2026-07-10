@@ -15,12 +15,14 @@ const siteConfig = useSiteConfig()
 </template>
 
 <style scoped lang="scss">
+@use '../styles/helpers' as *;
+
 .lgc-home-intro {
   display: grid;
   justify-items: start;
-  gap: 0.75rem;
-  padding: 2rem 1.25rem;
-  margin-bottom: 1rem;
+  gap: var(--lgc-space-md);
+  padding: 2rem var(--lgc-space-xl);
+  margin-bottom: var(--lgc-space-lg);
   border-radius: var(--lgc-radius-large);
   background:
     radial-gradient(
@@ -43,22 +45,22 @@ const siteConfig = useSiteConfig()
 .lgc-home-intro-label {
   padding: 0.35rem 0.85rem;
   margin: 0;
-  border-radius: 999px;
+  border-radius: var(--lgc-radius-full);
   color: var(--md-sys-color-on-secondary-container);
   background: var(--md-sys-color-secondary-container);
-  font-size: 0.8125rem;
+  font-size: var(--lgc-label-medium);
   font-weight: 900;
 }
 
 .lgc-home-intro-subtitle {
-  max-width: 620px;
+  max-width: var(--lgc-measure-narrow);
   margin: 0;
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 1rem;
+  font-size: var(--lgc-body-large);
   line-height: 1.75;
 }
 
-@media (min-width: 640px) {
+@include compact-up {
   .lgc-home-intro {
     padding: 2.5rem;
   }

@@ -30,6 +30,8 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
+@use '../styles/helpers' as *;
+
 .lgc-mark {
   display: grid;
   justify-items: center;
@@ -75,7 +77,7 @@ defineProps<{
   border: 3px solid
     color-mix(in srgb, var(--md-sys-color-surface-container-high) 20%, transparent);
   color: var(--md-sys-color-on-secondary-container);
-  font-size: 0.8125rem;
+  font-size: var(--lgc-label-medium);
   font-weight: 700;
   white-space: nowrap;
   background: var(--md-sys-color-secondary-container);
@@ -114,7 +116,7 @@ defineProps<{
   opacity: 1;
 }
 
-@media (min-width: 640px) {
+@include compact-up {
   .lgc-mark-avatar {
     width: 9.5rem;
     height: 9.5rem;

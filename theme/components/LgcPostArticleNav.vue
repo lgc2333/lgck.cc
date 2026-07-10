@@ -44,9 +44,11 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
+@use '../styles/helpers' as *;
+
 .lgc-article-nav {
   display: grid;
-  gap: 0.75rem;
+  gap: var(--lgc-space-md);
 }
 
 .lgc-article-nav-item {
@@ -95,11 +97,11 @@ defineProps<{
   place-items: center;
   border-radius: var(--lgc-radius-control-active);
   color: var(--md-sys-color-primary);
-  font-size: 1.5rem;
+  font-size: var(--lgc-icon-size);
   background: var(--md-sys-color-surface-container-highest);
 }
 
-@media (min-width: 720px) {
+@include nav-up {
   .lgc-article-nav.has-both {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

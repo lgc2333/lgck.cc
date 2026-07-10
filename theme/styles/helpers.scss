@@ -1,3 +1,6 @@
+// SCSS breakpoints for media queries. CSS custom properties cannot drive
+// `@media`, so these stay as Sass vars. Keep in sync with `--lgc-breakpoint-*`
+// documentation values in tokens.scss (those vars are for docs/JS only).
 $lgc-breakpoint-compact: 640px;
 $lgc-breakpoint-nav: 720px;
 $lgc-breakpoint-reading-wide: 1180px;
@@ -9,14 +12,32 @@ $lgc-breakpoint-wide: 1280px;
   }
 }
 
+@mixin compact-down {
+  @media (max-width: ($lgc-breakpoint-compact - 1px)) {
+    @content;
+  }
+}
+
 @mixin nav-down {
-  @media (max-width: $lgc-breakpoint-nav) {
+  @media (max-width: ($lgc-breakpoint-nav - 1px)) {
     @content;
   }
 }
 
 @mixin nav-up {
   @media (min-width: $lgc-breakpoint-nav) {
+    @content;
+  }
+}
+
+@mixin between-compact-nav {
+  @media (min-width: $lgc-breakpoint-compact) and (max-width: ($lgc-breakpoint-nav - 1px)) {
+    @content;
+  }
+}
+
+@mixin between-nav-wide {
+  @media (min-width: $lgc-breakpoint-nav) and (max-width: $lgc-breakpoint-wide) {
     @content;
   }
 }
@@ -37,7 +58,7 @@ $lgc-breakpoint-wide: 1280px;
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  padding: 1.25rem;
+  padding: var(--lgc-space-xl);
   border-radius: var(--lgc-radius-large);
   color: var(--md-sys-color-on-surface);
   background: var(--md-sys-color-surface-container);

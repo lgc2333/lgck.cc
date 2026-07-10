@@ -29,6 +29,8 @@ withDefaults(
 </template>
 
 <style scoped lang="scss">
+@use '../styles/helpers' as *;
+
 .lgc-post-cover-frame {
   position: relative;
   display: grid;
@@ -114,20 +116,16 @@ html.dark .lgc-post-cover-frame {
   min-width: 0;
 }
 
-@media (max-width: 639px) {
+@include nav-down {
   .lgc-post-cover-frame.is-feed {
     --lgc-post-cover-ratio-size: 38.0952%;
-  }
-
-  .lgc-post-cover-frame.is-article {
-    --lgc-post-cover-ratio-size: 75%;
-    --lgc-post-cover-min-height: 18rem;
   }
 }
 
-@media (max-width: 719px) {
-  .lgc-post-cover-frame.is-feed {
-    --lgc-post-cover-ratio-size: 38.0952%;
+@include compact-down {
+  .lgc-post-cover-frame.is-article {
+    --lgc-post-cover-ratio-size: 75%;
+    --lgc-post-cover-min-height: 18rem;
   }
 }
 </style>

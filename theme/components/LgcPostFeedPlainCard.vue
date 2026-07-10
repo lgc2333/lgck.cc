@@ -1,11 +1,9 @@
 <script setup lang="ts">
+import type { PostDateParts } from '../utils/post'
+
 defineProps<{
   category?: string
-  date: {
-    day: string
-    rest: string
-    datetime: string
-  }
+  date: PostDateParts
   excerpt?: string
   excerptType?: string
   path: string

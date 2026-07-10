@@ -62,6 +62,8 @@ const strokeOffset = computed(() => {
 </template>
 
 <style scoped lang="scss">
+@use '../styles/helpers' as *;
+
 .lgc-back-to-top {
   position: fixed;
   z-index: var(--lgc-layer-floating);
@@ -80,7 +82,7 @@ const strokeOffset = computed(() => {
   overflow: visible;
   border-radius: var(--lgc-back-to-top-radius);
   color: var(--md-sys-color-primary);
-  font-size: 1.5rem;
+  font-size: var(--lgc-icon-size);
   background: var(--md-sys-color-surface-container-high);
   box-shadow: var(--lgc-elevation-shadow-level-2);
   transition:
@@ -132,7 +134,7 @@ const strokeOffset = computed(() => {
   transform: translateY(0.5rem);
 }
 
-@media (min-width: 768px) {
+@include nav-up {
   .lgc-back-to-top {
     display: block;
   }

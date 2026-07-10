@@ -140,7 +140,7 @@ function toggleLanguage() {
             @click="toggleLanguage"
           >
             <span
-              class="lgc-drawer-icon"
+              class="lgc-drawer-icon lgc-lang-flip-icon"
               :class="{ 'is-flipping': languageFlipping }"
               i-material-symbols-translate-rounded
               aria-hidden="true"
@@ -200,7 +200,7 @@ function toggleLanguage() {
   padding: 1rem;
   color: var(--md-sys-color-on-surface);
   background: var(--md-sys-color-surface-container-low);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(var(--lgc-surface-blur));
   border-radius: 0 var(--lgc-radius-large) var(--lgc-radius-large) 0;
 }
 
@@ -215,7 +215,7 @@ function toggleLanguage() {
 
 .lgc-drawer-title {
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 0.8125rem;
+  font-size: var(--lgc-label-medium);
   font-weight: 900;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -226,7 +226,7 @@ function toggleLanguage() {
   width: var(--lgc-control-size-compact);
   height: var(--lgc-control-size-compact);
   border-radius: calc(var(--lgc-control-size-compact) / 2);
-  font-size: 1.5rem;
+  font-size: var(--lgc-icon-size);
 }
 
 .lgc-drawer-list {
@@ -254,7 +254,7 @@ function toggleLanguage() {
   border: 0;
   border-radius: var(--lgc-radius-control);
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 0.9375rem;
+  font-size: var(--lgc-body-medium);
   font-weight: 800;
   text-align: left;
   text-decoration: none;
@@ -308,23 +308,9 @@ function toggleLanguage() {
 }
 
 .lgc-drawer-icon {
-  inline-size: 1.5rem;
-  block-size: 1.5rem;
-  font-size: 1.5rem;
-}
-
-.lgc-drawer-icon.is-flipping {
-  animation: lgc-lang-flip 520ms var(--lgc-easing-standard);
-}
-
-@keyframes lgc-lang-flip {
-  from {
-    transform: rotateY(0deg);
-  }
-
-  to {
-    transform: rotateY(360deg);
-  }
+  inline-size: var(--lgc-icon-size);
+  block-size: var(--lgc-icon-size);
+  font-size: var(--lgc-icon-size);
 }
 
 .lgc-drawer-fade-enter-active,

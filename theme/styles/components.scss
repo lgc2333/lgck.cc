@@ -27,7 +27,7 @@
   inline-size: var(--lgc-control-size);
   height: var(--lgc-control-size);
   border-radius: var(--lgc-radius-control);
-  font-size: 1.5rem;
+  font-size: var(--lgc-icon-size);
 
   &:hover,
   &:focus-visible {
@@ -35,14 +35,28 @@
   }
 }
 
+.lgc-lang-flip-icon.is-flipping {
+  animation: lgc-lang-flip var(--lgc-motion-lang-flip) var(--lgc-easing-standard);
+}
+
+@keyframes lgc-lang-flip {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
 .lgc-dock-link-base {
   display: inline-flex;
   max-width: 100%;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--lgc-space-sm);
   border-radius: var(--lgc-radius-control);
   color: var(--md-sys-color-on-surface);
-  font-size: 0.875rem;
+  font-size: var(--lgc-body-small);
   font-weight: 800;
   text-decoration: none;
   transition:
@@ -85,7 +99,7 @@
   place-items: center;
   border-radius: var(--lgc-radius-control);
   color: var(--md-sys-color-primary);
-  font-size: 1.5rem;
+  font-size: var(--lgc-icon-size);
   background: var(--md-sys-color-surface-container-highest);
 }
 
@@ -93,7 +107,7 @@
 .lgc-meta-chip {
   display: inline-flex;
   align-items: center;
-  border-radius: 999px;
+  border-radius: var(--lgc-radius-full);
   color: var(--md-sys-color-on-secondary-container);
   background: var(--md-sys-color-secondary-container);
 }
@@ -101,7 +115,7 @@
 .lgc-meta-chip {
   min-height: 2rem;
   padding-inline: 0.75rem;
-  font-size: 0.75rem;
+  font-size: var(--lgc-label-small);
   font-weight: 800;
 }
 

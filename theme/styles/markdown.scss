@@ -7,6 +7,7 @@
 @use 'valaxy/client/styles/components/code.scss' as *;
 @use 'valaxy/client/styles/components/code-group.scss' as *;
 @use 'valaxy/client/styles/components/custom-block.scss' as *;
+@use './helpers' as *;
 
 .markdown-body {
   --c-toc-link: var(--md-sys-color-on-surface-variant);
@@ -328,7 +329,7 @@ html.dark {
   }
 }
 
-@media (max-width: 640px) {
+@include compact-down {
   .markdown-body {
     --va-code-mobile-margin-x: 0;
 

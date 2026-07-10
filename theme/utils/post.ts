@@ -1,3 +1,11 @@
+import { formatDate } from 'valaxy'
+
+export interface PostDateParts {
+  day: string
+  rest: string
+  datetime: string
+}
+
 export function normalizePostListValue(value: unknown) {
   if (!value) return []
   if (Array.isArray(value)) return value.map(String).filter(Boolean)
@@ -16,4 +24,14 @@ export function normalizeLocaleText(
   if (typeof value === 'string') return value
 
   return value[locale] || value.en || Object.values(value)[0] || ''
+}
+
+export function formatPostDateParts(date?: string | number | Date): PostDateParts {
+  const formatted = formatDate(date || '')
+  const parts = formatted.split('-')
+  return {
+    day: parts[2] || formatted,
+    rest: parts.length >= 2 ? `${parts[0]}.${parts[1]}` : '',
+    datetime: formatted,
+  }
 }

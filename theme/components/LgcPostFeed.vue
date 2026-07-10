@@ -3,6 +3,13 @@ import { useSiteConfig, useSiteStore } from 'valaxy'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
+import {
+  buildPaginationPages,
+  getPostFeedPagePath,
+  parsePageParam,
+  slicePageItems,
+} from '../utils/pagination'
+
 const props = withDefaults(
   defineProps<{
     flush?: boolean
@@ -34,52 +41,21 @@ const pagePosts = computed(() => {
 
 const curPage = computed(() => {
   const rawPage = 'page' in route.params ? route.params.page : undefined
-  const pageValue = Array.isArray(rawPage) ? rawPage[0] : rawPage
-  const page = Number.parseInt(String(pageValue || '1'))
-  return Number.isFinite(page) && page > 0 ? page : 1
+  return parsePageParam(rawPage)
 })
 const totalPages = computed(() => Math.ceil(pagePosts.value.length / pageSize.value))
-const surLen = computed(() =>
-  curPage.value === 1 || curPage.value === totalPages.value ? 3 : 2,
-)
 const showPrev = computed(() => curPage.value > 1)
 const showNext = computed(() => curPage.value < totalPages.value)
-const prevTo = computed(() => getTo(curPage.value - 1))
-const nextTo = computed(() => getTo(curPage.value + 1))
-const paginationPages = computed(() => {
-  const pages: number[] = []
-  let ellipsisOpen = false
-
-  for (let page = 1; page <= totalPages.value; page += 1) {
-    if (showPage(page)) {
-      pages.push(page)
-      ellipsisOpen = false
-    } else if (!ellipsisOpen) {
-      pages.push(-page)
-      ellipsisOpen = true
-    }
-  }
-
-  return pages
-})
+const prevTo = computed(() => getPostFeedPagePath(curPage.value - 1))
+const nextTo = computed(() => getPostFeedPagePath(curPage.value + 1))
+const paginationPages = computed(() =>
+  buildPaginationPages(curPage.value, totalPages.value),
+)
 
 const posts = computed(() => {
   if (!props.paginate) return pagePosts.value
-  return pagePosts.value.slice(
-    (curPage.value - 1) * pageSize.value,
-    curPage.value * pageSize.value,
-  )
+  return slicePageItems(pagePosts.value, curPage.value, pageSize.value)
 })
-
-function showPage(page: number) {
-  if (page === 1) return true
-  if (page === totalPages.value) return true
-  return page > curPage.value - surLen.value && page < curPage.value + surLen.value
-}
-
-function getTo(page: number) {
-  return `/page/${page}`
-}
 </script>
 
 <template>
@@ -120,7 +96,7 @@ function getTo(page: number) {
 @use '../styles/helpers' as *;
 
 .lgc-post-feed {
-  scroll-margin-top: 1rem;
+  scroll-margin-top: var(--lgc-space-lg);
 }
 
 .lgc-post-feed-inner {
@@ -128,8 +104,8 @@ function getTo(page: number) {
   width: 100%;
   max-width: var(--lgc-container-reading);
   box-sizing: border-box;
-  gap: 1rem;
-  padding: 0 1rem 2rem;
+  gap: var(--lgc-space-lg);
+  padding: 0 var(--lgc-space-lg) 2rem;
   margin-inline: auto;
 }
 
@@ -141,19 +117,19 @@ function getTo(page: number) {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
+  gap: var(--lgc-space-lg);
+  margin-bottom: var(--lgc-space-sm);
 }
 
 .lgc-post-feed-label {
   margin: 0;
   color: var(--md-sys-color-primary);
-  font-size: 0.875rem;
+  font-size: var(--lgc-body-small);
   font-weight: 800;
 }
 
 .lgc-post-feed-empty {
-  padding: 1.5rem;
+  padding: var(--lgc-space-2xl);
   margin: 0;
   border-radius: var(--lgc-radius-large);
   color: var(--md-sys-color-on-surface-variant);
@@ -163,7 +139,7 @@ function getTo(page: number) {
 @include compact-up {
   .lgc-post-feed-inner {
     padding-block: 2.5rem;
-    padding-inline: 1.5rem;
+    padding-inline: var(--lgc-space-2xl);
   }
 
   .lgc-post-feed.is-flush .lgc-post-feed-inner {
