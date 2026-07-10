@@ -69,7 +69,7 @@ const siteConfig = useSiteConfig()
   display: grid;
   width: 100%;
   gap: var(--lgc-space-lg);
-  padding-bottom: 4rem;
+  padding-bottom: var(--lgc-space-6xl);
 }
 
 .lgc-main-reading {

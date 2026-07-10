@@ -39,8 +39,8 @@
   box-sizing: border-box;
   flex: 1 0 auto;
   flex-direction: column;
-  padding-top: calc(var(--lgc-header-height) + 1rem);
-  padding-inline: 1rem;
+  padding-top: calc(var(--lgc-header-height) + var(--lgc-space-lg));
+  padding-inline: var(--lgc-space-lg);
   margin-inline: auto;
 }
 
@@ -50,8 +50,8 @@
 
 @include compact-up {
   .lgc-layout-inner {
-    padding-top: calc(var(--lgc-header-height) + 2rem);
-    padding-inline: 1.5rem;
+    padding-top: calc(var(--lgc-header-height) + var(--lgc-space-3xl));
+    padding-inline: var(--lgc-space-2xl);
   }
 }
 

@@ -45,7 +45,7 @@ defineProps<{
   display: flex;
   grid-column: 1 / -1;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--lgc-space-sm);
 }
 
 .lgc-post-arrow {

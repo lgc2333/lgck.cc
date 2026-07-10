@@ -54,6 +54,7 @@ Before implementing theme features, first inspect how the default theme `valaxy-
 
 - For theme structure and design direction, read `theme/AGENTS.md` before reshaping landing, post feed, navigation, search, or Material 3 Expressive styling.
 - Styling: use traditional SCSS for authored theme/site styles. Do not use UnoCSS utilities, shortcuts, or `@apply` for stable UI styling.
+- Theme layout/shape sizes go through `--lgc-*` tokens in `theme/styles/tokens.scss` (semantic space + radius roles + control sizes in px, type in rem). No bare rem for gap/padding/radius/chrome; no numbered space scale; see `theme/AGENTS.md` Style Constraints.
 - Keep UnoCSS limited to icon generation and required Valaxy integration in `valaxy.config.ts`; do not add standalone Uno config files. Put real styling in component scoped SCSS or `styles/*.scss`.
 - UI states should have clear layering: base, hover/focus, and active/selected styles must be distinct, with active rules ordered after hover when they overlap.
 - Prefer shape feedback: controls may be rounder at rest and should use smaller rounded-rectangle radii on hover/active.

@@ -105,7 +105,7 @@ const posts = computed(() => {
   max-width: var(--lgc-container-reading);
   box-sizing: border-box;
   gap: var(--lgc-space-lg);
-  padding: 0 var(--lgc-space-lg) 2rem;
+  padding: 0 var(--lgc-space-lg) var(--lgc-space-3xl);
   margin-inline: auto;
 }
 
@@ -138,7 +138,7 @@ const posts = computed(() => {
 
 @include compact-up {
   .lgc-post-feed-inner {
-    padding-block: 2.5rem;
+    padding-block: var(--lgc-space-4xl);
     padding-inline: var(--lgc-space-2xl);
   }
 

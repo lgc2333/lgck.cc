@@ -61,7 +61,7 @@ The theme is a Valaxy blog theme with a configurable landing home, floating head
 - `LgcLoading.vue` and `LgcLoadingIndicator.vue` use `utils/m3-loading-indicator/`; read its `NOTE.md` before changing that implementation.
 - `utils/pagination.ts` owns post-feed page windowing and page path helpers; `utils/post.ts` owns post date formatting (`formatPostDate`, `formatPostDateParts`, `shouldShowPostUpdated`) and locale/list normalizers.
 - `theme/styles/index.scss` composes token, base, utility, search, and markdown styles.
-- `theme/styles/tokens.scss` stores shared Material color roles and reusable lgc typography, space, measure, icon, blur, and motion tokens.
+- `theme/styles/tokens.scss` is the sole definition site for MD color roles and lgc tokens: type (rem), semantic space + radius roles (px), control/chrome sizes, measure, elevation, motion, layers.
 - `theme/styles/helpers.scss` stores SCSS-only breakpoints and shared layout mixins (`compact-up/down`, `nav-up/down`, `between-*`); always use these for `@media` because CSS custom properties cannot drive media queries. `--lgc-breakpoint-*` in tokens is documentation/non-media only.
 
 ## Landing Rules
@@ -104,8 +104,13 @@ The theme is a Valaxy blog theme with a configurable landing home, floating head
 - Add global SCSS only for behavior shared across the theme.
 - Do not use UnoCSS utilities, shortcuts, or `@apply` for stable UI styling.
 - Keep UnoCSS limited to icon generation and required Valaxy integration in `valaxy.config.ts`; do not add standalone Uno config files.
-- Do not create CSS variables for values used only once.
-- Custom theme tokens use the `--lgc-*` prefix.
+- Custom theme tokens use the `--lgc-*` prefix; sole definition site is `styles/tokens.scss`.
+- **Token unit policy:** type scale uses `rem`; space/radius/control/chrome use `px`; icons relative to control font use `1em`; letter-spacing may use `em`. Borders/shadow offsets/blur use `px` (`--lgc-hairline`, elevation tokens).
+- **Space:** only semantic rhythm tokens (`--lgc-space-xs` … `--lgc-space-6xl`, plus `--lgc-gap-compact`). No numbered reference scale. Rare/one-off distances may be plain `px`; control/icon/header sizes use dedicated size tokens, not space.
+- **Radius:** use role tokens (`--lgc-radius-control`, `--lgc-radius-large-active`, …) or scale names; shape morph uses named roles, not `calc(radius - rem)`.
+- **Call sites:** prefer `var(--lgc-*)` for recurring gap/padding/radius/control/font roles. Do not invent bare `rem` for layout or shape.
+- `calc()` may combine tokens with viewport/`env()` units only. Hairline `1px` borders may stay literal when not using `--lgc-hairline`.
+- Do not create one-off CSS variables for values used only once unless they are a clear component API (e.g. header link width props).
 - Use Material Symbols Rounded as the primary icon language. Additional rounded icon sets are fine when needed.
 - Iconify icons used by config must be safelisted or loaded through the theme's Uno icon collections.
 - HarmonyOS font loading is theme-owned; keep font integration in `styles/fonts.ts`, `assets/fonts/`, and `node/font.ts`.

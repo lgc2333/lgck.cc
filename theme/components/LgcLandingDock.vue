@@ -44,15 +44,15 @@ const variantClass: Record<LandingLinkVariant, string> = {
   align-items: center;
   justify-content: center;
   gap: var(--lgc-space-sm);
-  margin-top: 1.75rem;
+  margin-top: 28px;
 }
 
 .lgc-dock-link {
   --lgc-dock-hover-color: var(--md-sys-color-primary);
   --lgc-dock-hover-bg: var(--md-sys-color-surface-container-highest);
 
-  min-height: 2.75rem;
-  padding-inline: 1rem;
+  min-height: var(--lgc-control-size-compact);
+  padding-inline: var(--lgc-space-lg);
 
   &.is-primary {
     --lgc-dock-hover-color: var(--md-sys-color-on-primary-container);
@@ -87,7 +87,7 @@ const variantClass: Record<LandingLinkVariant, string> = {
   }
 
   &:hover {
-    border-radius: calc(var(--lgc-radius-control) - 0.375rem);
+    border-radius: var(--lgc-radius-control-morph);
     color: var(--lgc-dock-hover-color);
     background: var(--lgc-dock-hover-bg);
     transform: translateY(-1px);
@@ -99,7 +99,7 @@ const variantClass: Record<LandingLinkVariant, string> = {
 }
 
 .lgc-dock-link-icon {
-  font-size: 1.25rem;
+  font-size: var(--lgc-icon-font-sm);
 }
 
 .lgc-dock-link-text {
@@ -111,11 +111,11 @@ const variantClass: Record<LandingLinkVariant, string> = {
 @include compact-up {
   .lgc-dock {
     gap: var(--lgc-space-md);
-    margin-top: 2.25rem;
+    margin-top: 36px;
   }
 
   .lgc-dock-link {
-    min-height: 3rem;
+    min-height: var(--lgc-control-size);
     padding-inline: var(--lgc-space-xl);
   }
 }

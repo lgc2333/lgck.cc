@@ -112,7 +112,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
   display: grid;
   justify-items: center;
   gap: var(--lgc-space-md);
-  padding: var(--lgc-space-2xl) 0 2rem;
+  padding: var(--lgc-space-2xl) 0 var(--lgc-space-3xl);
   text-align: center;
 }
 
@@ -120,7 +120,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem;
+  gap: var(--lgc-space-sm);
   line-height: 1.4;
 }
 
@@ -135,8 +135,8 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
   z-index: 0;
   align-self: end;
   gap: var(--lgc-space-lg);
-  margin-top: -3rem;
-  padding: 4rem var(--lgc-space-xl) 2rem;
+  margin-top: calc(var(--lgc-space-5xl) * -1);
+  padding: var(--lgc-space-6xl) var(--lgc-space-xl) var(--lgc-space-3xl);
   color: var(--lgc-post-cover-on-mask);
 }
 
@@ -168,7 +168,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
   max-width: var(--lgc-measure-title);
   margin: 0;
   color: var(--md-sys-color-on-surface);
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(32px, 5vw, 48px);
   font-weight: 900;
   line-height: 1.15;
   letter-spacing: 0;
@@ -181,7 +181,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
 
 .lgc-article-header-cover .lgc-article-title {
   color: var(--lgc-post-cover-on-mask);
-  font-size: clamp(2.75rem, 7vw, 4.25rem);
+  font-size: clamp(44px, 7vw, 68px);
   line-height: 1.05;
   text-shadow: var(--lgc-post-cover-text-shadow);
 }
@@ -211,41 +211,41 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
 
 @include nav-up {
   .lgc-article-header {
-    padding-top: 2.5rem;
+    padding-top: var(--lgc-space-4xl);
   }
 
   .lgc-article-header-cover {
-    gap: 1.125rem;
-    margin-top: -4rem;
-    padding: 5rem 2rem 2.5rem;
+    gap: var(--lgc-space-xl);
+    margin-top: calc(var(--lgc-space-6xl) * -1);
+    padding: 80px var(--lgc-space-3xl) var(--lgc-space-4xl);
   }
 }
 
 @include between-nav-wide {
   .lgc-article-header-cover .lgc-article-title {
-    font-size: clamp(2.125rem, 4.5vw, 3rem);
+    font-size: clamp(34px, 4.5vw, 48px);
     line-height: 1.08;
   }
 }
 
 @include nav-down {
   .lgc-article-header-cover {
-    margin-top: -2.25rem;
-    padding-top: 3rem;
+    margin-top: calc(36px * -1);
+    padding-top: var(--lgc-space-5xl);
     padding-bottom: var(--lgc-space-2xl);
   }
 
   .lgc-article-header-cover .lgc-article-title {
-    font-size: clamp(1.875rem, 8vw, 2.5rem);
+    font-size: clamp(30px, 8vw, 40px);
     line-height: 1.12;
   }
 }
 
 @include between-compact-nav {
   .lgc-article-header-cover {
-    margin-top: -2.75rem;
-    padding-top: 3.5rem;
-    padding-bottom: 1.75rem;
+    margin-top: -44px;
+    padding-top: 56px;
+    padding-bottom: 28px;
   }
 }
 </style>

@@ -59,7 +59,7 @@ const { iconClass, isRouteActive } = useHeaderNavItemState({
   );
   --lgc-header-link-open-size: var(
     --lgc-header-link-width,
-    min(var(--lgc-header-link-max-width, 11rem), 42vw)
+    min(var(--lgc-header-link-max-width), 42vw)
   );
   --lgc-header-link-rest-padding: calc(
     (var(--lgc-header-link-rest-size) - var(--lgc-header-link-icon-size)) / 2
@@ -117,7 +117,7 @@ const { iconClass, isRouteActive } = useHeaderNavItemState({
   max-width: 0;
   margin-left: 0;
   overflow: hidden;
-  font-size: 0.875rem;
+  font-size: var(--lgc-body-small);
   font-weight: 800;
   line-height: 1.25;
   text-overflow: ellipsis;

@@ -41,10 +41,10 @@ const updatedText = computed(() =>
 
 <style scoped lang="scss">
 .lgc-post-tag {
-  gap: 0.125rem;
-  min-height: 2rem;
-  padding-inline: 0.75rem;
-  font-size: 0.75rem;
+  gap: 2px;
+  min-height: var(--lgc-meta-chip-min-height);
+  padding-inline: var(--lgc-space-md);
+  font-size: var(--lgc-label-small);
   font-weight: 700;
 }
 

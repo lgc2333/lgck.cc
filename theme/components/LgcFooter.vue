@@ -124,7 +124,7 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
 .lgc-footer {
   position: relative;
   flex: 0 0 auto;
-  padding: 2.5rem 1rem 2rem;
+  padding: var(--lgc-space-4xl) var(--lgc-space-lg) var(--lgc-space-3xl);
   color: var(--md-sys-color-on-surface-variant);
   font-size: var(--lgc-body-small);
   line-height: 1.8;
@@ -145,7 +145,7 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
   display: grid;
   width: 100%;
   max-width: var(--lgc-container-reading);
-  gap: 0.375rem;
+  gap: 6px;
   margin-inline: auto;
 }
 
@@ -154,7 +154,7 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.375rem 0.625rem;
+  gap: 6px 10px;
 }
 
 .lgc-footer a {
@@ -175,7 +175,7 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
 .lgc-footer-icon {
   display: inline-grid;
   place-items: center;
-  font-size: 1rem;
+  font-size: var(--lgc-body-large);
 
   &.is-animated {
     animation: lgc-footer-pulse 1.8s var(--lgc-easing-standard) infinite;

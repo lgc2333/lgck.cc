@@ -55,7 +55,7 @@ defineProps<{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.125rem;
-  padding-top: 1rem;
+  gap: 2px;
+  padding-top: var(--lgc-space-lg);
 }
 </style>

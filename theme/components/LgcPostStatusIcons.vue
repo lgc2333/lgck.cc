@@ -54,22 +54,22 @@ const hasStatusIcons = computed(() => Boolean(title.value))
 .lgc-post-status-icons {
   position: absolute;
   z-index: 1;
-  top: 0.75rem;
-  left: 0.75rem;
+  top: var(--lgc-space-md);
+  left: var(--lgc-space-md);
   display: inline-flex;
   flex-direction: column;
-  gap: 0.375rem;
-  filter: drop-shadow(0 0.0625rem 0.0625rem rgb(0 0 0 / 0.24))
-    drop-shadow(0 0.125rem 0.125rem rgb(0 0 0 / 0.16));
+  gap: 6px;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.24))
+    drop-shadow(0 2px 2px rgb(0 0 0 / 0.16));
 }
 
 .lgc-post-status-icon {
   display: inline-grid;
-  width: 2rem;
-  height: 2rem;
+  width: var(--lgc-control-size-sm);
+  height: var(--lgc-control-size-sm);
   place-items: center;
   border-radius: var(--lgc-radius-full);
-  font-size: 1.125rem;
+  font-size: var(--lgc-title-medium);
 }
 
 .lgc-post-status-icon.is-hidden {

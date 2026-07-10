@@ -67,20 +67,17 @@ const strokeOffset = computed(() => {
 .lgc-back-to-top {
   position: fixed;
   z-index: var(--lgc-layer-floating);
-  right: 2rem;
-  bottom: 2rem;
+  right: var(--lgc-space-3xl);
+  bottom: var(--lgc-space-3xl);
   display: none;
 }
 
 .lgc-back-to-top-button {
-  --lgc-back-to-top-size: 3.5rem;
-  --lgc-back-to-top-radius: 1rem;
-
   position: relative;
   width: var(--lgc-back-to-top-size);
   height: var(--lgc-back-to-top-size);
   overflow: visible;
-  border-radius: var(--lgc-back-to-top-radius);
+  border-radius: var(--lgc-radius-control-active);
   color: var(--md-sys-color-primary);
   font-size: var(--lgc-icon-size);
   background: var(--md-sys-color-surface-container-high);
@@ -94,14 +91,14 @@ const strokeOffset = computed(() => {
 
   &:hover,
   &:focus-visible {
-    border-radius: var(--lgc-back-to-top-radius);
+    border-radius: var(--lgc-radius-control-active);
     color: var(--md-sys-color-primary);
     background: var(--md-sys-color-surface-container-highest);
     box-shadow: var(--lgc-elevation-shadow-level-3);
   }
 
   &:active {
-    border-radius: var(--lgc-back-to-top-radius);
+    border-radius: var(--lgc-radius-control-active);
     background: var(--md-sys-color-surface-container-highest);
   }
 }
@@ -131,7 +128,7 @@ const strokeOffset = computed(() => {
 .lgc-back-to-top-fade-enter-from,
 .lgc-back-to-top-fade-leave-to {
   opacity: 0;
-  transform: translateY(0.5rem);
+  transform: translateY(var(--lgc-space-sm));
 }
 
 @include nav-up {

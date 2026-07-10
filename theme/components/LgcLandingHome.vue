@@ -97,8 +97,8 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 
 .lgc-home-surface :deep(.lgc-post-feed) {
   flex: 1 0 auto;
-  padding-top: calc(var(--lgc-header-height) + 1rem);
-  padding-bottom: 1rem;
+  padding-top: calc(var(--lgc-header-height) + var(--lgc-space-lg));
+  padding-bottom: var(--lgc-space-lg);
 }
 
 .lgc-home-surface :deep(.lgc-footer) {
@@ -110,7 +110,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
   isolation: isolate;
   display: grid;
   min-height: 100vh;
-  padding: var(--lgc-header-height) 1rem 5rem;
+  padding: var(--lgc-header-height) var(--lgc-space-lg) 80px;
   overflow: clip;
 }
 
@@ -120,11 +120,11 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
   display: flex;
   width: 100%;
   max-width: var(--lgc-container-wide);
-  min-height: calc(100vh - var(--lgc-header-height) - 5rem);
+  min-height: calc(100vh - var(--lgc-header-height) - 80px);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 1rem;
+  padding-top: var(--lgc-space-lg);
   margin-inline: auto;
   text-align: center;
 }
@@ -138,7 +138,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 
 .lgc-home.is-full-only .lgc-landing-center {
   min-height: 0;
-  padding-bottom: 1rem;
+  padding-bottom: var(--lgc-space-lg);
 }
 
 .lgc-home.is-full-only :deep(.lgc-footer) {
@@ -151,7 +151,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 }
 
 .lgc-home.is-compact .lgc-landing-center {
-  min-height: calc(var(--lgc-landing-compact-height) - var(--lgc-header-height) - 5rem);
+  min-height: calc(var(--lgc-landing-compact-height) - var(--lgc-header-height) - 80px);
 }
 
 .lgc-landing-subtitle {
@@ -164,7 +164,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 
 .lgc-scroll-hint {
   position: absolute;
-  bottom: 1.5rem;
+  bottom: var(--lgc-space-2xl);
   left: 50%;
   display: grid;
   width: var(--lgc-control-size);
@@ -172,7 +172,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
   place-items: center;
   border-radius: var(--lgc-radius-control);
   color: var(--md-sys-color-primary);
-  font-size: 1.875rem;
+  font-size: var(--lgc-icon-font-lg);
   text-decoration: none;
   background: var(--md-sys-color-surface-container-high);
   transform: translateX(-50%);
@@ -182,22 +182,22 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 
   &:hover {
     border-radius: var(--lgc-radius-control-active);
-    transform: translate(-50%, 0.5rem);
+    transform: translate(-50%, var(--lgc-space-sm));
   }
 }
 
 @include compact-up {
   .lgc-home-surface :deep(.lgc-post-feed) {
-    padding-top: calc(var(--lgc-header-height) + 2rem);
-    padding-bottom: 2rem;
+    padding-top: calc(var(--lgc-header-height) + var(--lgc-space-3xl));
+    padding-bottom: var(--lgc-space-3xl);
   }
 
   .lgc-landing {
-    padding: var(--lgc-header-height) 1.5rem 6rem;
+    padding: var(--lgc-header-height) var(--lgc-space-2xl) 96px;
   }
 
   .lgc-landing-center {
-    min-height: calc(100vh - var(--lgc-header-height) - 6rem);
+    min-height: calc(100vh - var(--lgc-header-height) - 96px);
     padding-top: 0;
   }
 
@@ -207,12 +207,12 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 
   .lgc-home.is-compact .lgc-landing-center {
     min-height: calc(
-      var(--lgc-landing-compact-height) - var(--lgc-header-height) - 6rem
+      var(--lgc-landing-compact-height) - var(--lgc-header-height) - 96px
     );
   }
 
   .lgc-landing-subtitle {
-    font-size: 1.125rem;
+    font-size: var(--lgc-title-medium);
   }
 }
 </style>

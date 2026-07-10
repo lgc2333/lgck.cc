@@ -52,7 +52,7 @@ defineProps<{
 }
 
 .lgc-article-nav-item {
-  gap: 0.5rem;
+  gap: var(--lgc-space-sm);
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
   min-width: 0;
@@ -67,12 +67,12 @@ defineProps<{
 .lgc-article-nav-copy {
   display: grid;
   min-width: 0;
-  gap: 0.25rem;
+  gap: var(--lgc-space-xs);
 }
 
 .lgc-article-nav-copy span {
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 0.75rem;
+  font-size: var(--lgc-label-small);
   font-weight: 900;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -82,7 +82,7 @@ defineProps<{
   display: -webkit-box;
   overflow-wrap: anywhere;
   overflow: hidden;
-  font-size: 0.9375rem;
+  font-size: var(--lgc-body-medium);
   line-height: 1.45;
   -webkit-box-orient: vertical;
   line-clamp: 2;

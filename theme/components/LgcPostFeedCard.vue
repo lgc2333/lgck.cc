@@ -80,7 +80,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 
   position: relative;
   display: grid;
-  grid-template-columns: 5.25rem minmax(0, 1fr);
+  grid-template-columns: 84px minmax(0, 1fr);
   align-items: start;
   gap: var(--lgc-space-lg);
   padding: var(--lgc-space-xl);
@@ -88,7 +88,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 }
 
 .lgc-post-card:focus-within {
-  border-radius: calc(var(--lgc-radius-large) - 0.375rem);
+  border-radius: var(--lgc-radius-large-active);
   background: var(--md-sys-color-surface-container);
 }
 

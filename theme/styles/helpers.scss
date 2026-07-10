@@ -64,10 +64,10 @@ $lgc-breakpoint-wide: 1280px;
   background: var(--md-sys-color-surface-container);
 
   @include nav-up {
-    padding: 2rem;
+    padding: var(--lgc-space-3xl);
   }
 
   @include reading-wide-up {
-    padding: 2.5rem;
+    padding: var(--lgc-space-4xl);
   }
 }

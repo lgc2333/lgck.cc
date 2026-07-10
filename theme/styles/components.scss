@@ -20,7 +20,7 @@
 .lgc-page-enter-from :where(.lgc-page-surface),
 .lgc-page-leave-to :where(.lgc-page-surface) {
   opacity: 0;
-  transform: translateY(0.75rem);
+  transform: translateY(var(--lgc-space-md));
 }
 
 .lgc-header-button {
@@ -81,7 +81,7 @@
 
   &:hover,
   &:focus-visible {
-    border-radius: calc(var(--lgc-radius-large) - 0.375rem);
+    border-radius: var(--lgc-radius-large-active);
     background: var(--md-sys-color-surface-container);
     transform: translateY(-2px);
   }
@@ -113,16 +113,16 @@
 }
 
 .lgc-meta-chip {
-  min-height: 2rem;
-  padding-inline: 0.75rem;
+  min-height: var(--lgc-meta-chip-min-height);
+  padding-inline: var(--lgc-space-md);
   font-size: var(--lgc-label-small);
   font-weight: 800;
 }
 
 .lgc-panel-link {
   display: grid;
-  gap: 0.25rem;
-  padding: 1rem;
+  gap: var(--lgc-space-xs);
+  padding: var(--lgc-space-lg);
   border-radius: var(--lgc-radius-large);
   color: var(--md-sys-color-on-surface);
   text-decoration: none;
@@ -134,7 +134,7 @@
 
   &:hover,
   &:focus-visible {
-    border-radius: calc(var(--lgc-radius-large) - 0.375rem);
+    border-radius: var(--lgc-radius-large-active);
     background: var(--md-sys-color-surface-container-high);
     transform: translateY(-1px);
   }
@@ -148,11 +148,11 @@
 .lgc-pagination-control,
 .lgc-pagination-ellipsis {
   display: inline-grid;
-  min-width: calc(var(--lgc-control-size-compact) + 0.25rem);
+  min-width: calc(var(--lgc-control-size-compact) + var(--lgc-space-xs));
   height: var(--lgc-control-size-compact);
   place-items: center;
-  padding-inline: 0.75rem;
-  border-radius: calc(var(--lgc-radius-control-active) - 0.25rem);
+  padding-inline: var(--lgc-space-md);
+  border-radius: var(--lgc-radius-pagination);
   color: var(--md-sys-color-on-surface-variant);
   font-weight: 900;
   text-decoration: none;
@@ -183,7 +183,7 @@
   &:hover,
   &:focus-visible {
     z-index: 1;
-    border-radius: calc(var(--lgc-radius-control-active) - 0.125rem);
+    border-radius: var(--lgc-radius-pagination-hover);
     color: var(--md-sys-color-primary);
     background: var(--md-sys-color-surface-container-high);
   }

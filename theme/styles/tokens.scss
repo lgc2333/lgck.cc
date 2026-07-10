@@ -50,7 +50,11 @@ html.dark {
   --md-sys-color-outline-variant: #414b55;
 }
 
+// Layout/shape tokens use px (MD3 dp-like, stable vs root font).
+// Type tokens use rem (user font scaling). Icons relative to control: 1em.
+// Call sites must use var(--lgc-*), not bare rem for spacing/radius/chrome.
 :root {
+  // --- Font families ---
   --lgc-font-family-cjk: 'HarmonyOS Sans LgCuwukii', system-ui;
   --lgc-font-family-mono: 'JetBrains Mono';
   --lgc-font-family-system: system-ui;
@@ -65,15 +69,34 @@ html.dark {
 
   --lgc-font-display: var(--lgc-font-family-sans);
   --lgc-font-body: var(--va-font-family-base);
+
+  // --- Type scale (rem) ---
   --lgc-display-large: clamp(40px, 7.4vw, 82px);
   --lgc-headline-large: clamp(28px, 4vw, 44px);
   --lgc-title-large: 22px;
+  --lgc-title-medium: 1.125rem;
+  --lgc-title-small: 1.0625rem;
   --lgc-label-small: 0.75rem;
   --lgc-label-medium: 0.8125rem;
   --lgc-body-small: 0.875rem;
   --lgc-body-medium: 0.9375rem;
   --lgc-body-large: 1rem;
+  --lgc-icon-font-sm: 1.25rem;
+  --lgc-icon-font-lg: 1.875rem;
+  --lgc-display-error: clamp(2.25rem, 6vw, 4.25rem);
+  // Markdown article type (rem; only defined here)
+  --lgc-md-h1: 2.25rem;
+  --lgc-md-h1-compact: 2rem;
+  --lgc-md-h2: 1.875rem;
+  --lgc-md-h2-compact: 1.625rem;
+  --lgc-md-h3: 1.5rem;
+  --lgc-md-h3-compact: 1.375rem;
+  --lgc-md-h4: 1.1875rem;
+  --lgc-md-h5: 1.0625rem;
+  --lgc-md-h6: 0.9375rem;
+  --lgc-radius-content: var(--lgc-radius-lg);
 
+  // --- Motion ---
   --lgc-motion-short: 160ms;
   --lgc-motion-medium: 260ms;
   --lgc-motion-lang-flip: 520ms;
@@ -82,24 +105,79 @@ html.dark {
   --lgc-state-pressed-opacity: 0.12;
   --lgc-control-press-scale: 0.95;
   --lgc-card-press-scale: 0.985;
+
+  // --- Elevation (px offsets) ---
   --lgc-elevation-shadow-color: 0 0 0;
   --lgc-elevation-shadow-level-0: none;
   --lgc-elevation-shadow-level-1:
-    0 0.0625rem 0.125rem rgb(var(--lgc-elevation-shadow-color) / 0.18),
-    0 0.0625rem 0.1875rem 0.0625rem rgb(var(--lgc-elevation-shadow-color) / 0.1);
+    0 1px 2px rgb(var(--lgc-elevation-shadow-color) / 0.18),
+    0 1px 3px 1px rgb(var(--lgc-elevation-shadow-color) / 0.1);
   --lgc-elevation-shadow-level-2:
-    0 0.0625rem 0.125rem rgb(var(--lgc-elevation-shadow-color) / 0.14),
-    0 0.125rem 0.375rem 0.125rem rgb(var(--lgc-elevation-shadow-color) / 0.1);
+    0 1px 2px rgb(var(--lgc-elevation-shadow-color) / 0.14),
+    0 2px 6px 2px rgb(var(--lgc-elevation-shadow-color) / 0.1);
   --lgc-elevation-shadow-level-3:
-    0 0.0625rem 0.1875rem rgb(var(--lgc-elevation-shadow-color) / 0.16),
-    0 0.25rem 0.5rem 0.1875rem rgb(var(--lgc-elevation-shadow-color) / 0.1);
+    0 1px 3px rgb(var(--lgc-elevation-shadow-color) / 0.16),
+    0 4px 8px 3px rgb(var(--lgc-elevation-shadow-color) / 0.1);
+  --lgc-elevation-shadow-overlay: 0 16px 40px
+    color-mix(in srgb, var(--md-sys-color-scrim, #000) 16%, transparent);
 
-  --lgc-space-sm: 0.5rem;
-  --lgc-space-md: 0.75rem;
-  --lgc-space-lg: 1rem;
-  --lgc-space-xl: 1.25rem;
-  --lgc-space-2xl: 1.5rem;
+  // --- Space (semantic rhythm only; rare values stay px at call sites) ---
+  --lgc-space-xs: 4px;
+  --lgc-space-sm: 8px;
+  --lgc-space-md: 12px;
+  --lgc-space-lg: 16px;
+  --lgc-space-xl: 20px;
+  --lgc-space-2xl: 24px;
+  --lgc-space-3xl: 32px;
+  --lgc-space-4xl: 40px;
+  --lgc-space-5xl: 48px;
+  --lgc-space-6xl: 64px;
+  --lgc-gap-compact: 7px;
 
+  // --- Radius reference scale (px) ---
+  --lgc-radius-none: 0;
+  --lgc-radius-xs: 4px;
+  --lgc-radius-sm: 6px;
+  --lgc-radius-md: 12px;
+  --lgc-radius-lg-plus: 14px;
+  --lgc-radius-lg: 16px;
+  --lgc-radius-xl: 20px;
+  --lgc-radius-2xl: 24px;
+  --lgc-radius-2xl-active: 18px;
+  --lgc-radius-3xl: 28px;
+  --lgc-radius-3xl-active: 22px;
+  --lgc-radius-4xl: 32px;
+  --lgc-radius-full: 999px;
+
+  // Semantic radius aliases
+  --lgc-radius-control: var(--lgc-radius-2xl);
+  --lgc-radius-control-active: var(--lgc-radius-lg);
+  --lgc-radius-control-morph: var(--lgc-radius-2xl-active);
+  --lgc-radius-large: var(--lgc-radius-3xl);
+  --lgc-radius-large-active: var(--lgc-radius-3xl-active);
+  --lgc-radius-pagination: var(--lgc-radius-md);
+  --lgc-radius-pagination-hover: var(--lgc-radius-lg-plus);
+
+  // --- Size / chrome ---
+  --lgc-control-size: 48px;
+  --lgc-control-size-compact: 44px;
+  --lgc-control-size-sm: 32px;
+  --lgc-icon-size: 24px;
+  --lgc-icon-size-sm: 20px;
+  --lgc-header-height: 72px;
+  --lgc-header-link-max-width: 176px;
+  --lgc-search-inline-width: 320px;
+  --lgc-search-inline-gutter: 192px;
+  --lgc-search-drawer-width: 480px;
+  --lgc-drawer-width: 320px;
+  --lgc-label-width: 144px;
+  --lgc-back-to-top-size: 56px;
+  --lgc-meta-chip-min-height: 32px;
+  --lgc-progress-height: 4px;
+  --lgc-focus-ring: 3px;
+  --lgc-hairline: 1px;
+
+  // --- Measure / layout ---
   --lgc-container-reading: 900px;
   --lgc-container-wide: 1180px;
   --lgc-measure-narrow: 620px;
@@ -110,6 +188,8 @@ html.dark {
   // Always use helpers mixins for `@media` queries.
   --lgc-breakpoint-compact: 640px;
   --lgc-breakpoint-nav: 720px;
+
+  // --- Layers ---
   --lgc-layer-background: -1;
   --lgc-layer-local-base: 0;
   --lgc-layer-local-raised: 1;
@@ -120,18 +200,8 @@ html.dark {
   --lgc-layer-progress: 1024;
   --lgc-layer-progress-runner: 1025;
   --lgc-layer-loading: 1030;
-  --lgc-header-height: 4.5rem;
-  --lgc-control-size: 3rem;
-  --lgc-control-size-compact: 2.75rem;
-  --lgc-icon-size: 1.5rem;
-  --lgc-search-inline-width: 20rem;
-  --lgc-search-drawer-width: 30rem;
-  --lgc-radius-control: 1.5rem;
-  --lgc-radius-control-active: 1rem;
-  --lgc-radius-large: 1.75rem;
-  --lgc-radius-full: 999px;
-  --lgc-gap-compact: 0.45rem;
-  --lgc-label-width: 9rem;
+
+  // --- Surface effects ---
   --lgc-surface-blur: 8px;
   --lgc-surface-mask-bg: color-mix(
     in srgb,
@@ -142,6 +212,6 @@ html.dark {
 
 @include compact-up {
   :root {
-    --lgc-header-height: 5.5rem;
+    --lgc-header-height: 88px;
   }
 }

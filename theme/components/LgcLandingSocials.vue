@@ -27,18 +27,18 @@ defineProps<{
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
+  gap: var(--lgc-space-sm);
+  margin-top: var(--lgc-space-2xl);
 }
 
 .lgc-social-link {
   width: var(--lgc-control-size-compact);
   height: var(--lgc-control-size-compact);
   border-radius: calc(var(--lgc-control-size-compact) / 2);
-  font-size: 1.25rem;
+  font-size: var(--lgc-icon-font-sm);
 
   &:hover {
-    border-radius: calc(var(--lgc-radius-control-active) - 0.0625rem);
+    border-radius: var(--lgc-radius-lg-plus);
     transform: translateY(-1px);
   }
 

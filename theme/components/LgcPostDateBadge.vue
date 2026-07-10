@@ -18,8 +18,8 @@ defineProps<{
 
 .lgc-post-date {
   display: flex;
-  width: 5.25rem;
-  height: 5.25rem;
+  width: 84px;
+  height: 84px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -30,13 +30,13 @@ defineProps<{
 }
 
 .lgc-post-date-day {
-  font-size: 2rem;
+  font-size: 32px;
   line-height: 1;
 }
 
 .lgc-post-date-rest {
-  margin-top: 0.25rem;
-  font-size: 0.75rem;
+  margin-top: var(--lgc-space-xs);
+  font-size: var(--lgc-label-small);
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -44,8 +44,8 @@ defineProps<{
 
 @include compact-up {
   .lgc-post-date {
-    width: 6rem;
-    height: 6rem;
+    width: 96px;
+    height: 96px;
     justify-self: start;
   }
 }

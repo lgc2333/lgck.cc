@@ -64,7 +64,7 @@ withDefaults(
     var(--md-sys-color-on-surface-variant) 58%,
     var(--md-sys-color-on-surface)
   );
-  --lgc-post-cover-text-shadow: 0 0.0625rem 0.5rem
+  --lgc-post-cover-text-shadow: 0 1px 8px
     color-mix(in srgb, var(--md-sys-color-surface) 36%, transparent);
 }
 
@@ -82,7 +82,7 @@ html.dark .lgc-post-cover-frame {
 
 .lgc-post-cover-frame.is-article {
   --lgc-post-cover-ratio-size: 38.0952%;
-  --lgc-post-cover-min-height: 20rem;
+  --lgc-post-cover-min-height: 320px;
 }
 
 .lgc-post-cover-frame::before {
@@ -125,7 +125,7 @@ html.dark .lgc-post-cover-frame {
 @include compact-down {
   .lgc-post-cover-frame.is-article {
     --lgc-post-cover-ratio-size: 75%;
-    --lgc-post-cover-min-height: 18rem;
+    --lgc-post-cover-min-height: 288px;
   }
 }
 </style>

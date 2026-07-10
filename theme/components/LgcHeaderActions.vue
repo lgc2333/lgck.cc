@@ -104,7 +104,7 @@ function toggleLanguage() {
 
   &:hover,
   &:focus-visible {
-    max-width: 9rem;
+    max-width: var(--lgc-label-width);
   }
 }
 
@@ -125,7 +125,7 @@ function toggleLanguage() {
 
 .lgc-header-lang:hover .lgc-header-lang-label,
 .lgc-header-lang:focus-visible .lgc-header-lang-label {
-  max-width: 5rem;
+  max-width: 80px;
   margin-right: var(--lgc-gap-compact);
   opacity: 1;
 }

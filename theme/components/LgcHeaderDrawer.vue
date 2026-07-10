@@ -195,9 +195,9 @@ function toggleLanguage() {
   bottom: 0;
   left: 0;
   display: flex;
-  width: min(20rem, calc(100vw - var(--lgc-control-size)));
+  width: min(var(--lgc-drawer-width), calc(100vw - var(--lgc-control-size)));
   flex-direction: column;
-  padding: 1rem;
+  padding: var(--lgc-space-lg);
   color: var(--md-sys-color-on-surface);
   background: var(--md-sys-color-surface-container-low);
   backdrop-filter: blur(var(--lgc-surface-blur));
@@ -209,8 +209,8 @@ function toggleLanguage() {
   min-height: var(--lgc-control-size);
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
+  gap: var(--lgc-space-lg);
+  margin-bottom: var(--lgc-space-sm);
 }
 
 .lgc-drawer-title {
@@ -233,24 +233,24 @@ function toggleLanguage() {
   display: grid;
   flex: 1;
   align-content: start;
-  gap: 0.375rem;
-  padding-top: 0.5rem;
+  gap: 6px;
+  padding-top: var(--lgc-space-sm);
 }
 
 .lgc-drawer-footer {
   display: grid;
-  gap: 0.375rem;
-  padding-top: 1rem;
+  gap: 6px;
+  padding-top: var(--lgc-space-lg);
   margin-top: auto;
 }
 
 .lgc-drawer-link {
   display: grid;
   min-height: var(--lgc-control-size);
-  grid-template-columns: 1.5rem minmax(0, 1fr);
+  grid-template-columns: var(--lgc-icon-size) minmax(0, 1fr);
   align-items: center;
-  gap: 0.875rem;
-  padding-inline: 1rem;
+  gap: 14px;
+  padding-inline: var(--lgc-space-lg);
   border: 0;
   border-radius: var(--lgc-radius-control);
   color: var(--md-sys-color-on-surface-variant);

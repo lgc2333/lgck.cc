@@ -35,8 +35,9 @@ pre {
 
 a:focus-visible,
 button:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--md-sys-color-primary) 56%, transparent);
-  outline-offset: 3px;
+  outline: var(--lgc-focus-ring) solid
+    color-mix(in srgb, var(--md-sys-color-primary) 56%, transparent);
+  outline-offset: var(--lgc-focus-ring);
 }
 
 @media (prefers-reduced-motion: reduce) {

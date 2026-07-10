@@ -59,10 +59,10 @@ const shouldRenderAsTemplate = computed(() => {
 }
 
 .lgc-post-excerpt {
-  margin-top: 0.75rem;
+  margin-top: var(--lgc-space-md);
   overflow: hidden;
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 0.875rem;
+  font-size: var(--lgc-body-small);
   line-height: 1.75;
 }
 
@@ -73,7 +73,7 @@ const shouldRenderAsTemplate = computed(() => {
 .lgc-post-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
+  gap: var(--lgc-space-sm);
+  margin-top: var(--lgc-space-md);
 }
 </style>

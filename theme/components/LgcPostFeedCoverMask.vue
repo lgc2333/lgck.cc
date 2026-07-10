@@ -96,12 +96,12 @@ withDefaults(
 }
 
 .lgc-post-body-cover :deep(.lgc-post-title) {
-  max-width: 44rem;
+  max-width: 704px;
   text-align: left;
 }
 
 .lgc-post-body-cover :deep(.lgc-post-excerpt) {
-  max-width: 42rem;
+  max-width: 672px;
   color: var(--lgc-post-cover-on-mask-variant);
   font-weight: 600;
   text-align: left;
@@ -163,7 +163,7 @@ withDefaults(
 }
 
 .lgc-post-cover-mask-panel.is-gradient .lgc-post-body-cover :deep(.lgc-post-excerpt) {
-  text-shadow: 0 0.0625rem 0.25rem
+  text-shadow: 0 1px 4px
     color-mix(in srgb, var(--md-sys-color-surface) 24%, transparent);
 }
 
@@ -172,7 +172,7 @@ withDefaults(
   z-index: var(--lgc-layer-local-raised);
   justify-self: start;
   width: fit-content;
-  max-width: min(42rem, calc(100% - var(--lgc-control-size) - var(--lgc-space-lg)));
+  max-width: min(672px, calc(100% - var(--lgc-control-size) - var(--lgc-space-lg)));
   margin-block-end: calc(var(--lgc-space-xl) * -1);
   margin-inline-start: calc(var(--lgc-space-xl) * -1);
   padding: var(--lgc-space-xl);

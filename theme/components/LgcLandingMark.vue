@@ -35,8 +35,8 @@ defineProps<{
 .lgc-mark {
   display: grid;
   justify-items: center;
-  gap: 0.55rem;
-  margin-bottom: 1.75rem;
+  gap: var(--lgc-space-sm);
+  margin-bottom: 28px;
 }
 
 .lgc-mark-avatar-wrap {
@@ -44,8 +44,8 @@ defineProps<{
 }
 
 .lgc-mark-avatar {
-  width: 9rem;
-  height: 9rem;
+  width: var(--lgc-label-width);
+  height: var(--lgc-label-width);
   border: 3px solid
     color-mix(in srgb, var(--md-sys-color-surface-container-high) 20%, transparent);
   border-radius: 30px;
@@ -54,20 +54,20 @@ defineProps<{
 
 .lgc-mark-name {
   color: var(--md-sys-color-on-surface);
-  font-size: 1.125rem;
+  font-size: var(--lgc-title-medium);
   font-weight: 800;
   line-height: 1.2;
 }
 
 .lgc-mark-status {
   position: absolute;
-  right: -0.45rem;
-  bottom: -0.3rem;
+  right: calc(-1 * var(--lgc-gap-compact));
+  bottom: calc(-1 * var(--lgc-space-xs));
   display: inline-flex;
   box-sizing: border-box;
-  min-inline-size: 2.25rem;
-  max-inline-size: 2.25rem;
-  block-size: 2.25rem;
+  min-inline-size: 36px;
+  max-inline-size: 36px;
+  block-size: 36px;
   align-items: center;
   justify-content: center;
   gap: 0;
@@ -88,10 +88,10 @@ defineProps<{
 
   &:hover,
   &:focus-within {
-    max-inline-size: 14rem;
+    max-inline-size: 224px;
     justify-content: flex-start;
-    gap: 0.4rem;
-    padding-inline: 0.55rem;
+    gap: 6px;
+    padding-inline: var(--lgc-space-sm);
     border-radius: 12px;
   }
 }
@@ -112,14 +112,14 @@ defineProps<{
 
 .lgc-mark-status:hover .lgc-mark-status-message,
 .lgc-mark-status:focus-within .lgc-mark-status-message {
-  max-inline-size: 11rem;
+  max-inline-size: var(--lgc-header-link-max-width);
   opacity: 1;
 }
 
 @include compact-up {
   .lgc-mark-avatar {
-    width: 9.5rem;
-    height: 9.5rem;
+    width: 152px;
+    height: 152px;
   }
 }
 </style>

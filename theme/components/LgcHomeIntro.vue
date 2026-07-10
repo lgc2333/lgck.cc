@@ -21,7 +21,7 @@ const siteConfig = useSiteConfig()
   display: grid;
   justify-items: start;
   gap: var(--lgc-space-md);
-  padding: 2rem var(--lgc-space-xl);
+  padding: var(--lgc-space-3xl) var(--lgc-space-xl);
   margin-bottom: var(--lgc-space-lg);
   border-radius: var(--lgc-radius-large);
   background:
@@ -43,7 +43,7 @@ const siteConfig = useSiteConfig()
 }
 
 .lgc-home-intro-label {
-  padding: 0.35rem 0.85rem;
+  padding: var(--lgc-space-xs) var(--lgc-space-md);
   margin: 0;
   border-radius: var(--lgc-radius-full);
   color: var(--md-sys-color-on-secondary-container);
@@ -62,7 +62,7 @@ const siteConfig = useSiteConfig()
 
 @include compact-up {
   .lgc-home-intro {
-    padding: 2.5rem;
+    padding: var(--lgc-space-4xl);
   }
 }
 </style>

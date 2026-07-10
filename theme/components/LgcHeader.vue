@@ -25,7 +25,8 @@ const linkStyle = computed(() => ({
   '--lgc-header-link-width': linkOptions.value.width || undefined,
   '--lgc-header-link-min-width':
     linkOptions.value.minWidth || 'var(--lgc-control-size)',
-  '--lgc-header-link-max-width': linkOptions.value.maxWidth || '11rem',
+  '--lgc-header-link-max-width':
+    linkOptions.value.maxWidth || 'var(--lgc-header-link-max-width)',
 }))
 
 const homeLink = computed<HeaderNavLink>(() => ({
@@ -116,8 +117,8 @@ function closeDrawer() {
   max-width: var(--lgc-container-wide);
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 0.5rem;
+  gap: var(--lgc-space-lg);
+  padding: var(--lgc-space-sm);
   margin-inline: auto;
   background: transparent;
   border-radius: 0 0 var(--lgc-radius-control) var(--lgc-radius-control);
@@ -142,7 +143,7 @@ function closeDrawer() {
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--lgc-space-sm);
 }
 
 .lgc-header-menu {
@@ -165,12 +166,12 @@ function closeDrawer() {
 
 @include compact-up {
   .lgc-header-shell {
-    padding-inline: 1rem;
+    padding-inline: var(--lgc-space-lg);
   }
 
   .lgc-header {
-    padding: 0.875rem;
-    padding-inline: 0.75rem;
+    padding: 14px;
+    padding-inline: var(--lgc-space-md);
   }
 }
 </style>
