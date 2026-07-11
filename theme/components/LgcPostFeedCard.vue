@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { Post } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useThemeConfig } from '../composables'
-import type { CoverContentMask, CoverContentPosition, LgcPost } from '../types'
+import type { CoverContentMask, CoverContentPosition } from '../types'
 import {
   formatPostDateParts,
   normalizeLocaleText,
@@ -12,7 +13,7 @@ import {
 } from '../utils/post'
 
 const props = defineProps<{
-  post: LgcPost
+  post: Post
 }>()
 
 const themeConfig = useThemeConfig()

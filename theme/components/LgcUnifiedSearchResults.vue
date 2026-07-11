@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { nextTick, ref, watch } from 'vue'
 
-import type { SearchItem } from '../types/search'
+import type { SearchItem } from '../types'
 import LgcUnifiedSearchResultButton from './LgcUnifiedSearchResultButton.vue'
 
 const props = defineProps<{

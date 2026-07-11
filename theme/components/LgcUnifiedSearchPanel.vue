@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-import type { SearchItem } from '../types/search'
+import type { SearchItem } from '../types'
 import LgcUnifiedSearchField from './LgcUnifiedSearchField.vue'
 import LgcUnifiedSearchResults from './LgcUnifiedSearchResults.vue'
 

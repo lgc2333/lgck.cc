@@ -16,7 +16,7 @@ If an M3 Expressive decision is unclear, check official refs before implementing
 - `valaxy.config.ts`: `defineTheme()` — defaults, Vite plugins, fonts, Uno safelist/icons
 - `App.vue`: theme shell (`LgcLoading`)
 - `client/`: user-facing exports; `node/`: defaults, font plugin, loading bootstrap, icon safelist
-- `types/`: public config + Valaxy augmentation (type before wiring)
+- `types/index.ts`: public theme config + Valaxy augmentation (`PostFrontMatter`, `DefaultTheme`, `*.ttf`)
 - `components/`: auto-registered; `Lgc*` = theme UI; `ValaxyApp` / `ValaxyMain` / `layout` override slots
 - `layouts/`: default, home, post, 404
 - `composables/`: config, header, language motion, search
@@ -55,7 +55,7 @@ Valaxy blog: landing home, floating header, unified search, post feed/layouts, f
 ## Header And Search
 
 - Stable icon anchors/size/padding across rest/hover/active/drawer/mobile
-- Links: icon-only / hover-expand / always-expand; keep active expand + path rewrite (`types/header.d.ts`)
+- Links: icon-only / hover-expand / always-expand; keep active expand + path rewrite (`types/index.ts`)
 - Search: keyboard nav, selected-index per surface, mobile panel intact
 - Results: title, path/section, optional provider, quiet highlights
 - Icon buttons for compact actions; labels only when width is intentional

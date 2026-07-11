@@ -11,7 +11,7 @@
     "vue"
   ],
   "main": "client/index.ts",
-  "types": "types/index.d.ts",
+  "types": "types/index.ts",
   "scripts": {},
   "peerDependencies": {
     "valaxy": "catalog:"

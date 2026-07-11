@@ -11,7 +11,7 @@ import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
-import type { SearchItem } from '../types/search'
+import type { SearchItem } from '../types'
 import { useSearchResultAdapters } from './searchAdapters'
 import { useSearchKeyboard } from './searchKeyboard'
 import { useSearchLayers } from './searchLayers'

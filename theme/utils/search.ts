@@ -1,4 +1,4 @@
-import type { SearchTextSegment } from '../types/search'
+import type { SearchTextSegment } from '../types'
 
 const SEARCH_SNIPPET_CONTEXT = 52
 

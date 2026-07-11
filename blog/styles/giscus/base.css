@@ -81,7 +81,9 @@ main {
     var(--lgc-giscus-action-height) / 2 + var(--lgc-giscus-popover-shift-x) - 7px
   );
   --lgc-giscus-popover-caret-right: calc(var(--lgc-giscus-action-height) / 2 - 8px);
-  --lgc-giscus-popover-caret-right-inner: calc(var(--lgc-giscus-action-height) / 2 - 7px);
+  --lgc-giscus-popover-caret-right-inner: calc(
+    var(--lgc-giscus-action-height) / 2 - 7px
+  );
   --color-fg-default: var(--md-sys-color-on-surface);
   --color-fg-muted: var(--md-sys-color-on-surface-variant);
   --color-fg-subtle: var(--md-sys-color-outline);

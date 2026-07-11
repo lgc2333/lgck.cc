@@ -1,7 +1,7 @@
 import type { FuseListItem, LocalSearchResult } from 'valaxy'
 import type { Ref } from 'vue'
 
-import type { SearchItem } from '../types/search'
+import type { SearchItem } from '../types'
 import type { FuseSearchMatch } from '../utils/search'
 import {
   buildSnippetSegments,
