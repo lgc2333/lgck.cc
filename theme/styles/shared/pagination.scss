@@ -1,0 +1,49 @@
+.lgc-pagination-control,
+.lgc-pagination-ellipsis {
+  --pagination-min-w: calc(var(--lgc-control-size-compact) + var(--lgc-space-xs));
+  min-width: var(--pagination-min-w);
+  @apply 'inline-grid h-$lgc-control-size-compact place-items-center';
+  @apply 'px-$lgc-space-md rounded-$lgc-radius-pagination';
+  @apply 'text-$md-sys-color-on-surface-variant font-900 no-underline';
+  @apply 'bg-$md-sys-color-surface-container';
+}
+
+.lgc-pagination-control:first-child,
+.lgc-pagination-ellipsis:first-child {
+  @apply 'rounded-s-$lgc-radius-control';
+}
+
+.lgc-pagination-control:last-child,
+.lgc-pagination-ellipsis:last-child {
+  @apply 'rounded-e-$lgc-radius-control';
+}
+
+.lgc-pagination-control {
+  @apply 'relative z-0';
+  @apply 'transition-[background-color,border-radius,color,transform]';
+  @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
+  @apply 'hover:z-1 hover:rounded-$lgc-radius-pagination-hover';
+  @apply 'hover:text-$md-sys-color-primary';
+  @apply 'hover:bg-$md-sys-color-surface-container-high';
+  @apply 'focus-visible:z-1 focus-visible:rounded-$lgc-radius-pagination-hover';
+  @apply 'focus-visible:text-$md-sys-color-primary';
+  @apply 'focus-visible:bg-$md-sys-color-surface-container-high';
+  @apply 'active:z-2 active:rounded-$lgc-radius-control-active';
+  @apply 'active:scale-$lgc-control-press-scale';
+}
+
+.lgc-pagination-control.is-active {
+  @apply 'z-3 rounded-$lgc-radius-control';
+  @apply 'text-$md-sys-color-on-primary bg-$md-sys-color-primary';
+}
+
+.lgc-pagination-control.is-active:hover,
+.lgc-pagination-control.is-active:focus-visible {
+  @apply 'rounded-$lgc-radius-control-active';
+  @apply 'text-$md-sys-color-on-primary bg-$md-sys-color-primary';
+}
+
+.lgc-pagination-ellipsis {
+  @apply 'min-w-$lgc-control-size-compact text-$md-sys-color-outline';
+  @apply 'bg-$md-sys-color-surface-container-low';
+}

@@ -18,7 +18,7 @@ const siteConfig = useSiteConfig()
         </slot>
         <slot name="main-header-after" />
 
-        <div grid w="full" max-w="$lgc-container-reading" gap="$lgc-space-lg" mx-auto>
+        <div w="full" max-w="$lgc-container-reading" gap="$lgc-space-lg" mx-auto grid>
           <div class="lgc-reading-panel" overflow-hidden>
             <div flex="~ col" w="full" min-w="0">
               <slot name="main-content">

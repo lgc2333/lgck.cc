@@ -6,12 +6,12 @@
     <div flex="~ col" min-h="screen" bg="$lgc-surface-mask-bg">
       <main
         class="lgc-content-under-header"
-        box-border
         flex="~ col"
         w="full"
         max-w="$lgc-container-reading lg:$lgc-container-wide"
-        flex-1
         mx-auto
+        flex-1
+        box-border
         px="$lgc-space-lg sm:$lgc-space-2xl lg:0"
       >
         <slot />

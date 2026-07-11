@@ -1,10 +1,10 @@
 <template>
   <div
     class="lgc-fixed-bg"
-    fixed
-    inset-0
     z="$lgc-layer-background"
     pointer-events-none
+    inset-0
+    fixed
     aria-hidden="true"
   />
 </template>

@@ -23,7 +23,7 @@ const sponsorBtnTitle = computed(() => {
       </button>
     </a>
     <div>
-      <span v-if="siteConfig.sponsor.description" class="text-$va-c-text-light text-sm">
+      <span v-if="siteConfig.sponsor.description" class="text-sm text-$va-c-text-light">
         {{ siteConfig.sponsor.description }}
       </span>
     </div>

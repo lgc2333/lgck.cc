@@ -41,11 +41,11 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 
     <section
       class="lgc-landing lgc-page-surface"
-      relative
-      isolate
-      grid
       min-h="screen"
+      grid
+      relative
       overflow-clip
+      isolate
       pt="$lgc-header-height"
       px="$lgc-space-lg sm:$lgc-space-2xl"
       pb="80px sm:96px"
@@ -53,8 +53,6 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
     >
       <div
         class="lgc-landing-center"
-        relative
-        z-1
         flex="~ col items-center justify-center"
         w="full"
         min-h="$landing-center-min-h"
@@ -62,6 +60,8 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
         pt="$lgc-space-lg sm:0"
         mx-auto
         text-center
+        relative
+        z-1
       >
         <LgcLandingMark
           v-if="avatar"
@@ -100,14 +100,14 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
       <a
         v-if="showPosts"
         class="lgc-scroll-hint"
-        absolute
         bottom="$lgc-space-2xl"
         left="1/2"
-        grid
         w="$lgc-control-size"
         h="$lgc-control-size"
         place-items="center"
         no-underline
+        grid
+        absolute
         href="#posts"
         aria-label="Scroll to posts"
       >

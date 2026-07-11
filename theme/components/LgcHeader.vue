@@ -58,10 +58,10 @@ function closeDrawer() {
 <template>
   <header
     class="lgc-header-shell"
-    fixed
-    top-0
-    right-0
     left-0
+    right-0
+    top-0
+    fixed
     z="$lgc-layer-header"
     sm="px-$lgc-space-lg"
     :class="{ 'is-scrolled': isScrolled }"

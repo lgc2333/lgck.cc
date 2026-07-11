@@ -33,30 +33,30 @@ const isDrawer = computed(() => props.variant === 'drawer')
   <div
     v-if="isDrawer"
     class="lgc-search-drawer-layer"
-    fixed
     inset-0
+    fixed
     z="$lgc-layer-overlay"
     @keydown="$emit('keydown', $event)"
   >
     <button
       class="lgc-search-scrim"
-      absolute
-      inset-0
       border-0
       opacity-100
+      inset-0
+      absolute
       type="button"
       aria-label="Close search"
       @click="$emit('close')"
     />
     <aside
       class="lgc-search-drawer"
-      absolute
-      top-0
-      right-0
+      p="$lgc-space-lg"
       grid
       h-full
-      p="$lgc-space-lg"
       translate-x-0
+      right-0
+      top-0
+      absolute
       text="$md-sys-color-on-surface"
       bg="$md-sys-color-surface-container-low"
       aria-label="Search results"
@@ -111,9 +111,9 @@ const isDrawer = computed(() => props.variant === 'drawer')
 
   <div
     v-else
-    class="lgc-search-mobile hidden max-md:grid text-$md-sys-color-on-surface"
-    fixed
+    class="lgc-search-mobile text-$md-sys-color-on-surface hidden max-md:grid"
     inset-0
+    fixed
     z="$lgc-layer-modal"
     p="$lgc-space-sm"
     bg="$md-sys-color-surface-container-low"

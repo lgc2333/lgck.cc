@@ -39,20 +39,20 @@ onBeforeUnmount(() => {
   <Transition name="lgc-material-loader">
     <div
       v-if="app.showLoading"
-      fixed
-      inset-0
       z="$lgc-layer-loading"
-      grid
       place-items="center"
+      grid
       pointer-events-none
+      inset-0
+      fixed
       bg="$md-sys-color-surface"
       role="status"
       aria-live="polite"
       aria-label="Loading"
     >
       <div
-        relative
         grid
+        relative
         place-items="center"
         w="$lgc-material-loader-size"
         h="$lgc-material-loader-size"

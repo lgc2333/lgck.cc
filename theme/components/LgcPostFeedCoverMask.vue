@@ -25,13 +25,13 @@ withDefaults(
   <LgcPostCoverFrame rounded-inherit :src="cover" :alt="title" variant="feed">
     <div
       class="lgc-post-cover-mask-panel grid-rows-[auto_minmax(min-content,1fr)]"
-      relative
-      grid
       w="full"
       min-h="full"
       grid-cols="1"
+      grid
       content-between
       items-stretch
+      relative
       gap="$lgc-space-lg sm:$lgc-space-2xl"
       p="$lgc-space-xl sm:$lgc-space-2xl"
       :class="[`is-${mask}`, `is-${position}`]"
@@ -39,7 +39,7 @@ withDefaults(
       <LgcPostDateBadge class="lgc-post-date-cover" v-bind="date" />
 
       <LgcPostFeedCardDetails
-        class="lgc-post-body-cover relative row-start-2 col-start-1 self-end"
+        class="lgc-post-body-cover col-start-1 row-start-2 self-end relative"
         surface="cover"
         :cover-mask="mask"
         :cover-align="position"

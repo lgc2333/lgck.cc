@@ -73,10 +73,10 @@ function toggleLanguage() {
       <button
         v-if="open"
         class="lgc-drawer-backdrop"
-        fixed
-        inset-0
         z="$lgc-layer-overlay"
         border-0
+        inset-0
+        fixed
         type="button"
         aria-label="Close navigation"
         @click="emit('close')"
@@ -89,10 +89,10 @@ function toggleLanguage() {
         id="lgc-mobile-drawer"
         class="lgc-drawer"
         flex="~ col"
-        fixed
-        top-0
         bottom-0
         left-0
+        top-0
+        fixed
         z="$lgc-layer-modal"
         p="$lgc-space-lg"
         text="$md-sys-color-on-surface"
@@ -115,10 +115,10 @@ function toggleLanguage() {
           </span>
           <button
             class="lgc-icon-button-base lgc-icon-button-hover"
-            grid
             w="$lgc-control-size-compact"
             h="$lgc-control-size-compact"
             rounded-full
+            grid
             text="size-$lgc-icon-size"
             type="button"
             aria-label="Close navigation"
@@ -129,8 +129,8 @@ function toggleLanguage() {
         </div>
 
         <nav
-          grid
           flex-1
+          grid
           content-start
           gap="1.5"
           pt="$lgc-space-sm"
@@ -168,7 +168,7 @@ function toggleLanguage() {
           </AppLink>
         </nav>
 
-        <div grid gap="1.5" pt="$lgc-space-lg" mt-auto aria-label="Navigation settings">
+        <div gap="1.5" pt="$lgc-space-lg" mt-auto grid aria-label="Navigation settings">
           <button
             v-if="showI18n"
             class="lgc-drawer-link lgc-drawer-control"

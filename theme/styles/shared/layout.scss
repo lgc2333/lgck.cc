@@ -1,0 +1,28 @@
+// Shared content offset under fixed header (layout + landing posts).
+// Calc lives here as a local custom property — not a global layout-chrome token.
+.lgc-content-under-header {
+  --content-pad-top: calc(var(--lgc-header-height) + var(--lgc-space-lg));
+  padding-top: var(--content-pad-top);
+}
+
+@screen sm {
+  .lgc-content-under-header {
+    --content-pad-top: calc(var(--lgc-header-height) + var(--lgc-space-3xl));
+  }
+}
+
+.lgc-page-enter-active,
+.lgc-page-leave-active {
+  overflow-anchor: none;
+}
+
+.lgc-page-enter-active :where(.lgc-page-surface),
+.lgc-page-leave-active :where(.lgc-page-surface) {
+  @apply 'transition-[opacity,transform] duration-$lgc-motion-medium';
+  @apply 'ease-$lgc-easing-standard';
+}
+
+.lgc-page-enter-from :where(.lgc-page-surface),
+.lgc-page-leave-to :where(.lgc-page-surface) {
+  @apply 'opacity-0 translate-y-$lgc-space-md';
+}

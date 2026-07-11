@@ -59,22 +59,22 @@ const setRootRef: VNodeRef = (element) => {
     v-if="isSupported"
     :ref="setRootRef"
     class="lgc-search"
-    relative
     inline-flex
     flex-none
     items-center
     justify-end
+    relative
     gap="$lgc-space-sm"
     :class="actionClass"
   >
     <div
       v-if="!isAlgolia"
       class="lgc-search-inline"
+      rounded="$lgc-radius-control-active"
       grid
+      pointer-events-none
       justify-items-end
       overflow-hidden
-      rounded="$lgc-radius-control-active"
-      pointer-events-none
       max-md="hidden"
       :class="{ 'is-open': openInline }"
     >

@@ -30,6 +30,9 @@ catalogs:
     '@trivago/prettier-plugin-sort-imports':
       specifier: ^6.0.2
       version: 6.0.2
+    '@unocss/eslint-config':
+      specifier: ^66.7.5
+      version: 66.7.5
     '@unocss/eslint-plugin':
       specifier: ^66.7.5
       version: 66.7.5
@@ -104,6 +107,9 @@ importers:
       '@trivago/prettier-plugin-sort-imports':
         specifier: 'catalog:'
         version: 6.0.2(@vue/compiler-sfc@3.5.39)(prettier@3.9.4)
+      '@unocss/eslint-config':
+        specifier: 'catalog:'
+        version: 66.7.5(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)
       '@unocss/eslint-plugin':
         specifier: 'catalog:'
         version: 66.7.5(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)
@@ -1936,6 +1942,9 @@ packages:
 
   '@unocss/core@66.7.5':
     resolution: {integrity: sha512-UdJb8MiMywcau8QrWEVgUAz0kvoFHyR+sACwYCgmBh/BpKJGyR/zw/Ys3wvysbm0f+i/20VGBex/QQxYVlzdyQ==}
+
+  '@unocss/eslint-config@66.7.5':
+    resolution: {integrity: sha512-uFy7R0Fmb881p9Arv+ZFmnSzjhL+7E26bIsY8LKX+ueKUvzCFcQ1+OQ6cuHfriau9lwZ4iG7T4sGW8oYayNOYQ==}
 
   '@unocss/eslint-plugin@66.7.5':
     resolution: {integrity: sha512-VCOY8w/y+o/2Vm6QqDgKZmX7XUjU0y/22ScI6AU0CxYtKUjHukUFubKgvn7/iRHiJEhrgtpxF1kDLvkNzhsklg==}
@@ -6826,6 +6835,14 @@ snapshots:
   '@unocss/core@66.7.2': {}
 
   '@unocss/core@66.7.5': {}
+
+  '@unocss/eslint-config@66.7.5(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)':
+    dependencies:
+      '@unocss/eslint-plugin': 66.7.5(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)
+    transitivePeerDependencies:
+      - eslint
+      - supports-color
+      - typescript
 
   '@unocss/eslint-plugin@66.7.5(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)':
     dependencies:

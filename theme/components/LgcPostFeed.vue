@@ -66,7 +66,7 @@ const posts = computed(() => {
       w="full"
       max-w="$lgc-container-reading"
       gap="$lgc-space-lg"
-      class="pb-$lgc-space-3xl mx-auto sm:py-$lgc-space-4xl"
+      class="mx-auto pb-$lgc-space-3xl sm:py-$lgc-space-4xl"
       :class="flush ? 'px-0' : 'px-$lgc-space-lg sm:px-$lgc-space-2xl'"
     >
       <div flex="~ items-end justify-between" mb="$lgc-space-sm" gap="$lgc-space-lg">
@@ -74,7 +74,7 @@ const posts = computed(() => {
           <p m="0" text="$md-sys-color-primary size-$lgc-body-small" font="800">
             {{ label }}
           </p>
-          <h2 class="m-0 text-size-$lgc-headline-large font-900 leading-tight">
+          <h2 class="text-size-$lgc-headline-large leading-tight font-900 m-0">
             {{ title }}
           </h2>
         </div>

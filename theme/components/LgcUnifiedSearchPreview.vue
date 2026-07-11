@@ -40,15 +40,15 @@ watch(
   <div
     ref="previewRef"
     class="lgc-search-preview"
-    absolute
-    right-0
-    box-border
     flex="~ col"
-    items-stretch
     gap="$lgc-space-xs"
     p="$lgc-space-md"
     rounded="$lgc-radius-control"
     pointer-events-auto
+    items-stretch
+    box-border
+    right-0
+    absolute
     text="$md-sys-color-on-surface"
     bg="$md-sys-color-surface-container-low"
     role="listbox"

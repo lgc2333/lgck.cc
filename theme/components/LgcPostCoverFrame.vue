@@ -15,27 +15,27 @@ withDefaults(
 <template>
   <div
     class="lgc-post-cover-frame"
-    relative
     grid
+    relative
     overflow-hidden
     isolate
     bg="$md-sys-color-surface-container"
     :class="`is-${variant}`"
   >
     <img
-      absolute
-      inset-0
       z="-2"
       w="full"
       h="full"
+      inset-0
+      absolute
       object-cover
       :src="src"
       :alt="alt"
       loading="lazy"
       decoding="async"
     />
-    <div absolute inset-0 z="-1" pointer-events-none aria-hidden="true" />
-    <div col-start-1 row-start-1 grid min-w="0">
+    <div z="-1" pointer-events-none inset-0 absolute aria-hidden="true" />
+    <div grid col-start-1 row-start-1 min-w="0">
       <slot />
     </div>
   </div>

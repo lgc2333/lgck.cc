@@ -39,9 +39,9 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 <template>
   <article
     class="lgc-post-card lgc-card-link"
-    relative
     grid
     items-start
+    relative
     gap="$lgc-space-lg sm:$lgc-space-2xl"
     p="$lgc-space-xl sm:$lgc-space-2xl"
     :class="{

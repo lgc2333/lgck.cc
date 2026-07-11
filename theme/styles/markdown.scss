@@ -156,19 +156,19 @@ html.dark {
   }
 
   h1 {
-    @apply 'text-size-$lgc-md-h1 max-sm:text-size-$lgc-md-h1-compact';
+    @apply 'text-size-$lgc-md-h1-compact sm:text-size-$lgc-md-h1';
     margin: var(--lgc-space-3xl) 0 var(--lgc-space-xl);
   }
 
   h2 {
-    @apply 'text-size-$lgc-md-h2 max-sm:text-size-$lgc-md-h2-compact';
+    @apply 'text-size-$lgc-md-h2-compact sm:text-size-$lgc-md-h2';
     margin: var(--lgc-space-3xl) 0 var(--lgc-space-lg);
     padding-bottom: 6px;
     border-bottom: var(--lgc-hairline) solid var(--md-sys-color-outline-variant);
   }
 
   h3 {
-    @apply 'text-size-$lgc-md-h3 max-sm:text-size-$lgc-md-h3-compact';
+    @apply 'text-size-$lgc-md-h3-compact sm:text-size-$lgc-md-h3';
     margin: 28px 0 14px;
   }
 
@@ -298,22 +298,29 @@ html.dark {
       content: none;
     }
   }
+
+  // Compact (< sm): no side bleed; content radius. sm+: Valaxy desktop radii.
+  --va-code-mobile-margin-x: 0;
+
+  div[class*='language-'] {
+    margin-inline: 0;
+    border-radius: var(--lgc-radius-content);
+  }
+
+  .vp-code-group .tabs {
+    margin-inline: 0;
+    border-radius: var(--lgc-radius-content) var(--lgc-radius-content) 0 0;
+  }
 }
 
-// max-sm equivalent: below theme sm (600px). Prefer @screen max-sm if available;
-// plain media matches wind4 max-sm (width <= 599.9px).
-@media (width <= 599.9px) {
+@screen sm {
   .markdown-body {
-    --va-code-mobile-margin-x: 0;
-
     div[class*='language-'] {
-      margin-inline: 0;
-      border-radius: var(--lgc-radius-content);
+      border-radius: 6px;
     }
 
     .vp-code-group .tabs {
-      margin-inline: 0;
-      border-radius: var(--lgc-radius-content) var(--lgc-radius-content) 0 0;
+      border-radius: 8px 8px 0 0;
     }
   }
 }

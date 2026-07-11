@@ -37,11 +37,11 @@ watch(
   <div
     ref="resultsRef"
     class="lgc-search-results"
+    overscroll-contain
     grid
     min-h-0
     content-start
     overflow-auto
-    overscroll-contain
     rounded="$lgc-radius-control"
   >
     <div

@@ -5,6 +5,7 @@ export default antfu(
   {
     ignores: ['pnpm-workspace.yaml'],
     markdown: false,
+    unocss: true,
   },
   prettier,
   {

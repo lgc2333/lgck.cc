@@ -1,7 +1,7 @@
 <template>
   <div class="lgc-fixed-bg" aria-hidden="true">
-    <div class="bg absolute inset-0" />
-    <div class="mask absolute inset-0" />
+    <div class="bg inset-0 absolute" />
+    <div class="mask inset-0 absolute" />
   </div>
 </template>
 

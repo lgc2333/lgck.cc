@@ -65,12 +65,12 @@ const strokeOffset = computed(() => {
       >
         <span i-material-symbols-keyboard-arrow-up-rounded aria-hidden="true" />
         <svg
-          absolute
-          inset-0
           w="full"
           h="full"
-          overflow-visible
           pointer-events-none
+          inset-0
+          absolute
+          overflow-visible
           viewBox="0 0 56 56"
           aria-hidden="true"
         >

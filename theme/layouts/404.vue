@@ -8,14 +8,14 @@ const router = useRouter()
   <Layout>
     <section
       class="lgc-page-surface"
-      grid
-      flex-1
-      content-center
       justify-items="center"
       gap="$lgc-space-2xl"
       pt="0"
       pb="$lgc-space-3xl"
       text-center
+      flex-1
+      grid
+      content-center
       aria-labelledby="lgc-not-found-title"
     >
       <div

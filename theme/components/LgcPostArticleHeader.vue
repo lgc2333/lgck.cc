@@ -51,13 +51,13 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
   >
     <header
       class="lgc-article-header-cover"
-      relative
-      z-0
-      self-end
-      grid
       justify-items="center"
       gap="$lgc-space-lg md:$lgc-space-xl"
       text-center
+      grid
+      self-end
+      relative
+      z-0
     >
       <h1
         v-if="title || icon"
@@ -97,12 +97,12 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
 
   <header
     v-else-if="hasHeaderContent"
-    grid
     justify-items="center"
     gap="$lgc-space-md"
     pt="$lgc-space-2xl md:$lgc-space-4xl"
     pb="$lgc-space-3xl"
     text-center
+    grid
   >
     <h1
       v-if="title || icon"

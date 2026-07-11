@@ -1,0 +1,20 @@
+.lgc-header-button {
+  @apply 'w-$lgc-control-size h-$lgc-control-size rounded-$lgc-radius-control';
+  @apply 'text-size-$lgc-icon-size';
+  @apply 'hover:rounded-$lgc-radius-control-active';
+  @apply 'focus-visible:rounded-$lgc-radius-control-active';
+}
+
+.lgc-lang-flip-icon.is-flipping {
+  animation: lgc-lang-flip var(--lgc-motion-lang-flip) var(--lgc-easing-standard);
+}
+
+@keyframes lgc-lang-flip {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}

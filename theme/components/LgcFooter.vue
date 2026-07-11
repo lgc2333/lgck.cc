@@ -59,15 +59,15 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
 <template>
   <footer
     class="lgc-footer va-footer [&_.lgc-footer-version]:text-$md-sys-color-on-surface-variant [&_.lgc-footer-version]:opacity-72"
-    relative
     flex-none
+    relative
     px="$lgc-space-lg"
     pt="$lgc-space-4xl"
     pb="$lgc-space-3xl"
     text="$md-sys-color-on-surface-variant size-$lgc-body-small center"
     leading="[1.8]"
   >
-    <div grid w="full" max-w="$lgc-container-reading" gap="1.5" mx-auto>
+    <div w="full" max-w="$lgc-container-reading" gap="1.5" mx-auto grid>
       <div
         v-if="beian?.enable && beian.icp"
         flex="~ wrap items-center justify-center"

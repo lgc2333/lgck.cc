@@ -38,7 +38,7 @@ const variantClass: Record<LandingLinkVariant, string> = {
         :class="item.icon"
         aria-hidden="true"
       />
-      <span overflow-hidden text-ellipsis whitespace-nowrap>
+      <span whitespace-nowrap text-ellipsis overflow-hidden>
         {{ item.text }}
       </span>
     </AppLink>

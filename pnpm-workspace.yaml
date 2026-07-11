@@ -53,3 +53,4 @@ catalog:
   valaxy-addon-algolia: ^0.2.1
   vitest: ^4.1.10
   vue-tsc: ^3.3.6
+  '@unocss/eslint-config': ^66.7.5

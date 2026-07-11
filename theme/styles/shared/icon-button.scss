@@ -1,0 +1,28 @@
+.lgc-icon-button-base {
+  @apply 'inline-grid shrink-0 place-items-center p-0 border-0';
+  @apply 'text-$md-sys-color-on-surface-variant bg-transparent';
+  // Residual: Uno leaves transition-[…max-inline-size…] untransformed in dist.
+  transition-property:
+    background-color, border-radius, color, max-inline-size, transform;
+  @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
+}
+
+.lgc-icon-button-hover {
+  @apply 'hover:text-$md-sys-color-primary active:scale-$lgc-control-press-scale';
+}
+
+.lgc-icon-button-hover:hover {
+  background: color-mix(
+    in srgb,
+    currentColor calc(var(--lgc-state-hover-opacity) * 100%),
+    transparent
+  );
+}
+
+.lgc-icon-button-hover:active {
+  background: color-mix(
+    in srgb,
+    currentColor calc(var(--lgc-state-pressed-opacity) * 100%),
+    transparent
+  );
+}

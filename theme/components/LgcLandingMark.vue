@@ -26,15 +26,15 @@ defineProps<{
       <div
         v-if="status?.emoji || status?.message"
         class="lgc-mark-status"
-        absolute
-        inline-flex
-        box-border
-        items-center
-        justify-center
-        overflow-hidden
         text="$md-sys-color-on-secondary-container size-$lgc-label-medium"
         font="700"
+        inline-flex
         whitespace-nowrap
+        items-center
+        box-border
+        justify-center
+        absolute
+        overflow-hidden
         bg="$md-sys-color-secondary-container"
         :aria-label="status.message"
       >

@@ -57,9 +57,9 @@ function toggleLanguage() {
       <span class="lgc-header-lang-label">{{ languageName }}</span>
       <span
         class="lgc-lang-flip-icon"
-        flex-none
         :class="{ 'is-flipping': languageFlipping }"
         i-material-symbols-translate-rounded
+        flex-none
         aria-hidden="true"
         @animationend="stopLanguageFlip"
       />
