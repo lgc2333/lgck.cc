@@ -1,5 +1,7 @@
 <script setup lang="ts">
-withDefaults(
+import { nextTick, onMounted, ref, watch } from 'vue'
+
+const props = withDefaults(
   defineProps<{
     src: string
     alt?: string
@@ -10,6 +12,46 @@ withDefaults(
     variant: 'feed',
   },
 )
+
+const imgRef = ref<HTMLImageElement | null>(null)
+const loaded = ref(false)
+const failed = ref(false)
+
+function syncFromImage(el: HTMLImageElement | null) {
+  if (!el) return
+  if (el.complete && el.naturalWidth > 0) {
+    loaded.value = true
+    failed.value = false
+    return
+  }
+  if (el.complete && el.naturalWidth === 0 && el.currentSrc) {
+    loaded.value = false
+    failed.value = true
+  }
+}
+
+function onLoad() {
+  loaded.value = true
+  failed.value = false
+}
+
+function onError() {
+  loaded.value = false
+  failed.value = true
+}
+
+watch(
+  () => props.src,
+  () => {
+    loaded.value = false
+    failed.value = false
+    void nextTick(() => syncFromImage(imgRef.value))
+  },
+)
+
+onMounted(() => {
+  syncFromImage(imgRef.value)
+})
 </script>
 
 <template>
@@ -19,10 +61,13 @@ withDefaults(
     relative
     overflow-hidden
     isolate
-    bg="$md-sys-color-surface-container"
-    :class="`is-${variant}`"
+    bg="$md-sys-color-surface-container-low"
+    :class="[`is-${variant}`, { 'is-loaded': loaded, 'is-failed': failed }]"
   >
     <img
+      ref="imgRef"
+      class="lgc-post-cover-img"
+      :class="{ 'is-ready': loaded }"
       z="-2"
       w="full"
       h="full"
@@ -33,8 +78,18 @@ withDefaults(
       :alt="alt"
       loading="lazy"
       decoding="async"
+      @load="onLoad"
+      @error="onError"
     />
-    <div z="-1" pointer-events-none inset-0 absolute aria-hidden="true" />
+    <div
+      class="lgc-post-cover-skeleton"
+      :class="{ 'is-done': loaded || failed }"
+      z="-1"
+      pointer-events-none
+      inset-0
+      absolute
+      aria-hidden="true"
+    />
     <div grid col-start-1 row-start-1 min-w="0">
       <slot />
     </div>
@@ -100,5 +155,70 @@ html.dark .lgc-post-cover-frame {
   min-height: var(--lgc-post-cover-min-height, 0);
   padding-block-end: var(--lgc-post-cover-ratio-size);
   content: '';
+}
+
+// Residual: cover reveal crossfade (opacity + duration tokens).
+.lgc-post-cover-img {
+  opacity: 0;
+  transition: opacity var(--lgc-motion-medium) var(--lgc-easing-standard);
+}
+
+.lgc-post-cover-img.is-ready {
+  opacity: 1;
+}
+
+// Residual: solid base + translating sheen (::after). Infinite loop must be
+// linear — standard easing restarts with a hitch. Light peak uses on-surface
+// tint (container steps are too close); dark uses container-highest.
+.lgc-post-cover-skeleton {
+  --lgc-cover-skeleton-base: var(--md-sys-color-surface-container-low);
+  --lgc-cover-skeleton-sheen: color-mix(
+    in srgb,
+    var(--md-sys-color-on-surface) 10%,
+    transparent
+  );
+
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity var(--lgc-motion-medium) var(--lgc-easing-standard);
+  background: var(--lgc-cover-skeleton-base);
+}
+
+html.dark .lgc-post-cover-skeleton {
+  --lgc-cover-skeleton-sheen: color-mix(
+    in srgb,
+    var(--md-sys-color-surface-container-highest) 88%,
+    transparent
+  );
+}
+
+.lgc-post-cover-skeleton::after {
+  @apply 'absolute inset-0';
+  content: '';
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 36%,
+    var(--lgc-cover-skeleton-sheen) 50%,
+    transparent 64%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: lgc-post-cover-shimmer 1.4s linear infinite;
+}
+
+.lgc-post-cover-skeleton.is-done {
+  opacity: 0;
+  animation: none;
+}
+
+.lgc-post-cover-skeleton.is-done::after {
+  animation: none;
+}
+
+@keyframes lgc-post-cover-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }
 </style>

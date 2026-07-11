@@ -18,7 +18,7 @@ const baseThemeCssPath = new URL('../styles/giscus/base.css', import.meta.url)
 const fontCacheDir = fileURLToPath(
   new URL('../node_modules/.valaxy/cache/', import.meta.url),
 )
-const tokenCssPath = new URL('../../theme/styles/tokens.scss', import.meta.url)
+const tokenCssPath = new URL('../../theme/styles/base.scss', import.meta.url)
 const fontFaceBlockRE = /@font-face\s*\{[^}]*\}/g
 const fontImportRE =
   /@import\s+url\(["']?https:\/\/fonts\.googleapis\.com\/[^"')]+["']?\);/g

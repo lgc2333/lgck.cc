@@ -1,4 +1,7 @@
 import { defineConfig } from 'vite'
 
-// import { VitePWA } from 'vite-plugin-pwa'
-export default defineConfig({})
+export default defineConfig({
+  server: {
+    allowedHosts: true,
+  },
+})

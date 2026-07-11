@@ -2,8 +2,6 @@ import { defineValaxyConfig } from 'valaxy'
 import { addonComponents } from 'valaxy-addon-components'
 import type { ThemeConfig } from 'valaxy-theme-lgcuwukii'
 
-import { giscusThemePlugin } from './node/giscus-theme'
-
 const safelist = [
   'i-ri-rss-line',
   'i-ri-earth-line',
@@ -15,10 +13,6 @@ const safelist = [
   'i-ri-user-line',
   'i-ri-price-tag-3-line',
 ]
-
-const giscusCssCorsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-}
 
 export default defineValaxyConfig<ThemeConfig>({
   theme: 'lgcuwukii',
@@ -57,12 +51,4 @@ export default defineValaxyConfig<ThemeConfig>({
   },
   addons: [addonComponents()],
   unocss: { safelist },
-  vite: {
-    preview: { headers: giscusCssCorsHeaders },
-    plugins: [giscusThemePlugin()],
-    server: {
-      allowedHosts: true,
-      headers: giscusCssCorsHeaders,
-    },
-  },
 })

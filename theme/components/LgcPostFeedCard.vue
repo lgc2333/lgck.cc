@@ -132,8 +132,8 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
   transform: scale(var(--lgc-card-press-scale));
 }
 
+// Keep rest bg as plain-card low while cover loads / fails (image covers when ready).
 .lgc-post-card.has-cover {
-  --lgc-post-card-rest-bg: var(--md-sys-color-surface-container);
   @apply 'block p-0';
   color: var(--lgc-post-cover-on-mask);
 }
