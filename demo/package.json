@@ -16,6 +16,7 @@
     "vue-router": "catalog:"
   },
   "devDependencies": {
+    "@iconify-json/ri": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:"
   }

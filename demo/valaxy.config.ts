@@ -8,6 +8,15 @@ import type { ThemeConfig } from 'valaxy-theme-lgcuwukii'
 export default defineConfig<ThemeConfig>({
   theme: 'lgcuwukii',
 
+  // Site-owned non-Material icons (theme only ships material-symbols + ic).
+  unocssPresets: {
+    icons: {
+      collections: {
+        ri: () => import('@iconify-json/ri/icons.json').then((i) => i.default),
+      } as any,
+    },
+  },
+
   themeConfig: {
     header: {
       nav: [

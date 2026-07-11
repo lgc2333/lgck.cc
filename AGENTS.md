@@ -45,9 +45,9 @@ Before implementing theme features, first inspect how the default theme `valaxy-
 
 ### Styling — ALWAYS UNO FIRST
 
-**ALWAYS! ALWAYS!! USE UNOCSS FIRST.** 该抽 token / 局部 CSS 变量就抽，再用 `$token` / `var(--…)`。实在 实在 实在不行才 residual SCSS。布局/颜色/字号/间距/圆角用 Wind4 能写却硬写 SCSS → **挨鞭子。**
+**ALWAYS! ALWAYS!! USE UNOCSS FIRST.** Extract tokens / local CSS variables when needed, then use `$token` / `var(--…)`. Only fall back to residual SCSS when truly unavoidable. Writing plain SCSS for layout/color/type/spacing/radius that Wind4 can express → **you get whipped.**
 
-Authored UI = UnoCSS Wind4 + attributify 写在元素上。单次用就不要留 class+规则；多状态用 class + `@apply`；残差只留给渐变/keyframes/`color-mix`/bleed/calc owner/Transition name。完整规则见 **`theme/AGENTS.md`**。
+Authored UI = UnoCSS Wind4 + attributify on the element. One-off use: do not leave a class + rule; multi-state: class + `@apply`; residual only for gradients/keyframes/`color-mix`/bleed/calc owner/Transition name. Full rules in **`theme/AGENTS.md`**.
 
 ### Engineering
 
@@ -83,6 +83,7 @@ ATTENTION: If you encounter a reusable pitfall, you MUST RECORD IT BELOW AS EARL
 - Uno `@apply` may leave multi-property `transition-[…,max-inline-size,…]` untransformed (raw `@apply` in dist CSS / lightningcss warning). Use residual `transition-property: …` for lists that include `max-inline-size` (or other props that fail transform); keep `duration-`/`ease-` as `@apply`.
 - **Never put Uno attributify `text="…"` on `<a>`, `AppLink`, or `RouterLink`.** `HTMLAnchorElement` has a legacy `.text` DOM property (alias of `textContent`). Vue sets it as a prop and **replaces all children** with the attribute string. Put color/size on a child span via `class`/`text=`, or use residual CSS / `class="text-…"`.
 - **Never use bare HTML `hidden` as an Uno hide utility.** Vue emits the boolean `hidden` attribute; UA CSS is `[hidden] { display: none !important }`, so responsive show utilities cannot override it. Use `class="hidden max-md:grid"` (or residual `@apply 'hidden max-md:grid'`).
+- **When `lgc-icon-button-base` (`inline-grid`) fights display utilities, use trailing `!`** (e.g. `hidden! max-md:grid!`), not residual SCSS. Bare `hidden`/`max-md:grid` lose same-specificity cascade and the control stays always visible.
 - Parent scoped CSS does **not** match non-root nodes inside child components. Header mobile hide for action buttons must live in `LgcHeaderActions` (or use `:deep`), not only in `LgcHeader`.
 - **Do not set a CSS custom property to itself** (e.g. inline `--lgc-header-link-max-width: var(--lgc-header-link-max-width)`). Self-reference is invalid at computed-value time; dependents become empty. Omit the inline override so `:root` applies, or set a concrete value.
 - **Wind4 `translate`/`scale` ≠ `transform`:** Uno `hover:-translate-y-*` / `active:scale-*` set the individual `translate` / `scale` properties. `transform: none` does **not** cancel them. Prefer residual classic `transform: translateY/scale(...)` for shared motion that other rules must override, or also reset `translate`/`scale`.
@@ -90,7 +91,7 @@ ATTENTION: If you encounter a reusable pitfall, you MUST RECORD IT BELOW AS EARL
 
 ### Valaxy
 
-- In this pnpm workspace, Valaxy/UnoCSS may not auto-resolve `@iconify-json/*` installed only through a local theme package. Theme icons should provide `unocssPresets.icons.collections` loaders in the theme `valaxy.config.ts`, alongside `unocss.safelist`.
+- In this pnpm workspace, Valaxy/UnoCSS may not auto-resolve `@iconify-json/*` installed only through a local theme package. Theme icons should provide `unocssPresets.icons.collections` loaders in the theme `valaxy.config.ts`, alongside `unocss.safelist`. Theme packs are Material-only (`material-symbols` + `ic`); site-owned packs (e.g. `ri`) load in site `valaxy.config.ts`.
 - Valaxy CLI `valaxy` does not accept Vite-style `--host` / `--port` args directly; use config/default port or the supported Valaxy CLI options.
 - In Valaxy SSG, `Teleport to="body"` rendered during SSR can break hydration and remove `#app`, causing a blank page; wrap body-level teleports in `ClientOnly` or use a stable in-app target.
 - Valaxy post excerpts with `excerpt_type: html` may contain Vue component placeholders such as `<VT ... />`; render them through `ValaxyDynamicComponent` instead of raw `v-html` to avoid browser HTML normalization causing hydration mismatches.

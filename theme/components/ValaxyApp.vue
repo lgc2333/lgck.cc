@@ -20,7 +20,8 @@ if (layout.value !== 'empty') {
   </template>
 
   <RouterView v-slot="{ Component, route }">
-    <Transition name="lgc-page" mode="out-in" :duration="260">
+    <!-- Duration owned by CSS `--lgc-motion-medium` on `.lgc-page-*` (transitionend). -->
+    <Transition name="lgc-page" mode="out-in">
       <component :is="Component" :key="route.fullPath" />
     </Transition>
   </RouterView>

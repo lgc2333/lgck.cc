@@ -45,9 +45,6 @@ export default defineTheme<ThemeConfig>((options) => {
           'material-symbols': () =>
             import('@iconify-json/material-symbols/icons.json').then((i) => i.default),
           ic: () => import('@iconify-json/ic/icons.json').then((i) => i.default),
-          'simple-icons': () =>
-            import('@iconify-json/simple-icons/icons.json').then((i) => i.default),
-          ri: () => import('@iconify-json/ri/icons.json').then((i) => i.default),
         } as any,
       },
     },

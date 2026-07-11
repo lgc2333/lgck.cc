@@ -21,8 +21,8 @@ const props = withDefaults(
     wordCount?: Post['wordCount']
     readingTime?: Post['readingTime']
     /**
-     * Feed cards: only category/tags row.
-     * Article: full meta — other fields on the first row, c/t on the second.
+     * Feed cards: only category/tags chips.
+     * Article: full meta on one wrapping row.
      */
     onlyTaxonomies?: boolean
     /** Cover-on-image chip tone (owned here; no parent :deep). */
@@ -79,7 +79,7 @@ const showStatistics = computed(
 
 const wordCountText = computed(() => {
   if (!showStatistics.value || !props.wordCount) return ''
-  return String(props.wordCount)
+  return t('statistics.word_count', { n: props.wordCount })
 })
 
 const readingTimeText = computed(() => {
@@ -87,14 +87,6 @@ const readingTimeText = computed(() => {
     return ''
   return `${props.readingTime}m`
 })
-
-const hasOtherRow = computed(
-  () =>
-    Boolean(createdText.value) ||
-    Boolean(updatedText.value) ||
-    Boolean(wordCountText.value) ||
-    Boolean(readingTimeText.value),
-)
 
 const categoryQuery = computed(() => normalizePostCategoryQuery(props.categories))
 
@@ -112,8 +104,14 @@ const tagItems = computed(() =>
   })),
 )
 
-const hasTaxonomyRow = computed(
-  () => Boolean(categoryLabel.value) || tagItems.value.length > 0,
+const hasMeta = computed(
+  () =>
+    Boolean(createdText.value) ||
+    Boolean(updatedText.value) ||
+    Boolean(wordCountText.value) ||
+    Boolean(readingTimeText.value) ||
+    Boolean(categoryLabel.value) ||
+    tagItems.value.length > 0,
 )
 </script>
 
@@ -142,54 +140,48 @@ const hasTaxonomyRow = computed(
     </RouterLink>
   </template>
 
-  <!-- Article: two rows — other meta, then category/tags -->
+  <!-- Article: one wrapping row for date / stats / category / tags -->
   <div
-    v-else-if="hasOtherRow || hasTaxonomyRow"
+    v-else-if="hasMeta"
     class="lgc-post-meta"
-    flex="~ col"
-    gap="$lgc-space-sm"
     leading="[1.4]"
+    :class="rowClass"
   >
-    <div v-if="hasOtherRow" :class="rowClass">
-      <span v-if="createdText" :class="tagClass" :title="createdTitle">
-        <span i-material-symbols-calendar-month-outline-rounded aria-hidden="true" />
-        <time :datetime="createdText">{{ createdText }}</time>
-      </span>
-      <span v-if="updatedText" :class="tagClass" :title="updatedTitle">
-        <span i-material-symbols-edit-calendar-outline-rounded aria-hidden="true" />
-        <time :datetime="updatedText">{{ updatedText }}</time>
-      </span>
-      <span v-if="wordCountText" :class="tagClass" :title="t('statistics.word')">
-        <span i-material-symbols-article-outline-rounded aria-hidden="true" />
-        {{ wordCountText }}
-      </span>
-      <span v-if="readingTimeText" :class="tagClass" :title="t('statistics.time')">
-        <span i-material-symbols-timer-outline-rounded aria-hidden="true" />
-        <time>{{ readingTimeText }}</time>
-      </span>
-    </div>
-
-    <div v-if="hasTaxonomyRow" :class="rowClass">
-      <RouterLink
-        v-if="categoryLabel"
-        class="is-link"
-        :class="tagClass"
-        :to="{ path: '/categories', query: { category: categoryQuery } }"
-      >
-        <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
-        <span>{{ categoryLabel }}</span>
-      </RouterLink>
-      <RouterLink
-        v-for="item in tagItems"
-        :key="item.tag"
-        class="is-link"
-        :class="tagClass"
-        :to="{ path: '/tags/', query: { tag: item.tag } }"
-      >
-        <span i-material-symbols-tag-rounded aria-hidden="true" />
-        <span>{{ item.label }}</span>
-      </RouterLink>
-    </div>
+    <span v-if="createdText" :class="tagClass" :title="createdTitle">
+      <span i-material-symbols-calendar-month-outline-rounded aria-hidden="true" />
+      <time :datetime="createdText">{{ createdText }}</time>
+    </span>
+    <span v-if="updatedText" :class="tagClass" :title="updatedTitle">
+      <span i-material-symbols-edit-calendar-outline-rounded aria-hidden="true" />
+      <time :datetime="updatedText">{{ updatedText }}</time>
+    </span>
+    <span v-if="wordCountText" :class="tagClass" :title="t('statistics.word')">
+      <span i-material-symbols-article-outline-rounded aria-hidden="true" />
+      {{ wordCountText }}
+    </span>
+    <span v-if="readingTimeText" :class="tagClass" :title="t('statistics.time')">
+      <span i-material-symbols-timer-outline-rounded aria-hidden="true" />
+      <time>{{ readingTimeText }}</time>
+    </span>
+    <RouterLink
+      v-if="categoryLabel"
+      class="is-link"
+      :class="tagClass"
+      :to="{ path: '/categories', query: { category: categoryQuery } }"
+    >
+      <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
+      <span>{{ categoryLabel }}</span>
+    </RouterLink>
+    <RouterLink
+      v-for="item in tagItems"
+      :key="item.tag"
+      class="is-link"
+      :class="tagClass"
+      :to="{ path: '/tags/', query: { tag: item.tag } }"
+    >
+      <span i-material-symbols-tag-rounded aria-hidden="true" />
+      <span>{{ item.label }}</span>
+    </RouterLink>
   </div>
 </template>
 

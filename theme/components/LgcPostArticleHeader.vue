@@ -46,12 +46,6 @@ const hasMeta = computed(() => {
   )
 })
 
-const hasStatus = computed(
-  () =>
-    showPostMeta.value &&
-    Boolean(props.frontmatter.draft || props.frontmatter.hide || props.frontmatter.top),
-)
-
 const hasHeaderContent = computed(() =>
   Boolean(title.value || description.value || icon.value || hasMeta.value),
 )
@@ -84,7 +78,6 @@ const descriptionClass =
       relative
       z-0
     >
-      <LgcPostStatusIcons v-if="hasStatus" :post="frontmatter" />
       <h1
         v-if="title || icon"
         :class="[titleClass, frontmatter.pageTitleClass]"
@@ -127,7 +120,6 @@ const descriptionClass =
     grid
     relative
   >
-    <LgcPostStatusIcons v-if="hasStatus" :post="frontmatter" />
     <h1
       v-if="title || icon"
       :class="[titleClass, frontmatter.pageTitleClass]"

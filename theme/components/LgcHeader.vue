@@ -90,7 +90,7 @@ function closeDrawer() {
         gap="$lgc-space-sm"
       >
         <button
-          class="lgc-header-button lgc-header-menu lgc-icon-button-base lgc-icon-button-hover hidden max-md:grid"
+          class="lgc-header-button lgc-header-menu lgc-icon-button-base lgc-icon-button-hover hidden! max-md:grid!"
           type="button"
           :aria-expanded="drawerOpen"
           aria-controls="lgc-mobile-drawer"
@@ -142,7 +142,9 @@ function closeDrawer() {
 
 <style scoped lang="scss">
 // Residual: scrolled scrim blur + color-mix (no clean utility for mix percent).
-// Menu show/hide is Uno on the button (`hidden max-md:grid` — never bare HTML hidden).
+// Menu: `hidden! max-md:grid!` on the button — trailing ! beats
+// `.lgc-icon-button-base { inline-grid }` (same specificity otherwise loses).
+// Never bare HTML `hidden` (UA `[hidden] { display:none !important }` blocks max-md:grid).
 // Nav links hide below md: cascade into child LgcHeaderLink (parent scoped cannot
 // put utilities on another component's root without a class target).
 .lgc-header-shell.is-scrolled .lgc-header {

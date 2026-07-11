@@ -32,7 +32,12 @@ const siteStore = useSiteStore()
 const route = useRoute()
 
 const pageSize = computed(() => Math.max(1, siteConfig.value.pageSize || 7))
-const sourcePosts = computed(() => siteStore.postList)
+// Valaxy keeps hide:index in postList; production feed must drop all hide:* (yun).
+const sourcePosts = computed(() =>
+  import.meta.env.DEV
+    ? siteStore.postList
+    : siteStore.postList.filter((post) => !post.hide),
+)
 const pagePosts = computed(() => {
   if (props.paginate) return sourcePosts.value
   if (props.limit <= 0) return sourcePosts.value

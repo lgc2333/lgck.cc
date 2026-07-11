@@ -52,7 +52,7 @@ const iconClass =
       v-if="post.draft"
       class="is-draft bg-$md-sys-color-secondary-container"
       :class="iconClass"
-      i-ri-draft-fill
+      i-material-symbols-contract-edit-rounded
       aria-hidden="true"
     />
     <span

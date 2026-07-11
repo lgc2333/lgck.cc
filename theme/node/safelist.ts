@@ -11,6 +11,7 @@ const baseIconSafelist = [
   'i-material-symbols-light-mode-outline-rounded',
   'i-material-symbols-dark-mode-outline-rounded',
   'i-material-symbols-search-rounded',
+  'i-material-symbols-contract-edit-rounded',
   'i-ic-round-push-pin',
   'i-material-symbols-visibility-off-rounded',
   'i-material-symbols-visibility-rounded',
@@ -19,6 +20,7 @@ const baseIconSafelist = [
   'i-material-symbols-keyboard-arrow-left-rounded',
   'i-material-symbols-keyboard-arrow-right-rounded',
   'i-material-symbols-arrow-back-ios-new-rounded',
+  'i-material-symbols-arrow-back-rounded',
   'i-material-symbols-arrow-forward-ios-rounded',
   'i-material-symbols-arrow-forward-rounded',
   'i-material-symbols-person-outline-rounded',
@@ -38,7 +40,6 @@ const baseIconSafelist = [
   'i-material-symbols-link-rounded',
   'i-material-symbols-keyboard-return-rounded',
   'i-material-symbols-travel-explore-rounded',
-  'i-simple-icons-github',
 ]
 
 /**

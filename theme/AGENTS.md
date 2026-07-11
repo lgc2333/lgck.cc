@@ -77,21 +77,21 @@ Valaxy blog: landing home, floating header, unified search, post feed/layouts, f
 
 ### ALWAYS! ALWAYS!! USE UNOCSS FIRST
 
-**ALWAYS! ALWAYS!! USE UNOCSS FIRST.** 该抽变量就抽变量（keep-set → `--lgc-*`；calc/API → 局部 `--foo`），再用 `$token` / `var(--…)`。实在实在实在实在不行才 residual SCSS。Wind4 能写的布局/颜色/字号/间距/圆角硬写 SCSS → **挨鞭子。** 旁边已有 residual 也不许借机堆普通属性。
+**ALWAYS! ALWAYS!! USE UNOCSS FIRST.** Extract variables when needed (keep-set → `--lgc-*`; calc/API → local `--foo`), then use `$token` / `var(--…)`. Only fall back to residual SCSS when truly unavoidable. Writing plain SCSS for layout/color/type/spacing/radius that Wind4 can express → **you get whipped.** Existing residual nearby is not an excuse to pile ordinary properties next to it.
 
-**顺序（不许跳）：** ① 有 utility → 写元素（attributify 同前缀，其余 `class`）→ 停。② 要共享/calc → 先抽 token/局部 var，再 Uno。③ 多处/hover·active 级联 → class + `@apply '…'`（SCSS 里带 `$`/`:` 必须引号）。④ 仅 allowlist 残差 → 写 raw + 一行 why 注释。⑤ 还想写 SCSS？重读本节。
+**Order (do not skip):** (1) Utility exists → put it on the element (attributify for same-prefix groups, else `class`) → stop. (2) Need shared/calc → extract token/local var first, then Uno. (3) Multi-use / hover·active cascade → class + `@apply '…'` (quote in SCSS when the string contains `$` or `:`). (4) Allowlist residual only → write raw + a one-line why comment. (5) Still want SCSS? Re-read this section.
 
-**挨鞭子：** 为 `display/margin/padding/gap/flex/grid`/实色 token/`font-size`/`border-radius`/尺寸开 SCSS；不抽变量乱塞 magic；单次用只包一层 `@apply` 的 class；Uno `shortcuts`/主题色间距 scale；JS 拼颜色 utility（只用语义 `is-*`）；one-off 节点堆 `@apply` 墙。
+**You get whipped for:** SCSS for `display/margin/padding/gap/flex/grid` / solid color tokens / `font-size` / `border-radius` / sizing; magic values instead of extracted vars; one-off classes that only wrap a single `@apply`; Uno `shortcuts` / theme color spacing scales; JS-built color utilities (use semantic `is-*` only); `@apply` walls on one-off nodes.
 
-**Class：** 单次 → 元素上写完，删 class+规则。多状态 → class + `@apply`，残差只留硬部分。`@apply` 遵守 printWidth 88。全局 → `styles/shared/*`；组件残差 → 组件 `<style>`。`<Transition name>` 进出场只能 CSS。
+**Class:** one-off → write on the element, delete the class + rule. Multi-state → class + `@apply`, residual only for the hard parts. `@apply` respects printWidth 88. Global → `styles/shared/*`; component residual → component `<style>`. `<Transition name>` enter/leave must be CSS only.
 
-**残差 allowlist（仍先抽 var）：** 多层渐变/阴影；keyframes；无 utility 的 `color-mix`/scrim%；bleed/非对称圆角/视口 clamp；局部 calc owner；覆盖 Wind4 `translate`/`scale` 的经典 `transform`；Uno 弄坏的多属性 transition（如含 `max-inline-size`）；必须挂选择器的伪类/父态/`html.dark`/`:has`/Transition name。少用 `:deep`，优先 owner / fallthrough / props / `[&_.child]` / `has-[]`。
+**Residual allowlist (still extract vars first):** multi-layer gradients/shadows; keyframes; `color-mix`/scrim % with no utility; bleed / asymmetric radii / viewport clamp; local calc owner; classic `transform` that overrides Wind4 `translate`/`scale`; multi-property transitions Uno breaks (e.g. with `max-inline-size`); pseudo / parent-state / `html.dark` / `:has` / Transition name that must hang on a selector. Prefer owner / fallthrough / props / `[&_.child]` / `has-[]` over `:deep`.
 
 ### Tooling
 
 - Attributify same-prefix groups (`flex`/`text`/`bg`/`p`/`rounded`…); leftovers in `class`; `un-` if attr conflicts with DOM/Vue prop
 - Tokens in `styles/base.scss`; call with `$token` (`bg-$md-sys-color-surface`, `p-$lgc-space-lg`)
-- Icons/safelist only in `valaxy.config.ts` (no standalone Uno config). Material Symbols Rounded primary; Iconify config icons must be safelisted/collections-loaded
+- Icons/safelist only in `valaxy.config.ts` (no standalone Uno config). Theme icon packs: `material-symbols` + `ic` only (Material family). Material Symbols Rounded primary; site-owned packs (e.g. `ri`) load in site configs, not theme. Config icons must be safelisted/collections-loaded
 - Fonts: `styles/fonts.ts`, `assets/fonts/`, `node/font.ts`
 
 ### Tokens

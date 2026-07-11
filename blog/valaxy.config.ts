@@ -17,38 +17,21 @@ const safelist = [
 export default defineValaxyConfig<ThemeConfig>({
   theme: 'lgcuwukii',
   themeConfig: {
-    // banner: {
-    //   enable: true,
-    //   title: '饼干的 Blog',
-    //   cloud: {
-    //     enable: true,
-    //   },
-    // },
-    // say: { enable: false },
-    // fireworks: { enable: false },
-    // pages: [
-    //   {
-    //     name: '友链',
-    //     url: '/links',
-    //     icon: 'i-ri-link',
-    //     color: 'var(--va-c-text)',
-    //   },
-    //   {
-    //     name: '赞助',
-    //     url: '/sponsor',
-    //     icon: 'i-ri-heart-2-line',
-    //     color: 'var(--va-c-text)',
-    //   },
-    // ],
-    // notice: {
-    //   enable: false,
-    //   content: '',
-    // },
+    header: {
+      i18n: false,
+    },
     footer: {
       since: 2024,
-      // icon: { enable: false },
     },
   },
   addons: [addonComponents()],
   unocss: { safelist },
+  // Site-owned non-Material icons (theme only ships material-symbols + ic).
+  unocssPresets: {
+    icons: {
+      collections: {
+        ri: () => import('@iconify-json/ri/icons.json').then((i) => i.default),
+      } as any,
+    },
+  },
 })
