@@ -13,6 +13,11 @@ const config = useValaxyConfig()
 const siteConfig = useSiteConfig()
 const themeConfig = useThemeConfig()
 
+/** Slug `lgcuwukii` is not title-case-friendly. */
+const themeDisplayName = computed(() =>
+  config.value.theme === 'lgcuwukii' ? 'LgCuwukii' : capitalize(config.value.theme),
+)
+
 const footer = computed(() => themeConfig.value.footer || {})
 const since = computed(() => footer.value.since)
 const footerIcon = computed(() => footer.value.icon)
@@ -49,30 +54,28 @@ const copyrightYears = computed(() => {
   return `${since.value} - ${year.value}`
 })
 const footerIconLink = computed(() => footerIcon.value?.url || themeRepository.value)
-const valaxyLinkHtml = computed(
-  () =>
-    `<a href="${valaxyRepository.value}" target="_blank" rel="noopener">Valaxy</a> <span class="lgc-footer-version">v${pkg.version}</span>`,
-)
-const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
 </script>
 
 <template>
   <footer
-    class="lgc-footer va-footer [&_.lgc-footer-version]:text-$md-sys-color-on-surface-variant [&_.lgc-footer-version]:opacity-72"
+    class="lgc-footer va-footer"
+    flex="~ col"
     flex-none
+    items-center
+    justify-center
     relative
     px="$lgc-space-lg"
-    pt="$lgc-space-4xl"
-    pb="$lgc-space-3xl"
+    py="$lgc-space-lg"
+    min-h="$lgc-footer-min-h"
     text="$md-sys-color-on-surface-variant size-$lgc-body-small center"
     leading="[1.8]"
   >
-    <div w="full" max-w="$lgc-container-reading" gap="1.5" mx-auto grid>
+    <div w="full" max-w="$lgc-container-reading" gap="0" mx-auto grid shrink-0>
       <div
         v-if="beian?.enable && beian.icp"
         flex="~ wrap items-center justify-center"
         gap-x="2.5"
-        gap-y="1.5"
+        gap-y="0"
       >
         <a
           :href="beian.icpLink || 'https://beian.miit.gov.cn/'"
@@ -83,40 +86,44 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
         </a>
 
         <template v-if="beian.police && policeLink">
-          <span text="$md-sys-color-on-surface-variant" opacity-72> / </span>
-          <a :href="policeLink" target="_blank" rel="noreferrer">
+          <span>/</span>
+          <a
+            :href="policeLink"
+            target="_blank"
+            rel="noreferrer"
+            inline-flex
+            items-center
+            gap="1"
+          >
+            <img
+              src="https://beian.mps.gov.cn/web/assets/logo01.6189a29f.png"
+              alt=""
+              w="4"
+              h="4"
+              inline-block
+              aria-hidden="true"
+            />
             {{ beian.police }}
           </a>
         </template>
       </div>
 
-      <div
-        flex="~ wrap items-center justify-center"
-        gap-x="2.5"
-        gap-y="1.5"
-        text="$md-sys-color-on-surface"
-        font="800"
-      >
-        <span>
-          &copy;
-          {{ copyrightYears }}
-        </span>
+      <div flex="~ wrap items-center justify-center" gap-x="2.5" gap-y="0">
+        <span>&copy; {{ copyrightYears }}</span>
 
         <a
           v-if="showFooterIcon"
-          class="lgc-footer-icon"
           inline-grid
           place-items="center"
-          :class="{ 'is-animated': footerIcon?.animated }"
           :href="footerIconLink"
           target="_blank"
           rel="noopener"
           :title="footerIcon?.title"
           :style="{ color: footerIcon?.color }"
         >
-          <!-- font-size on icon host; never text= on <a> (legacy .text prop) -->
+          <!-- size on icon host; never text= on <a> (legacy .text prop) -->
           <span
-            class="text-size-$lgc-body-large"
+            class="text-size-$lgc-body-small"
             :class="footerIcon?.name"
             aria-hidden="true"
           />
@@ -129,11 +136,17 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
         v-if="showPowered"
         flex="~ wrap items-center justify-center"
         gap-x="2.5"
-        gap-y="1.5"
-        text="size-$lgc-label-medium"
+        gap-y="0"
       >
-        <span v-html="poweredHtml" />
-        <span text="$md-sys-color-on-surface-variant" opacity-72> / </span>
+        <i18n-t keypath="footer.powered" tag="span">
+          <span>
+            <a :href="valaxyRepository" target="_blank" rel="noopener">
+              Valaxy
+            </a>
+            <span> v{{ pkg.version }}</span>
+          </span>
+        </i18n-t>
+        <span>/</span>
         <span>
           {{ t('footer.theme') }}
           <a
@@ -142,15 +155,9 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
             target="_blank"
             rel="noopener"
           >
-            {{ capitalize(config.theme) }}
+            {{ themeDisplayName }}
           </a>
-          <span
-            class="lgc-footer-version"
-            text="$md-sys-color-on-surface-variant"
-            opacity-72
-          >
-            v{{ themeConfig.pkg.version }}
-          </span>
+          <span> v{{ themeConfig.pkg.version }}</span>
         </span>
       </div>
 
@@ -160,8 +167,13 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
 </template>
 
 <style scoped lang="scss">
-// Residual: multi-stop footer fade gradient + pulse keyframes.
+// Residual: multi-stop footer fade gradient + min-h calc
+// (one-line height = former pt 4xl + pb 3xl + 1lh).
 .lgc-footer {
+  --lgc-footer-min-h: calc(
+    var(--lgc-space-4xl) + var(--lgc-space-3xl) + 1lh
+  );
+
   background: linear-gradient(
     180deg,
     color-mix(in srgb, var(--md-sys-color-surface-container) 0%, transparent) 0%,
@@ -176,21 +188,6 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
 
 // Anchor hover cascade (multiple footer links) — multi-use @apply, not residual props.
 .lgc-footer a {
-  @apply 'text-inherit font-700 no-underline hover:text-$md-sys-color-primary';
-}
-
-.lgc-footer-icon.is-animated {
-  animation: lgc-footer-pulse 1.8s var(--lgc-easing-standard) infinite;
-}
-
-@keyframes lgc-footer-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.12);
-  }
+  @apply 'text-inherit font-inherit no-underline hover:text-$md-sys-color-primary';
 }
 </style>

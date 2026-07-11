@@ -167,7 +167,6 @@ export interface FooterConfig {
      */
     enable: boolean
     name: string
-    animated: boolean
     color: string
     url: string
     title: string
@@ -175,6 +174,7 @@ export interface FooterConfig {
 
   /**
    * Powered by valaxy & valaxy-theme-${name}
+   * @default true
    */
   powered: boolean
 

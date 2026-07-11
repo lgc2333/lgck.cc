@@ -26,6 +26,6 @@ export const defaultThemeConfig: ThemeConfig = {
     },
   },
   footer: {
-    powered: false,
+    powered: true,
   },
 }

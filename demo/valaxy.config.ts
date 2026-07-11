@@ -92,6 +92,18 @@ export default defineConfig<ThemeConfig>({
 
     footer: {
       since: 2016,
+      icon: {
+        enable: true,
+        name: 'i-material-symbols-cookie-rounded',
+        // color: 'var(--md-sys-color-primary)',
+        url: 'https://lgck.cc',
+        title: 'QwQ',
+      },
+      beian: {
+        enable: true,
+        icp: 'XXICP备1234567890号',
+        police: 'XX公网安备12345671234567号',
+      },
     },
   },
 })

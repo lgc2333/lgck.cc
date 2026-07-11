@@ -47,7 +47,6 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
       overflow-clip
       isolate
       pt="$lgc-header-height"
-      px="$lgc-space-lg sm:$lgc-space-2xl"
       pb="80px sm:96px"
       aria-label="Landing"
     >
@@ -57,6 +56,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
         w="full"
         min-h="$landing-center-min-h"
         max-w="$lgc-container-wide"
+        px="$lgc-space-lg sm:$lgc-space-2xl"
         pt="$lgc-space-lg sm:0"
         mx-auto
         text-center
