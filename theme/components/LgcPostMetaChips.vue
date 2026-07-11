@@ -184,8 +184,11 @@ const hasMeta = computed(
 // Multi-use chip chrome. Residual: geometric pill (½ min-height), color-mix tones,
 // multi-duration transition, classic transform (not Wind4 translate/scale).
 .lgc-post-tag {
-  @apply 'inline-flex items-center gap-[2px] min-h-$lgc-meta-chip-min-height';
-  @apply 'px-$lgc-space-md text-$md-sys-color-on-secondary-container';
+  // leading-none: parent row may set leading-[1.4]; inherited line-height makes
+  // label+icon read optically high inside the min-height pill.
+  // pt-px: slight optical nudge down for CJK/latin + Material icon metrics.
+  @apply 'inline-flex items-center gap-[2px] min-h-$lgc-meta-chip-min-height leading-none';
+  @apply 'px-$lgc-space-md pt-px text-$md-sys-color-on-secondary-container';
   @apply 'text-size-$lgc-label-small font-700 bg-$md-sys-color-secondary-container no-underline';
   // Do NOT use radius-full (999) — hover morph to control-morph (18) stays ≥ half of
   // 32px chips, so the shape change is invisible.

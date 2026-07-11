@@ -103,8 +103,10 @@ function toggleLanguage() {
 }
 
 .lgc-header-lang-label {
+  // leading-tight (not none): font-900 + overflow-hidden clips descenders /
+  // CJK bottoms when line-height is 1. Match header link labels.
   @apply 'max-w-0 mr-0 overflow-hidden text-size-$lgc-label-medium';
-  @apply 'font-900 leading-none whitespace-nowrap opacity-0';
+  @apply 'font-900 leading-tight whitespace-nowrap opacity-0';
   // Residual: multi-duration list (medium width, short opacity).
   transition:
     margin-right var(--lgc-motion-medium) var(--lgc-easing-standard),
