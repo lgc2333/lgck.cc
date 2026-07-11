@@ -174,9 +174,9 @@ const poweredHtml = computed(() => t('footer.powered', [valaxyLinkHtml.value]))
   );
 }
 
+// Anchor hover cascade (multiple footer links) — multi-use @apply, not residual props.
 .lgc-footer a {
-  @apply 'text-inherit font-700 no-underline';
-  @apply 'hover:text-$md-sys-color-primary';
+  @apply 'text-inherit font-700 no-underline hover:text-$md-sys-color-primary';
 }
 
 .lgc-footer-icon.is-animated {

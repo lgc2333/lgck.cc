@@ -151,13 +151,11 @@
 }
 
 .lgc-search-result:first-child {
-  border-start-start-radius: var(--lgc-radius-control);
-  border-start-end-radius: var(--lgc-radius-control);
+  @apply 'rounded-ss-$lgc-radius-control rounded-se-$lgc-radius-control';
 }
 
 .lgc-search-result:last-child {
-  border-end-start-radius: var(--lgc-radius-control);
-  border-end-end-radius: var(--lgc-radius-control);
+  @apply 'rounded-es-$lgc-radius-control rounded-ee-$lgc-radius-control';
 }
 
 .lgc-search-result:only-child,
@@ -187,7 +185,7 @@
 
 .lgc-search-result-meta,
 .lgc-search-result-section {
-  font-weight: 750;
+  @apply 'font-750';
 }
 
 .lgc-search-result.is-selected .lgc-search-result-meta,

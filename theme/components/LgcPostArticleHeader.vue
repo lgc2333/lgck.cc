@@ -56,6 +56,12 @@ const hasHeaderContent = computed(() =>
   Boolean(title.value || description.value || icon.value || hasMeta.value),
 )
 const hasCover = computed(() => Boolean(props.frontmatter.cover))
+
+const titleClass =
+  'lgc-article-title inline-flex items-center justify-center gap-$lgc-space-sm max-w-$lgc-measure-title m-0 text-$md-sys-color-on-surface text-size-$lgc-article-title font-900 tracking-normal leading-[1.15]'
+
+const descriptionClass =
+  'lgc-article-description max-w-$lgc-measure-medium m-0 text-$md-sys-color-on-surface-variant text-size-$lgc-body-large leading-[1.75]'
 </script>
 
 <template>
@@ -81,8 +87,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
       <LgcPostStatusIcons v-if="hasStatus" :post="frontmatter" />
       <h1
         v-if="title || icon"
-        class="lgc-article-title"
-        :class="frontmatter.pageTitleClass"
+        :class="[titleClass, frontmatter.pageTitleClass]"
         :style="titleColorStyle"
       >
         <span
@@ -94,7 +99,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
         />
         <span v-if="title">{{ title }}</span>
       </h1>
-      <p v-if="description" class="lgc-article-description">
+      <p v-if="description" :class="descriptionClass">
         {{ description }}
       </p>
       <div v-if="hasMeta" aria-label="Post metadata">
@@ -125,14 +130,13 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
     <LgcPostStatusIcons v-if="hasStatus" :post="frontmatter" />
     <h1
       v-if="title || icon"
-      class="lgc-article-title"
-      :class="frontmatter.pageTitleClass"
+      :class="[titleClass, frontmatter.pageTitleClass]"
       :style="titleColorStyle"
     >
       <span v-if="icon" shrink-0 text="size-[0.9em]" :class="icon" aria-hidden="true" />
       <span v-if="title">{{ title }}</span>
     </h1>
-    <p v-if="description" class="lgc-article-description">
+    <p v-if="description" :class="descriptionClass">
       {{ description }}
     </p>
     <div v-if="hasMeta" aria-label="Post metadata">
@@ -198,23 +202,13 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
   );
 }
 
-.lgc-article-title {
-  @apply 'inline-flex items-center justify-center gap-$lgc-space-sm';
-  @apply 'max-w-$lgc-measure-title m-0 text-$md-sys-color-on-surface';
-  @apply 'text-size-$lgc-article-title font-900 tracking-normal leading-[1.15]';
-}
-
+// Cover title/description: responsive type + on-mask color/shadow (parent cascade).
 .lgc-article-header-cover .lgc-article-title {
   @apply 'text-size-$lgc-article-title-on-cover-compact leading-[1.12]';
   @apply 'md:text-size-$lgc-article-title-on-cover-mid md:leading-[1.08]';
   @apply 'lg:text-size-$lgc-article-title-on-cover lg:leading-[1.05]';
   color: var(--lgc-post-cover-on-mask);
   text-shadow: var(--lgc-post-cover-text-shadow);
-}
-
-.lgc-article-description {
-  @apply 'max-w-$lgc-measure-medium m-0 text-$md-sys-color-on-surface-variant';
-  @apply 'text-size-$lgc-body-large leading-[1.75]';
 }
 
 .lgc-article-header-cover .lgc-article-description {

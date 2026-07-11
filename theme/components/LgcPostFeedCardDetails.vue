@@ -41,16 +41,18 @@ const rootClass = computed(() => {
   ]
 })
 
-const titleClass = computed(() =>
-  props.surface === 'cover'
-    ? 'lgc-post-title is-cover-title font-900'
-    : 'lgc-post-title font-900',
-)
+const titleClass = computed(() => {
+  const base = 'lgc-post-title font-900'
+  if (props.surface !== 'cover') return base
+  return `${base} is-cover-title max-w-[704px] text-left`
+})
 
-const excerptClass = computed(() => [
-  'lgc-post-excerpt',
-  props.surface === 'cover' ? 'is-cover-excerpt' : '',
-])
+const excerptClass = computed(() => {
+  const base =
+    'lgc-post-excerpt mt-$lgc-space-md overflow-hidden text-size-$lgc-body-small leading-[1.75] text-$md-sys-color-on-surface-variant [&_p]:m-0'
+  if (props.surface !== 'cover') return base
+  return `${base} is-cover-excerpt max-w-[672px] font-600 text-left`
+})
 
 const tagsClass = computed(() => [
   'lgc-post-tags mt-$lgc-space-md',
@@ -64,7 +66,10 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
   <div :class="rootClass">
     <h3 :class="titleClass">
       <!-- No text= on RouterLink: HTMLAnchorElement.text replaces children -->
-      <RouterLink class="lgc-post-title-link" :to="path">
+      <RouterLink
+        class="lgc-post-title-link text-inherit no-underline focus-visible:text-$md-sys-color-primary hover:text-$md-sys-color-primary"
+        :to="path"
+      >
         {{ title }}
       </RouterLink>
     </h3>
@@ -79,29 +84,7 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
 </template>
 
 <style scoped lang="scss">
-.lgc-post-title-link {
-  @apply 'text-inherit no-underline';
-}
-
-.lgc-post-title-link:hover,
-.lgc-post-title-link:focus-visible {
-  @apply 'text-$md-sys-color-primary';
-}
-
-.lgc-post-excerpt {
-  @apply 'mt-$lgc-space-md overflow-hidden text-size-$lgc-body-small';
-  @apply 'leading-[1.75] text-$md-sys-color-on-surface-variant [&_p]:m-0';
-}
-
-.lgc-post-title.is-cover-title {
-  @apply 'max-w-[704px] text-left';
-}
-
-.lgc-post-excerpt.is-cover-excerpt {
-  @apply 'max-w-[672px] font-600 text-left';
-}
-
-// Residual: cover-on-mask color/shadow tokens from LgcPostCoverFrame.
+// Residual: cover-on-mask color/shadow tokens from LgcPostCoverFrame (parent cascade).
 .lgc-post-body-cover.is-mask-gradient .lgc-post-title {
   color: var(--lgc-post-cover-on-mask);
   text-shadow: var(--lgc-post-cover-text-shadow);

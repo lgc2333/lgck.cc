@@ -41,7 +41,7 @@ Valaxy blog: landing home, floating header, unified search, post feed/layouts, f
 - `ValaxyMain.vue`: post shell — `main-header` full `layout-inner` width; body/nav/comment in `.lgc-main-reading` (`--lgc-container-reading`). Pieces: `LgcPostArticleHeader/Nav`, `LgcPostCoverFrame`, `LgcPostMetaChips`, `LgcPostFeed*`, pagination
 - Loading: `LgcLoading*` + `utils/m3-loading-indicator/`
 - `utils/pagination.ts`, `utils/post.ts` (dates/locale)
-- `styles/tokens.scss`: sole MD + `--lgc-*` token source
+- `styles/base.scss`: sole MD + `--lgc-*` token source (+ html/body base)
 - Breakpoints (`valaxy.config.ts`): sm 600 / md 840 / lg 1200 / xl 1600
 
 ## Landing
@@ -75,32 +75,28 @@ Valaxy blog: landing home, floating header, unified search, post feed/layouts, f
 
 ## Style Constraints
 
-### Priority: Uno first, SCSS second
+### ALWAYS! ALWAYS!! USE UNOCSS FIRST
 
-**Authored UI = UnoCSS Wind4 + attributify. SCSS/CSS is auxiliary — do not grow SCSS when utilities cover it.**
+**ALWAYS! ALWAYS!! USE UNOCSS FIRST.** 该抽变量就抽变量（keep-set → `--lgc-*`；calc/API → 局部 `--foo`），再用 `$token` / `var(--…)`。实在实在实在实在不行才 residual SCSS。Wind4 能写的布局/颜色/字号/间距/圆角硬写 SCSS → **挨鞭子。** 旁边已有 residual 也不许借机堆普通属性。
 
-- Prefer: utilities on the element; `$token` vs CSS vars; short multi-use `@apply` classes
-- Avoid: Uno `shortcuts` / theme color·spacing scales; parallel one-off scales; huge `@apply` walls; single-use rules left as named classes
+**顺序（不许跳）：** ① 有 utility → 写元素（attributify 同前缀，其余 `class`）→ 停。② 要共享/calc → 先抽 token/局部 var，再 Uno。③ 多处/hover·active 级联 → class + `@apply '…'`（SCSS 里带 `$`/`:` 必须引号）。④ 仅 allowlist 残差 → 写 raw + 一行 why 注释。⑤ 还想写 SCSS？重读本节。
 
-**Class policy**
+**挨鞭子：** 为 `display/margin/padding/gap/flex/grid`/实色 token/`font-size`/`border-radius`/尺寸开 SCSS；不抽变量乱塞 magic；单次用只包一层 `@apply` 的 class；Uno `shortcuts`/主题色间距 scale；JS 拼颜色 utility（只用语义 `is-*`）；one-off 节点堆 `@apply` 墙。
 
-1. Single-use: utilities on element (attributify + `class`); **drop classname + CSS rule**
-2. Multi-use / state / transition: keep class; `@apply '…'` (quote `$` / `:` under SCSS); residual only for non-utility bits
-3. Reusable `@apply` must stay under Prettier `printWidth` 88 — split rules/children/residual props
-4. Global shared → `styles/*`; component residual → component `<style>` (plain CSS fine if only `@apply`)
+**Class：** 单次 → 元素上写完，删 class+规则。多状态 → class + `@apply`，残差只留硬部分。`@apply` 遵守 printWidth 88。全局 → `styles/shared/*`；组件残差 → 组件 `<style>`。`<Transition name>` 进出场只能 CSS。
 
-**Residual SCSS/CSS only when hard:** multi-layer gradient/shadow, keyframes, blur stacks, bleed, viewport clamps, local calc owners, unavoidable trees. Prefer owner styles / fallthrough / props / `[&_.child]:…` / `has-[…]` over casual `:deep`. Hard values can still be CSS vars + `$` in Uno instead of a full SCSS block.
+**残差 allowlist（仍先抽 var）：** 多层渐变/阴影；keyframes；无 utility 的 `color-mix`/scrim%；bleed/非对称圆角/视口 clamp；局部 calc owner；覆盖 Wind4 `translate`/`scale` 的经典 `transform`；Uno 弄坏的多属性 transition（如含 `max-inline-size`）；必须挂选择器的伪类/父态/`html.dark`/`:has`/Transition name。少用 `:deep`，优先 owner / fallthrough / props / `[&_.child]` / `has-[]`。
 
 ### Tooling
 
 - Attributify same-prefix groups (`flex`/`text`/`bg`/`p`/`rounded`…); leftovers in `class`; `un-` if attr conflicts with DOM/Vue prop
-- Tokens in `styles/tokens.scss`; call with `$token` (`bg-$md-sys-color-surface`, `p-$lgc-space-lg`)
+- Tokens in `styles/base.scss`; call with `$token` (`bg-$md-sys-color-surface`, `p-$lgc-space-lg`)
 - Icons/safelist only in `valaxy.config.ts` (no standalone Uno config). Material Symbols Rounded primary; Iconify config icons must be safelisted/collections-loaded
 - Fonts: `styles/fonts.ts`, `assets/fonts/`, `node/font.ts`
 
 ### Tokens
 
-- Prefix `--lgc-*`; sole defs in `styles/tokens.scss`
+- Prefix `--lgc-*`; sole defs in `styles/base.scss`
 - **Unify:** radius, type/font size, elevation/shadow, icon size — no parallel scales
 - Layout chrome may stay bare px (landing pads, dense gaps, cover insets, date badges)
 - Space `--lgc-space-*` for rhythm; one-offs need not join. Radius: role tokens (`--lgc-radius-control`, …)
@@ -112,7 +108,7 @@ Valaxy blog: landing home, floating header, unified search, post feed/layouts, f
 
 - **No `calc(...)` in Uno `[]` or long template class strings**
 - Own a local custom prop on the component/shared class, then `$` / `var(--…)`: e.g. `--content-pad-top: calc(...)` → `p-t="$content-pad-top"`
-- Prefer component-local calc vars over dumping formulas into `tokens.scss`
+- Prefer component-local calc vars over dumping formulas into `base.scss`
 
 ### Responsive (Wind4)
 
@@ -147,6 +143,7 @@ Breakpoints only from theme config (sm/md/lg/xl above). Prefer Uno variants over
 
 ## Before Finalizing
 
+- **Style self-check:** 新/改的 `<style>` 是否只剩 allowlist 残差？该抽的 var 抽了？单次 `@apply` 已内联？没有为普通布局硬写 SCSS（否则挨鞭子）？
 - Update this file + root `../AGENTS.md` when structure/config/design direction changes
 - Demo build; confirm Iconify classes in CSS; check desktop + mobile
 - If drifting from M3 Expressive, re-check refs above

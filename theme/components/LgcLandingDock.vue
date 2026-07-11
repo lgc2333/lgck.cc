@@ -26,7 +26,7 @@ const variantClass: Record<LandingLinkVariant, string> = {
     <AppLink
       v-for="item in links"
       :key="`${item.text}-${item.link}`"
-      class="lgc-dock-link"
+      class="lgc-dock-link text-size-$lgc-body-small font-800 rounded-$lgc-radius-control no-underline inline-flex gap-$lgc-space-sm max-w-full items-center"
       min-h="$lgc-control-size-compact sm:$lgc-control-size"
       px="$lgc-space-lg sm:$lgc-space-xl"
       :class="variantClass[item.variant || 'default']"
@@ -46,16 +46,15 @@ const variantClass: Record<LandingLinkVariant, string> = {
 </template>
 
 <style scoped lang="scss">
-// Residual: variant CSS custom properties drive color/bg (JS must not build color utils).
+// Residual: variant CSS custom properties drive color/bg (JS must not build color
+// utils). Layout chrome is Uno on the element. transition-property residual —
+// Uno leaves transition-[…max-inline-size…] untransformed in dist.
 .lgc-dock-link {
   --lgc-dock-color: var(--md-sys-color-on-surface);
   --lgc-dock-bg: transparent;
   --lgc-dock-hover-color: var(--md-sys-color-primary);
   --lgc-dock-hover-bg: var(--md-sys-color-surface-container-highest);
 
-  @apply 'inline-flex max-w-full items-center gap-$lgc-space-sm';
-  @apply 'rounded-$lgc-radius-control text-size-$lgc-body-small font-800 no-underline';
-  // Residual: Uno leaves transition-[…max-inline-size…] untransformed in dist.
   transition-property:
     background-color, border-radius, color, max-inline-size, transform;
   @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';

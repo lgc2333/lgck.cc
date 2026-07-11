@@ -20,6 +20,7 @@ defineProps<{
       class="lgc-social-link lgc-icon-button-base lgc-icon-button-hover"
       w="$lgc-control-size-compact"
       h="$lgc-control-size-compact"
+      rounded="$lgc-radius-control hover:$lgc-radius-lg-plus active:$lgc-radius-control-active"
       :to="item.link"
       :aria-label="item.name"
       rel="noopener"
@@ -31,10 +32,11 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
-// Quiet morph: control → lg-plus (14px). Not full/999 as rest (eases from a fake huge value).
-// Residual classic transform — Wind4 translate/scale cannot be cancelled cleanly.
+// Residual only: classic transform + multi-duration list.
+// Quiet morph radius is Uno on the element. Wind4 hover:-translate-y / active:scale
+// set `translate`/`scale` props; icon-button-hover's scale cannot be cancelled by
+// `transform: none` alone — keep classic transform here and reset `scale`.
 .lgc-social-link {
-  border-radius: var(--lgc-radius-control);
   transition-property: background-color, border-radius, color, transform;
   transition-duration:
     var(--lgc-motion-short), var(--lgc-motion-medium), var(--lgc-motion-short),
@@ -44,13 +46,10 @@ defineProps<{
 
 .lgc-social-link:hover,
 .lgc-social-link:focus-visible {
-  border-radius: var(--lgc-radius-lg-plus);
   transform: translateY(-1px);
 }
 
 .lgc-social-link:active {
-  border-radius: var(--lgc-radius-control-active);
-  // Override icon-button-hover's Uno `scale` with classic transform.
   scale: none;
   transform: scale(var(--lgc-control-press-scale));
 }

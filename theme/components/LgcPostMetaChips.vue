@@ -47,8 +47,8 @@ const tagClass = computed(() => [
 ])
 
 const rowClass = computed(() => [
-  'lgc-post-meta-row',
-  props.align === 'center' ? 'is-center' : '',
+  'flex flex-wrap gap-$lgc-space-sm',
+  props.align === 'center' ? 'justify-center' : '',
 ])
 
 const createdText = computed(() => {
@@ -194,28 +194,19 @@ const hasTaxonomyRow = computed(
 </template>
 
 <style scoped lang="scss">
-.lgc-post-meta-row {
-  @apply 'flex flex-wrap gap-$lgc-space-sm';
-}
-
-.lgc-post-meta-row.is-center {
-  @apply 'justify-center';
-}
-
+// Multi-use chip chrome. Residual: geometric pill (½ min-height), color-mix tones,
+// multi-duration transition, classic transform (not Wind4 translate/scale).
 .lgc-post-tag {
   @apply 'inline-flex items-center gap-[2px] min-h-$lgc-meta-chip-min-height';
   @apply 'px-$lgc-space-md text-$md-sys-color-on-secondary-container';
   @apply 'text-size-$lgc-label-small font-700 bg-$md-sys-color-secondary-container no-underline';
-  // Residual: geometric pill = half chip height. Do NOT use radius-full (999) —
-  // hover targets like control-morph (18) stay ≥ half of 32px chips, so morph is invisible.
+  // Do NOT use radius-full (999) — hover morph to control-morph (18) stays ≥ half of
+  // 32px chips, so the shape change is invisible.
   border-radius: calc(var(--lgc-meta-chip-min-height) / 2);
 }
 
-// Interactive category/tag chips — classic transform (not Uno scale/translate).
-// Morph must go *below* half height or the shape stays a pill.
 .lgc-post-tag.is-link {
-  cursor: pointer;
-  // Residual: multi-duration list (radius morph slightly slower, like cards).
+  @apply 'cursor-pointer';
   transition-property: background-color, border-radius, color, transform;
   transition-duration:
     var(--lgc-motion-short), var(--lgc-motion-medium), var(--lgc-motion-short),
@@ -225,7 +216,8 @@ const hasTaxonomyRow = computed(
   &:hover,
   &:focus-visible {
     outline: none;
-    border-radius: var(--lgc-radius-md); // 12px — under half of 32px chip; 14 felt too soft
+    // 12px — under half of 32px chip; 14 felt too soft.
+    border-radius: var(--lgc-radius-md);
     transform: translateY(-1px);
     background: color-mix(
       in srgb,
@@ -240,7 +232,6 @@ const hasTaxonomyRow = computed(
   }
 }
 
-// Residual: color-mix on-cover tone.
 .lgc-post-tag.is-on-cover {
   color: color-mix(in srgb, var(--md-sys-color-on-secondary-container) 88%, white);
   background: color-mix(

@@ -99,7 +99,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 
       <a
         v-if="showPosts"
-        class="lgc-scroll-hint"
+        class="lgc-scroll-hint text-$md-sys-color-primary rounded-$lgc-radius-control bg-$md-sys-color-surface-container-high transition-[border-radius,transform] duration-$lgc-motion-short ease-$lgc-easing-standard hover:rounded-$lgc-radius-control-active -translate-x-1/2 hover:translate-y-$lgc-space-sm hover:-translate-x-1/2"
         bottom="$lgc-space-2xl"
         left="1/2"
         w="$lgc-control-size"
@@ -111,7 +111,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
         href="#posts"
         aria-label="Scroll to posts"
       >
-        <!-- text-* via class/CSS only on <a>: HTMLAnchorElement.text wipes children -->
+        <!-- text-* via class only on <a>: HTMLAnchorElement.text wipes children -->
         <span
           class="text-size-$lgc-icon-font-lg"
           i-material-symbols-keyboard-arrow-down-rounded
@@ -146,18 +146,6 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 .lgc-landing-center {
   --landing-center-min-h: calc(100vh - var(--lgc-header-height) - 80px);
   --landing-title-max-w: calc(var(--lgc-container-wide) - 80px);
-}
-
-// Anchor styles in residual CSS — avoid attributify `text=` on <a>.
-.lgc-scroll-hint {
-  @apply 'rounded-$lgc-radius-control text-$md-sys-color-primary';
-  @apply 'bg-$md-sys-color-surface-container-high -translate-x-1/2';
-  @apply 'transition-[border-radius,transform] duration-$lgc-motion-short';
-  @apply 'ease-$lgc-easing-standard';
-
-  &:hover {
-    @apply 'rounded-$lgc-radius-control-active -translate-x-1/2 translate-y-$lgc-space-sm';
-  }
 }
 
 @screen sm {

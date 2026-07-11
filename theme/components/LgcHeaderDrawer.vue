@@ -144,7 +144,7 @@ function toggleLanguage() {
             @click="emit('close')"
           >
             <span
-              class="lgc-drawer-icon"
+              class="lgc-drawer-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
               :class="getDrawerIcon(homeLink)"
               aria-hidden="true"
             />
@@ -160,7 +160,7 @@ function toggleLanguage() {
             @click="emit('close')"
           >
             <span
-              class="lgc-drawer-icon"
+              class="lgc-drawer-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
               :class="getDrawerIcon(item)"
               aria-hidden="true"
             />
@@ -171,13 +171,13 @@ function toggleLanguage() {
         <div gap="1.5" pt="$lgc-space-lg" mt-auto grid aria-label="Navigation settings">
           <button
             v-if="showI18n"
-            class="lgc-drawer-link lgc-drawer-control"
+            class="lgc-drawer-link font-inherit appearance-none bg-transparent cursor-pointer"
             type="button"
             :aria-label="t('button.toggle_langs')"
             @click="toggleLanguage"
           >
             <span
-              class="lgc-drawer-icon lgc-lang-flip-icon"
+              class="lgc-drawer-icon lgc-lang-flip-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
               :class="{ 'is-flipping': languageFlipping }"
               i-material-symbols-translate-rounded
               aria-hidden="true"
@@ -187,7 +187,7 @@ function toggleLanguage() {
           </button>
 
           <button
-            class="lgc-drawer-link lgc-drawer-control"
+            class="lgc-drawer-link font-inherit appearance-none bg-transparent cursor-pointer"
             type="button"
             :aria-label="
               appStore.isDark ? t('button.toggle_light') : t('button.toggle_dark')
@@ -196,13 +196,13 @@ function toggleLanguage() {
           >
             <span
               v-if="!appStore.isDark"
-              class="lgc-drawer-icon"
+              class="lgc-drawer-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
               i-material-symbols-light-mode-outline-rounded
               aria-hidden="true"
             />
             <span
               v-else
-              class="lgc-drawer-icon"
+              class="lgc-drawer-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
               i-material-symbols-dark-mode-outline-rounded
               aria-hidden="true"
             />
@@ -217,7 +217,9 @@ function toggleLanguage() {
 </template>
 
 <style scoped lang="scss">
-// Residual: scrim color-mix, drawer width min(), blur, state-layer color-mix.
+// Residual: scrim color-mix, drawer width min(), blur, asymmetric radius, state-layer
+// color-mix, grid tracks. Multi-use link chrome stays @apply (state/hover cascade).
+// Transition *name* classes must stay CSS (Vue Transition cannot take attributify).
 .lgc-drawer-backdrop {
   background: color-mix(in srgb, var(--md-sys-color-scrim, #000) 42%, transparent);
 }
@@ -241,10 +243,6 @@ function toggleLanguage() {
   @apply 'font-800 text-left no-underline';
   @apply 'transition-[background-color,border-radius,color,transform]';
   @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
-}
-
-.lgc-drawer-control {
-  @apply 'appearance-none bg-transparent cursor-pointer font-inherit';
 }
 
 .lgc-drawer-link:hover,
@@ -277,10 +275,6 @@ function toggleLanguage() {
 .lgc-drawer-link.is-route-active:focus-visible {
   @apply 'rounded-$lgc-radius-control-active';
   @apply 'text-$md-sys-color-on-primary-container bg-$md-sys-color-primary-container';
-}
-
-.lgc-drawer-icon {
-  @apply 'w-$lgc-icon-size h-$lgc-icon-size text-size-$lgc-icon-size';
 }
 
 .lgc-drawer-fade-enter-active,

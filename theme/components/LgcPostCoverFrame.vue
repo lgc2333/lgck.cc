@@ -74,6 +74,10 @@ onMounted(() => {
       inset-0
       absolute
       object-cover
+      opacity="0"
+      transition="opacity"
+      duration="$lgc-motion-medium"
+      ease="$lgc-easing-standard"
       :src="src"
       :alt="alt"
       loading="lazy"
@@ -88,6 +92,11 @@ onMounted(() => {
       pointer-events-none
       inset-0
       absolute
+      overflow-hidden
+      opacity="100"
+      transition="opacity"
+      duration="$lgc-motion-medium"
+      ease="$lgc-easing-standard"
       aria-hidden="true"
     />
     <div grid col-start-1 row-start-1 min-w="0">
@@ -97,6 +106,7 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
+// Residual: cover mask/on-mask tokens (consumed by feed/article children).
 .lgc-post-cover-frame {
   color: var(--lgc-post-cover-on-mask);
   --lgc-post-cover-mask-solid: color-mix(
@@ -157,14 +167,8 @@ html.dark .lgc-post-cover-frame {
   content: '';
 }
 
-// Residual: cover reveal crossfade (opacity + duration tokens).
-.lgc-post-cover-img {
-  opacity: 0;
-  transition: opacity var(--lgc-motion-medium) var(--lgc-easing-standard);
-}
-
 .lgc-post-cover-img.is-ready {
-  opacity: 1;
+  @apply 'opacity-100';
 }
 
 // Residual: solid base + translating sheen (::after). Infinite loop must be
@@ -177,10 +181,6 @@ html.dark .lgc-post-cover-frame {
     var(--md-sys-color-on-surface) 10%,
     transparent
   );
-
-  overflow: hidden;
-  opacity: 1;
-  transition: opacity var(--lgc-motion-medium) var(--lgc-easing-standard);
   background: var(--lgc-cover-skeleton-base);
 }
 
@@ -208,7 +208,7 @@ html.dark .lgc-post-cover-skeleton {
 }
 
 .lgc-post-cover-skeleton.is-done {
-  opacity: 0;
+  @apply 'opacity-0';
   animation: none;
 }
 

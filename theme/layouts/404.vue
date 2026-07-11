@@ -2,6 +2,9 @@
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+
+const actionClass =
+  'lgc-not-found-action inline-flex min-h-$lgc-control-size items-center gap-$lgc-space-sm px-$lgc-space-lg border-0 rounded-$lgc-radius-control text-$md-sys-color-on-surface bg-$md-sys-color-surface-container-high font-inherit font-900 no-underline transition-[background-color,border-radius,transform] duration-$lgc-motion-short ease-$lgc-easing-standard hover:rounded-$lgc-radius-control-active hover:bg-$md-sys-color-surface-container-highest active:scale-$lgc-control-press-scale'
 </script>
 
 <template>
@@ -52,7 +55,7 @@ const router = useRouter()
       </div>
 
       <div flex="~ wrap justify-center" gap="$lgc-space-md">
-        <RouterLink class="lgc-not-found-action is-primary" to="/">
+        <RouterLink class="is-primary" :class="actionClass" to="/">
           <span
             i-material-symbols-home-rounded
             text="size-$lgc-icon-font-sm"
@@ -60,7 +63,7 @@ const router = useRouter()
           />
           <span>首页</span>
         </RouterLink>
-        <button class="lgc-not-found-action" type="button" @click="router.back()">
+        <button :class="actionClass" type="button" @click="router.back()">
           <span
             i-material-symbols-keyboard-return-rounded
             text="size-$lgc-icon-font-sm"
@@ -82,19 +85,7 @@ const router = useRouter()
 </template>
 
 <style scoped lang="scss">
-.lgc-not-found-action {
-  @apply 'inline-flex min-h-$lgc-control-size items-center gap-$lgc-space-sm';
-  @apply 'px-$lgc-space-lg border-0 rounded-$lgc-radius-control';
-  @apply 'text-$md-sys-color-on-surface bg-$md-sys-color-surface-container-high';
-  @apply 'font-inherit font-900 no-underline';
-  @apply 'transition-[background-color,border-radius,transform]';
-  @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
-  @apply 'hover:rounded-$lgc-radius-control-active';
-  @apply 'hover:bg-$md-sys-color-surface-container-highest';
-  @apply 'active:scale-$lgc-control-press-scale';
-}
-
-// Residual: color-mix primary hover.
+// Residual: color-mix primary hover (no clean utility for mix percent).
 .lgc-not-found-action.is-primary {
   @apply 'text-$md-sys-color-on-primary bg-$md-sys-color-primary';
 

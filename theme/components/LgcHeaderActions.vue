@@ -118,7 +118,8 @@ function toggleLanguage() {
   @apply 'max-w-[80px] mr-$lgc-gap-compact opacity-100';
 }
 
-// Mobile: hide chrome actions except search (owner styles — not parent scoped).
+// Mobile: hide chrome actions except search (owner styles — parent scoped cannot
+// reach non-root nodes inside this child). Pure responsive display → @apply only.
 .lgc-header-button.is-header-action {
   @apply 'max-md:hidden';
 }

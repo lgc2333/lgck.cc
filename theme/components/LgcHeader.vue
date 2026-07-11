@@ -90,7 +90,7 @@ function closeDrawer() {
         gap="$lgc-space-sm"
       >
         <button
-          class="lgc-header-button lgc-header-menu lgc-icon-button-base lgc-icon-button-hover"
+          class="lgc-header-button lgc-header-menu lgc-icon-button-base lgc-icon-button-hover hidden max-md:grid"
           type="button"
           :aria-expanded="drawerOpen"
           aria-controls="lgc-mobile-drawer"
@@ -141,8 +141,10 @@ function closeDrawer() {
 </template>
 
 <style scoped lang="scss">
-// Residual: scrolled scrim blur + color-mix; cascade for optional/mobile hide.
-// Do not use bare HTML `hidden` for menu — UA [hidden] is display:none !important.
+// Residual: scrolled scrim blur + color-mix (no clean utility for mix percent).
+// Menu show/hide is Uno on the button (`hidden max-md:grid` — never bare HTML hidden).
+// Nav links hide below md: cascade into child LgcHeaderLink (parent scoped cannot
+// put utilities on another component's root without a class target).
 .lgc-header-shell.is-scrolled .lgc-header {
   backdrop-filter: blur(12px);
   background: color-mix(
@@ -153,15 +155,7 @@ function closeDrawer() {
   @apply 'shadow-$lgc-elevation-shadow-level-2';
 }
 
-.lgc-header-menu {
-  @apply 'hidden max-md:grid';
-}
-
 .lgc-header-primary .lgc-header-link {
-  @apply 'max-md:hidden';
-}
-
-.lgc-header-primary .lgc-header-link.is-optional {
   @apply 'max-md:hidden';
 }
 </style>

@@ -43,6 +43,12 @@ Before implementing theme features, first inspect how the default theme `valaxy-
 
 ## Rules
 
+### Styling — ALWAYS UNO FIRST
+
+**ALWAYS! ALWAYS!! USE UNOCSS FIRST.** 该抽 token / 局部 CSS 变量就抽，再用 `$token` / `var(--…)`。实在 实在 实在不行才 residual SCSS。布局/颜色/字号/间距/圆角用 Wind4 能写却硬写 SCSS → **挨鞭子。**
+
+Authored UI = UnoCSS Wind4 + attributify 写在元素上。单次用就不要留 class+规则；多状态用 class + `@apply`；残差只留给渐变/keyframes/`color-mix`/bleed/calc owner/Transition name。完整规则见 **`theme/AGENTS.md`**。
+
 ### Engineering
 
 - Prefer thoughtful refactors when tiny patches would create spaghetti code.
@@ -50,12 +56,6 @@ Before implementing theme features, first inspect how the default theme `valaxy-
 - If formatter output conflicts with an ESLint style rule, keep the formatter result and disable the conflicting ESLint rule in `eslint.config.mjs`.
 - For M3 loading indicator work, read `theme/utils/m3-loading-indicator/NOTE.md` before editing; official AndroidX/Flutter source is the fact standard, not old staged diffs.
 - When project structure, theme structure, or design rules change, update `AGENTS.md` and related docs such as `theme/AGENTS.md` in the same change.
-
-### Styling (summary)
-
-**Uno first, SCSS second.** Authored UI is UnoCSS Wind4 + attributify. Residual SCSS/CSS is for what Uno cannot express cleanly (complex gradients, multi-layer shadows, keyframes, bleed geometry, local calc owners). Do not grow SCSS when utilities would do.
-
-Before reshaping landing, post feed, navigation, search, or M3 Expressive styling, read **`theme/AGENTS.md`** — it owns the full style policy (class rules, tokens, breakpoints, Material feel, surface map).
 
 ### Configuration
 
