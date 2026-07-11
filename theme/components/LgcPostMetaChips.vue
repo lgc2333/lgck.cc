@@ -85,7 +85,7 @@ const wordCountText = computed(() => {
 const readingTimeText = computed(() => {
   if (!showStatistics.value || props.readingTime == null || props.readingTime === 0)
     return ''
-  return `${props.readingTime}m`
+  return t('statistics.reading_time', { n: props.readingTime })
 })
 
 const categoryQuery = computed(() => normalizePostCategoryQuery(props.categories))

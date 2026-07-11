@@ -1,9 +1,11 @@
 ---
-title: 草稿测试
+title:
+  zh-CN: 草稿测试
+  en: Draft Test
 draft: true
 date: 2022-04-08
 tags:
-  - draft
+  - $locale:tag.draft
 ---
 
 ::: zh-CN

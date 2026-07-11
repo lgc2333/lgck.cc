@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import type { SearchItem } from '../types'
 import LgcUnifiedSearchField from './LgcUnifiedSearchField.vue'
@@ -24,6 +25,7 @@ defineEmits<{
   select: [index: number]
 }>()
 
+const { t } = useI18n()
 const query = defineModel<string>({ required: true })
 
 const isDrawer = computed(() => props.variant === 'drawer')
@@ -45,7 +47,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
       inset-0
       absolute
       type="button"
-      aria-label="Close search"
+      :aria-label="t('accessibility.close_search')"
       @click="$emit('close')"
     />
     <aside
@@ -59,7 +61,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
       absolute
       text="$md-sys-color-on-surface"
       bg="$md-sys-color-surface-container-low"
-      aria-label="Search results"
+      :aria-label="t('accessibility.search_results')"
     >
       <div class="lgc-search-drawer-head" grid items-center gap="$lgc-space-sm">
         <LgcUnifiedSearchField
@@ -77,7 +79,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
           rounded="$lgc-radius-control"
           text="size-$lgc-icon-size"
           type="button"
-          aria-label="Close search"
+          :aria-label="t('accessibility.close_search')"
           @click="$emit('close')"
         >
           <span i-material-symbols-close-rounded aria-hidden="true" />
@@ -126,7 +128,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
         rounded="$lgc-radius-control"
         text="size-$lgc-icon-size"
         type="button"
-        aria-label="Close search"
+        :aria-label="t('accessibility.close_search')"
         @click="$emit('close')"
       >
         <span i-material-symbols-arrow-back-rounded aria-hidden="true" />

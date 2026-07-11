@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { StyleValue } from 'vue'
-import { toRef } from 'vue'
+import { computed, toRef } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useHeaderNavItemState } from '../composables'
 import type { HeaderActivePathRewrite, HeaderLinkMode, HeaderNavLink } from '../types'
+import { normalizeLocaleText } from '../utils/post'
 import type { RouteActiveMatch } from '../utils/route'
 
 const props = withDefaults(
@@ -22,6 +24,8 @@ const props = withDefaults(
   },
 )
 
+const { t, locale } = useI18n()
+const label = computed(() => normalizeLocaleText(props.item.text, locale.value, t))
 const { iconClass, isRouteActive } = useHeaderNavItemState({
   activeMatch: toRef(props, 'activeMatch'),
   activePathRewrites: toRef(props, 'activePathRewrites'),
@@ -43,10 +47,10 @@ const { iconClass, isRouteActive } = useHeaderNavItemState({
     }"
     :style="linkStyle"
     :to="item.link"
-    :aria-label="item.text"
+    :aria-label="label"
   >
     <span class="lgc-header-icon" :class="iconClass" aria-hidden="true" />
-    <span class="lgc-header-label">{{ item.text }}</span>
+    <span class="lgc-header-label">{{ label }}</span>
   </AppLink>
 </template>
 

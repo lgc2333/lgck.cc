@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Post } from 'valaxy'
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import type { PostDateParts } from '../utils/post'
 
@@ -14,6 +15,7 @@ const props = defineProps<{
   title: string
 }>()
 
+const { t } = useI18n()
 const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.length > 0)
 </script>
 
@@ -44,7 +46,7 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
     class="lgc-post-arrow lgc-card-arrow max-sm:hidden"
     sm="inline-grid"
     :to="path"
-    aria-label="Read post"
+    :aria-label="t('post.read_more')"
   >
     <span i-material-symbols-arrow-forward-rounded />
   </RouterLink>

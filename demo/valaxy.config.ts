@@ -1,4 +1,4 @@
-import { defineConfig } from 'valaxy'
+import { $t, defineConfig } from 'valaxy'
 import type { ThemeConfig } from 'valaxy-theme-lgcuwukii'
 
 /**
@@ -21,68 +21,68 @@ export default defineConfig<ThemeConfig>({
     header: {
       nav: [
         {
-          text: 'Posts',
+          text: $t('nav.posts'),
           link: '/page',
           icon: 'i-material-symbols-article-outline-rounded',
           activeIcon: 'i-material-symbols-article-rounded',
         },
         {
-          text: 'Archives',
+          text: $t('nav.archives'),
           link: '/archives',
           icon: 'i-material-symbols-history-rounded',
         },
         {
-          text: 'Categories',
+          text: $t('nav.categories'),
           link: '/categories',
           icon: 'i-material-symbols-category-outline-rounded',
           activeIcon: 'i-material-symbols-category-rounded',
         },
         {
-          text: 'Tags',
+          text: $t('nav.tags'),
           link: '/tags',
           icon: 'i-material-symbols-tag-rounded',
         },
       ],
       links: {
         activePathRewrites: [{ from: '/posts', to: '/page' }],
-        homeLabel: 'Home',
+        homeLabel: $t('nav.home'),
       },
     },
     landing: {
       mode: 'full-only',
       links: [
         {
-          text: '博客文章',
+          text: $t('landing.posts'),
           link: '/page/1',
           icon: 'i-material-symbols-article-outline-rounded',
           variant: 'primary',
         },
         {
-          text: '项目列表',
+          text: $t('landing.projects'),
           link: '/projects',
           icon: 'i-material-symbols-dashboard-outline-rounded',
           variant: 'tonal',
         },
         {
-          text: '相册',
+          text: $t('landing.albums'),
           link: '/albums',
           icon: 'i-material-symbols-imagesmode-outline-rounded',
           variant: 'default',
         },
         {
-          text: '友情链接',
+          text: $t('landing.links'),
           link: '/links',
           icon: 'i-material-symbols-link-rounded',
           variant: 'cookie',
         },
         {
-          text: '赞助者们',
+          text: $t('landing.sponsors'),
           link: '/sponsor',
           icon: 'i-material-symbols-favorite-outline-rounded',
           variant: 'ribbon',
         },
         {
-          text: '关于',
+          text: $t('landing.about'),
           link: '/about',
           icon: 'i-material-symbols-person-outline-rounded',
           variant: 'default',

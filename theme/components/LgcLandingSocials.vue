@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import type { SocialLink } from 'valaxy'
+import { useValaxyI18n } from 'valaxy'
+import { useI18n } from 'vue-i18n'
 
 defineProps<{
   socials: SocialLink[]
 }>()
+
+const { t } = useI18n()
+const { $t } = useValaxyI18n()
 </script>
 
 <template>
@@ -12,7 +17,7 @@ defineProps<{
     flex="~ wrap items-center justify-center"
     mt="$lgc-space-2xl"
     gap="$lgc-space-sm"
-    aria-label="Social links"
+    :aria-label="t('accessibility.social_links')"
   >
     <AppLink
       v-for="item in socials"
@@ -22,7 +27,7 @@ defineProps<{
       h="$lgc-control-size-compact"
       rounded="$lgc-radius-control hover:$lgc-radius-lg-plus active:$lgc-radius-control-active"
       :to="item.link"
-      :aria-label="item.name"
+      :aria-label="$t(item.name)"
       rel="noopener"
     >
       <!-- font-size on icon host, not AppLink: HTMLAnchorElement.text wipes children -->

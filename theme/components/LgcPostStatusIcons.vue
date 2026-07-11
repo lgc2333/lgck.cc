@@ -1,22 +1,26 @@
 <script setup lang="ts">
 import type { Post } from 'valaxy'
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   post: Post
 }>()
 
-const draftTitle = computed(() => (props.post.draft ? 'draft' : ''))
+const { t } = useI18n()
+
+const draftTitle = computed(() => (props.post.draft ? t('post.status_draft') : ''))
 
 const hideTitle = computed(() => {
   if (!props.post.hide) return ''
-  return `hide:${props.post.hide === true ? 'all' : props.post.hide}`
+  const mode = props.post.hide === true ? 'all' : String(props.post.hide)
+  return t('post.status_hide', { mode })
 })
 
 const pinnedTitle = computed(() => {
   const top = Number(props.post.top || 0)
   if (!top) return ''
-  return `pinned:${top}`
+  return t('post.status_pinned', { n: top })
 })
 
 const title = computed(() =>

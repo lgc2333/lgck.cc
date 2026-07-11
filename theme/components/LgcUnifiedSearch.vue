@@ -114,8 +114,8 @@ const setRootRef: VNodeRef = (element) => {
       ]"
       type="button"
       :aria-expanded="openInline || openDrawer || mobileSearchMode"
-      aria-label="Search"
-      title="Search"
+      :aria-label="t('menu.search')"
+      :title="t('menu.search')"
       @click="openSearch"
     >
       <span i-material-symbols-search-rounded aria-hidden="true" />

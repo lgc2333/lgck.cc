@@ -1,6 +1,8 @@
 ---
 layout: archives
-title: 归档
+title:
+  zh-CN: 归档
+  en: Archives
 nav: false
 comment: false
 ---

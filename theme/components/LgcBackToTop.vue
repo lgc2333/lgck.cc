@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { useBackToTop } from 'valaxy'
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const { show, percentage, backToTop } = useBackToTop({ offset: 100 })
 
 const progressViewBoxSize = 56
@@ -60,7 +62,7 @@ const strokeOffset = computed(() => {
         hover="text-$md-sys-color-primary rounded-$lgc-radius-control-active"
         focus-visible="rounded-$lgc-radius-control-active text-$md-sys-color-primary bg-$md-sys-color-surface-container-highest shadow-$lgc-elevation-shadow-level-3"
         type="button"
-        aria-label="Back to top"
+        :aria-label="t('sidebar.return_top')"
         @click="backToTop"
       >
         <span i-material-symbols-keyboard-arrow-up-rounded aria-hidden="true" />

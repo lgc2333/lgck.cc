@@ -1,6 +1,8 @@
 ---
 layout: tags
-# title: 云游的小标签
+title:
+  zh-CN: 标签
+  en: Tags
 icon: i-ri-price-tag-3-line
 nav: false
 # comment: false

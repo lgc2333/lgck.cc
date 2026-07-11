@@ -47,9 +47,10 @@ const titleClass = computed(() => {
   return `${base} is-cover-title max-w-[704px] text-left`
 })
 
+// `markdown-body` unlocks css-i18n for `div[lang]`; type/rhythm reset lives in
+// `styles/markdown.scss` (`.markdown-body.lgc-post-excerpt`).
 const excerptClass = computed(() => {
-  const base =
-    'lgc-post-excerpt mt-$lgc-space-md overflow-hidden text-size-$lgc-body-small leading-[1.75] text-$md-sys-color-on-surface-variant [&_p]:m-0'
+  const base = 'lgc-post-excerpt markdown-body mt-$lgc-space-md overflow-hidden'
   if (props.surface !== 'cover') return base
   return `${base} is-cover-excerpt max-w-[672px] font-600 text-left`
 })

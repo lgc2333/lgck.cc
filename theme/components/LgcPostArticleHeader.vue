@@ -17,11 +17,13 @@ const props = defineProps<{
 
 const route = useRoute()
 const siteConfig = useSiteConfig()
-const { locale } = useI18n()
+const { t, locale } = useI18n()
 
-const title = computed(() => normalizeLocaleText(props.frontmatter.title, locale.value))
+const title = computed(() =>
+  normalizeLocaleText(props.frontmatter.title, locale.value, t),
+)
 const description = computed(() =>
-  normalizeLocaleText(props.frontmatter.description, locale.value),
+  normalizeLocaleText(props.frontmatter.description, locale.value, t),
 )
 const icon = computed(() => props.frontmatter.icon)
 const titleColorStyle = computed(() =>
@@ -95,7 +97,7 @@ const descriptionClass =
       <p v-if="description" :class="descriptionClass">
         {{ description }}
       </p>
-      <div v-if="hasMeta" aria-label="Post metadata">
+      <div v-if="hasMeta" :aria-label="t('accessibility.post_metadata')">
         <LgcPostMetaChips
           align="center"
           tone="on-cover"
@@ -131,7 +133,7 @@ const descriptionClass =
     <p v-if="description" :class="descriptionClass">
       {{ description }}
     </p>
-    <div v-if="hasMeta" aria-label="Post metadata">
+    <div v-if="hasMeta" :aria-label="t('accessibility.post_metadata')">
       <LgcPostMetaChips
         align="center"
         :categories="frontmatter.categories"

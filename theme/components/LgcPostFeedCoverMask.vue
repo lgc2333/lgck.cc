@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Post } from 'valaxy'
+import { useI18n } from 'vue-i18n'
 
 import type { CoverContentMask, CoverContentPosition } from '../types'
 import type { PostDateParts } from '../utils/post'
@@ -21,6 +22,8 @@ withDefaults(
     mask: 'gradient',
   },
 )
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -60,7 +63,7 @@ withDefaults(
         top="1/2"
         sm="inline-grid"
         :to="path"
-        aria-label="Read post"
+        :aria-label="t('post.read_more')"
       >
         <span i-material-symbols-arrow-forward-rounded />
       </RouterLink>

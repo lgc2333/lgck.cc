@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 interface M3LoadingIndicatorCanvasOptions {
   color?: string
@@ -34,10 +35,11 @@ const props = withDefaults(
     contained: false,
     speed: 1,
     paused: false,
-    label: 'Loading',
   },
 )
 
+const { t } = useI18n()
+const resolvedLabel = computed(() => props.label || t('accessibility.loading'))
 const normalizedSize = computed(() =>
   typeof props.size === 'number' ? `${props.size}px` : props.size,
 )
@@ -125,7 +127,7 @@ watch(
     block
     w="$lgc-m3-loading-indicator-size"
     h="$lgc-m3-loading-indicator-size"
-    :aria-label="label"
+    :aria-label="resolvedLabel"
     role="img"
     :data-lgc-loading-indicator="bootstrap ? 'boot' : undefined"
     :style="{

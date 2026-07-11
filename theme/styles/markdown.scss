@@ -324,3 +324,31 @@ html.dark {
     }
   }
 }
+
+// Feed excerpt needs `markdown-body` for css-i18n only. Reset article MD
+// type/rhythm so cards keep the pre-i18n compact look (Yun does similar
+// on `.post-card-excerpt-content` with a smaller font-size).
+.markdown-body.lgc-post-excerpt {
+  @apply 'text-$md-sys-color-on-surface-variant text-size-$lgc-body-small leading-[1.75]';
+
+  p,
+  ul,
+  ol,
+  dl,
+  table,
+  blockquote,
+  .custom-block,
+  div[class*='language-'],
+  .vp-code-group {
+    margin-block: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply 'm-0 border-0 p-0 text-size-$lgc-body-small font-800 leading-[1.75] tracking-normal';
+  }
+}

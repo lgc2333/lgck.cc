@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { nextTick, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import type { SearchItem } from '../types'
 import LgcUnifiedSearchResultButton from './LgcUnifiedSearchResultButton.vue'
@@ -22,6 +23,7 @@ defineEmits<{
   viewAll: []
 }>()
 
+const { t } = useI18n()
 const previewRef = ref<HTMLElement>()
 
 watch(
@@ -108,7 +110,7 @@ watch(
         @mouseenter="$emit('select', previewResults.length)"
         @click="$emit('viewAll')"
       >
-        <span class="lgc-search-result-title">查看全部搜索结果</span>
+        <span class="lgc-search-result-title">{{ t('search.view_all') }}</span>
         <span class="lgc-search-result-meta">
           {{ countText }}
         </span>

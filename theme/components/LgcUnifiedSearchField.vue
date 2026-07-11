@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { nextTick, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   autofocus?: boolean
@@ -12,6 +13,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   keydown: [event: KeyboardEvent]
 }>()
+const { t } = useI18n()
 const model = defineModel<string>({ required: true })
 
 const inputRef = ref<HTMLInputElement>()
@@ -53,7 +55,7 @@ defineExpose({ focus })
       v-model="model"
       type="search"
       :placeholder="placeholder"
-      aria-label="Search"
+      :aria-label="t('menu.search')"
       @keydown.stop="emit('keydown', $event)"
     />
   </label>

@@ -1,14 +1,16 @@
-import { defineSiteConfig } from 'valaxy'
+import { $t, defineSiteConfig } from 'valaxy'
 
 export default defineSiteConfig({
   lang: 'zh-CN',
-  title: 'LgCuwukii Theme Demo',
+  languages: ['zh-CN', 'en'],
+  title: $t('siteConfig.title'),
+  subtitle: $t('siteConfig.subtitle'),
   url: 'https://lgcuwukii.valaxy.site/',
   author: {
     avatar: 'https://www.yunyoujun.cn/images/avatar.jpg',
-    name: '云游君',
+    name: $t('siteConfig.author.name'),
   },
-  description: 'LgCuwukii theme preview.',
+  description: $t('siteConfig.description'),
   social: [
     {
       name: 'RSS',
@@ -17,7 +19,7 @@ export default defineSiteConfig({
       color: 'orange',
     },
     {
-      name: 'QQ 群 1050458482',
+      name: $t('siteConfig.social.qq'),
       link: 'https://qm.qq.com/cgi-bin/qm/qr?k=kZJzggTTCf4SpvEQ8lXWoi5ZjhAx0ILZ&jump_from=webapi',
       icon: 'i-ri-qq-line',
       color: '#12B7F5',
@@ -29,37 +31,37 @@ export default defineSiteConfig({
       color: '#6e5494',
     },
     {
-      name: '微博',
+      name: $t('siteConfig.social.weibo'),
       link: 'https://weibo.com/jizhideyunyoujun',
       icon: 'i-ri-weibo-line',
       color: '#E6162D',
     },
     {
-      name: '豆瓣',
+      name: $t('siteConfig.social.douban'),
       link: 'https://www.douban.com/people/yunyoujun/',
       icon: 'i-ri-douban-line',
       color: '#007722',
     },
     {
-      name: '网易云音乐',
+      name: $t('siteConfig.social.netease'),
       link: 'https://music.163.com/#/user/home?id=247102977',
       icon: 'i-ri-netease-cloud-music-line',
       color: '#C20C0C',
     },
     {
-      name: '知乎',
+      name: $t('siteConfig.social.zhihu'),
       link: 'https://www.zhihu.com/people/yunyoujun/',
       icon: 'i-ri-zhihu-line',
       color: '#0084FF',
     },
     {
-      name: '哔哩哔哩',
+      name: $t('siteConfig.social.bilibili'),
       link: 'https://space.bilibili.com/1579790',
       icon: 'i-ri-bilibili-line',
       color: '#FF8EB3',
     },
     {
-      name: '微信公众号',
+      name: $t('siteConfig.social.wechat'),
       link: 'https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/about/white-qrcode-and-search.jpg',
       icon: 'i-ri-wechat-2-line',
       color: '#1AAD19',
@@ -77,13 +79,13 @@ export default defineSiteConfig({
       color: '#0088CC',
     },
     {
-      name: 'E-Mail',
+      name: $t('siteConfig.social.mail'),
       link: 'mailto:me@yunyoujun.cn',
       icon: 'i-ri-mail-line',
       color: '#8E71C1',
     },
     {
-      name: 'Travelling',
+      name: $t('siteConfig.social.travelling'),
       link: 'https://travellings.link',
       icon: 'i-ri-train-line',
       color: 'var(--va-c-text)',

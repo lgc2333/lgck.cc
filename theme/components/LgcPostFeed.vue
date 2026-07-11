@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useSiteConfig, useSiteStore } from 'valaxy'
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
 import {
@@ -20,16 +21,20 @@ const props = withDefaults(
   }>(),
   {
     flush: false,
+    // Decorative eyebrow above the title — keep English, do not i18n.
     label: 'Posts',
     limit: 6,
     paginate: false,
-    title: '所有文章',
   },
 )
 
+const { t } = useI18n()
 const siteConfig = useSiteConfig()
 const siteStore = useSiteStore()
 const route = useRoute()
+
+const feedLabel = computed(() => props.label)
+const feedTitle = computed(() => props.title || t('post_feed.title'))
 
 const pageSize = computed(() => Math.max(1, siteConfig.value.pageSize || 7))
 // Valaxy keeps hide:index in postList; production feed must drop all hide:* (yun).
@@ -64,7 +69,7 @@ const posts = computed(() => {
 </script>
 
 <template>
-  <section id="posts" scroll-mt="$lgc-space-lg" aria-label="Posts">
+  <section id="posts" scroll-mt="$lgc-space-lg" :aria-label="t('menu.posts')">
     <div
       grid
       box-border
@@ -76,11 +81,16 @@ const posts = computed(() => {
     >
       <div flex="~ items-end justify-between" mb="$lgc-space-sm" gap="$lgc-space-lg">
         <div>
-          <p m="0" text="$md-sys-color-primary size-$lgc-body-small" font="800">
-            {{ label }}
+          <p
+            m="0"
+            text="$md-sys-color-primary size-$lgc-body-small"
+            font="800"
+            aria-hidden="true"
+          >
+            {{ feedLabel }}
           </p>
           <h2 class="text-size-$lgc-headline-large leading-tight font-900 m-0">
-            {{ title }}
+            {{ feedTitle }}
           </h2>
         </div>
       </div>
@@ -96,7 +106,7 @@ const posts = computed(() => {
         text="$md-sys-color-on-surface-variant"
         bg="$md-sys-color-surface-container"
       >
-        还没有公开文章。
+        {{ t('post_feed.empty') }}
       </p>
 
       <LgcPostPagination

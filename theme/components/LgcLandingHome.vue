@@ -2,11 +2,13 @@
 import { useSiteConfig, useValaxyI18n } from 'valaxy'
 import type { StyleValue } from 'vue'
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useThemeConfig } from '../composables'
 
 const siteConfig = useSiteConfig()
 const themeConfig = useThemeConfig()
+const { t } = useI18n()
 const { $t } = useValaxyI18n()
 
 const landing = computed(() => themeConfig.value.landing || {})
@@ -24,7 +26,14 @@ const author = computed(() => siteConfig.value.author)
 const title = computed(() => $t(siteConfig.value.title))
 const authorName = computed(() => $t(author.value.name))
 const avatar = computed(() => $t(author.value.avatar))
-const authorStatus = computed(() => author.value.status)
+const authorStatus = computed(() => {
+  const status = author.value.status
+  if (!status) return undefined
+  return {
+    emoji: status.emoji,
+    message: status.message ? $t(status.message) : status.message,
+  }
+})
 const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtitle))
 </script>
 
@@ -48,7 +57,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
       isolate
       pt="$lgc-header-height"
       pb="80px sm:96px"
-      aria-label="Landing"
+      :aria-label="t('accessibility.landing')"
     >
       <div
         class="lgc-landing-center"
@@ -109,7 +118,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
         grid
         absolute
         href="#posts"
-        aria-label="Scroll to posts"
+        :aria-label="t('accessibility.scroll_to_posts')"
       >
         <!-- text-* via class only on <a>: HTMLAnchorElement.text wipes children -->
         <span

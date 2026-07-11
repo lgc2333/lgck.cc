@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 defineProps<{
   currentPage: number
   nextTo: string
@@ -8,6 +10,8 @@ defineProps<{
   showPrev: boolean
   totalPages: number
 }>()
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -16,13 +20,13 @@ defineProps<{
     flex="~ wrap justify-center"
     gap="[2px]"
     pt="$lgc-space-lg"
-    aria-label="Posts pagination"
+    :aria-label="t('accessibility.posts_pagination')"
   >
     <RouterLink
       v-if="showPrev"
       class="lgc-pagination-control"
       :to="prevTo"
-      aria-label="Previous page"
+      :aria-label="t('accessibility.prev_page')"
     >
       <span i-material-symbols-arrow-back-ios-new-rounded aria-hidden="true" />
     </RouterLink>
@@ -49,7 +53,7 @@ defineProps<{
       v-if="showNext"
       class="lgc-pagination-control"
       :to="nextTo"
-      aria-label="Next page"
+      :aria-label="t('accessibility.next_page')"
     >
       <span i-material-symbols-arrow-forward-ios-rounded aria-hidden="true" />
     </RouterLink>

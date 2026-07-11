@@ -12,6 +12,7 @@ import {
 } from '../composables'
 import type { HeaderActivePathRewrite, HeaderNavLink } from '../types'
 import { formatLocaleName } from '../utils/locale'
+import { normalizeLocaleText } from '../utils/post'
 
 const props = defineProps<{
   addHome?: boolean
@@ -65,6 +66,10 @@ function toggleLanguage() {
   flipLanguageIcon()
   toggleLocales()
 }
+
+function linkLabel(item: HeaderNavLink) {
+  return normalizeLocaleText(item.text, locale.value, t)
+}
 </script>
 
 <template>
@@ -78,7 +83,7 @@ function toggleLanguage() {
         inset-0
         fixed
         type="button"
-        aria-label="Close navigation"
+        :aria-label="t('accessibility.close_nav')"
         @click="emit('close')"
       />
     </Transition>
@@ -97,7 +102,7 @@ function toggleLanguage() {
         p="$lgc-space-lg"
         text="$md-sys-color-on-surface"
         bg="$md-sys-color-surface-container-low"
-        aria-label="Mobile navigation"
+        :aria-label="t('accessibility.mobile_nav')"
       >
         <div
           flex="~ items-center justify-between"
@@ -111,7 +116,7 @@ function toggleLanguage() {
             tracking="[0.04em]"
             uppercase
           >
-            Navigation
+            {{ t('menu.title') }}
           </span>
           <button
             class="lgc-icon-button-base lgc-icon-button-hover"
@@ -121,7 +126,7 @@ function toggleLanguage() {
             grid
             text="size-$lgc-icon-size"
             type="button"
-            aria-label="Close navigation"
+            :aria-label="t('accessibility.close_nav')"
             @click="emit('close')"
           >
             <span i-material-symbols-close-rounded aria-hidden="true" />
@@ -134,7 +139,7 @@ function toggleLanguage() {
           content-start
           gap="1.5"
           pt="$lgc-space-sm"
-          aria-label="Mobile navigation links"
+          :aria-label="t('accessibility.mobile_nav_links')"
         >
           <AppLink
             v-if="addHome"
@@ -148,12 +153,12 @@ function toggleLanguage() {
               :class="getDrawerIcon(homeLink)"
               aria-hidden="true"
             />
-            <span>{{ homeLink.text }}</span>
+            <span>{{ linkLabel(homeLink) }}</span>
           </AppLink>
 
           <AppLink
             v-for="item in links"
-            :key="`drawer-${item.text}-${item.link}`"
+            :key="`drawer-${item.link}`"
             class="lgc-drawer-link"
             :class="{ 'is-route-active': isDrawerLinkActive(item) }"
             :to="item.link"
@@ -164,11 +169,17 @@ function toggleLanguage() {
               :class="getDrawerIcon(item)"
               aria-hidden="true"
             />
-            <span>{{ item.text }}</span>
+            <span>{{ linkLabel(item) }}</span>
           </AppLink>
         </nav>
 
-        <div gap="1.5" pt="$lgc-space-lg" mt-auto grid aria-label="Navigation settings">
+        <div
+          gap="1.5"
+          pt="$lgc-space-lg"
+          mt-auto
+          grid
+          :aria-label="t('accessibility.nav_settings')"
+        >
           <button
             v-if="showI18n"
             class="lgc-drawer-link font-inherit appearance-none bg-transparent cursor-pointer"

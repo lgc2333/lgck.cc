@@ -2,6 +2,7 @@ import type { FuseListItem, LocalSearchResult } from 'valaxy'
 import type { Ref } from 'vue'
 
 import type { SearchItem } from '../types'
+import { normalizeLocaleText } from '../utils/post'
 import type { FuseSearchMatch } from '../utils/search'
 import {
   buildSnippetSegments,
@@ -72,11 +73,7 @@ export function useSearchResultAdapters(options: {
   }
 
   function normalizeTitle(title: FuseListItem['title']): string {
-    if (typeof title === 'string') return title
-
-    return (
-      title?.[options.locale.value] || title?.en || Object.values(title || {})[0] || ''
-    )
+    return normalizeLocaleText(title, options.locale.value)
   }
 
   function getQueryTerms() {

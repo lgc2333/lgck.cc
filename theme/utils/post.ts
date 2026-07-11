@@ -21,14 +21,23 @@ export function normalizePostCategoryQuery(value: unknown) {
   return normalizePostListValue(value).join('/')
 }
 
+const LOCALE_PREFIX = '$locale:'
+
+/**
+ * Resolve a string, `$locale:key`, or `{ lang: text }` map for the active locale.
+ * Pass `translate` (vue-i18n `t`) when the value may be a `$locale:` key.
+ */
 export function normalizeLocaleText(
   value: string | Record<string, string> | undefined,
   locale = 'en',
+  translate?: (key: string) => string,
 ) {
   if (!value) return ''
-  if (typeof value === 'string') return value
-
-  return value[locale] || value.en || Object.values(value)[0] || ''
+  if (typeof value === 'object')
+    return value[locale] || value.en || Object.values(value)[0] || ''
+  if (translate && value.startsWith(LOCALE_PREFIX))
+    return translate(value.slice(LOCALE_PREFIX.length))
+  return value
 }
 
 export function formatPostDate(date?: string | number | Date) {

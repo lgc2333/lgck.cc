@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { useWindowScroll } from '@vueuse/core'
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useThemeConfig } from '../composables'
 import type { HeaderLinksConfig, HeaderNavLink } from '../types'
+import { normalizeLocaleText } from '../utils/post'
 
+const { t, locale } = useI18n()
 const themeConfig = useThemeConfig()
 const drawerOpen = ref(false)
 const { y: scrollY } = useWindowScroll()
@@ -13,7 +16,10 @@ const header = computed(() => themeConfig.value.header || {})
 const linkOptions = computed<Partial<HeaderLinksConfig>>(() => header.value.links || {})
 const addHome = computed(() => linkOptions.value.addHome !== false)
 const activePathRewrites = computed(() => linkOptions.value.activePathRewrites || [])
-const homeLabel = computed(() => linkOptions.value.homeLabel || 'Home')
+const homeLabel = computed(
+  () =>
+    normalizeLocaleText(linkOptions.value.homeLabel, locale.value, t) || t('menu.home'),
+)
 const activeExpanded = computed(() => linkOptions.value.activeExpanded !== false)
 const isScrolled = computed(() => scrollY.value > 8)
 const homeFixed = computed(() => linkOptions.value.homeFixed === true)
@@ -81,7 +87,7 @@ function closeDrawer() {
       transition="[backdrop-filter,background-color,box-shadow]"
       duration="$lgc-motion-medium"
       ease="$lgc-easing-standard"
-      aria-label="Primary navigation"
+      :aria-label="t('accessibility.primary_nav')"
     >
       <div
         class="lgc-header-primary"
@@ -94,7 +100,7 @@ function closeDrawer() {
           type="button"
           :aria-expanded="drawerOpen"
           aria-controls="lgc-mobile-drawer"
-          aria-label="Open navigation"
+          :aria-label="t('accessibility.open_nav')"
           @click="drawerOpen = true"
         >
           <span i-material-symbols-menu-rounded aria-hidden="true" />
@@ -113,7 +119,7 @@ function closeDrawer() {
 
         <LgcHeaderLink
           v-for="(item, index) in headerLinks"
-          :key="`${item.text}-${item.link}`"
+          :key="item.link"
           :fixed="Boolean(linkOptions.width)"
           :item="item"
           :link-style="linkStyle"

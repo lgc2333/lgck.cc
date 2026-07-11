@@ -1,13 +1,15 @@
 ---
-title: Valaxy Test 文章内容测试
+title:
+  zh-CN: Valaxy 文章内容测试
+  en: Valaxy Content Test
 date: 2022-03-23
 categories:
-  - AAA
-  - BBB
-  - CCC
+  - $locale:category.aaa
+  - $locale:category.bbb
+  - $locale:category.ccc
 tags:
   - valaxy
-  - 测试
+  - $locale:tag.test
   - test
 ---
 

@@ -11,7 +11,10 @@ export interface HeaderActivePathRewrite {
 }
 
 export interface HeaderNavLink {
-  text: string
+  /**
+   * Plain string, `$locale:key`, or `{ lang: text }` map.
+   */
+  text: string | Record<string, string>
   link: string
   /**
    * Default icon class, usually the outlined/linear variant.
@@ -32,8 +35,9 @@ export interface HeaderLinksConfig {
 
   /**
    * Optional label next to the home icon when there is enough space.
+   * Plain string, `$locale:key`, or `{ lang: text }` map.
    */
-  homeLabel: string
+  homeLabel: string | Record<string, string>
 
   /**
    * Keep the home label visible when there is enough space.
@@ -86,7 +90,10 @@ export type LandingLinkVariant = 'primary' | 'tonal' | 'default' | 'cookie' | 'r
 export type LandingMode = 'full' | 'full-only' | 'compact' | 'disabled'
 
 export interface LandingLink {
-  text: string
+  /**
+   * Plain string, `$locale:key`, or `{ lang: text }` map.
+   */
+  text: string | Record<string, string>
   link: string
   icon?: string
   variant?: LandingLinkVariant

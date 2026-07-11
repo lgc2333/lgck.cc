@@ -2,3 +2,39 @@ valaxy_theme_lgcuwukii: Valaxy 主题 LgCuwukii
 
 statistics:
   word_count: '{n} 字'
+  reading_time: '{n} 分钟'
+
+post_feed:
+  title: 所有文章
+  empty: 还没有公开文章。
+
+search:
+  view_all: 查看全部搜索结果
+
+post:
+  previous: 上一篇
+  next: 下一篇
+  status_draft: 草稿
+  status_pinned: '置顶: {n}'
+  status_hide: '隐藏: {mode}'
+
+accessibility:
+  open_nav: 打开导航
+  close_nav: 关闭导航
+  primary_nav: 主导航
+  mobile_nav: 移动导航
+  mobile_nav_links: 移动导航链接
+  nav_settings: 导航设置
+  close_search: 关闭搜索
+  search_results: 搜索结果
+  landing: 首页着陆
+  landing_links: 着陆页链接
+  social_links: 社交链接
+  scroll_to_posts: 滚动到文章列表
+  posts_pagination: 文章分页
+  post_navigation: 文章导航
+  post_metadata: 文章元信息
+  prev_page: 上一页
+  next_page: 下一页
+  comments: 评论
+  loading: 加载中

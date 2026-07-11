@@ -16,11 +16,11 @@ const props = defineProps<{
 }>()
 
 const themeConfig = useThemeConfig()
-const { locale } = useI18n()
+const { t, locale } = useI18n()
 
 const date = computed(() => formatPostDateParts(props.post.date))
 const tags = computed(() => normalizePostListValue(props.post.tags))
-const title = computed(() => normalizeLocaleText(props.post.title, locale.value))
+const title = computed(() => normalizeLocaleText(props.post.title, locale.value, t))
 const hasCover = computed(() => Boolean(props.post.cover))
 const postPath = computed(() => props.post.path || '')
 const coverContentMask = computed<CoverContentMask>(() => {

@@ -70,7 +70,7 @@ function toggleLanguage() {
       class="lgc-header-button lgc-icon-button-base lgc-icon-button-hover"
       :class="actionClasses"
       type="button"
-      aria-label="Toggle dark mode"
+      :aria-label="appStore.isDark ? t('button.toggle_light') : t('button.toggle_dark')"
       @click="appStore.toggleDarkWithTransition"
     >
       <span

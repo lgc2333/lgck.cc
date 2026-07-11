@@ -1,10 +1,22 @@
 <script setup lang="ts">
 import type { Post } from 'valaxy'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-defineProps<{
+import { normalizeLocaleText } from '../utils/post'
+
+const props = defineProps<{
   nextPost?: Post
   prevPost?: Post
 }>()
+
+const { t, locale } = useI18n()
+const prevTitle = computed(() =>
+  normalizeLocaleText(props.prevPost?.title, locale.value, t),
+)
+const nextTitle = computed(() =>
+  normalizeLocaleText(props.nextPost?.title, locale.value, t),
+)
 </script>
 
 <template>
@@ -14,7 +26,7 @@ defineProps<{
     grid
     gap="$lgc-space-md"
     :class="{ 'md:grid-cols-2': nextPost?.path && prevPost?.path }"
-    aria-label="Post navigation"
+    :aria-label="t('accessibility.post_navigation')"
   >
     <RouterLink
       v-if="prevPost?.path"
@@ -47,9 +59,9 @@ defineProps<{
           tracking="[0.04em]"
           uppercase
         >
-          Previous
+          {{ t('post.previous') }}
         </span>
-        <strong class="lgc-article-nav-title">{{ prevPost.title }}</strong>
+        <strong class="lgc-article-nav-title">{{ prevTitle }}</strong>
       </span>
     </RouterLink>
     <RouterLink
@@ -70,9 +82,9 @@ defineProps<{
           tracking="[0.04em]"
           uppercase
         >
-          Next
+          {{ t('post.next') }}
         </span>
-        <strong class="lgc-article-nav-title">{{ nextPost.title }}</strong>
+        <strong class="lgc-article-nav-title">{{ nextTitle }}</strong>
       </span>
       <span
         class="lgc-article-nav-icon"

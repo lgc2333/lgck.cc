@@ -2,3 +2,39 @@ valaxy_theme_lgcuwukii: Valaxy Theme LgCuwukii
 
 statistics:
   word_count: '{n} words'
+  reading_time: '{n}m'
+
+post_feed:
+  title: All Posts
+  empty: No public posts yet.
+
+search:
+  view_all: View all search results
+
+post:
+  previous: Previous
+  next: Next
+  status_draft: Draft
+  status_pinned: 'Pinned: {n}'
+  status_hide: 'Hidden: {mode}'
+
+accessibility:
+  open_nav: Open navigation
+  close_nav: Close navigation
+  primary_nav: Primary navigation
+  mobile_nav: Mobile navigation
+  mobile_nav_links: Mobile navigation links
+  nav_settings: Navigation settings
+  close_search: Close search
+  search_results: Search results
+  landing: Landing
+  landing_links: Landing links
+  social_links: Social links
+  scroll_to_posts: Scroll to posts
+  posts_pagination: Pagination
+  post_navigation: Post navigation
+  post_metadata: Post metadata
+  prev_page: Previous page
+  next_page: Next page
+  comments: Comments
+  loading: Loading

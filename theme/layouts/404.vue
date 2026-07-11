@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const { t } = useI18n()
 
 const actionClass =
   'lgc-not-found-action inline-flex min-h-$lgc-control-size items-center gap-$lgc-space-sm px-$lgc-space-lg border-0 rounded-$lgc-radius-control text-$md-sys-color-on-surface bg-$md-sys-color-surface-container-high font-inherit font-900 no-underline transition-[background-color,border-radius,transform] duration-$lgc-motion-short ease-$lgc-easing-standard hover:rounded-$lgc-radius-control-active hover:bg-$md-sys-color-surface-container-highest active:scale-$lgc-control-press-scale'
@@ -50,7 +52,7 @@ const actionClass =
           text="$md-sys-color-on-surface-variant size-$lgc-body-large"
           leading="[1.75]"
         >
-          页面不见了
+          {{ t('not-found') }}
         </p>
       </div>
 
@@ -61,7 +63,7 @@ const actionClass =
             text="size-$lgc-icon-font-sm"
             aria-hidden="true"
           />
-          <span>首页</span>
+          <span>{{ t('button.home') }}</span>
         </RouterLink>
         <button :class="actionClass" type="button" @click="router.back()">
           <span
@@ -69,7 +71,7 @@ const actionClass =
             text="size-$lgc-icon-font-sm"
             aria-hidden="true"
           />
-          <span>返回</span>
+          <span>{{ t('button.back') }}</span>
         </button>
       </div>
 

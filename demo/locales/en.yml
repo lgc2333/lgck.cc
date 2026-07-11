@@ -1,2 +1,55 @@
 docs:
   view_docs: See Docs
+
+siteConfig:
+  title: LgCuwukii Theme Demo
+  subtitle: A Valaxy theme preview
+  description: LgCuwukii theme preview.
+  author:
+    name: YunYouJun
+  social:
+    qq: QQ Group 1050458482
+    weibo: Weibo
+    douban: Douban
+    netease: NetEase Music
+    zhihu: Zhihu
+    bilibili: Bilibili
+    wechat: WeChat Official Account
+    mail: E-Mail
+    travelling: Travelling
+
+nav:
+  home: Home
+  posts: Posts
+  archives: Archives
+  categories: Categories
+  tags: Tags
+
+landing:
+  posts: Blog Posts
+  projects: Projects
+  albums: Albums
+  links: Friends
+  sponsors: Sponsors
+  about: About
+
+pages:
+  about: About
+  notes: Dev Notes
+  archives: Archives
+
+tag:
+  notes: Notes
+  draft: Draft
+  pagination: Pagination
+  test: Test
+  i18n: i18n
+  valaxy: Valaxy
+
+category:
+  valaxy_notes: Valaxy Notes
+  valaxy_dev_notes: Valaxy Dev Notes
+  demo: Demo
+  aaa: AAA
+  bbb: BBB
+  ccc: CCC

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useAppStore } from 'valaxy'
 import { computed, onBeforeUnmount, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = withDefaults(
   defineProps<{
@@ -15,6 +16,7 @@ const props = withDefaults(
   },
 )
 
+const { t } = useI18n()
 const app = useAppStore()
 const loaderColor = computed(() => 'var(--md-sys-color-on-primary-container)')
 const loaderContainerColor = computed(() => 'var(--md-sys-color-primary-container)')
@@ -48,7 +50,7 @@ onBeforeUnmount(() => {
       bg="$md-sys-color-surface"
       role="status"
       aria-live="polite"
-      aria-label="Loading"
+      :aria-label="t('accessibility.loading')"
     >
       <div
         grid

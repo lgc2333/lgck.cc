@@ -1,2 +1,55 @@
 docs:
   view_docs: 查看文档指南
+
+siteConfig:
+  title: LgCuwukii 主题演示
+  subtitle: Valaxy 主题预览
+  description: LgCuwukii 主题预览站点。
+  author:
+    name: 云游君
+  social:
+    qq: QQ 群 1050458482
+    weibo: 微博
+    douban: 豆瓣
+    netease: 网易云音乐
+    zhihu: 知乎
+    bilibili: 哔哩哔哩
+    wechat: 微信公众号
+    mail: 邮箱
+    travelling: 开往
+
+nav:
+  home: 首页
+  posts: 文章
+  archives: 归档
+  categories: 分类
+  tags: 标签
+
+landing:
+  posts: 博客文章
+  projects: 项目列表
+  albums: 相册
+  links: 友情链接
+  sponsors: 赞助者们
+  about: 关于
+
+pages:
+  about: 关于
+  notes: 开发笔记
+  archives: 归档
+
+tag:
+  notes: 笔记
+  draft: 草稿
+  pagination: 分页
+  test: 测试
+  i18n: 国际化
+  valaxy: Valaxy
+
+category:
+  valaxy_notes: Valaxy 笔记
+  valaxy_dev_notes: Valaxy 开发笔记
+  demo: 演示
+  aaa: AAA
+  bbb: BBB
+  ccc: CCC

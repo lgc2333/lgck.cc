@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 import type { LandingLink, LandingLinkVariant } from '../types'
+import { normalizeLocaleText } from '../utils/post'
 
 defineProps<{
   links: LandingLink[]
 }>()
+
+const { t, locale } = useI18n()
 
 const variantClass: Record<LandingLinkVariant, string> = {
   default: 'is-default',
@@ -11,6 +16,10 @@ const variantClass: Record<LandingLinkVariant, string> = {
   tonal: 'is-tonal',
   cookie: 'is-cookie',
   ribbon: 'is-ribbon',
+}
+
+function linkLabel(item: LandingLink) {
+  return normalizeLocaleText(item.text, locale.value, t)
 }
 </script>
 
@@ -21,11 +30,11 @@ const variantClass: Record<LandingLinkVariant, string> = {
     max-w="$lgc-measure-wide"
     mt="28px sm:36px"
     gap="$lgc-space-sm sm:$lgc-space-md"
-    aria-label="Landing links"
+    :aria-label="t('accessibility.landing_links')"
   >
     <AppLink
       v-for="item in links"
-      :key="`${item.text}-${item.link}`"
+      :key="item.link"
       class="lgc-dock-link text-size-$lgc-body-small font-800 rounded-$lgc-radius-control no-underline inline-flex gap-$lgc-space-sm max-w-full items-center"
       min-h="$lgc-control-size-compact sm:$lgc-control-size"
       px="$lgc-space-lg sm:$lgc-space-xl"
@@ -39,7 +48,7 @@ const variantClass: Record<LandingLinkVariant, string> = {
         aria-hidden="true"
       />
       <span whitespace-nowrap text-ellipsis overflow-hidden>
-        {{ item.text }}
+        {{ linkLabel(item) }}
       </span>
     </AppLink>
   </nav>
