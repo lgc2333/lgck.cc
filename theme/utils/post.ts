@@ -16,6 +16,11 @@ export function normalizePostCategoryPath(value: unknown) {
   return normalizePostListValue(value).join(' / ')
 }
 
+/** Category query string for /categories?category=… (Yun-compatible). */
+export function normalizePostCategoryQuery(value: unknown) {
+  return normalizePostListValue(value).join('/')
+}
+
 export function normalizeLocaleText(
   value: string | Record<string, string> | undefined,
   locale = 'en',
@@ -30,6 +35,11 @@ export function formatPostDate(date?: string | number | Date) {
   return formatDate(date || '')
 }
 
+/** Full timestamp for tooltips — matches Yun `formatTimestamp`. */
+export function formatPostTimestamp(date?: string | number | Date) {
+  return formatDate(date || '', { template: 'YYYY-MM-DD HH:mm:ss' })
+}
+
 export function formatPostDateParts(date?: string | number | Date): PostDateParts {
   const formatted = formatPostDate(date)
   const parts = formatted.split('-')
@@ -40,11 +50,20 @@ export function formatPostDateParts(date?: string | number | Date): PostDatePart
   }
 }
 
+/**
+ * Whether to show the updated time.
+ * Aligns with Yun `YunPostDateMeta`: raw frontmatter inequality
+ * (`updated && updated !== date`), not day-formatted equality.
+ */
 export function shouldShowPostUpdated(
   created?: string | number | Date,
   updated?: string | number | Date,
 ) {
   if (updated == null || updated === '') return false
-  if (created == null || created === '') return true
-  return formatPostDate(updated) !== formatPostDate(created)
+  return updated !== created
+}
+
+/** Layouts that inject article post meta (Yun: post + collection). */
+export function isPostMetaLayout(layout: unknown) {
+  return layout === 'post' || layout === 'collection'
 }

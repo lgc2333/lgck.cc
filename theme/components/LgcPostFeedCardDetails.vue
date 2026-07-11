@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { Post } from 'valaxy'
 import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    category?: string
+    categories?: Post['categories']
     excerpt?: string
     excerptType?: string
     path: string
@@ -55,6 +56,8 @@ const tagsClass = computed(() => [
   'lgc-post-tags mt-$lgc-space-md',
   props.tagsDesktopOnly ? 'max-sm:hidden sm:flex' : '',
 ])
+
+const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.length > 0)
 </script>
 
 <template>
@@ -69,13 +72,8 @@ const tagsClass = computed(() => [
       <ValaxyDynamicComponent :template-str="excerpt" />
     </div>
     <div v-else-if="excerpt" :class="excerptClass" v-html="excerpt" />
-    <div
-      v-if="category || tags.length"
-      :class="tagsClass"
-      flex="~ wrap"
-      gap="$lgc-space-sm"
-    >
-      <LgcPostMetaChips :category="category" :tags="tags" />
+    <div v-if="hasTaxonomies" :class="tagsClass" flex="~ wrap" gap="$lgc-space-sm">
+      <LgcPostMetaChips only-taxonomies :categories="categories" :tags="tags" />
     </div>
   </div>
 </template>

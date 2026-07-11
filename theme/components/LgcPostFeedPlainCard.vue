@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import type { Post } from 'valaxy'
+import { computed } from 'vue'
+
 import type { PostDateParts } from '../utils/post'
 
-defineProps<{
-  category?: string
+const props = defineProps<{
+  categories?: Post['categories']
   date: PostDateParts
   excerpt?: string
   excerptType?: string
@@ -10,6 +13,8 @@ defineProps<{
   tags: string[]
   title: string
 }>()
+
+const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.length > 0)
 </script>
 
 <template>
@@ -17,7 +22,7 @@ defineProps<{
 
   <LgcPostFeedCardDetails
     tags-desktop-only
-    :category="category"
+    :categories="categories"
     :excerpt="excerpt"
     :excerpt-type="excerptType"
     :path="path"
@@ -26,13 +31,13 @@ defineProps<{
   />
 
   <div
-    v-if="category || tags.length"
+    v-if="hasTaxonomies"
     class="col-span-full"
     flex="~ wrap"
     gap="$lgc-space-sm"
     sm="hidden"
   >
-    <LgcPostMetaChips :category="category" :tags="tags" />
+    <LgcPostMetaChips only-taxonomies :categories="categories" :tags="tags" />
   </div>
 
   <RouterLink

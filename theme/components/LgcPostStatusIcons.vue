@@ -25,6 +25,13 @@ const title = computed(() =>
 
 const hasStatusIcons = computed(() => Boolean(title.value))
 
+/** Yun: hide:index uses a softer eye icon than full hide. */
+const hideIconClass = computed(() =>
+  props.post.hide === 'index'
+    ? 'i-material-symbols-visibility-rounded'
+    : 'i-material-symbols-visibility-off-rounded',
+)
+
 const iconClass =
   'lgc-post-status-icon inline-grid w-$lgc-control-size-sm h-$lgc-control-size-sm place-items-center rounded-$lgc-radius-full text-size-$lgc-title-medium'
 </script>
@@ -58,8 +65,7 @@ const iconClass =
     <span
       v-if="post.hide"
       class="is-hidden bg-$md-sys-color-tertiary-container"
-      :class="iconClass"
-      i-material-symbols-visibility-off-rounded
+      :class="[iconClass, hideIconClass]"
       aria-hidden="true"
     />
     <span class="sr-only">{{ title }}</span>

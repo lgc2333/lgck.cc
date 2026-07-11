@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import type { Post } from 'valaxy'
+
 import type { CoverContentMask, CoverContentPosition } from '../types'
 import type { PostDateParts } from '../utils/post'
 
 withDefaults(
   defineProps<{
-    category?: string
+    categories?: Post['categories']
     cover: string
     date: PostDateParts
     excerpt?: string
@@ -43,7 +45,7 @@ withDefaults(
         surface="cover"
         :cover-mask="mask"
         :cover-align="position"
-        :category="category"
+        :categories="categories"
         :excerpt="excerpt"
         :excerpt-type="excerptType"
         :path="path"

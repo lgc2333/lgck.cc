@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { Post } from 'valaxy'
+import { useSiteConfig } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
 
 import {
+  isPostMetaLayout,
   normalizeLocaleText,
-  normalizePostCategoryPath,
-  normalizePostListValue,
   shouldShowPostUpdated,
 } from '../utils/post'
 
@@ -14,7 +15,10 @@ const props = defineProps<{
   frontmatter: Post
 }>()
 
+const route = useRoute()
+const siteConfig = useSiteConfig()
 const { locale } = useI18n()
+
 const title = computed(() => normalizeLocaleText(props.frontmatter.title, locale.value))
 const description = computed(() =>
   normalizeLocaleText(props.frontmatter.description, locale.value),
@@ -23,16 +27,31 @@ const icon = computed(() => props.frontmatter.icon)
 const titleColorStyle = computed(() =>
   props.frontmatter.color ? { color: props.frontmatter.color } : undefined,
 )
-const tags = computed(() => normalizePostListValue(props.frontmatter.tags))
-const category = computed(() => normalizePostCategoryPath(props.frontmatter.categories))
-const hasMeta = computed(() =>
-  Boolean(
-    props.frontmatter.date ||
-    shouldShowPostUpdated(props.frontmatter.date, props.frontmatter.updated) ||
-    tags.value.length ||
-    category.value,
-  ),
+
+/** Yun: article meta only on post / collection layouts. */
+const showPostMeta = computed(() => isPostMetaLayout(route.meta.layout))
+
+const hasMeta = computed(() => {
+  if (!showPostMeta.value) return false
+  const fm = props.frontmatter
+  const stats =
+    Boolean(siteConfig.value.statistics?.enable) &&
+    (Boolean(fm.wordCount) || Boolean(fm.readingTime))
+  return Boolean(
+    fm.date ||
+    shouldShowPostUpdated(fm.date, fm.updated) ||
+    fm.categories ||
+    (fm.tags && (Array.isArray(fm.tags) ? fm.tags.length : true)) ||
+    stats,
+  )
+})
+
+const hasStatus = computed(
+  () =>
+    showPostMeta.value &&
+    Boolean(props.frontmatter.draft || props.frontmatter.hide || props.frontmatter.top),
 )
+
 const hasHeaderContent = computed(() =>
   Boolean(title.value || description.value || icon.value || hasMeta.value),
 )
@@ -59,6 +78,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
       relative
       z-0
     >
+      <LgcPostStatusIcons v-if="hasStatus" :post="frontmatter" />
       <h1
         v-if="title || icon"
         class="lgc-article-title"
@@ -77,19 +97,16 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
       <p v-if="description" class="lgc-article-description">
         {{ description }}
       </p>
-      <div
-        v-if="hasMeta"
-        flex="~ wrap justify-center"
-        gap="$lgc-space-sm"
-        leading="[1.4]"
-        aria-label="Post metadata"
-      >
+      <div v-if="hasMeta" aria-label="Post metadata">
         <LgcPostMetaChips
+          align="center"
           tone="on-cover"
-          :category="category"
+          :categories="frontmatter.categories"
           :created="frontmatter.date"
-          :tags="tags"
+          :reading-time="frontmatter.readingTime"
+          :tags="frontmatter.tags"
           :updated="frontmatter.updated"
+          :word-count="frontmatter.wordCount"
         />
       </div>
     </header>
@@ -103,7 +120,9 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
     pb="$lgc-space-3xl"
     text-center
     grid
+    relative
   >
+    <LgcPostStatusIcons v-if="hasStatus" :post="frontmatter" />
     <h1
       v-if="title || icon"
       class="lgc-article-title"
@@ -116,18 +135,15 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
     <p v-if="description" class="lgc-article-description">
       {{ description }}
     </p>
-    <div
-      v-if="hasMeta"
-      flex="~ wrap justify-center"
-      gap="$lgc-space-sm"
-      leading="[1.4]"
-      aria-label="Post metadata"
-    >
+    <div v-if="hasMeta" aria-label="Post metadata">
       <LgcPostMetaChips
-        :category="category"
+        align="center"
+        :categories="frontmatter.categories"
         :created="frontmatter.date"
-        :tags="tags"
+        :reading-time="frontmatter.readingTime"
+        :tags="frontmatter.tags"
         :updated="frontmatter.updated"
+        :word-count="frontmatter.wordCount"
       />
     </div>
   </header>

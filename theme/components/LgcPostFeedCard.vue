@@ -8,7 +8,6 @@ import type { CoverContentMask, CoverContentPosition } from '../types'
 import {
   formatPostDateParts,
   normalizeLocaleText,
-  normalizePostCategoryPath,
   normalizePostListValue,
 } from '../utils/post'
 
@@ -20,8 +19,7 @@ const themeConfig = useThemeConfig()
 const { locale } = useI18n()
 
 const date = computed(() => formatPostDateParts(props.post.date))
-const category = computed(() => normalizePostCategoryPath(props.post.categories))
-const tags = computed(() => normalizePostListValue(props.post.tags).slice(0, 3))
+const tags = computed(() => normalizePostListValue(props.post.tags))
 const title = computed(() => normalizeLocaleText(props.post.title, locale.value))
 const hasCover = computed(() => Boolean(props.post.cover))
 const postPath = computed(() => props.post.path || '')
@@ -53,7 +51,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 
     <LgcPostFeedCoverMask
       v-if="post.cover"
-      :category="category"
+      :categories="post.categories"
       :cover="post.cover"
       :date="date"
       :excerpt="post.excerpt"
@@ -67,7 +65,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 
     <LgcPostFeedPlainCard
       v-else
-      :category="category"
+      :categories="post.categories"
       :date="date"
       :excerpt="post.excerpt"
       :excerpt-type="post.excerpt_type"

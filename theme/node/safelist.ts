@@ -29,6 +29,8 @@ const baseIconSafelist = [
   'i-material-symbols-history-rounded',
   'i-material-symbols-calendar-month-outline-rounded',
   'i-material-symbols-edit-calendar-outline-rounded',
+  'i-material-symbols-folder-outline-rounded',
+  'i-material-symbols-timer-outline-rounded',
   'i-material-symbols-category-outline-rounded',
   'i-material-symbols-tag-rounded',
   'i-material-symbols-dashboard-outline-rounded',
