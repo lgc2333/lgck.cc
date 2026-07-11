@@ -28,8 +28,8 @@ defineProps<{
     >
       <span
         class="lgc-article-nav-icon"
-        
-         flex-none inline-grid 
+        flex-none
+        inline-grid
         place-items="center"
         w="$lgc-control-size-compact"
         h="$lgc-control-size-compact"
@@ -55,12 +55,12 @@ defineProps<{
     <RouterLink
       v-if="nextPost?.path"
       class="lgc-article-nav-item lgc-panel-link is-next"
-      
       min-w="0"
-      
       gap="$lgc-space-sm"
-      
-       text-right grid items-center overflow-hidden 
+      text-right
+      grid
+      items-center
+      overflow-hidden
       :to="nextPost.path"
     >
       <span class="lgc-article-nav-copy" grid min-w="0" gap="$lgc-space-xs">
@@ -76,8 +76,8 @@ defineProps<{
       </span>
       <span
         class="lgc-article-nav-icon"
-        
-         flex-none inline-grid 
+        flex-none
+        inline-grid
         place-items="center"
         w="$lgc-control-size-compact"
         h="$lgc-control-size-compact"

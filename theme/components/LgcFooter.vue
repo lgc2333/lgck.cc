@@ -70,7 +70,7 @@ const footerIconLink = computed(() => footerIcon.value?.url || themeRepository.v
     text="$md-sys-color-on-surface-variant size-$lgc-body-small center"
     leading="[1.8]"
   >
-    <div w="full" max-w="$lgc-container-reading" gap="0" mx-auto grid shrink-0>
+    <div w="full" max-w="$lgc-container-reading" gap="0" mx-auto shrink-0 grid>
       <div
         v-if="beian?.enable && beian.icp"
         flex="~ wrap items-center justify-center"
@@ -140,9 +140,7 @@ const footerIconLink = computed(() => footerIcon.value?.url || themeRepository.v
       >
         <i18n-t keypath="footer.powered" tag="span">
           <span>
-            <a :href="valaxyRepository" target="_blank" rel="noopener">
-              Valaxy
-            </a>
+            <a :href="valaxyRepository" target="_blank" rel="noopener"> Valaxy </a>
             <span> v{{ pkg.version }}</span>
           </span>
         </i18n-t>
@@ -170,9 +168,7 @@ const footerIconLink = computed(() => footerIcon.value?.url || themeRepository.v
 // Residual: multi-stop footer fade gradient + min-h calc
 // (one-line height = former pt 4xl + pb 3xl + 1lh).
 .lgc-footer {
-  --lgc-footer-min-h: calc(
-    var(--lgc-space-4xl) + var(--lgc-space-3xl) + 1lh
-  );
+  --lgc-footer-min-h: calc(var(--lgc-space-4xl) + var(--lgc-space-3xl) + 1lh);
 
   background: linear-gradient(
     180deg,

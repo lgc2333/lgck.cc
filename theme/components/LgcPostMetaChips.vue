@@ -141,12 +141,7 @@ const hasMeta = computed(
   </template>
 
   <!-- Article: one wrapping row for date / stats / category / tags -->
-  <div
-    v-else-if="hasMeta"
-    class="lgc-post-meta"
-    leading="[1.4]"
-    :class="rowClass"
-  >
+  <div v-else-if="hasMeta" class="lgc-post-meta" leading="[1.4]" :class="rowClass">
     <span v-if="createdText" :class="tagClass" :title="createdTitle">
       <span i-material-symbols-calendar-month-outline-rounded aria-hidden="true" />
       <time :datetime="createdText">{{ createdText }}</time>
