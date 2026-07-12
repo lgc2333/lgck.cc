@@ -117,7 +117,7 @@ const schemeConstructors = {
 } satisfies Record<MaterialColorVariant, SchemeConstructor>
 
 export const defaultMaterialColorsConfig = {
-  source: '#AED8FF',
+  source: '#76B7E7',
   variant: 'tonalSpot',
   contrastLevel: 0,
   specVersion: '2025',
