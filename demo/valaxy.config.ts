@@ -86,7 +86,7 @@ export default defineConfig<ThemeConfig>({
       },
     },
     landing: {
-      mode: 'full-only',
+      // mode: 'full-only',
       links: [
         [
           {
