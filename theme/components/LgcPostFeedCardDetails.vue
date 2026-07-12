@@ -33,7 +33,7 @@ const shouldRenderAsTemplate = computed(() => {
 })
 
 const rootClass = computed(() => {
-  if (props.surface !== 'cover') return 'min-w-0 self-center'
+  if (props.surface !== 'cover') return 'min-w-0 self-center max-sm:contents'
   return [
     'lgc-post-body-cover min-w-0 self-center',
     `is-mask-${props.coverMask}`,
@@ -43,7 +43,7 @@ const rootClass = computed(() => {
 
 const titleClass = computed(() => {
   const base = 'lgc-post-title font-900'
-  if (props.surface !== 'cover') return base
+  if (props.surface !== 'cover') return `${base} max-sm:self-center`
   return `${base} is-cover-title max-w-[704px] text-left`
 })
 
@@ -51,7 +51,7 @@ const titleClass = computed(() => {
 // `styles/markdown.scss` (`.markdown-body.lgc-post-excerpt`).
 const excerptClass = computed(() => {
   const base = 'lgc-post-excerpt markdown-body mt-$lgc-space-md overflow-hidden'
-  if (props.surface !== 'cover') return base
+  if (props.surface !== 'cover') return `${base} max-sm:col-span-full max-sm:mt-0`
   return `${base} is-cover-excerpt max-w-[672px] font-600 text-left`
 })
 

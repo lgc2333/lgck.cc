@@ -16,6 +16,9 @@ export const defaultThemeConfig: ThemeConfig = {
     coverContentMask: 'gradient',
     coverContentPosition: 'left',
   },
+  fixedBg: {
+    switchMode: 'sequential',
+  },
   header: {
     i18n: true,
     nav: [],

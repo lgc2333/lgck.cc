@@ -20,6 +20,8 @@ defineProps<{
         h="$lgc-label-width sm:152px"
         rounded="[30px]"
         object-cover
+        bg="$lgc-mark-avatar-bg"
+        border="3px solid $lgc-mark-avatar-border"
         :src="avatar"
         :alt="name || title"
       />
@@ -60,8 +62,16 @@ defineProps<{
 <style scoped lang="scss">
 // Residual: color-mix ring + expand geometry (keep icon anchor stable).
 .lgc-mark-avatar {
-  border: 3px solid
-    color-mix(in srgb, var(--md-sys-color-surface-container-high) 20%, transparent);
+  --lgc-mark-avatar-bg: color-mix(
+    in srgb,
+    var(--md-sys-color-surface-container-high) 15%,
+    transparent
+  );
+  --lgc-mark-avatar-border: color-mix(
+    in srgb,
+    var(--md-sys-color-surface-container-high) 20%,
+    transparent
+  );
 }
 
 .lgc-mark-status {

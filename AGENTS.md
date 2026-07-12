@@ -75,6 +75,7 @@ ATTENTION: If you encounter a reusable pitfall, you MUST RECORD IT BELOW AS EARL
 
 - `Copy-Item -LiteralPath` does not expand wildcards like `*.ttf`; use `-Path` or enumerate with `Get-ChildItem`.
 - `Start-Process` cannot redirect stdout and stderr to the same file; use separate log files.
+- `Select-Object -Index` needs range expressions parenthesized, e.g. `-Index (120..160)`, not `-Index 120..160`.
 
 ### Styling / Vue
 

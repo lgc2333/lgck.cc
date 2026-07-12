@@ -121,6 +121,36 @@ export interface LandingConfig {
   links: LandingLink[]
 }
 
+// ─── Fixed background ───────────────────────────────────────────────────────
+
+export interface FixedBgImageMeta {
+  url: string
+  title?: string
+  description?: string
+  sourceUrl?: string
+}
+
+export type FixedBgImageProvider = () =>
+  FixedBgImageMeta | undefined | null | Promise<FixedBgImageMeta | undefined | null>
+
+export type FixedBgImageSource =
+  FixedBgImageMeta | FixedBgImageMeta[] | FixedBgImageProvider
+
+export type FixedBgSwitchMode = 'sequential' | 'random'
+
+export interface FixedBgConfig {
+  /**
+   * Static image meta, image list, or provider called when the route changes.
+   */
+  image?: FixedBgImageSource
+
+  /**
+   * Image selection strategy for lists.
+   * @default 'sequential'
+   */
+  switchMode: FixedBgSwitchMode
+}
+
 // ─── Post feed / frontmatter ────────────────────────────────────────────────
 
 export type CoverContentMask = 'card' | 'gradient'
@@ -245,6 +275,11 @@ export interface ThemeConfig extends DefaultTheme.Config {
    * Post feed behavior.
    */
   postFeed?: Partial<PostFeedConfig>
+
+  /**
+   * Fixed page background.
+   */
+  fixedBg?: Partial<FixedBgConfig>
 
   /**
    * footer

@@ -18,6 +18,35 @@ export default defineConfig<ThemeConfig>({
   },
 
   themeConfig: {
+    fixedBg: {
+      switchMode: 'random',
+      image: [
+        {
+          url: 'https://i.pixiv.cat/img-original/img/2025/11/28/19/59/55/137990343_p0.jpg',
+          title: '水着逍遥',
+          description: 'by Pixiv @三一未亡',
+          sourceUrl: 'https://www.pixiv.net/artworks/142076600',
+        },
+        {
+          url: 'https://i.pixiv.cat/img-original/img/2025/03/31/00/48/06/126303242_p0.png',
+          title: '【委托】月下荡秋千',
+          description: 'by Pixiv @悠tacC',
+          sourceUrl: 'https://www.pixiv.net/artworks/126303242',
+        },
+        {
+          url: 'https://i.pixiv.cat/img-original/img/2025/12/10/20/00/04/138447585_p0.png',
+          title: 'smol is good',
+          description: 'by Pixiv @NicknameOkupied',
+          sourceUrl: 'https://www.pixiv.net/artworks/138447585',
+        },
+        {
+          url: 'https://i.pixiv.cat/img-original/img/2025/11/28/19/59/55/137990343_p0.jpg',
+          title: '♥♡',
+          description: 'by Pixiv @結月ちい',
+          sourceUrl: 'https://www.pixiv.net/artworks/137990343',
+        },
+      ],
+    },
     header: {
       nav: [
         {
