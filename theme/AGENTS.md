@@ -28,7 +28,7 @@ If an M3 Expressive decision is unclear, check official refs before implementing
 
 Valaxy blog: landing home, floating header, unified search, post feed/layouts, footer, M3 loading. Visual: **M3 Expressive × soft blue character site**.
 
-- Blue primary; soft blue/white, cookie-brown + ribbon-pink accents, rounded shapes, light dots, gentle motion
+- Blue primary; soft blue/white, brown + pink accents, rounded shapes, light dots, gentle motion
 - Filled tonal surfaces over outlines/shadows; reading surfaces calmer than landing
 - Works without bundled character images
 
@@ -139,6 +139,7 @@ Breakpoints only from theme config (sm/md/lg/xl above). Prefer Uno variants over
 
 - Defaults `node/config.ts` = minimal behavior only
 - Types in `types/` before wiring options
+- `landing.links`: flat list = auto layout; nested list = explicit dock rows
 - Site content (title, author, avatar, nav, landing links, socials) → `site.config.ts` / `themeConfig` / demos, not hard-coded defaults
 
 ## Before Finalizing

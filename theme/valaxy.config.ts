@@ -24,7 +24,7 @@ export default defineTheme<ThemeConfig>((options) => {
           },
         },
       },
-      plugins: [Font.vite(), harmonyOSFontFamilyPlugin(), themePlugin()],
+      plugins: [Font.vite(), harmonyOSFontFamilyPlugin(), themePlugin(options)],
     },
     unocss: {
       safelist: generateSafelist(options),

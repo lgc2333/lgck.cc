@@ -352,7 +352,7 @@ function linkLabel(item: HeaderNavLink) {
 .lgc-drawer-link:active {
   background: color-mix(
     in srgb,
-    currentColor calc(var(--lgc-state-pressed-opacity) * 100%),
+    currentColor var(--lgc-state-pressed-opacity),
     transparent
   );
   @apply 'scale-$lgc-control-press-scale';

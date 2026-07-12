@@ -1,6 +1,7 @@
 import type { ResolvedValaxyOptions } from 'valaxy'
 
 import type { ThemeConfig } from '../types'
+import { flattenLandingLinks } from '../utils/landing'
 
 const baseIconSafelist = [
   'i-material-symbols-home-rounded',
@@ -59,7 +60,7 @@ function collectConfiguredIcons(options: ResolvedValaxyOptions<ThemeConfig>) {
   const footerIcon = themeConfig.footer?.icon?.name
   if (footerIcon) safelist.push(footerIcon)
 
-  themeConfig.landing?.links?.forEach((item) => {
+  flattenLandingLinks(themeConfig.landing?.links).forEach((item) => {
     if (item.icon) safelist.push(item.icon)
   })
 

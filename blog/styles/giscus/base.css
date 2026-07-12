@@ -45,12 +45,12 @@ main {
   );
   --lgc-giscus-hover-state: color-mix(
     in srgb,
-    currentColor calc(var(--lgc-state-hover-opacity, 0.08) * 100%),
+    currentColor var(--lgc-state-hover-opacity, 8%),
     transparent
   );
   --lgc-giscus-pressed-state: color-mix(
     in srgb,
-    currentColor calc(var(--lgc-state-pressed-opacity, 0.12) * 100%),
+    currentColor var(--lgc-state-pressed-opacity, 12%),
     transparent
   );
   --lgc-giscus-focus-ring: color-mix(

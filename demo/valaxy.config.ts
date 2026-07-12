@@ -88,42 +88,45 @@ export default defineConfig<ThemeConfig>({
     landing: {
       mode: 'full-only',
       links: [
-        {
-          text: $t('landing.posts'),
-          link: '/page/1',
-          icon: 'i-material-symbols-article-outline-rounded',
-          variant: 'primary',
-        },
-        {
-          text: $t('landing.projects'),
-          link: '/projects',
-          icon: 'i-material-symbols-dashboard-outline-rounded',
-          variant: 'tonal',
-        },
-        {
-          text: $t('landing.albums'),
-          link: '/albums',
-          icon: 'i-material-symbols-imagesmode-outline-rounded',
-          variant: 'default',
-        },
-        {
-          text: $t('landing.links'),
-          link: '/links',
-          icon: 'i-material-symbols-link-rounded',
-          variant: 'cookie',
-        },
-        {
-          text: $t('landing.sponsors'),
-          link: '/sponsor',
-          icon: 'i-material-symbols-favorite-outline-rounded',
-          variant: 'ribbon',
-        },
-        {
-          text: $t('landing.about'),
-          link: '/about',
-          icon: 'i-material-symbols-person-outline-rounded',
-          variant: 'default',
-        },
+        [
+          {
+            text: $t('landing.posts'),
+            link: '/page/1',
+            icon: 'i-material-symbols-article-outline-rounded',
+          },
+          {
+            text: $t('landing.projects'),
+            link: '/projects',
+            icon: 'i-material-symbols-dashboard-outline-rounded',
+            variant: 'secondary',
+          },
+          {
+            text: $t('landing.albums'),
+            link: '/albums',
+            icon: 'i-material-symbols-imagesmode-outline-rounded',
+            variant: 'surface',
+          },
+        ],
+        [
+          {
+            text: $t('landing.links'),
+            link: '/links',
+            icon: 'i-material-symbols-link-rounded',
+            variant: 'brown',
+          },
+          {
+            text: $t('landing.sponsors'),
+            link: '/sponsor',
+            icon: 'i-material-symbols-favorite-outline-rounded',
+            variant: 'pink',
+          },
+          {
+            text: $t('landing.about'),
+            link: '/about',
+            icon: 'i-material-symbols-person-outline-rounded',
+            variant: 'transparent',
+          },
+        ],
       ],
     },
 

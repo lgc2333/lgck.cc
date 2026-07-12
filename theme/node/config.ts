@@ -1,4 +1,5 @@
 import type { ThemeConfig } from '../types'
+import { defaultMaterialColorsConfig } from './material-colors'
 
 /**
  * Default Config
@@ -16,6 +17,7 @@ export const defaultThemeConfig: ThemeConfig = {
     coverContentMask: 'gradient',
     coverContentPosition: 'left',
   },
+  colors: defaultMaterialColorsConfig,
   fixedBg: {
     switchMode: 'sequential',
   },

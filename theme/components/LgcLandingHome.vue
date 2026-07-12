@@ -5,6 +5,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useThemeConfig } from '../composables'
+import { flattenLandingLinks } from '../utils/landing'
 
 const siteConfig = useSiteConfig()
 const themeConfig = useThemeConfig()
@@ -12,7 +13,10 @@ const { t } = useI18n()
 const { $t } = useValaxyI18n()
 
 const landing = computed(() => themeConfig.value.landing || {})
-const landingLinks = computed(() => landing.value.links)
+const landingLinks = computed(() => landing.value.links || [])
+const hasLandingLinks = computed(
+  () => flattenLandingLinks(landingLinks.value).length > 0,
+)
 const siteSocials = computed(() => siteConfig.value.social)
 const landingMode = computed(() => landing.value.mode || 'full')
 const isFullOnlyLanding = computed(() => landingMode.value === 'full-only')
@@ -102,7 +106,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
           {{ subtitle }}
         </p>
 
-        <LgcLandingDock v-if="landingLinks?.length" :links="landingLinks" />
+        <LgcLandingDock v-if="hasLandingLinks" :links="landingLinks" />
         <LgcLandingSocials v-if="siteSocials?.length" :socials="siteSocials" />
       </div>
 

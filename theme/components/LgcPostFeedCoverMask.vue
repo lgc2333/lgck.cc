@@ -78,19 +78,19 @@ const { t } = useI18n()
   @apply 'self-start justify-self-start text-$md-sys-color-on-primary-container';
   background: color-mix(
     in srgb,
-    var(--md-sys-color-primary-container) 50%,
+    var(--md-sys-color-primary-container) 65%,
     transparent
   );
-  backdrop-filter: blur(var(--lgc-surface-blur));
+  backdrop-filter: blur(var(--lgc-elevate-blur));
 }
 
 .lgc-post-arrow {
   background: color-mix(
     in srgb,
-    var(--md-sys-color-surface-container-highest) 50%,
+    var(--md-sys-color-surface-container-highest) 30%,
     transparent
   );
-  backdrop-filter: blur(var(--lgc-surface-blur));
+  backdrop-filter: blur(var(--lgc-elevate-blur));
 }
 
 // Gradient mask: full-width bottom fade (local calc owners for bleed geometry).

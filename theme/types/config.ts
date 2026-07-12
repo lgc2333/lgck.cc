@@ -85,7 +85,8 @@ export interface HeaderLinksConfig {
 
 // ─── Landing ────────────────────────────────────────────────────────────────
 
-export type LandingLinkVariant = 'primary' | 'tonal' | 'default' | 'cookie' | 'ribbon'
+export type LandingLinkVariant =
+  'primary' | 'secondary' | 'surface' | 'transparent' | 'brown' | 'pink'
 
 export type LandingMode = 'full' | 'full-only' | 'compact' | 'disabled'
 
@@ -98,6 +99,8 @@ export interface LandingLink {
   icon?: string
   variant?: LandingLinkVariant
 }
+
+export type LandingLinks = LandingLink[] | LandingLink[][]
 
 export interface LandingConfig {
   /**
@@ -118,7 +121,7 @@ export interface LandingConfig {
    */
   compactHeight: number
 
-  links: LandingLink[]
+  links: LandingLinks
 }
 
 // ─── Fixed background ───────────────────────────────────────────────────────
@@ -186,6 +189,78 @@ declare module 'valaxy' {
      */
     coverContentPosition?: CoverContentPosition
   }
+}
+
+// ─── Colors ─────────────────────────────────────────────────────────────────
+
+export type MaterialColorVariant =
+  | 'content'
+  | 'expressive'
+  | 'fidelity'
+  | 'fruitSalad'
+  | 'monochrome'
+  | 'neutral'
+  | 'rainbow'
+  | 'tonalSpot'
+  | 'vibrant'
+
+export type MaterialColorSpecVersion = '2021' | '2025'
+
+export type MaterialColorPlatform = 'phone' | 'watch'
+
+export interface MaterialCustomColorConfig {
+  /**
+   * Source color for this fixed custom slot.
+   */
+  color: string
+
+  /**
+   * Harmonize this color toward the main source color.
+   * @default true
+   */
+  blend?: boolean
+}
+
+export interface MaterialCustomColorsConfig {
+  brown?: Partial<MaterialCustomColorConfig>
+  pink?: Partial<MaterialCustomColorConfig>
+}
+
+export interface MaterialColorsConfig {
+  /**
+   * Main source color used to generate the Material color roles.
+   * @default '#2e6f9f'
+   */
+  source: string
+
+  /**
+   * Material Dynamic Color scheme variant.
+   * @default 'tonalSpot'
+   */
+  variant: MaterialColorVariant
+
+  /**
+   * Contrast level from -1 to 1.
+   * @default 0
+   */
+  contrastLevel: number
+
+  /**
+   * Material color specification version.
+   * @default '2021'
+   */
+  specVersion: MaterialColorSpecVersion
+
+  /**
+   * Target platform used by the Material color generator.
+   * @default 'phone'
+   */
+  platform: MaterialColorPlatform
+
+  /**
+   * Fixed custom color slots used by this theme.
+   */
+  custom: MaterialCustomColorsConfig
 }
 
 // ─── Footer ─────────────────────────────────────────────────────────────────
@@ -276,6 +351,11 @@ export interface ThemeConfig extends DefaultTheme.Config {
    * Post feed behavior.
    */
   postFeed?: Partial<PostFeedConfig>
+
+  /**
+   * Material color generation.
+   */
+  colors?: Partial<MaterialColorsConfig>
 
   /**
    * Fixed page background.

@@ -1,11 +1,18 @@
 import { fileURLToPath } from 'node:url'
 
+import type { ResolvedValaxyOptions } from 'valaxy'
 import { build, normalizePath } from 'vite'
 import type { Plugin, ResolvedConfig } from 'vite'
 
+import type { ThemeConfig } from '../types'
+import { generateMaterialColorsCss } from './material-colors'
+
+const materialColorsVirtualId = 'virtual:lgc-material-colors.css'
+const resolvedMaterialColorsVirtualId = `\0${materialColorsVirtualId}`
+
 // write a vite plugin
 // https://vitejs.dev/guide/api-plugin.html
-export function themePlugin(): Plugin {
+export function themePlugin(options?: ResolvedValaxyOptions<ThemeConfig>): Plugin {
   const loadingBootstrapPath = normalizePath(
     fileURLToPath(new URL('../client/loading-bootstrap.ts', import.meta.url)),
   )
@@ -15,6 +22,14 @@ export function themePlugin(): Plugin {
 
   return {
     name: 'valaxy-theme-lgcuwukii',
+    resolveId(id) {
+      if (id === materialColorsVirtualId) return resolvedMaterialColorsVirtualId
+    },
+    load(id) {
+      if (id !== resolvedMaterialColorsVirtualId) return
+
+      return generateMaterialColorsCss(options?.config.themeConfig?.colors)
+    },
     configResolved(resolvedConfig) {
       config = resolvedConfig
     },

@@ -14,7 +14,7 @@ search:
 fixed_bg:
   title: Background image
   empty_description: No details yet
-  refresh: Refresh background
+  refresh: Switch background
   loading: Background loading
 
 post:

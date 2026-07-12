@@ -1,4 +1,6 @@
 // Fonts
+import 'virtual:lgc-material-colors.css'
+
 import '../assets/fonts/HarmonyOS_Sans_Black.ttf'
 import '../assets/fonts/HarmonyOS_Sans_Black_Italic.ttf'
 import '../assets/fonts/HarmonyOS_Sans_Bold.ttf'

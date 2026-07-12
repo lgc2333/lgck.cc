@@ -54,21 +54,21 @@ const iconClass =
   >
     <span
       v-if="post.draft"
-      class="is-draft bg-$md-sys-color-secondary-container"
+      class="is-draft bg-$md-sys-color-on-secondary-container"
       :class="iconClass"
       i-material-symbols-contract-edit-rounded
       aria-hidden="true"
     />
     <span
       v-if="post.top"
-      class="is-pinned bg-$md-sys-color-primary-container rotate-45"
+      class="is-pinned bg-$md-sys-color-primary-container rotate-45 dark:bg-$md-sys-color-primary"
       :class="iconClass"
       i-ic-round-push-pin
       aria-hidden="true"
     />
     <span
       v-if="post.hide"
-      class="is-hidden bg-$md-sys-color-tertiary-container"
+      class="is-hidden bg-$md-sys-color-on-tertiary dark:bg-$md-sys-color-tertiary"
       :class="[iconClass, hideIconClass]"
       aria-hidden="true"
     />

@@ -17,72 +17,53 @@
     var(--md-sys-color-on-surface)
   );
   --va-c-bg-mute: var(--md-sys-color-surface-container);
-  --va-c-danger-1: var(--md-sys-color-tertiary);
+  --va-c-danger-1: var(--md-sys-color-error);
   --va-c-danger-2: color-mix(
     in srgb,
-    var(--md-sys-color-tertiary) 78%,
+    var(--md-sys-color-error) 78%,
     var(--md-sys-color-on-surface)
   );
   --va-c-divider: var(--md-sys-color-outline-variant);
   --va-c-text-1: var(--md-sys-color-on-surface);
   --va-c-text-2: var(--md-sys-color-on-surface-variant);
   --va-c-text-code: var(--md-sys-color-primary);
-  --va-c-warning-1: var(--md-sys-color-secondary);
+  --va-c-warning-1: var(--md-sys-color-tertiary);
   --va-c-warning-2: color-mix(
     in srgb,
-    var(--md-sys-color-secondary) 78%,
+    var(--md-sys-color-tertiary) 78%,
     var(--md-sys-color-on-surface)
   );
   --va-custom-block-code-font-size: 0.85em; // relative to parent type
-  --va-custom-block-danger-bg: color-mix(
-    in srgb,
-    var(--md-sys-color-tertiary-container) 62%,
-    var(--md-sys-color-surface-container)
-  );
+  --va-custom-block-danger-bg: var(--md-sys-color-error-container);
   --va-custom-block-danger-border: transparent;
   --va-custom-block-danger-code-bg: color-mix(
     in srgb,
-    var(--md-sys-color-tertiary-container) 72%,
+    var(--md-sys-color-error-container) 72%,
     var(--md-sys-color-surface-container-highest)
   );
-  --va-custom-block-danger-text: var(--md-sys-color-on-tertiary-container);
+  --va-custom-block-danger-text: var(--md-sys-color-on-error-container);
   --va-custom-block-details-bg: var(--md-sys-color-surface-container-high);
   --va-custom-block-details-border: transparent;
   --va-custom-block-details-code-bg: var(--md-sys-color-surface-container-highest);
   --va-custom-block-details-text: var(--md-sys-color-on-surface);
   --va-custom-block-font-size: var(--lgc-body-medium);
-  --va-custom-block-info-bg: var(--md-sys-color-surface-container-high);
+  --va-custom-block-info-bg: var(--md-sys-color-secondary-container);
   --va-custom-block-info-border: transparent;
-  --va-custom-block-info-code-bg: var(--md-sys-color-surface-container-highest);
-  --va-custom-block-info-text: var(--md-sys-color-on-surface);
+  --va-custom-block-info-code-bg: var(--md-sys-color-secondary-container);
+  --va-custom-block-info-text: var(--md-sys-color-on-secondary-container);
   --va-custom-block-note-bg: var(--va-custom-block-info-bg);
   --va-custom-block-note-border: var(--va-custom-block-info-border);
   --va-custom-block-note-code-bg: var(--va-custom-block-info-code-bg);
   --va-custom-block-note-text: var(--va-custom-block-info-text);
-  --va-custom-block-tip-bg: color-mix(
-    in srgb,
-    var(--md-sys-color-primary-container) 62%,
-    var(--md-sys-color-surface-container)
-  );
+  --va-custom-block-tip-bg: var(--md-sys-color-primary-container);
   --va-custom-block-tip-border: transparent;
-  --va-custom-block-tip-code-bg: color-mix(
-    in srgb,
-    var(--md-sys-color-primary-container) 72%,
-    var(--md-sys-color-surface-container-highest)
-  );
+  --va-custom-block-tip-code-bg: var(--md-sys-color-primary-container);
   --va-custom-block-tip-text: var(--md-sys-color-on-primary-container);
-  --va-custom-block-warning-bg: color-mix(
-    in srgb,
-    var(--md-sys-color-secondary-container) 64%,
-    var(--md-sys-color-surface-container)
-  );
+  --va-custom-block-warning-bg: var(--md-sys-color-tertiary-container);
   --va-custom-block-warning-border: transparent;
-  --va-custom-block-warning-code-bg: color-mix(
-    in srgb,
-    var(--md-sys-color-secondary-container) 72%,
-    var(--md-sys-color-surface-container-highest)
-  );
-  --va-custom-block-warning-text: var(--md-sys-color-on-secondary-container);
+  --va-custom-block-warning-code-bg: var(--md-sys-color-tertiary-container);
+  --va-custom-block-warning-text: var(--md-sys-color-on-tertiary-container);
+  --va-code-block-bg: var(--md-sys-color-surface-container-high);
 }
 
 html.dark {

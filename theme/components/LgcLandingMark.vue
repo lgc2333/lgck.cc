@@ -28,7 +28,7 @@ defineProps<{
       <div
         v-if="status?.emoji || status?.message"
         class="lgc-mark-status"
-        text="$md-sys-color-on-secondary-container size-$lgc-label-medium"
+        text="$md-sys-color-on-primary-container size-$lgc-label-medium"
         font="700"
         inline-flex
         whitespace-nowrap
@@ -37,7 +37,7 @@ defineProps<{
         justify-center
         absolute
         overflow-hidden
-        bg="$md-sys-color-secondary-container"
+        bg="$md-sys-color-primary-container"
         :aria-label="status.message"
       >
         <span flex-none aria-hidden="true">
@@ -80,6 +80,12 @@ defineProps<{
   --mark-status-size: 36px;
   --mark-status-open-max: 224px;
 
+  --lgc-mark-status-border: color-mix(
+    in srgb,
+    var(--md-sys-color-on-primary) 20%,
+    transparent
+  );
+
   right: var(--mark-status-offset-inline);
   bottom: var(--mark-status-offset-block);
   min-inline-size: var(--mark-status-size);
@@ -88,8 +94,7 @@ defineProps<{
   gap: 0;
   padding: 0;
   border-radius: 18px;
-  border: 3px solid
-    color-mix(in srgb, var(--md-sys-color-surface-container-high) 20%, transparent);
+  border: 3px solid var(--lgc-mark-status-border);
   transition:
     max-inline-size var(--lgc-motion-medium) var(--lgc-easing-standard),
     border-radius var(--lgc-motion-short) var(--lgc-easing-standard),

@@ -1,55 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
-// --- Tokens ---
-
-:root {
-  --md-sys-color-primary: #2e6f9f;
-  --md-sys-color-on-primary: #fff;
-  --md-sys-color-primary-container: #d0e9ff;
-  --md-sys-color-on-primary-container: #001d33;
-  --md-sys-color-secondary: #6f5b52;
-  --md-sys-color-on-secondary: #fff;
-  --md-sys-color-secondary-container: #f9ded3;
-  --md-sys-color-on-secondary-container: #291812;
-  --md-sys-color-tertiary: #8f4f50;
-  --md-sys-color-tertiary-container: #ffdad9;
-  --md-sys-color-on-tertiary-container: #3b080d;
-  --md-sys-color-surface: #fbfcff;
-  --md-sys-color-surface-container-lowest: #fffffff3;
-  --md-sys-color-surface-container-low: #f4f8fcf3;
-  --md-sys-color-surface-container: #edf3f9f3;
-  --md-sys-color-surface-container-high: #e7eef5f3;
-  --md-sys-color-surface-container-highest: #dfe8f1f3;
-  --md-sys-color-on-surface: #171c21;
-  --md-sys-color-on-surface-variant: #5d6873;
-  --md-sys-color-outline: #7a858f;
-  --md-sys-color-outline-variant: #c7d0da;
-}
-
-html.dark {
-  --md-sys-color-primary: #9fcdf7;
-  --md-sys-color-on-primary: #003353;
-  --md-sys-color-primary-container: #174d73;
-  --md-sys-color-on-primary-container: #d0e9ff;
-  --md-sys-color-secondary: #dec2b7;
-  --md-sys-color-on-secondary: #3f2c25;
-  --md-sys-color-secondary-container: #574139;
-  --md-sys-color-on-secondary-container: #f9ded3;
-  --md-sys-color-tertiary: #ffb3b4;
-  --md-sys-color-tertiary-container: #723638;
-  --md-sys-color-on-tertiary-container: #ffdad9;
-  --md-sys-color-surface: #101418;
-  --md-sys-color-surface-container-lowest: #0b0f13f3;
-  --md-sys-color-surface-container-low: #171c21f3;
-  --md-sys-color-surface-container: #1b2228f3;
-  --md-sys-color-surface-container-high: #252d34f3;
-  --md-sys-color-surface-container-highest: #303942f3;
-  --md-sys-color-on-surface: #e8eef4;
-  --md-sys-color-on-surface-variant: #bec8d2;
-  --md-sys-color-outline: #909ba5;
-  --md-sys-color-outline-variant: #414b55;
-}
-
 // Numeric keep-set: radius (px), type sizes, elevation/shadow, icon sizes.
 // Layout/spacing chrome (landing pads, dense gaps, cover insets, …) may stay bare px at call sites.
 // Non-numeric roles: MD colors, motion, layers, font families, brand accents.
@@ -104,8 +54,8 @@ html.dark {
   --lgc-motion-medium: 260ms;
   --lgc-motion-lang-flip: 520ms;
   --lgc-easing-standard: cubic-bezier(0.2, 0, 0, 1);
-  --lgc-state-hover-opacity: 0.08;
-  --lgc-state-pressed-opacity: 0.12;
+  --lgc-state-hover-opacity: 45%;
+  --lgc-state-pressed-opacity: 70%;
   --lgc-control-press-scale: 0.95;
   --lgc-card-press-scale: 0.985;
 
@@ -179,14 +129,6 @@ html.dark {
   --lgc-focus-ring: 3px;
   --lgc-hairline: 1px;
 
-  // --- Brand accents (dock cookie / ribbon; colors, not layout chrome) ---
-  --lgc-color-cookie: #f4c892;
-  --lgc-color-cookie-on: #2b1a10;
-  --lgc-color-cookie-hover: #ffd8a9;
-  --lgc-color-ribbon: #ffc2d8;
-  --lgc-color-ribbon-on: #3a0717;
-  --lgc-color-ribbon-hover: #ffd8e4;
-
   // --- Measure ---
   --lgc-container-reading: 900px;
   --lgc-container-wide: 1180px;
@@ -215,10 +157,10 @@ html.dark {
   // --- Surface effects ---
   --lgc-surface-blur: 8px;
   --lgc-header-blur: 12px;
-  --lgc-elevate-blur: 2px;
+  --lgc-elevate-blur: 3px;
   --lgc-surface-mask-bg: color-mix(
     in srgb,
-    var(--md-sys-color-surface) 20%,
+    var(--md-sys-color-surface) 10%,
     transparent
   );
 }

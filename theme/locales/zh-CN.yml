@@ -14,7 +14,7 @@ search:
 fixed_bg:
   title: 背景图片
   empty_description: 暂无详情
-  refresh: 刷新背景
+  refresh: 更换背景
   loading: 背景正在加载
 
 post:

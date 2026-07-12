@@ -21,6 +21,9 @@ catalogs:
     '@iconify-json/ri':
       specifier: ^1.2.10
       version: 1.2.10
+    '@poupe/material-color-utilities':
+      specifier: 0.4.1
+      version: 0.4.1
     '@trivago/prettier-plugin-sort-imports':
       specifier: ^6.0.2
       version: 6.0.2
@@ -223,6 +226,9 @@ importers:
       '@iconify-json/material-symbols':
         specifier: 'catalog:'
         version: 1.2.83
+      '@poupe/material-color-utilities':
+        specifier: 'catalog:'
+        version: 0.4.1
       '@vueuse/core':
         specifier: 'catalog:'
         version: 14.3.0(vue@3.5.39(typescript@6.0.3))
@@ -1453,6 +1459,9 @@ packages:
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
+
+  '@poupe/material-color-utilities@0.4.1':
+    resolution: {integrity: sha512-TnQz/Wg3Iz3H5xs3PQNDYau7aMRk0f7sz58eTwll0vrWxhz2l9Gks6sLELlX8LQ2i3FW9Bs9pFb0uGyDEM/19A==}
 
   '@protobufjs/aspromise@1.1.2':
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
@@ -6278,6 +6287,8 @@ snapshots:
   '@pkgr/core@0.3.6': {}
 
   '@polka/url@1.0.0-next.29': {}
+
+  '@poupe/material-color-utilities@0.4.1': {}
 
   '@protobufjs/aspromise@1.1.2': {}
 

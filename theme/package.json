@@ -19,6 +19,7 @@
   "dependencies": {
     "@iconify-json/ic": "catalog:",
     "@iconify-json/material-symbols": "catalog:",
+    "@poupe/material-color-utilities": "catalog:",
     "@vueuse/core": "catalog:",
     "vite-plugin-font": "catalog:",
     "vue-i18n": "catalog:",
