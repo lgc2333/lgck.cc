@@ -37,60 +37,37 @@ const strokeOffset = computed(() => {
 </script>
 
 <template>
-  <div
-    class="lgc-back-to-top-host hidden md:block"
-    fixed
-    z="$lgc-layer-floating"
-    right="$lgc-space-3xl"
-    bottom="$lgc-space-3xl"
-  >
-    <Transition name="lgc-back-to-top-fade">
-      <button
-        v-if="show"
-        class="lgc-icon-button-base lgc-icon-button-hover"
-        relative
+  <Transition name="lgc-back-to-top-fade">
+    <LgcFloatingActionButton
+      v-if="show"
+      :label="t('sidebar.return_top')"
+      @click="backToTop"
+    >
+      <span i-material-symbols-keyboard-arrow-up-rounded aria-hidden="true" />
+      <svg
+        w="full"
+        h="full"
+        pointer-events-none
+        inset-0
+        absolute
         overflow-visible
-        w="$lgc-back-to-top-size"
-        h="$lgc-back-to-top-size"
-        rounded="$lgc-radius-control-active"
-        text="$md-sys-color-primary size-$lgc-icon-size"
-        bg="$md-sys-color-surface-container-high hover:$md-sys-color-surface-container-highest active:$md-sys-color-surface-container-highest"
-        shadow="$lgc-elevation-shadow-level-2 hover:$lgc-elevation-shadow-level-3"
-        transition="[background-color,border-radius,box-shadow,color,transform]"
-        duration="$lgc-motion-short"
-        ease="$lgc-easing-standard"
-        hover="text-$md-sys-color-primary rounded-$lgc-radius-control-active"
-        focus-visible="rounded-$lgc-radius-control-active text-$md-sys-color-primary bg-$md-sys-color-surface-container-highest shadow-$lgc-elevation-shadow-level-3"
-        type="button"
-        :aria-label="t('sidebar.return_top')"
-        @click="backToTop"
+        viewBox="0 0 56 56"
+        aria-hidden="true"
       >
-        <span i-material-symbols-keyboard-arrow-up-rounded aria-hidden="true" />
-        <svg
-          w="full"
-          h="full"
-          pointer-events-none
-          inset-0
-          absolute
-          overflow-visible
-          viewBox="0 0 56 56"
-          aria-hidden="true"
-        >
-          <path
-            class="transition-[stroke-dashoffset] duration-$lgc-motion-short ease-$lgc-easing-standard"
-            stroke-current
-            :d="progressPath"
-            fill="none"
-            pathLength="1"
-            :stroke-width="progressStrokeWidth"
-            stroke-dasharray="1"
-            :stroke-dashoffset="strokeOffset"
-            stroke-linecap="round"
-          />
-        </svg>
-      </button>
-    </Transition>
-  </div>
+        <path
+          class="transition-[stroke-dashoffset] duration-$lgc-motion-short ease-$lgc-easing-standard"
+          stroke-current
+          :d="progressPath"
+          fill="none"
+          pathLength="1"
+          :stroke-width="progressStrokeWidth"
+          stroke-dasharray="1"
+          :stroke-dashoffset="strokeOffset"
+          stroke-linecap="round"
+        />
+      </svg>
+    </LgcFloatingActionButton>
+  </Transition>
 </template>
 
 <style scoped lang="scss">

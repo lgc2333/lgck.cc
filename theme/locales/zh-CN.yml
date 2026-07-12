@@ -11,6 +11,12 @@ post_feed:
 search:
   view_all: 查看全部搜索结果
 
+fixed_bg:
+  title: 背景图片
+  empty_description: 暂无详情
+  refresh: 刷新背景
+  loading: 背景正在加载
+
 post:
   previous: 上一篇
   next: 下一篇

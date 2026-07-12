@@ -126,6 +126,7 @@ export interface LandingConfig {
 export interface FixedBgImageMeta {
   url: string
   title?: string
+  author?: string
   description?: string
   sourceUrl?: string
 }

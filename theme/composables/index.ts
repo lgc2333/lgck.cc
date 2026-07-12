@@ -1,4 +1,5 @@
 export * from './config'
+export * from './fixedBg'
 export * from './header'
 export * from './language'
 export * from './search'

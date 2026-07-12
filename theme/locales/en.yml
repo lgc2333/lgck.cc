@@ -11,6 +11,12 @@ post_feed:
 search:
   view_all: View all search results
 
+fixed_bg:
+  title: Background image
+  empty_description: No details yet
+  refresh: Refresh background
+  loading: Background loading
+
 post:
   previous: Previous
   next: Next

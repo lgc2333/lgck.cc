@@ -1,161 +1,25 @@
-<script lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+<script setup lang="ts">
+import { onBeforeUnmount, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { useThemeConfig } from '../composables'
-import type { FixedBgImageMeta } from '../types'
+import { useFixedBg } from '../composables'
 
-const SWITCH_DEBOUNCE = 120
-
-// Module-scope state survives Valaxy route component remounts, so a single
-// configured background image does not fade out to the fallback on navigation.
-const visibleImage = ref<FixedBgImageMeta>()
-const activeLayer = ref(0)
-const imageLayers = ref<(FixedBgImageMeta | undefined)[]>([undefined, undefined])
-
-let debounceTimer: number | undefined
-let requestId = 0
-let isSwitching = false
-let pendingSwitch = false
-let sequentialIndex = -1
-let randomQueue: number[] = []
-let lastListKey = ''
-</script>
-
-<script setup lang="ts">
 const route = useRoute()
-const themeConfig = useThemeConfig()
-const hasVisibleImage = computed(() => !!visibleImage.value)
-
-function escapeCssUrl(url: string) {
-  return url.replaceAll('\\', '\\\\').replaceAll('"', '\\"')
-}
-
-function isFixedBgImageMeta(value: unknown): value is FixedBgImageMeta {
-  return (
-    !!value &&
-    typeof value === 'object' &&
-    typeof (value as FixedBgImageMeta).url === 'string'
-  )
-}
-
-function getListKey(list: FixedBgImageMeta[]) {
-  return list.map((item) => item.url).join('\u0000')
-}
-
-function resetListStateIfNeeded(list: FixedBgImageMeta[]) {
-  const listKey = getListKey(list)
-  if (listKey === lastListKey) return
-
-  lastListKey = listKey
-  sequentialIndex = -1
-  randomQueue = []
-}
-
-function createRandomQueue(length: number) {
-  const queue = Array.from({ length }, (_, index) => index)
-
-  for (let i = queue.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[queue[i], queue[j]] = [queue[j], queue[i]]
-  }
-
-  return queue
-}
-
-function pickFromList(list: FixedBgImageMeta[]) {
-  resetListStateIfNeeded(list)
-
-  if (themeConfig.value.fixedBg?.switchMode === 'random') {
-    if (!randomQueue.length) randomQueue = createRandomQueue(list.length)
-    const index = randomQueue.shift()
-    return typeof index === 'number' ? list[index] : undefined
-  }
-
-  sequentialIndex = (sequentialIndex + 1) % list.length
-  return list[sequentialIndex]
-}
-
-async function resolveNextImage() {
-  const source = themeConfig.value.fixedBg?.image
-
-  if (typeof source === 'function') return source()
-  if (Array.isArray(source)) return source.length ? pickFromList(source) : undefined
-  if (isFixedBgImageMeta(source)) return source
-}
-
-function preloadImage(meta: FixedBgImageMeta) {
-  return new Promise<FixedBgImageMeta>((resolve, reject) => {
-    const image = new Image()
-
-    image.onload = () => resolve(meta)
-    image.onerror = () =>
-      reject(new Error(`Failed to load fixed background image: ${meta.url}`))
-    image.decoding = 'async'
-    image.src = meta.url
-  })
-}
-
-function getImageBackgroundStyle(image?: FixedBgImageMeta) {
-  return image ? { backgroundImage: `url("${escapeCssUrl(image.url)}")` } : undefined
-}
-
-function showImage(meta: FixedBgImageMeta) {
-  const nextLayer = activeLayer.value === 0 ? 1 : 0
-
-  imageLayers.value[nextLayer] = meta
-  activeLayer.value = nextLayer
-  visibleImage.value = meta
-}
-
-async function runSwitch() {
-  if (isSwitching) {
-    pendingSwitch = true
-    return
-  }
-
-  isSwitching = true
-  const currentRequestId = ++requestId
-
-  try {
-    const nextImage = await resolveNextImage()
-    if (currentRequestId !== requestId || !isFixedBgImageMeta(nextImage)) return
-    if (nextImage.url === visibleImage.value?.url) return
-
-    const loadedImage = await preloadImage(nextImage)
-    if (currentRequestId !== requestId) return
-
-    showImage(loadedImage)
-  } catch {
-    // Keep the current image or fallback atmosphere when provider/preload fails.
-  } finally {
-    isSwitching = false
-
-    if (pendingSwitch) {
-      pendingSwitch = false
-      void runSwitch()
-    }
-  }
-}
-
-function scheduleSwitch() {
-  if (isSwitching) requestId++
-
-  if (debounceTimer) window.clearTimeout(debounceTimer)
-
-  debounceTimer = window.setTimeout(() => {
-    debounceTimer = undefined
-    void runSwitch()
-  }, SWITCH_DEBOUNCE)
-}
+const {
+  activeLayer,
+  cancelScheduledSwitch,
+  getImageBackgroundStyle,
+  hasVisibleImage,
+  imageLayers,
+  scheduleSwitch,
+} = useFixedBg()
 
 onMounted(() => {
   scheduleSwitch()
 })
 
 onBeforeUnmount(() => {
-  requestId++
-  if (debounceTimer) window.clearTimeout(debounceTimer)
+  cancelScheduledSwitch()
 })
 
 watch(

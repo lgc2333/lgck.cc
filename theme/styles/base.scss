@@ -214,6 +214,8 @@ html.dark {
 
   // --- Surface effects ---
   --lgc-surface-blur: 8px;
+  --lgc-header-blur: 12px;
+  --lgc-elevate-blur: 2px;
   --lgc-surface-mask-bg: color-mix(
     in srgb,
     var(--md-sys-color-surface) 20%,

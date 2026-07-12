@@ -1,0 +1,194 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+
+const props = defineProps<{
+  href?: string
+  interactiveDetail?: boolean
+  label: string
+}>()
+
+const emit = defineEmits<{
+  click: [event: MouseEvent]
+}>()
+
+const linkRel = computed(() => (props.href ? 'noopener' : undefined))
+</script>
+
+<template>
+  <span
+    v-if="interactiveDetail"
+    class="lgc-floating-action-button"
+    :class="{
+      'has-detail': $slots.detail,
+      'has-interactive-detail': interactiveDetail,
+    }"
+  >
+    <span v-if="$slots.detail" class="lgc-floating-action-detail">
+      <span class="lgc-floating-action-detail-inner">
+        <slot name="detail" />
+      </span>
+    </span>
+    <a
+      v-if="href"
+      class="lgc-floating-action-icon lgc-floating-action-icon-control"
+      :href="href"
+      target="_blank"
+      :rel="linkRel"
+      :aria-label="label"
+      :title="label"
+      @click="emit('click', $event)"
+    >
+      <slot />
+    </a>
+    <button
+      v-else
+      class="lgc-floating-action-icon lgc-floating-action-icon-control"
+      type="button"
+      :aria-label="label"
+      :title="label"
+      @click="emit('click', $event)"
+    >
+      <slot />
+    </button>
+  </span>
+
+  <a
+    v-else-if="href"
+    class="lgc-floating-action-button"
+    :class="{ 'has-detail': $slots.detail }"
+    :href="href"
+    target="_blank"
+    :rel="linkRel"
+    :aria-label="label"
+    :title="label"
+    @click="emit('click', $event)"
+  >
+    <span v-if="$slots.detail" class="lgc-floating-action-detail">
+      <span class="lgc-floating-action-detail-inner">
+        <slot name="detail" />
+      </span>
+    </span>
+    <span class="lgc-floating-action-icon">
+      <slot />
+    </span>
+  </a>
+
+  <button
+    v-else
+    class="lgc-floating-action-button"
+    :class="{ 'has-detail': $slots.detail }"
+    type="button"
+    :aria-label="label"
+    :title="label"
+    @click="emit('click', $event)"
+  >
+    <span v-if="$slots.detail" class="lgc-floating-action-detail">
+      <span class="lgc-floating-action-detail-inner">
+        <slot name="detail" />
+      </span>
+    </span>
+    <span class="lgc-floating-action-icon">
+      <slot />
+    </span>
+  </button>
+</template>
+
+<style scoped lang="scss">
+.lgc-floating-action-button {
+  --lgc-floating-action-detail-max: 248px;
+  --lgc-floating-action-detail-block-max: 12rem;
+  --lgc-floating-action-open-max: calc(
+    var(--lgc-floating-action-detail-max) + var(--lgc-back-to-top-size)
+  );
+  --lgc-floating-action-motion-duration: var(--lgc-motion-medium);
+
+  max-inline-size: var(--lgc-back-to-top-size);
+  @apply 'inline-flex min-h-$lgc-back-to-top-size items-center justify-end overflow-hidden';
+  @apply 'gap-0 border-0 p-0 no-underline appearance-none cursor-pointer';
+  @apply 'rounded-$lgc-radius-control-active text-$md-sys-color-primary bg-$md-sys-color-surface-container-high backdrop-blur-$lgc-elevate-blur';
+  @apply 'shadow-$lgc-elevation-shadow-level-2';
+  transition-property:
+    background-color, border-radius, box-shadow, color, max-inline-size, transform;
+  transition-duration:
+    var(--lgc-motion-short), var(--lgc-motion-short), var(--lgc-motion-short),
+    var(--lgc-motion-short), var(--lgc-floating-action-motion-duration),
+    var(--lgc-motion-short);
+  @apply 'ease-$lgc-easing-standard';
+}
+
+.lgc-floating-action-button:hover,
+.lgc-floating-action-button:focus-visible,
+.lgc-floating-action-button:focus-within {
+  max-inline-size: var(--lgc-floating-action-open-max);
+  @apply 'rounded-$lgc-radius-control-active bg-$md-sys-color-surface-container-highest';
+  @apply 'text-$md-sys-color-primary shadow-$lgc-elevation-shadow-level-3';
+}
+
+.lgc-floating-action-button.has-detail {
+  @apply 'items-end';
+}
+
+.lgc-floating-action-button:active {
+  @apply 'scale-$lgc-control-press-scale';
+}
+
+.lgc-floating-action-button.has-interactive-detail {
+  @apply 'cursor-default';
+}
+
+.lgc-floating-action-button.has-interactive-detail:active {
+  @apply 'scale-100';
+}
+
+.lgc-floating-action-icon {
+  @apply 'relative grid h-$lgc-back-to-top-size w-$lgc-back-to-top-size flex-none place-items-center';
+  @apply 'text-size-$lgc-icon-size';
+}
+
+.lgc-floating-action-icon-control {
+  @apply 'border-0 p-0 text-current no-underline bg-transparent appearance-none cursor-pointer';
+}
+
+.lgc-floating-action-detail {
+  --lgc-floating-action-edge-feather: var(--lgc-space-md);
+
+  max-block-size: 0;
+  max-inline-size: 0;
+  @apply 'block overflow-hidden opacity-0';
+  transition-property: max-inline-size, max-block-size, opacity;
+  transition-duration:
+    var(--lgc-floating-action-motion-duration),
+    var(--lgc-floating-action-motion-duration),
+    var(--lgc-floating-action-motion-duration);
+  @apply 'ease-$lgc-easing-standard';
+
+  // Residual: alpha mask feather softens the animated clipping edge.
+  mask-image: linear-gradient(
+    to right,
+    black 0,
+    black calc(100% - var(--lgc-floating-action-edge-feather)),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    black 0,
+    black calc(100% - var(--lgc-floating-action-edge-feather)),
+    transparent 100%
+  );
+}
+
+.lgc-floating-action-detail-inner {
+  box-sizing: border-box;
+  inline-size: var(--lgc-floating-action-detail-max);
+  @apply 'block py-$lgc-space-sm pl-$lgc-space-md pr-$lgc-space-sm';
+  @apply 'text-left text-size-$lgc-body-small leading-snug text-$md-sys-color-on-surface';
+}
+
+.lgc-floating-action-button:hover .lgc-floating-action-detail,
+.lgc-floating-action-button:focus-visible .lgc-floating-action-detail,
+.lgc-floating-action-button:focus-within .lgc-floating-action-detail {
+  max-block-size: var(--lgc-floating-action-detail-block-max);
+  max-inline-size: var(--lgc-floating-action-detail-max);
+  @apply 'opacity-100';
+}
+</style>

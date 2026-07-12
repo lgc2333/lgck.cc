@@ -6,6 +6,7 @@ import { useRoute } from 'vue-router'
 
 import {
   resolveHeaderNavItemState,
+  useFixedBg,
   useHeaderNavItemState,
   useLanguageFlip,
   useThemeConfig,
@@ -32,8 +33,23 @@ const themeConfig = useThemeConfig()
 const { t, locale } = useI18n()
 const { toggleLocales } = useLocale()
 const { flipLanguageIcon, languageFlipping, stopLanguageFlip } = useLanguageFlip()
+const { canSwitchImage, isSwitching, switchNow, visibleImage } = useFixedBg()
 const showI18n = computed(() => themeConfig.value.header?.i18n !== false)
 const languageName = computed(() => formatLocaleName(locale.value))
+const fixedBgActionHref = computed(() => {
+  const image = visibleImage.value
+  return image?.sourceUrl || image?.url || ''
+})
+const fixedBgActionLabel = computed(
+  () => visibleImage.value?.title || t('fixed_bg.title'),
+)
+const fixedBgActionAuthor = computed(() => visibleImage.value?.author)
+const fixedBgActionDescription = computed(
+  () => visibleImage.value?.description || t('fixed_bg.empty_description'),
+)
+const fixedBgSwitchLabel = computed(() =>
+  isSwitching.value ? t('fixed_bg.loading') : t('fixed_bg.refresh'),
+)
 const homeLinkState = useHeaderNavItemState({
   activeMatch: 'exact',
   activePathRewrites: toRef(props, 'activePathRewrites'),
@@ -65,6 +81,12 @@ function getDrawerIcon(item: HeaderNavLink) {
 function toggleLanguage() {
   flipLanguageIcon()
   toggleLocales()
+}
+
+function refreshFixedBg() {
+  if (isSwitching.value) return
+
+  void switchNow()
 }
 
 function linkLabel(item: HeaderNavLink) {
@@ -180,6 +202,71 @@ function linkLabel(item: HeaderNavLink) {
           grid
           :aria-label="t('accessibility.nav_settings')"
         >
+          <a
+            v-if="visibleImage && fixedBgActionHref"
+            class="lgc-drawer-link lgc-drawer-bg-link"
+            :href="fixedBgActionHref"
+            target="_blank"
+            rel="noopener"
+            :aria-label="fixedBgActionLabel"
+            @click="emit('close')"
+          >
+            <span
+              class="lgc-drawer-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
+              i-material-symbols-imagesmode-outline-rounded
+              aria-hidden="true"
+            />
+            <span class="lgc-drawer-bg-text" min-w="0">
+              <span
+                class="lgc-drawer-bg-title"
+                font="900"
+                text="$md-sys-color-on-surface"
+                leading-snug
+                block
+              >
+                {{ fixedBgActionLabel }}
+              </span>
+              <span
+                v-if="fixedBgActionAuthor"
+                class="lgc-drawer-bg-author"
+                mt="0.5"
+                font="400"
+                text="$md-sys-color-on-surface-variant size-$lgc-body-small"
+                leading-snug
+                block
+              >
+                {{ fixedBgActionAuthor }}
+              </span>
+              <span
+                class="lgc-drawer-bg-description"
+                mt="0.5"
+                font="400"
+                text="$md-sys-color-on-surface-variant size-$lgc-body-small"
+                leading-snug
+                block
+              >
+                {{ fixedBgActionDescription }}
+              </span>
+            </span>
+          </a>
+
+          <button
+            v-if="canSwitchImage"
+            class="lgc-drawer-link font-inherit appearance-none bg-transparent cursor-pointer"
+            type="button"
+            :disabled="isSwitching"
+            :aria-label="fixedBgSwitchLabel"
+            @click="refreshFixedBg"
+          >
+            <span
+              class="lgc-drawer-icon lgc-drawer-refresh-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
+              :class="{ 'is-loading': isSwitching }"
+              i-material-symbols-refresh-rounded
+              aria-hidden="true"
+            />
+            <span>{{ fixedBgSwitchLabel }}</span>
+          </button>
+
           <button
             v-if="showI18n"
             class="lgc-drawer-link font-inherit appearance-none bg-transparent cursor-pointer"
@@ -241,7 +328,7 @@ function linkLabel(item: HeaderNavLink) {
     calc(100vw - var(--lgc-control-size))
   );
   width: var(--drawer-panel-width);
-  backdrop-filter: blur(var(--lgc-surface-blur));
+  backdrop-filter: blur(var(--lgc-elevate-blur));
   border-radius: 0 var(--lgc-radius-large) var(--lgc-radius-large) 0;
 }
 
@@ -269,6 +356,39 @@ function linkLabel(item: HeaderNavLink) {
     transparent
   );
   @apply 'scale-$lgc-control-press-scale';
+}
+
+.lgc-drawer-link:disabled,
+.lgc-drawer-link:disabled:hover,
+.lgc-drawer-link:disabled:focus-visible {
+  transform: none;
+  @apply 'text-$md-sys-color-on-surface-variant opacity-70 cursor-wait';
+  @apply 'rounded-$lgc-radius-control bg-transparent';
+}
+
+.lgc-drawer-bg-link {
+  @apply 'items-center py-$lgc-space-md';
+}
+
+.lgc-drawer-bg-link .lgc-drawer-icon {
+  @apply 'self-center';
+}
+
+.lgc-drawer-bg-title,
+.lgc-drawer-bg-author,
+.lgc-drawer-bg-description {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.lgc-drawer-refresh-icon.is-loading {
+  animation: lgc-drawer-refresh-spin 900ms linear infinite;
+}
+
+@keyframes lgc-drawer-refresh-spin {
+  to {
+    transform: rotate(1turn);
+  }
 }
 
 .lgc-drawer-link.router-link-exact-active,

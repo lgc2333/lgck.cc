@@ -61,7 +61,7 @@ main {
   /* Floating chrome (reaction picker, etc.) */
   --lgc-giscus-popover-radius: var(--lgc-giscus-compact-radius);
   --lgc-giscus-popover-pad: 0.4rem;
-  --lgc-giscus-popover-blur: var(--lgc-surface-blur, 8px);
+  --lgc-giscus-popover-blur: var(--lgc-elevate-blur, 8px);
   --lgc-giscus-popover-bg: var(--md-sys-color-surface-container-high);
   --lgc-giscus-popover-shadow: var(
     --lgc-elevation-shadow-level-2,

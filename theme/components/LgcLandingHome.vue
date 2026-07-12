@@ -147,6 +147,8 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 
       <LgcFooter class="mt-auto" />
     </div>
+
+    <LgcFloatingActions />
   </main>
 </template>
 

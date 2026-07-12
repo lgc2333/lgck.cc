@@ -22,6 +22,6 @@
       </LgcFooter>
     </div>
 
-    <LgcBackToTop />
+    <LgcFloatingActions />
   </div>
 </template>

@@ -154,7 +154,7 @@ function closeDrawer() {
 // Nav links hide below md: cascade into child LgcHeaderLink (parent scoped cannot
 // put utilities on another component's root without a class target).
 .lgc-header-shell.is-scrolled .lgc-header {
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(var(--lgc-header-blur));
   background: color-mix(
     in srgb,
     var(--md-sys-color-primary-container) 40%,

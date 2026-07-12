@@ -37,6 +37,7 @@ const baseIconSafelist = [
   'i-material-symbols-tag-rounded',
   'i-material-symbols-dashboard-outline-rounded',
   'i-material-symbols-imagesmode-outline-rounded',
+  'i-material-symbols-refresh-rounded',
   'i-material-symbols-link-rounded',
   'i-material-symbols-keyboard-return-rounded',
   'i-material-symbols-travel-explore-rounded',
