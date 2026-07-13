@@ -12,8 +12,6 @@ import {
 } from 'vue'
 
 const PAGE_OFFSET = 130
-const DEFAULT_MARKER_TOP_OFFSET = 33
-
 interface ActiveOutlineOptions {
   containerRef?: Ref<HTMLElement | undefined>
   enabled?: MaybeRefOrGetter<boolean | undefined>
@@ -103,11 +101,13 @@ export function useActiveOutline(
     const marker = options.markerRef?.value
     if (!marker) return
 
-    const markerTopOffset =
-      toValue(options.markerTopOffset) ?? DEFAULT_MARKER_TOP_OFFSET
+    const markerTopOffset = toValue(options.markerTopOffset) ?? 0
 
     if (activeAnchor) {
-      marker.style.top = `${activeAnchor.offsetTop + markerTopOffset}px`
+      const centeredOffset = Math.round(
+        (activeAnchor.offsetHeight - marker.offsetHeight) / 2,
+      )
+      marker.style.top = `${activeAnchor.offsetTop + markerTopOffset + centeredOffset}px`
       marker.style.opacity = '1'
     } else {
       marker.style.top = `${markerTopOffset}px`

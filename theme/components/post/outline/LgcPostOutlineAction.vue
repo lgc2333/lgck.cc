@@ -133,7 +133,13 @@ function onDrawerNavigate(event: MouseEvent) {
               </button>
             </div>
 
-            <div min-h="0" overflow-y-auto>
+            <div
+              class="lgc-post-outline-scroll"
+              min-h="0"
+              min-w="0"
+              overflow-x-hidden
+              overflow-y-auto
+            >
               <LgcPostOutline
                 :headers="headers"
                 :on-click="onDrawerNavigate"

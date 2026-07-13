@@ -19,6 +19,7 @@ const emit = defineEmits<{
 
 const { locale } = useI18n()
 
+// inherit lang from parent element if not specified on the header itself
 function resolveHeaderLang(lang: string | undefined, element?: Element) {
   if (lang) return lang
 
@@ -43,7 +44,9 @@ function onLinkClick(event: MouseEvent) {
       :lang="resolveHeaderLang(lang, element) || locale"
     >
       <a class="lgc-post-outline-link" :href="link" @click="onLinkClick">
-        {{ title }}
+        <span min-w="0" block whitespace-nowrap text-ellipsis overflow-hidden>
+          {{ title }}
+        </span>
       </a>
       <LgcPostOutlineItem
         v-if="children?.length"
@@ -58,7 +61,7 @@ function onLinkClick(event: MouseEvent) {
 <style scoped lang="scss">
 // Residual: recursive list/link state belongs to the tree, not each call site.
 .lgc-post-outline-list {
-  @apply 'm-0 list-none p-0';
+  @apply 'm-0 min-w-0 max-w-full list-none overflow-x-hidden p-0';
 }
 
 .lgc-post-outline-list.is-nested {
@@ -66,10 +69,10 @@ function onLinkClick(event: MouseEvent) {
 }
 
 .lgc-post-outline-link {
-  @apply 'block min-w-0 overflow-hidden text-ellipsis whitespace-nowrap';
-  @apply 'rounded-$lgc-radius-sm px-$lgc-space-sm py-[6px] no-underline';
+  @apply 'block h-[32px] min-w-0 max-w-full overflow-hidden';
+  @apply 'rounded-$lgc-radius-sm px-$lgc-space-sm no-underline';
   @apply 'text-$md-sys-color-on-surface-variant text-size-$lgc-label-medium';
-  @apply 'font-800 leading-snug';
+  @apply 'font-800 leading-[32px]';
   @apply 'transition-[background-color,color]';
   @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
 }

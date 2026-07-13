@@ -1,0 +1,31 @@
+// Residual: browser scrollbar pseudo-elements and scroll fades are selector-only.
+.lgc-post-outline-scroll {
+  scrollbar-color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-surface-variant) 34%,
+      transparent
+    )
+    transparent;
+  scrollbar-width: thin;
+  overscroll-behavior: contain;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: var(--lgc-radius-full);
+    background: color-mix(
+        in srgb,
+        var(--md-sys-color-on-surface-variant) 34%,
+        transparent
+      )
+      padding-box;
+  }
+}

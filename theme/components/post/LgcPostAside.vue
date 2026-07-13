@@ -21,13 +21,21 @@ const showAside = computed(() => {
     sticky
     top="$post-aside-top"
     max-h="$post-aside-max-height"
-    overflow-y-auto
+    overflow-hidden
     p="$lgc-space-lg"
     rounded="$lgc-radius-large"
     bg="$md-sys-color-surface-container"
     text="$md-sys-color-on-surface"
   >
-    <LgcPostOutline :headers="headers" :on-click="handleClick" track-active />
+    <div
+      class="lgc-post-outline-scroll"
+      max-h="$post-aside-content-max-height"
+      min-w="0"
+      overflow-x-hidden
+      overflow-y-auto
+    >
+      <LgcPostOutline :headers="headers" :on-click="handleClick" track-active />
+    </div>
   </aside>
 </template>
 
@@ -36,5 +44,8 @@ const showAside = computed(() => {
 .lgc-post-aside {
   --post-aside-top: calc(var(--lgc-header-height) + var(--lgc-space-lg));
   --post-aside-max-height: calc(100vh - var(--post-aside-top) - var(--lgc-space-lg));
+  --post-aside-content-max-height: calc(
+    var(--post-aside-max-height) - var(--lgc-space-lg) - var(--lgc-space-lg)
+  );
 }
 </style>

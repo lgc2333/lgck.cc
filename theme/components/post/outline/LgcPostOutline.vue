@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MenuItem } from 'valaxy'
 import type { Ref } from 'vue'
-import { computed, ref, toRef } from 'vue'
+import { ref, toRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useActiveOutline } from '../../../composables'
@@ -28,13 +28,11 @@ const emit = defineEmits<{
 const { t } = useI18n()
 const containerRef = ref<HTMLElement>() as Ref<HTMLElement>
 const markerRef = ref<HTMLElement>() as Ref<HTMLElement>
-const markerTopOffset = computed(() => (props.showTitle ? 33 : 5))
 
 useActiveOutline(toRef(props, 'headers'), {
   containerRef,
   enabled: toRef(props, 'trackActive'),
   markerRef,
-  markerTopOffset,
 })
 </script>
 
@@ -65,14 +63,16 @@ useActiveOutline(toRef(props, 'headers'), {
       aria-hidden="true"
     />
 
-    <nav :aria-label="title || t('accessibility.post_outline')">
+    <nav
+      :aria-label="title || t('accessibility.post_outline')"
+      min-w="0"
+      overflow-x-hidden
+    >
       <LgcPostOutlineItem
         class="css-i18n-toc"
         :headers="headers"
         :on-click="onClick"
         root
-        relative
-        z="1"
         @navigate="emit('navigate', $event)"
       />
     </nav>

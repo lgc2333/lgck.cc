@@ -101,6 +101,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/posts/long-toc': RouteRecordInfo<
+      '/posts/long-toc',
+      '/posts/long-toc',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/posts/markdown': RouteRecordInfo<
       '/posts/markdown',
       '/posts/markdown',
@@ -280,6 +287,14 @@ declare module 'vue-router/auto-routes' {
     'pages/posts/i18n.md': {
       routes:
         | '/posts/i18n'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/long-toc.md': {
+      routes:
+        | '/posts/long-toc'
       views:
         | never
       pathParamNames:
