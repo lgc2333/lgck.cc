@@ -17,6 +17,13 @@ siteConfig:
     wechat: WeChat Official Account
     mail: E-Mail
     travelling: Travelling
+  sponsor:
+    title: Sponsor Me
+    description: If you find this article meaningful, please consider sponsoring me.
+    payment:
+      alipay: Alipay
+      wechat: WeChat
+      qq: QQ Pay
 
 nav:
   home: Home

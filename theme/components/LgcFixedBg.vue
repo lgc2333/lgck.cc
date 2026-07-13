@@ -3,6 +3,7 @@ import { onBeforeUnmount, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { useFixedBg } from '../composables'
+import { getRouteContentKey } from '../utils/route'
 
 const route = useRoute()
 const {
@@ -23,7 +24,7 @@ onBeforeUnmount(() => {
 })
 
 watch(
-  () => route.fullPath,
+  () => getRouteContentKey(route.fullPath),
   () => {
     scheduleSwitch()
   },

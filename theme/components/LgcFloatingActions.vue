@@ -1,15 +1,18 @@
 <template>
   <div
-    class="lgc-floating-actions hidden md:flex"
+    class="lgc-floating-actions"
     z="$lgc-layer-floating"
-    right="$lgc-space-3xl"
-    bottom="$lgc-space-3xl"
+    right="$lgc-space-lg md:$lgc-space-3xl"
+    bottom="$lgc-space-lg md:$lgc-space-3xl"
     flex="~ col"
     items-end
     fixed
     gap="$lgc-space-sm"
   >
-    <LgcFixedBgAction />
+    <LgcPostOutlineAction />
+    <div class="md:flex max-md:hidden">
+      <LgcFixedBgAction />
+    </div>
     <LgcBackToTop />
   </div>
 </template>

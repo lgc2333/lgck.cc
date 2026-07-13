@@ -20,6 +20,13 @@ fixed_bg:
 post:
   previous: 上一篇
   next: 下一篇
+  sponsor: 赞助支持
+  sponsor_description: 如果你觉得这篇文章有意义，可以考虑赞助我一下。
+  sponsor_link: 前往赞助页
+  sponsor_methods: 展开赞助方式
+  sponsor_methods_close: 收起赞助方式
+  copyright: 版权协议
+  outline: 文章目录
   status_draft: 草稿
   status_pinned: '置顶: {n}'
   status_hide: '隐藏: {mode}'
@@ -40,6 +47,9 @@ accessibility:
   posts_pagination: 文章分页
   post_navigation: 文章导航
   post_metadata: 文章元信息
+  open_post_outline: 打开文章目录
+  close_post_outline: 关闭文章目录
+  post_outline: 文章目录
   prev_page: 上一页
   next_page: 下一页
   comments: 评论

@@ -16,8 +16,16 @@ const prevPost = computed(() => posts.value[currentIndex.value + 1])
     <div class="lgc-page-surface">
       <RouterView v-slot="{ Component }">
         <component :is="Component">
+          <template #main-content-after>
+            <LgcPostContentAfter />
+          </template>
+
           <template #main-nav>
             <LgcPostArticleNav :next-post="nextPost" :prev-post="prevPost" />
+          </template>
+
+          <template #aside>
+            <LgcPostAside />
           </template>
         </component>
       </RouterView>

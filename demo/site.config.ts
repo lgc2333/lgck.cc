@@ -108,4 +108,34 @@ export default defineSiteConfig({
   redirects: {
     rules: [{ from: '/page', to: '/page/1' }],
   },
+
+  sponsor: {
+    enable: true,
+    title: $t('siteConfig.sponsor.title'),
+    description: $t('siteConfig.sponsor.description'),
+    methods: [
+      {
+        name: $t('siteConfig.sponsor.payment.alipay'),
+        url: 'https://blog.lgc2333.top/assets/donate/alipay.jpg',
+        color: '#00A3EE',
+        icon: 'i-ri-alipay-line',
+      },
+      {
+        name: $t('siteConfig.sponsor.payment.wechat'),
+        url: 'https://blog.lgc2333.top/assets/donate/wechat.png',
+        color: '#2DC100',
+        icon: 'i-ri-wechat-pay-line',
+      },
+      {
+        name: $t('siteConfig.sponsor.payment.qq'),
+        url: 'https://blog.lgc2333.top/assets/donate/qq.png',
+        color: '#12B7F5',
+        icon: 'i-ri-qq-line',
+      },
+      {
+        name: 'Default Test',
+        url: 'https://blog.lgc2333.top/assets/favicon.png',
+      },
+    ],
+  },
 })

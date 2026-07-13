@@ -20,6 +20,13 @@ fixed_bg:
 post:
   previous: Previous
   next: Next
+  sponsor: Sponsor
+  sponsor_description: If this post helped, you can support the author.
+  sponsor_link: Open sponsor page
+  sponsor_methods: Show sponsor methods
+  sponsor_methods_close: Hide sponsor methods
+  copyright: License
+  outline: On this page
   status_draft: Draft
   status_pinned: 'Pinned: {n}'
   status_hide: 'Hidden: {mode}'
@@ -40,6 +47,9 @@ accessibility:
   posts_pagination: Pagination
   post_navigation: Post navigation
   post_metadata: Post metadata
+  open_post_outline: Open article outline
+  close_post_outline: Close article outline
+  post_outline: Article outline
   prev_page: Previous page
   next_page: Next page
   comments: Comments

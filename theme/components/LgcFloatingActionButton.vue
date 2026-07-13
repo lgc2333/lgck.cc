@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+type ButtonClass = string | string[] | Record<string, boolean>
+
 const props = defineProps<{
+  ariaControls?: string
+  ariaExpanded?: boolean
+  buttonClass?: ButtonClass
   href?: string
   interactiveDetail?: boolean
   label: string
@@ -18,10 +23,13 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
   <span
     v-if="interactiveDetail"
     class="lgc-floating-action-button"
-    :class="{
-      'has-detail': $slots.detail,
-      'has-interactive-detail': interactiveDetail,
-    }"
+    :class="[
+      {
+        'has-detail': $slots.detail,
+        'has-interactive-detail': interactiveDetail,
+      },
+      buttonClass,
+    ]"
   >
     <span v-if="$slots.detail" class="lgc-floating-action-detail">
       <span class="lgc-floating-action-detail-inner">
@@ -34,6 +42,8 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
       :href="href"
       target="_blank"
       :rel="linkRel"
+      :aria-controls="ariaControls"
+      :aria-expanded="ariaExpanded"
       :aria-label="label"
       :title="label"
       @click="emit('click', $event)"
@@ -44,6 +54,8 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
       v-else
       class="lgc-floating-action-icon lgc-floating-action-icon-control"
       type="button"
+      :aria-controls="ariaControls"
+      :aria-expanded="ariaExpanded"
       :aria-label="label"
       :title="label"
       @click="emit('click', $event)"
@@ -55,10 +67,12 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
   <a
     v-else-if="href"
     class="lgc-floating-action-button"
-    :class="{ 'has-detail': $slots.detail }"
+    :class="[{ 'has-detail': $slots.detail }, buttonClass]"
     :href="href"
     target="_blank"
     :rel="linkRel"
+    :aria-controls="ariaControls"
+    :aria-expanded="ariaExpanded"
     :aria-label="label"
     :title="label"
     @click="emit('click', $event)"
@@ -76,8 +90,10 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
   <button
     v-else
     class="lgc-floating-action-button"
-    :class="{ 'has-detail': $slots.detail }"
+    :class="[{ 'has-detail': $slots.detail }, buttonClass]"
     type="button"
+    :aria-controls="ariaControls"
+    :aria-expanded="ariaExpanded"
     :aria-label="label"
     :title="label"
     @click="emit('click', $event)"
@@ -128,16 +144,13 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
   @apply 'items-end';
 }
 
-.lgc-floating-action-button:active {
-  @apply 'scale-$lgc-control-press-scale';
+.lgc-floating-action-button:active,
+.lgc-floating-action-button.has-interactive-detail:has(:active) {
+  transform: scale(var(--lgc-control-press-scale));
 }
 
 .lgc-floating-action-button.has-interactive-detail {
   @apply 'cursor-default';
-}
-
-.lgc-floating-action-button.has-interactive-detail:active {
-  @apply 'scale-100';
 }
 
 .lgc-floating-action-icon {

@@ -17,6 +17,9 @@ export const defaultThemeConfig: ThemeConfig = {
     coverContentMask: 'gradient',
     coverContentPosition: 'left',
   },
+  postFooter: {
+    sponsor: {},
+  },
   colors: defaultMaterialColorsConfig,
   fixedBg: {
     switchMode: 'sequential',

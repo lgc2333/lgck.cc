@@ -38,7 +38,7 @@ Valaxy blog: landing home, floating header, unified search, post feed/layouts, f
 - `LgcLandingHome.vue`: first viewport + optional posts
 - Header: `LgcHeader` / `LgcHeaderActions` / `LgcHeaderDrawer` / `LgcHeaderLink`
 - Search: `LgcUnifiedSearch` + `composables/search*.ts` (local/fuse/Algolia); field/preview/panel/results own display
-- `ValaxyMain.vue`: post shell — `main-header` full `layout-inner` width; body/nav/comment in `.lgc-main-reading` (`--lgc-container-reading`). Pieces: `LgcPostArticleHeader/Nav`, `LgcPostCoverFrame`, `LgcPostMetaChips`, `LgcPostFeed*`, pagination
+- `ValaxyMain.vue`: post shell — `main-header` full `layout-inner` width; body/nav/comment in `.lgc-main-reading` (`--lgc-container-reading`). Pieces: `LgcPostArticleHeader/Nav`, `LgcPostContentAfter/Sponsor/Aside/Outline/OutlineAction`, `LgcPostCoverFrame`, `LgcPostMetaChips`, `LgcPostFeed*`, pagination
 - Loading: `LgcLoading*` + `utils/m3-loading-indicator/`
 - `utils/pagination.ts`, `utils/post.ts` (dates/locale)
 - `styles/base.scss`: sole MD + `--lgc-*` token source (+ html/body base)
@@ -101,7 +101,7 @@ PLEASE: Double-check the code you wrote meets the following constraints before y
   - Multi-layer gradients/shadows; keyframes; `color-mix`/scrim % with no utility;
   - Bleed / asymmetric radii / viewport clamp;
   - Local calc owner;
-  - Classic `transform` that overrides Wind4 `translate`/`scale`;
+  - Classic `transform` for press scale / hover lift when transition targets `transform`, or when overriding Wind4 `translate`/`scale`;
   - Multi-property transitions Uno breaks (e.g. with `max-inline-size`);
   - Pseudo / parent-state / `html.dark` / `:has` / Transition name that must hang on a selector.
 - Prefer owner / fallthrough / props / `[&_.child]` / `has-[]` over `:deep`.
@@ -158,6 +158,7 @@ Breakpoints only from theme config (sm/md/lg/xl above). Prefer Uno variants over
 
 - Defaults `node/config.ts` = minimal behavior only
 - Types in `types/` before wiring options
+- `postFooter.sponsor.link`: site-owned sponsor page link; when set, it wins over `siteConfig.sponsor.methods`
 - `landing.links`: flat list = auto layout; nested list = explicit dock rows
 - Site content (title, author, avatar, nav, landing links, socials) → `site.config.ts` / `themeConfig` / demos, not hard-coded defaults
 

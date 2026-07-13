@@ -32,7 +32,7 @@ const hasStatusIcons = computed(() => Boolean(title.value))
 /** Yun: hide:index uses a softer eye icon than full hide. */
 const hideIconClass = computed(() =>
   props.post.hide === 'index'
-    ? 'i-material-symbols-visibility-rounded'
+    ? 'i-ic-round-disabled-visible'
     : 'i-material-symbols-visibility-off-rounded',
 )
 

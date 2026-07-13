@@ -175,6 +175,20 @@ export interface PostFeedConfig {
   coverContentPosition: CoverContentPosition
 }
 
+export interface PostFooterSponsorConfig {
+  /**
+   * Sponsor page link. When configured, link mode wins over sponsor methods.
+   */
+  link?: string
+}
+
+export interface PostFooterConfig {
+  /**
+   * Post sponsor behavior.
+   */
+  sponsor: Partial<PostFooterSponsorConfig>
+}
+
 declare module 'valaxy' {
   interface PostFrontMatter {
     /**
@@ -351,6 +365,11 @@ export interface ThemeConfig extends DefaultTheme.Config {
    * Post feed behavior.
    */
   postFeed?: Partial<PostFeedConfig>
+
+  /**
+   * Post footer behavior.
+   */
+  postFooter?: Partial<PostFooterConfig>
 
   /**
    * Material color generation.

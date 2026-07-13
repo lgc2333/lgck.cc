@@ -23,6 +23,11 @@ export default defineValaxyConfig<ThemeConfig>({
     footer: {
       since: 2024,
     },
+    postFooter: {
+      sponsor: {
+        link: '/sponsor',
+      },
+    },
   },
   addons: [addonComponents()],
   unocss: { safelist },
