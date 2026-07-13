@@ -10,7 +10,7 @@ import {
   normalizePostCategoryQuery,
   normalizePostListValue,
   shouldShowPostUpdated,
-} from '../utils/post'
+} from '../../utils/post'
 
 const props = withDefaults(
   defineProps<{

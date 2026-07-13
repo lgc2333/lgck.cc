@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import type { SearchItem } from '../types'
+import type { SearchItem } from '../../types'
 import LgcUnifiedSearchField from './LgcUnifiedSearchField.vue'
 import LgcUnifiedSearchResults from './LgcUnifiedSearchResults.vue'
 

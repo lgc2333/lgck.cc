@@ -2,7 +2,7 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h } from 'vue'
 
-import type { SearchItem, SearchTextSegment } from '../types'
+import type { SearchItem, SearchTextSegment } from '../../types'
 
 const props = defineProps<{
   item: SearchItem

@@ -4,8 +4,8 @@ import type { StyleValue } from 'vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useThemeConfig } from '../composables'
-import { flattenLandingLinks } from '../utils/landing'
+import { useThemeConfig } from '../../composables'
+import { flattenLandingLinks } from '../../utils/landing'
 
 const siteConfig = useSiteConfig()
 const themeConfig = useThemeConfig()

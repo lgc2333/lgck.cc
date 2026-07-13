@@ -4,7 +4,7 @@ import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
-import { useActiveOutline } from '../composables'
+import { useActiveOutline } from '../../../composables'
 
 const route = useRoute()
 const frontmatter = useFrontmatter()

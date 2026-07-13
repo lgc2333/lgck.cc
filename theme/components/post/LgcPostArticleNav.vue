@@ -3,7 +3,7 @@ import type { Post } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { normalizeLocaleText } from '../utils/post'
+import { normalizeLocaleText } from '../../utils/post'
 
 const props = defineProps<{
   nextPost?: Post

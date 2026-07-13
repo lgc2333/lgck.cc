@@ -1,37 +1,32 @@
 <script setup lang="ts">
 import { nextTick, ref, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
 
-import type { SearchItem } from '../types'
+import type { SearchItem } from '../../types'
 import LgcUnifiedSearchResultButton from './LgcUnifiedSearchResultButton.vue'
 
 const props = defineProps<{
-  countText: string
   hasQuery: boolean
   loading: boolean
   loadingText: string
   noResultsText: string
   placeholder: string
-  previewResults: SearchItem[]
+  results: SearchItem[]
   selectedIndex: number
-  viewAllSelected: boolean
 }>()
 
 defineEmits<{
   navigate: [item: SearchItem]
   select: [index: number]
-  viewAll: []
 }>()
 
-const { t } = useI18n()
-const previewRef = ref<HTMLElement>()
+const resultsRef = ref<HTMLElement>()
 
 watch(
   () => props.selectedIndex,
   async () => {
     await nextTick()
 
-    previewRef.value
+    resultsRef.value
       ?.querySelector('.lgc-search-result.is-selected')
       ?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
   },
@@ -40,23 +35,14 @@ watch(
 
 <template>
   <div
-    ref="previewRef"
-    class="lgc-search-preview"
-    flex="~ col"
-    gap="$lgc-space-xs"
-    p="$lgc-space-md"
+    ref="resultsRef"
+    class="lgc-search-results"
+    overscroll-contain
+    grid
+    min-h-0
+    content-start
+    overflow-auto
     rounded="$lgc-radius-control"
-    pointer-events-auto
-    items-stretch
-    box-border
-    top="$search-preview-top"
-    right-0
-    w="$search-preview-width"
-    absolute
-    text="$md-sys-color-on-surface"
-    bg="$md-sys-color-surface-container-low"
-    shadow="$lgc-elevation-shadow-overlay"
-    role="listbox"
   >
     <div
       v-if="loading"
@@ -79,7 +65,7 @@ watch(
       {{ placeholder }}
     </div>
     <div
-      v-else-if="previewResults.length === 0"
+      v-else-if="results.length === 0"
       class="lgc-search-note"
       p="$lgc-space-xl"
       text="$md-sys-color-on-surface-variant size-$lgc-body-small"
@@ -96,28 +82,13 @@ watch(
       p="$lgc-hairline"
     >
       <LgcUnifiedSearchResultButton
-        v-for="(item, index) in previewResults"
+        v-for="(item, index) in results"
         :key="item.id"
         :item="item"
-        preview
         :selected="selectedIndex === index"
         @mouseenter="$emit('select', index)"
         @click="$emit('navigate', item)"
       />
-      <button
-        class="lgc-search-result is-preview is-view-all"
-        :class="{ 'is-selected': viewAllSelected }"
-        type="button"
-        role="option"
-        :aria-selected="viewAllSelected"
-        @mouseenter="$emit('select', previewResults.length)"
-        @click="$emit('viewAll')"
-      >
-        <span class="lgc-search-result-title">{{ t('search.view_all') }}</span>
-        <span class="lgc-search-result-meta">
-          {{ countText }}
-        </span>
-      </button>
     </div>
   </div>
 </template>

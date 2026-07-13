@@ -3,7 +3,7 @@ import type { ComponentPublicInstance, HTMLAttributes, VNodeRef } from 'vue'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useUnifiedSearch } from '../composables'
+import { useUnifiedSearch } from '../../composables'
 import LgcUnifiedSearchField from './LgcUnifiedSearchField.vue'
 import LgcUnifiedSearchPanel from './LgcUnifiedSearchPanel.vue'
 import LgcUnifiedSearchPreview from './LgcUnifiedSearchPreview.vue'

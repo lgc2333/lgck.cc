@@ -3,10 +3,14 @@ import type { StyleValue } from 'vue'
 import { computed, toRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useHeaderNavItemState } from '../composables'
-import type { HeaderActivePathRewrite, HeaderLinkMode, HeaderNavLink } from '../types'
-import { normalizeLocaleText } from '../utils/post'
-import type { RouteActiveMatch } from '../utils/route'
+import { useHeaderNavItemState } from '../../composables'
+import type {
+  HeaderActivePathRewrite,
+  HeaderLinkMode,
+  HeaderNavLink,
+} from '../../types'
+import { normalizeLocaleText } from '../../utils/post'
+import type { RouteActiveMatch } from '../../utils/route'
 
 const props = withDefaults(
   defineProps<{

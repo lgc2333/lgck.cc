@@ -3,9 +3,9 @@ import { useWindowScroll } from '@vueuse/core'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useThemeConfig } from '../composables'
-import type { HeaderLinksConfig, HeaderNavLink } from '../types'
-import { normalizeLocaleText } from '../utils/post'
+import { useThemeConfig } from '../../composables'
+import type { HeaderLinksConfig, HeaderNavLink } from '../../types'
+import { normalizeLocaleText } from '../../utils/post'
 
 const { t, locale } = useI18n()
 const themeConfig = useThemeConfig()

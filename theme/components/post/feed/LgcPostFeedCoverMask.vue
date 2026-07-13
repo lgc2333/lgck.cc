@@ -2,8 +2,8 @@
 import type { Post } from 'valaxy'
 import { useI18n } from 'vue-i18n'
 
-import type { CoverContentMask, CoverContentPosition } from '../types'
-import type { PostDateParts } from '../utils/post'
+import type { CoverContentMask, CoverContentPosition } from '../../../types'
+import type { PostDateParts } from '../../../utils/post'
 
 withDefaults(
   defineProps<{

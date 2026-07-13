@@ -3,8 +3,8 @@ import { useAppStore, useLocale } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useLanguageFlip, useThemeConfig } from '../composables'
-import { formatLocaleName } from '../utils/locale'
+import { useLanguageFlip, useThemeConfig } from '../../composables'
+import { formatLocaleName } from '../../utils/locale'
 
 defineOptions({
   inheritAttrs: false,

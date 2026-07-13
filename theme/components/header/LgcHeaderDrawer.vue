@@ -10,10 +10,10 @@ import {
   useHeaderNavItemState,
   useLanguageFlip,
   useThemeConfig,
-} from '../composables'
-import type { HeaderActivePathRewrite, HeaderNavLink } from '../types'
-import { formatLocaleName } from '../utils/locale'
-import { normalizeLocaleText } from '../utils/post'
+} from '../../composables'
+import type { HeaderActivePathRewrite, HeaderNavLink } from '../../types'
+import { formatLocaleName } from '../../utils/locale'
+import { normalizeLocaleText } from '../../utils/post'
 
 const props = defineProps<{
   addHome?: boolean

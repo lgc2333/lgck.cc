@@ -17,7 +17,7 @@ If an M3 Expressive decision is unclear, check official refs before implementing
 - `App.vue`: theme shell (`LgcLoading`)
 - `client/`: user-facing exports; `node/`: defaults, font plugin, loading bootstrap, icon safelist
 - `types/index.ts`: public theme config + Valaxy augmentation (`PostFrontMatter`, `DefaultTheme`, `*.ttf`)
-- `components/`: auto-registered; `Lgc*` = theme UI; `ValaxyApp` / `ValaxyMain` / `layout` override slots
+- `components/`: auto-registered; `ValaxyApp` / `ValaxyMain` / `layout` override slots stay at root; `Lgc*` grouped by surface (`header/`, `landing/`, `floating/`, `loading/`, `search/`, `post/`)
 - `layouts/`: default, home, post, 404
 - `composables/`: config, header, language motion, search
 - `utils/`: locale, post, routes, repo URLs, search text, M3 loading

@@ -2,7 +2,7 @@
 import { useFrontmatter, useFullUrl, useSiteConfig } from 'valaxy'
 import { computed } from 'vue'
 
-import { useThemeConfig } from '../composables'
+import { useThemeConfig } from '../../composables'
 
 const siteConfig = useSiteConfig()
 const frontmatter = useFrontmatter()

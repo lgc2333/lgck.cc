@@ -8,7 +8,7 @@ For docs mainly for AI (like `AGENTS.md`), keep them concise and token efficient
 
 - pnpm workspace packages are `blog`, `demo`, and `theme`; shared versions live in the `pnpm-workspace.yaml` catalog.
 - `blog/`: production Valaxy site. Edit source in `pages/`, `components/`, `styles/`, `setup/`, `public/`, `site.config.ts`, and `valaxy.config.ts`.
-- `theme/`: package `valaxy-theme-lgcuwukii`; structure, design direction, and **full styling policy** live in `theme/AGENTS.md`.
+- `theme/`: package `valaxy-theme-lgcuwukii`; structure, component grouping, design direction, and **full styling policy** live in `theme/AGENTS.md`.
 - `demo/`: local theme demo that consumes `theme` through `workspace:*`.
 - Generated outputs include `.valaxy/`, `dist/`, feed files, `valaxy-fuse-list.json`, and `*.tsbuildinfo`; do not edit them as source.
 - `temp/`: ignored scratch space; store temporary files in `temp/<sub-category>/`.

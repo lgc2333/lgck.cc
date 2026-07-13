@@ -2,9 +2,9 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import type { LandingLink, LandingLinkVariant, LandingLinks } from '../types'
-import { normalizeLandingLinkRows } from '../utils/landing'
-import { normalizeLocaleText } from '../utils/post'
+import type { LandingLink, LandingLinkVariant, LandingLinks } from '../../types'
+import { normalizeLandingLinkRows } from '../../utils/landing'
+import { normalizeLocaleText } from '../../utils/post'
 
 const props = defineProps<{
   links: LandingLinks

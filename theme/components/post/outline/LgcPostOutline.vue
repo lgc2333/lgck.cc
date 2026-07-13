@@ -4,7 +4,7 @@ import type { Ref } from 'vue'
 import { computed, ref, toRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useActiveOutline } from '../composables'
+import { useActiveOutline } from '../../../composables'
 
 const props = withDefaults(
   defineProps<{

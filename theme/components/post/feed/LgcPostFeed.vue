@@ -9,7 +9,7 @@ import {
   getPostFeedPagePath,
   parsePageParam,
   slicePageItems,
-} from '../utils/pagination'
+} from '../../../utils/pagination'
 
 const props = withDefaults(
   defineProps<{

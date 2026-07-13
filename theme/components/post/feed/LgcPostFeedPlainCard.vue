@@ -3,7 +3,7 @@ import type { Post } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import type { PostDateParts } from '../utils/post'
+import type { PostDateParts } from '../../../utils/post'
 
 const props = defineProps<{
   categories?: Post['categories']

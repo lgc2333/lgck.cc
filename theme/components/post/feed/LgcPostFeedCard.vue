@@ -3,13 +3,13 @@ import type { Post } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useThemeConfig } from '../composables'
-import type { CoverContentMask, CoverContentPosition } from '../types'
+import { useThemeConfig } from '../../../composables'
+import type { CoverContentMask, CoverContentPosition } from '../../../types'
 import {
   formatPostDateParts,
   normalizeLocaleText,
   normalizePostListValue,
-} from '../utils/post'
+} from '../../../utils/post'
 
 const props = defineProps<{
   post: Post

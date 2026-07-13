@@ -9,7 +9,7 @@ import {
   isPostMetaLayout,
   normalizeLocaleText,
   shouldShowPostUpdated,
-} from '../utils/post'
+} from '../../utils/post'
 
 const props = defineProps<{
   frontmatter: Post

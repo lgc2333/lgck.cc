@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useFixedBg } from '../composables'
+import { useFixedBg } from '../../composables'
 
 const { canSwitchImage, isSwitching, switchNow, visibleImage } = useFixedBg()
 const { t } = useI18n()
