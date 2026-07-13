@@ -43,11 +43,14 @@ Before implementing theme features, first inspect how the default theme `valaxy-
 
 ## Rules
 
-### Styling — ALWAYS UNO FIRST
+### Styling — ALWAYS UNO ATTRIBUTIFY FIRST
 
-**ALWAYS! ALWAYS!! USE UNOCSS FIRST.** Extract tokens / local CSS variables when needed, then use `$token` / `var(--…)`. Only fall back to residual SCSS when truly unavoidable. Writing plain SCSS for layout/color/type/spacing/radius that Wind4 can express → **you get whipped.**
-
-Authored UI = UnoCSS Wind4 + attributify on the element. One-off use: do not leave a class + rule; multi-state: class + `@apply`; residual only for gradients/keyframes/`color-mix`/bleed/calc owner/Transition name. Full rules in **`theme/AGENTS.md`**.
+- Always use UnoCSS attributify first. Extract tokens / local CSS variables when needed, then use `$token` / `var(--…)`. Only fall back to residual SCSS when truly unavoidable.
+- Writing plain SCSS for layout/color/type/spacing/radius that Wind4 can express → YOU GET WHIPPED.
+- Authored UI = UnoCSS Wind4, with attributify on the element first.
+- If an element cannot express a utility with attributify, then use `class`; one-off use still must not leave a class + rule.
+- Multi-state: class + `@apply`; residual only for gradients/keyframes/`color-mix`/bleed/calc owner/Transition name.
+- Full rules in **`theme/AGENTS.md`**.
 
 ### Engineering
 
@@ -71,13 +74,6 @@ Authored UI = UnoCSS Wind4 + attributify on the element. One-off use: do not lea
 
 ATTENTION: If you encounter a reusable pitfall, you MUST RECORD IT BELOW AS EARLY AS POSSIBLE.
 
-### PowerShell
-
-- `Copy-Item -LiteralPath` does not expand wildcards like `*.ttf`; use `-Path` or enumerate with `Get-ChildItem`.
-- `Start-Process` cannot redirect stdout and stderr to the same file; use separate log files.
-- `Start-Process -FilePath 'pnpm'` may fail on Windows because the shim is not a Win32 executable; use `pnpm.cmd`.
-- `Select-Object -Index` needs range expressions parenthesized, e.g. `-Index (120..160)`, not `-Index 120..160`.
-
 ### Styling / Vue
 
 - Sass `@extend` cannot cross Vue scoped style / `@use` module boundaries reliably; prefer `@apply` shared classes or duplicate small declarations.
@@ -90,6 +86,9 @@ ATTENTION: If you encounter a reusable pitfall, you MUST RECORD IT BELOW AS EARL
 - **Do not set a CSS custom property to itself** (e.g. inline `--lgc-header-link-max-width: var(--lgc-header-link-max-width)`). Self-reference is invalid at computed-value time; dependents become empty. Omit the inline override so `:root` applies, or set a concrete value.
 - **Wind4 `translate`/`scale` ≠ `transform`:** Uno `hover:-translate-y-*` / `active:scale-*` set the individual `translate` / `scale` properties. `transform: none` does **not** cancel them. Prefer residual classic `transform: translateY/scale(...)` for shared motion that other rules must override, or also reset `translate`/`scale`.
 - `text-$token` is **color**; font-size is `text-size-$token` / `font-size-$token`. `border-$token` is border-color; width is `border-width-$token`.
+- Use Uno overflow-wrap utilities: `wrap="anywhere"` / `wrap="break-word"` / `wrap="normal"`, not raw `overflow-wrap` or arbitrary `[overflow-wrap:anywhere]`.
+- If an attributify name conflicts with a real Vue/DOM prop such as `disabled`, keep the real prop (e.g. `:disabled`) and use `un-disabled="…"`, or `class="disabled:…"` as fallback.
+- Current `eslint --fix` can mangle clusters of standalone boolean attributify attrs; prefer valued attrs, or a plain utility `class` for that cluster.
 
 ### Valaxy
 

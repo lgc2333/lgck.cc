@@ -204,7 +204,9 @@ function linkLabel(item: HeaderNavLink) {
         >
           <a
             v-if="visibleImage && fixedBgActionHref"
-            class="lgc-drawer-link lgc-drawer-bg-link"
+            class="lgc-drawer-link"
+            items-center
+            py="$lgc-space-md"
             :href="fixedBgActionHref"
             target="_blank"
             rel="noopener"
@@ -214,36 +216,40 @@ function linkLabel(item: HeaderNavLink) {
             <span
               class="lgc-drawer-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
               i-material-symbols-imagesmode-outline-rounded
+              self-center
               aria-hidden="true"
             />
-            <span class="lgc-drawer-bg-text" min-w="0">
+            <span min-w="0">
               <span
-                class="lgc-drawer-bg-title"
                 font="900"
                 text="$md-sys-color-on-surface"
                 leading-snug
                 block
+                whitespace="pre-wrap"
+                wrap="anywhere"
               >
                 {{ fixedBgActionLabel }}
               </span>
               <span
                 v-if="fixedBgActionAuthor"
-                class="lgc-drawer-bg-author"
                 mt="0.5"
                 font="400"
                 text="$md-sys-color-on-surface-variant size-$lgc-body-small"
                 leading-snug
                 block
+                whitespace="pre-wrap"
+                wrap="anywhere"
               >
                 {{ fixedBgActionAuthor }}
               </span>
               <span
-                class="lgc-drawer-bg-description"
                 mt="0.5"
                 font="400"
                 text="$md-sys-color-on-surface-variant size-$lgc-body-small"
                 leading-snug
                 block
+                whitespace="pre-wrap"
+                wrap="anywhere"
               >
                 {{ fixedBgActionDescription }}
               </span>
@@ -259,7 +265,7 @@ function linkLabel(item: HeaderNavLink) {
             @click="refreshFixedBg"
           >
             <span
-              class="lgc-drawer-icon lgc-drawer-refresh-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
+              class="lgc-drawer-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
               :class="{ 'is-loading': isSwitching }"
               i-material-symbols-refresh-rounded
               aria-hidden="true"
@@ -366,22 +372,7 @@ function linkLabel(item: HeaderNavLink) {
   @apply 'rounded-$lgc-radius-control bg-transparent';
 }
 
-.lgc-drawer-bg-link {
-  @apply 'items-center py-$lgc-space-md';
-}
-
-.lgc-drawer-bg-link .lgc-drawer-icon {
-  @apply 'self-center';
-}
-
-.lgc-drawer-bg-title,
-.lgc-drawer-bg-author,
-.lgc-drawer-bg-description {
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-
-.lgc-drawer-refresh-icon.is-loading {
+.is-loading {
   animation: lgc-drawer-refresh-spin 900ms linear infinite;
 }
 

@@ -37,17 +37,23 @@ defineExpose({ focus })
 
 <template>
   <label
-    class="lgc-search-field"
+    class="lgc-search-field [grid-template-columns:minmax(0,1fr)]"
     grid
     items-center
     gap="$lgc-space-sm"
     h="$lgc-control-size"
+    w="$search-field-width"
     px="$lgc-space-lg"
     overflow-hidden
     rounded="$lgc-radius-control"
     text="$md-sys-color-on-surface-variant"
     bg="$md-sys-color-surface-container-high"
-    :class="{ 'has-icon': hasIcon, 'is-open': open }"
+    :class="[
+      { 'is-open': open },
+      hasIcon
+        ? 'w-full [grid-template-columns:var(--lgc-icon-size-sm)_minmax(0,1fr)]'
+        : undefined,
+    ]"
   >
     <span v-if="hasIcon" i-material-symbols-search-rounded aria-hidden="true" />
     <input

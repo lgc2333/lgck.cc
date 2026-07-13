@@ -73,6 +73,8 @@ html.dark {
 }
 
 .markdown-body {
+  --markdown-image-max-width: min(100%, 800px);
+
   @apply 'text-$md-sys-color-on-surface text-size-$lgc-body-large leading-[1.75]';
   word-wrap: break-word;
 
@@ -101,7 +103,7 @@ html.dark {
   .custom-block,
   div[class*='language-'],
   .vp-code-group {
-    margin-block: var(--lgc-space-lg);
+    @apply 'my-$lgc-space-lg';
   }
 
   p {
@@ -121,7 +123,7 @@ html.dark {
     @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
 
     &:hover {
-      color: var(--va-c-brand-2);
+      @apply 'text-$va-c-brand-2';
       text-decoration-color: currentColor;
     }
   }
@@ -138,34 +140,33 @@ html.dark {
 
   h1 {
     @apply 'text-size-$lgc-md-h1-compact sm:text-size-$lgc-md-h1';
-    margin: var(--lgc-space-3xl) 0 var(--lgc-space-xl);
+    @apply 'mt-$lgc-space-3xl mb-$lgc-space-xl';
   }
 
   h2 {
     @apply 'text-size-$lgc-md-h2-compact sm:text-size-$lgc-md-h2';
-    margin: var(--lgc-space-3xl) 0 var(--lgc-space-lg);
-    padding-bottom: 6px;
+    @apply 'mt-$lgc-space-3xl mb-$lgc-space-lg pb-[6px]';
     border-bottom: var(--lgc-hairline) solid var(--md-sys-color-outline-variant);
   }
 
   h3 {
     @apply 'text-size-$lgc-md-h3-compact sm:text-size-$lgc-md-h3';
-    margin: 28px 0 14px;
+    @apply 'mt-[28px] mb-[14px]';
   }
 
   h4 {
     @apply 'text-size-$lgc-md-h4';
-    margin: var(--lgc-space-xl) 0 var(--lgc-space-md);
+    @apply 'mt-$lgc-space-xl mb-$lgc-space-md';
   }
 
   h5 {
     @apply 'text-$md-sys-color-on-surface-variant text-size-$lgc-md-h5';
-    margin: var(--lgc-space-xl) 0 10px;
+    @apply 'mt-$lgc-space-xl mb-[10px]';
   }
 
   h6 {
     @apply 'text-$md-sys-color-on-surface-variant text-size-$lgc-md-h6 uppercase';
-    margin: var(--lgc-space-lg) 0 var(--lgc-space-sm);
+    @apply 'mt-$lgc-space-lg mb-$lgc-space-sm';
   }
 
   ul {
@@ -185,8 +186,7 @@ html.dark {
   }
 
   img {
-    @apply 'block h-auto my-$lgc-space-xl mx-auto rounded-$lgc-radius-content';
-    max-width: min(100%, 800px);
+    @apply 'block h-auto max-w-$markdown-image-max-width my-$lgc-space-xl mx-auto rounded-$lgc-radius-content';
   }
 
   figure {
@@ -218,22 +218,20 @@ html.dark {
   }
 
   .custom-block.note {
-    border-color: var(--va-custom-block-note-border);
-    color: var(--va-custom-block-note-text);
-    background-color: var(--va-custom-block-note-bg);
+    @apply 'border-$va-custom-block-note-border text-$va-custom-block-note-text bg-$va-custom-block-note-bg';
   }
 
   .custom-block.note a,
   .custom-block.note code {
-    color: var(--va-c-brand-1);
+    @apply 'text-$va-c-brand-1';
   }
 
   .custom-block.note a:hover {
-    color: var(--va-c-brand-2);
+    @apply 'text-$va-c-brand-2';
   }
 
   .custom-block.note code {
-    background-color: var(--va-custom-block-note-code-bg);
+    @apply 'bg-$va-custom-block-note-code-bg';
   }
 
   .custom-block-title,
@@ -251,13 +249,13 @@ html.dark {
 
   table {
     @apply 'block w-full overflow-x-auto border-collapse text-size-$lgc-body-medium';
-    border-spacing: 0;
+    @apply border-spacing-0;
   }
 
   th,
   td {
     @apply 'py-2.5 px-$lgc-space-md border-solid border-$md-sys-color-outline-variant';
-    border-width: var(--lgc-hairline);
+    @apply 'border-width-$lgc-hairline';
   }
 
   th {
@@ -270,9 +268,8 @@ html.dark {
   }
 
   code:not(pre > code) {
-    color: var(--va-c-text-code);
-    background-color: var(--va-c-bg-mute);
     @apply 'py-0.5 px-1.5 rounded font-medium text-[0.85em]';
+    @apply 'text-$va-c-text-code bg-$va-c-bg-mute';
 
     &::before,
     &::after {
@@ -284,24 +281,22 @@ html.dark {
   --va-code-mobile-margin-x: 0;
 
   div[class*='language-'] {
-    margin-inline: 0;
-    border-radius: var(--lgc-radius-content);
+    @apply 'mx-0 rounded-$lgc-radius-content';
   }
 
   .vp-code-group .tabs {
-    margin-inline: 0;
-    border-radius: var(--lgc-radius-content) var(--lgc-radius-content) 0 0;
+    @apply 'mx-0 rounded-t-$lgc-radius-content rounded-b-0';
   }
 }
 
 @screen sm {
   .markdown-body {
     div[class*='language-'] {
-      border-radius: 6px;
+      @apply 'rounded-[6px]';
     }
 
     .vp-code-group .tabs {
-      border-radius: 8px 8px 0 0;
+      @apply 'rounded-t-[8px] rounded-b-0';
     }
   }
 }
@@ -321,7 +316,7 @@ html.dark {
   .custom-block,
   div[class*='language-'],
   .vp-code-group {
-    margin-block: 0;
+    @apply my-0;
   }
 
   h1,

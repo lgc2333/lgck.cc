@@ -38,12 +38,28 @@ defineProps<{
         absolute
         overflow-hidden
         bg="$md-sys-color-primary-container"
+        right="$mark-status-offset-inline"
+        bottom="$mark-status-offset-block"
+        min-w="$mark-status-size"
+        max-inline="$mark-status-size"
+        h="$mark-status-size"
+        gap="0"
+        p="0"
+        rounded="[18px]"
+        border="3px solid $lgc-mark-status-border"
         :aria-label="status.message"
       >
         <span flex-none aria-hidden="true">
           {{ status.emoji }}
         </span>
-        <span v-if="status.message" class="lgc-mark-status-message">
+        <span
+          v-if="status.message"
+          class="lgc-mark-status-message"
+          max-inline="0"
+          opacity-0
+          text-ellipsis
+          overflow-hidden
+        >
           {{ status.message }}
         </span>
       </div>
@@ -60,7 +76,7 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
-// Residual: color-mix ring + expand geometry (keep icon anchor stable).
+// Residual: color-mix ring + max-inline-size transition geometry.
 .lgc-mark-avatar {
   --lgc-mark-avatar-bg: color-mix(
     in srgb,
@@ -86,15 +102,6 @@ defineProps<{
     transparent
   );
 
-  right: var(--mark-status-offset-inline);
-  bottom: var(--mark-status-offset-block);
-  min-inline-size: var(--mark-status-size);
-  max-inline-size: var(--mark-status-size);
-  block-size: var(--mark-status-size);
-  gap: 0;
-  padding: 0;
-  border-radius: 18px;
-  border: 3px solid var(--lgc-mark-status-border);
   transition:
     max-inline-size var(--lgc-motion-medium) var(--lgc-easing-standard),
     border-radius var(--lgc-motion-short) var(--lgc-easing-standard),
@@ -102,19 +109,11 @@ defineProps<{
 
   &:hover,
   &:focus-within {
-    max-inline-size: var(--mark-status-open-max);
-    justify-content: flex-start;
-    gap: 6px;
-    padding-inline: var(--lgc-space-sm);
-    border-radius: var(--lgc-radius-md);
+    @apply 'max-inline-$mark-status-open-max justify-start gap-[6px] px-$lgc-space-sm rounded-$lgc-radius-md';
   }
 }
 
 .lgc-mark-status-message {
-  max-inline-size: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  opacity: 0;
   transition:
     max-inline-size var(--lgc-motion-medium) var(--lgc-easing-standard),
     opacity var(--lgc-motion-short) var(--lgc-easing-standard);
@@ -122,7 +121,6 @@ defineProps<{
 
 .lgc-mark-status:hover .lgc-mark-status-message,
 .lgc-mark-status:focus-within .lgc-mark-status-message {
-  max-inline-size: var(--lgc-header-link-max-width);
-  opacity: 1;
+  @apply 'max-inline-$lgc-header-link-max-width opacity-100';
 }
 </style>

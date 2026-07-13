@@ -49,10 +49,13 @@ watch(
     pointer-events-auto
     items-stretch
     box-border
+    top="$search-preview-top"
     right-0
+    w="$search-preview-width"
     absolute
     text="$md-sys-color-on-surface"
     bg="$md-sys-color-surface-container-low"
+    shadow="$lgc-elevation-shadow-overlay"
     role="listbox"
   >
     <div

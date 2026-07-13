@@ -37,46 +37,63 @@ function refreshBackground() {
     <span i-material-symbols-imagesmode-outline-rounded aria-hidden="true" />
 
     <template #detail>
-      <span class="lgc-fixed-bg-action-detail">
+      <span block min-w="0">
         <span
-          class="lgc-fixed-bg-action-title"
           block
           font="900"
           text="$md-sys-color-on-surface"
+          whitespace="pre-wrap"
+          wrap="anywhere"
         >
           {{ title }}
         </span>
         <span
           v-if="author"
-          class="lgc-fixed-bg-action-author"
           block
           mt="0.5"
           font="400"
           text="$md-sys-color-on-surface-variant"
+          whitespace="pre-wrap"
+          wrap="anywhere"
         >
           {{ author }}
         </span>
         <span
-          class="lgc-fixed-bg-action-description"
           block
           mt="0.5"
           font="400"
           text="$md-sys-color-on-surface-variant"
+          whitespace="pre-wrap"
+          wrap="anywhere"
         >
           {{ description }}
         </span>
         <button
           v-if="canSwitchImage"
-          class="lgc-fixed-bg-action-refresh"
+          class="appearance-none bg-transparent no-underline inline-flex items-center"
+          gap="$lgc-gap-compact"
+          mt="$lgc-space-sm"
+          border="0"
+          p="0"
+          text="$md-sys-color-primary size-$lgc-label-medium"
+          font="900"
+          cursor="pointer"
+          transition="[color,opacity]"
+          duration="$lgc-motion-short"
+          ease="$lgc-easing-standard"
+          hover="text-$md-sys-color-tertiary"
+          un-disabled="opacity-70 cursor-wait"
           type="button"
           :disabled="isSwitching"
           :aria-label="switchLabel"
           @click="refreshBackground"
         >
           <span
-            class="lgc-fixed-bg-action-refresh-icon"
             :class="{ 'is-loading': isSwitching }"
             i-material-symbols-refresh-rounded
+            h="1em"
+            w="1em"
+            text="size-$lgc-icon-size-sm"
             aria-hidden="true"
           />
           <span>{{ switchLabel }}</span>
@@ -87,30 +104,7 @@ function refreshBackground() {
 </template>
 
 <style scoped lang="scss">
-.lgc-fixed-bg-action-detail {
-  @apply 'block min-w-0';
-}
-
-.lgc-fixed-bg-action-title,
-.lgc-fixed-bg-action-author,
-.lgc-fixed-bg-action-description {
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-
-.lgc-fixed-bg-action-refresh {
-  @apply 'mt-$lgc-space-sm inline-flex items-center gap-$lgc-gap-compact';
-  @apply 'border-0 p-0 text-$md-sys-color-primary text-size-$lgc-label-medium';
-  @apply 'font-900 no-underline bg-transparent appearance-none cursor-pointer';
-  @apply 'transition-[color,opacity] duration-$lgc-motion-short ease-$lgc-easing-standard';
-  @apply 'hover:text-$md-sys-color-tertiary disabled:cursor-wait disabled:opacity-70';
-}
-
-.lgc-fixed-bg-action-refresh-icon {
-  @apply 'h-1em w-1em text-size-$lgc-icon-size-sm';
-}
-
-.lgc-fixed-bg-action-refresh-icon.is-loading {
+.is-loading {
   animation: lgc-fixed-bg-action-spin 900ms linear infinite;
 }
 

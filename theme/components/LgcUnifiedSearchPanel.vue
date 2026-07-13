@@ -43,6 +43,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
     <button
       class="lgc-search-scrim"
       border-0
+      bg="$search-scrim-bg"
       opacity-100
       inset-0
       absolute
@@ -51,10 +52,11 @@ const isDrawer = computed(() => props.variant === 'drawer')
       @click="$emit('close')"
     />
     <aside
-      class="lgc-search-drawer"
+      class="lgc-search-drawer rounded-l-0 rounded-br-$lgc-radius-large rounded-tr-$lgc-radius-large [grid-template-rows:auto_auto_minmax(0,1fr)]"
       p="$lgc-space-lg"
       grid
       h-full
+      w="$search-drawer-width"
       translate-x-0
       right-0
       top-0
@@ -63,7 +65,12 @@ const isDrawer = computed(() => props.variant === 'drawer')
       bg="$md-sys-color-surface-container-low"
       :aria-label="t('accessibility.search_results')"
     >
-      <div class="lgc-search-drawer-head" grid items-center gap="$lgc-space-sm">
+      <div
+        class="[grid-template-columns:minmax(0,1fr)_var(--lgc-control-size)]"
+        grid
+        items-center
+        gap="$lgc-space-sm"
+      >
         <LgcUnifiedSearchField
           v-model="query"
           autofocus
@@ -113,14 +120,19 @@ const isDrawer = computed(() => props.variant === 'drawer')
 
   <div
     v-else
-    class="lgc-search-mobile text-$md-sys-color-on-surface hidden max-md:grid"
+    class="lgc-search-mobile text-$md-sys-color-on-surface hidden [grid-template-rows:auto_minmax(0,1fr)] max-md:grid"
     inset-0
     fixed
     z="$lgc-layer-modal"
     p="$lgc-space-sm"
     bg="$md-sys-color-surface-container-low"
   >
-    <div class="lgc-search-mobile-head" grid items-center gap="$lgc-space-sm">
+    <div
+      class="[grid-template-columns:var(--lgc-control-size)_minmax(0,1fr)]"
+      grid
+      items-center
+      gap="$lgc-space-sm"
+    >
       <button
         class="lgc-search-close lgc-icon-button-base lgc-icon-button-hover"
         w="$lgc-control-size"

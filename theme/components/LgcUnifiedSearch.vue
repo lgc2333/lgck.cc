@@ -70,6 +70,7 @@ const setRootRef: VNodeRef = (element) => {
     <div
       v-if="!isAlgolia"
       class="lgc-search-inline"
+      w="0"
       rounded="$lgc-radius-control-active"
       grid
       pointer-events-none

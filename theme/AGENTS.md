@@ -75,21 +75,40 @@ Valaxy blog: landing home, floating header, unified search, post feed/layouts, f
 
 ## Style Constraints
 
-### ALWAYS! ALWAYS!! USE UNOCSS FIRST
+PLEASE: Double-check the code you wrote meets the following constraints before your work is done.
 
-**ALWAYS! ALWAYS!! USE UNOCSS FIRST.** Extract variables when needed (keep-set → `--lgc-*`; calc/API → local `--foo`), then use `$token` / `var(--…)`. Only fall back to residual SCSS when truly unavoidable. Writing plain SCSS for layout/color/type/spacing/radius that Wind4 can express → **you get whipped.** Existing residual nearby is not an excuse to pile ordinary properties next to it.
+### ALWAYS! ALWAYS!! USE UNOCSS ATTRIBUTIFY FIRST
 
-**Order (do not skip):** (1) Utility exists → put it on the element (attributify for same-prefix groups, else `class`) → stop. (2) Need shared/calc → extract token/local var first, then Uno. (3) Multi-use / hover·active cascade → class + `@apply '…'` (quote in SCSS when the string contains `$` or `:`). (4) Allowlist residual only → write raw + a one-line why comment. (5) Still want SCSS? Re-read this section.
-
-**You get whipped for:** SCSS for `display/margin/padding/gap/flex/grid` / solid color tokens / `font-size` / `border-radius` / sizing; magic values instead of extracted vars; one-off classes that only wrap a single `@apply`; Uno `shortcuts` / theme color spacing scales; JS-built color utilities (use semantic `is-*` only); `@apply` walls on one-off nodes.
-
-**Class:** one-off → write on the element, delete the class + rule. Multi-state → class + `@apply`, residual only for the hard parts. `@apply` respects printWidth 88. Global → `styles/shared/*`; component residual → component `<style>`. `<Transition name>` enter/leave must be CSS only.
-
-**Residual allowlist (still extract vars first):** multi-layer gradients/shadows; keyframes; `color-mix`/scrim % with no utility; bleed / asymmetric radii / viewport clamp; local calc owner; classic `transform` that overrides Wind4 `translate`/`scale`; multi-property transitions Uno breaks (e.g. with `max-inline-size`); pseudo / parent-state / `html.dark` / `:has` / Transition name that must hang on a selector. Prefer owner / fallthrough / props / `[&_.child]` / `has-[]` over `:deep`.
+- Always use UnoCSS attributify first. Extract variables when needed (keep-set → `--lgc-*`; calc/API → local `--foo`), then use `$token` / `var(--…)`. Only fall back to residual SCSS when truly unavoidable.
+- Writing plain SCSS for layout/color/type/spacing/radius that Wind4 can express → YOU GET WHIPPED. Existing residual nearby is not an excuse to pile ordinary properties next to it.
+- Order (DO NOT SKIP):
+  1. Utility exists → put it on the element with attributify → stop.
+  2. Attributify cannot express it (attr conflict, dynamic class, selector/variant shape) → use `class` on that element.
+  3. Need shared/calc → extract token/local var first, then Uno.
+  4. Multi-use / hover·active cascade → class + `@apply '…'` (quote in SCSS when the string contains `$` or `:`).
+  5. Allowlist residual only → write raw + a one-line why comment.
+  6. Still want SCSS? Re-read this section.
+- YOU GET WHIPPED FOR:
+  - SCSS for `display/margin/padding/gap/flex/grid` / solid color tokens / `font-size` / `border-radius` / sizing; magic values instead of extracted vars;
+  - One-off classes that only wrap a single `@apply`; Uno `shortcuts` / theme color spacing scales;
+  - JS-built color utilities (use semantic `is-*` only); `@apply` walls on one-off nodes.
+- Class:
+  - One-off → write attributify on the element first; use `class` only when attributify cannot represent it, and delete the class + rule.
+  - Multi-state → class + `@apply`, residual only for the hard parts.
+  - `@apply` respects Prettier `printWidth` 88.
+  - Global → `styles/shared/*`; component residual → component `<style>`. `<Transition name>` enter/leave must be CSS only.
+- Residual allowlist (still EXTRACT VARS FIRST):
+  - Multi-layer gradients/shadows; keyframes; `color-mix`/scrim % with no utility;
+  - Bleed / asymmetric radii / viewport clamp;
+  - Local calc owner;
+  - Classic `transform` that overrides Wind4 `translate`/`scale`;
+  - Multi-property transitions Uno breaks (e.g. with `max-inline-size`);
+  - Pseudo / parent-state / `html.dark` / `:has` / Transition name that must hang on a selector.
+- Prefer owner / fallthrough / props / `[&_.child]` / `has-[]` over `:deep`.
 
 ### Tooling
 
-- Attributify same-prefix groups (`flex`/`text`/`bg`/`p`/`rounded`…); leftovers in `class`; `un-` if attr conflicts with DOM/Vue prop
+- Prefer attributify for all element-local utilities (`flex`/`text`/`bg`/`p`/`rounded`/`max-inline`…); move leftovers to `class` only when attributify cannot express them; use `un-` if attr conflicts with DOM/Vue prop
 - Tokens in `styles/base.scss`; call with `$token` (`bg-$md-sys-color-surface`, `p-$lgc-space-lg`)
 - Icons/safelist only in `valaxy.config.ts` (no standalone Uno config). Theme icon packs: `material-symbols` + `ic` only (Material family). Material Symbols Rounded primary; site-owned packs (e.g. `ri`) load in site configs, not theme. Config icons must be safelisted/collections-loaded
 - Fonts: `styles/fonts.ts`, `assets/fonts/`, `node/font.ts`
@@ -144,7 +163,13 @@ Breakpoints only from theme config (sm/md/lg/xl above). Prefer Uno variants over
 
 ## Before Finalizing
 
-- **Style self-check:** 新/改的 `<style>` 是否只剩 allowlist 残差？该抽的 var 抽了？单次 `@apply` 已内联？没有为普通布局硬写 SCSS（否则挨鞭子）？
+- Style self-check:
+  - Are element-local utilities written as attributify first?
+  - Is `class` used only when attributify cannot express the utility?
+  - Do new/changed `<style>` blocks contain only allowlisted residual CSS?
+  - Are needed vars extracted?
+  - Are one-off `@apply` rules inlined?
+  - Is ordinary layout SCSS gone?
 - Update this file + root `../AGENTS.md` when structure/config/design direction changes
 - Demo build; confirm Iconify classes in CSS; check desktop + mobile
 - If drifting from M3 Expressive, re-check refs above
