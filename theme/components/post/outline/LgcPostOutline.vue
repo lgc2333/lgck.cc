@@ -28,7 +28,7 @@ const emit = defineEmits<{
 const { t } = useI18n()
 const containerRef = ref<HTMLElement>() as Ref<HTMLElement>
 const markerRef = ref<HTMLElement>() as Ref<HTMLElement>
-const markerTopOffset = computed(() => (props.showTitle ? 34 : 6))
+const markerTopOffset = computed(() => (props.showTitle ? 33 : 5))
 
 useActiveOutline(toRef(props, 'headers'), {
   containerRef,

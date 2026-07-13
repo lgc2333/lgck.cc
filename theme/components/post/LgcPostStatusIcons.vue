@@ -35,9 +35,6 @@ const hideIconClass = computed(() =>
     ? 'i-ic-round-disabled-visible'
     : 'i-material-symbols-visibility-off-rounded',
 )
-
-const iconClass =
-  'lgc-post-status-icon inline-grid w-$lgc-control-size-sm h-$lgc-control-size-sm place-items-center rounded-$lgc-radius-full text-size-$lgc-title-medium'
 </script>
 
 <template>
@@ -54,22 +51,20 @@ const iconClass =
   >
     <span
       v-if="post.draft"
-      class="is-draft bg-$md-sys-color-on-secondary-container"
-      :class="iconClass"
+      class="lgc-post-status-icon is-draft bg-$md-sys-color-on-secondary-container"
       i-material-symbols-contract-edit-rounded
       aria-hidden="true"
     />
     <span
       v-if="post.top"
-      class="is-pinned bg-$md-sys-color-primary-container rotate-45 dark:bg-$md-sys-color-primary"
-      :class="iconClass"
+      class="lgc-post-status-icon is-pinned bg-$md-sys-color-primary-container rotate-45 dark:bg-$md-sys-color-primary"
       i-ic-round-push-pin
       aria-hidden="true"
     />
     <span
       v-if="post.hide"
-      class="is-hidden bg-$md-sys-color-on-tertiary dark:bg-$md-sys-color-tertiary"
-      :class="[iconClass, hideIconClass]"
+      class="lgc-post-status-icon is-hidden bg-$md-sys-color-on-tertiary dark:bg-$md-sys-color-tertiary"
+      :class="[hideIconClass]"
       aria-hidden="true"
     />
     <span class="sr-only">{{ title }}</span>
@@ -81,5 +76,9 @@ const iconClass =
 .lgc-post-status-icons {
   filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.24))
     drop-shadow(0 2px 2px rgb(0 0 0 / 0.16));
+}
+
+.lgc-post-status-icon {
+  @apply 'inline-grid w-$lgc-control-size-sm h-$lgc-control-size-sm place-items-center text-size-$lgc-title-medium';
 }
 </style>

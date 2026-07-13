@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 
+import { giscusFontPlugin } from './node/giscus-font'
 import { giscusThemePlugin } from './node/giscus-theme'
 
 const giscusCssCorsHeaders = {
@@ -8,7 +9,7 @@ const giscusCssCorsHeaders = {
 
 export default defineConfig({
   preview: { headers: giscusCssCorsHeaders },
-  plugins: [giscusThemePlugin()],
+  plugins: [giscusFontPlugin(), giscusThemePlugin()],
   server: {
     allowedHosts: true,
     headers: giscusCssCorsHeaders,

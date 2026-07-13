@@ -1,32 +1,19 @@
-import { Buffer } from 'node:buffer'
-import { existsSync, readFileSync, readdirSync } from 'node:fs'
+import { readFileSync } from 'node:fs'
 import type { ServerResponse } from 'node:http'
-import { extname, isAbsolute, join, relative } from 'node:path'
-import { fileURLToPath } from 'node:url'
 
 import type { Plugin } from 'vite'
+
+import { generateMaterialColorsCss } from '../../theme/node/material-colors'
+import { publicGiscusFontThemePath } from './giscus-font'
 
 const publicBaseThemePath = '/assets/giscus/base.css'
 const publicLightThemePath = '/assets/giscus/light.css'
 const publicDarkThemePath = '/assets/giscus/dark.css'
-const publicFontThemePath = '/assets/giscus-fonts.css'
-const publicFontAssetPathPrefix = '/assets/giscus-fonts/'
 const emittedBaseThemeFileName = 'assets/giscus/base.css'
 const emittedLightThemeFileName = 'assets/giscus/light.css'
 const emittedDarkThemeFileName = 'assets/giscus/dark.css'
 const baseThemeCssPath = new URL('../styles/giscus/base.css', import.meta.url)
-const fontCacheDir = fileURLToPath(
-  new URL('../node_modules/.valaxy/cache/', import.meta.url),
-)
 const tokenCssPath = new URL('../../theme/styles/base.scss', import.meta.url)
-const fontFaceBlockRE = /@font-face\s*\{[^}]*\}/g
-const fontImportRE =
-  /@import\s+url\(["']?https:\/\/fonts\.googleapis\.com\/[^"')]+["']?\);/g
-const harmonyOSUnifiedFamily = 'HarmonyOS Sans LgCuwukii'
-const harmonyOSFontFaceFamilyRE =
-  /font-family\s*:\s*(?:"HarmonyOS Sans(?: SC)?(?: (?:Thin|Light|Medium|Bold|Black))?"|'HarmonyOS Sans(?: SC)?(?: (?:Thin|Light|Medium|Bold|Black))?'|HarmonyOS Sans(?: SC)?(?: (?:Thin|Light|Medium|Bold|Black))?)(?=\s*;)/g
-const harmonyOSLocalSourceRE =
-  /src\s*:\s*local\(["']?HarmonyOS Sans(?: SC)?(?: (?:Thin|Light|Medium|Bold|Black))?["']?\),\s*/g
 const forwardedVarPrefixes = [
   '--lgc-',
   '--md-sys-',
@@ -52,7 +39,13 @@ export function giscusThemePlugin(): Plugin {
 
     configurePreviewServer(server) {
       server.middlewares.use((req, res, next) => {
-        if (req.url?.startsWith('/assets/giscus')) {
+        const pathname = req.url?.split('?')[0]
+
+        if (
+          pathname === publicBaseThemePath ||
+          pathname === publicLightThemePath ||
+          pathname === publicDarkThemePath
+        ) {
           setCssCorsHeaders(res)
         }
 
@@ -114,12 +107,7 @@ function serveDevGiscusTheme(url: string | undefined, res: ServerResponse) {
     return false
   }
 
-  if (Buffer.isBuffer(css)) {
-    setFontCorsHeaders(res)
-  } else {
-    setCssCorsHeaders(res)
-  }
-
+  setCssCorsHeaders(res)
   res.statusCode = 200
   res.end(css)
   return true
@@ -139,22 +127,15 @@ function getDevGiscusThemeCss(pathname: string) {
   if (pathname === publicDarkThemePath) {
     return buildGiscusThemeCss('dark', cssVars.darkVars)
   }
-
-  if (pathname === publicFontThemePath) {
-    return buildDevGiscusFontCss()
-  }
-
-  if (pathname.startsWith(publicFontAssetPathPrefix)) {
-    return readDevGiscusFontAsset(pathname)
-  }
 }
 
 function getSourceCssVars() {
   const tokenCss = readFileSync(tokenCssPath, 'utf8')
-  const rootVars = collectCssVars([tokenCss], ':root')
+  const sourceCss = [generateMaterialColorsCss(), tokenCss]
+  const rootVars = collectCssVars(sourceCss, ':root')
   const darkVars = new Map(rootVars)
 
-  collectCssVars([tokenCss], 'html.dark').forEach((value, name) => {
+  collectCssVars(sourceCss, 'html.dark').forEach((value, name) => {
     darkVars.set(name, value)
   })
 
@@ -166,90 +147,6 @@ function setCssCorsHeaders(res: ServerResponse) {
   res.setHeader('Content-Type', 'text/css; charset=utf-8')
 }
 
-function setFontCorsHeaders(res: ServerResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Content-Type', 'font/woff2')
-}
-
-function buildDevGiscusFontCss() {
-  if (!existsSync(fontCacheDir)) {
-    return extractFontImportCss(readFileSync(tokenCssPath, 'utf8'))
-  }
-
-  const fontCss = readdirSync(fontCacheDir, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .flatMap((entry) => {
-      const resultCssPath = join(fontCacheDir, entry.name, 'result.css')
-      if (!existsSync(resultCssPath)) {
-        return []
-      }
-
-      return rewriteDevFontUrls(
-        normalizeHarmonyOSFontFaceFamilies(readFileSync(resultCssPath, 'utf8')),
-        entry.name,
-      )
-    })
-
-  return `${[
-    ...extractFontImportCss(readFileSync(tokenCssPath, 'utf8')),
-    ...new Set(fontCss),
-  ].join('\n')}\n`
-}
-
-function rewriteDevFontUrls(css: string, cacheDirName: string) {
-  return extractFontCss(css).map((rule) =>
-    rule.replaceAll(
-      /url\(["']?\.\/([^"')]+)["']?\)/g,
-      `url('${publicFontAssetPathPrefix}${cacheDirName}/$1')`,
-    ),
-  )
-}
-
-function readDevGiscusFontAsset(pathname: string) {
-  const relativePath = decodeURIComponent(
-    pathname.slice(publicFontAssetPathPrefix.length),
-  )
-  if (isAbsolute(relativePath) || relativePath.includes('..')) {
-    return
-  }
-
-  const filePath = join(fontCacheDir, relativePath)
-  const relativeToCache = relative(fontCacheDir, filePath)
-  if (
-    relativeToCache.startsWith('..') ||
-    isAbsolute(relativeToCache) ||
-    extname(filePath) !== '.woff2' ||
-    !existsSync(filePath)
-  ) {
-    return
-  }
-
-  return readFileSync(filePath)
-}
-
-function extractFontImportCss(css: string) {
-  return [...css.matchAll(fontImportRE)].map(([rule]) => rule)
-}
-
-function extractFontCss(css: string) {
-  return [
-    ...extractFontImportCss(css),
-    ...css.matchAll(fontFaceBlockRE).map(([rule]) => rule),
-  ]
-}
-
-function normalizeHarmonyOSFontFaceFamilies(css: string) {
-  return css.replace(fontFaceBlockRE, (block) => {
-    if (!/font-family\s*:\s*["']?HarmonyOS Sans/.test(block)) {
-      return block
-    }
-
-    return block
-      .replace(harmonyOSFontFaceFamilyRE, `font-family:"${harmonyOSUnifiedFamily}"`)
-      .replace(harmonyOSLocalSourceRE, 'src:')
-  })
-}
-
 function buildGiscusBaseCss(baseThemeCss: string) {
   return baseThemeCss
 }
@@ -257,7 +154,7 @@ function buildGiscusBaseCss(baseThemeCss: string) {
 function buildGiscusThemeCss(mode: 'light' | 'dark', cssVars: Map<string, string>) {
   return [
     `@import url('https://giscus.app/themes/${mode}.css');`,
-    `@import url('../giscus-fonts.css');`,
+    `@import url('${publicGiscusFontThemePath.replace('/assets/', '../')}');`,
     `@import url('./base.css');`,
     `html {\n  ${serializeCssVars(cssVars)}\n}`,
   ].join('\n')

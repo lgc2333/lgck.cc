@@ -5,7 +5,8 @@ import {
   defaultThemeConfig,
   generateSafelist,
   harmonyOSFontFamilyPlugin,
-  themePlugin,
+  loadingBootstrapPlugin,
+  materialColorsPlugin,
 } from './node'
 import type { ThemeConfig } from './types'
 
@@ -24,7 +25,12 @@ export default defineTheme<ThemeConfig>((options) => {
           },
         },
       },
-      plugins: [Font.vite(), harmonyOSFontFamilyPlugin(), themePlugin(options)],
+      plugins: [
+        Font.vite(),
+        harmonyOSFontFamilyPlugin(),
+        materialColorsPlugin(options),
+        loadingBootstrapPlugin(),
+      ],
     },
     unocss: {
       safelist: generateSafelist(options),
