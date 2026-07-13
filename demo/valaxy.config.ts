@@ -93,6 +93,7 @@ export default defineConfig<ThemeConfig>({
             text: $t('landing.posts'),
             link: '/page/1',
             icon: 'i-material-symbols-article-outline-rounded',
+            // variant: 'primary',
           },
           {
             text: $t('landing.projects'),
@@ -125,6 +126,14 @@ export default defineConfig<ThemeConfig>({
             link: '/about',
             icon: 'i-material-symbols-person-outline-rounded',
             variant: 'transparent',
+          },
+        ],
+        [
+          {
+            text: $t('landing.test_blue'),
+            link: '/about',
+            icon: 'i-material-symbols-person-outline-rounded',
+            variant: 'blue',
           },
         ],
       ],

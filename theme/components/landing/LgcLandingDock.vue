@@ -14,6 +14,7 @@ const { t, locale } = useI18n()
 const linkRows = computed(() => normalizeLandingLinkRows(props.links))
 
 const variantClass: Record<LandingLinkVariant, string> = {
+  blue: 'is-blue',
   brown: 'is-brown',
   pink: 'is-pink',
   primary: 'is-primary',
@@ -127,6 +128,13 @@ function linkLabel(item: LandingLink) {
     --lgc-dock-bg: var(--md-custom-color-brown-container);
     --lgc-dock-hover-color: var(--md-custom-color-on-brown);
     --lgc-dock-hover-bg: var(--md-custom-color-brown);
+  }
+
+  &.is-blue {
+    --lgc-dock-color: var(--md-custom-color-on-blue-container);
+    --lgc-dock-bg: var(--md-custom-color-blue-container);
+    --lgc-dock-hover-color: var(--md-custom-color-on-blue);
+    --lgc-dock-hover-bg: var(--md-custom-color-blue);
   }
 
   &.is-pink {

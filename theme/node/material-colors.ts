@@ -123,6 +123,7 @@ export const defaultMaterialColorsConfig = {
   specVersion: '2025',
   platform: 'phone',
   custom: {
+    blue: { color: '#D5ECF6', blend: true },
     brown: { color: '#A0703C', blend: true },
     pink: { color: '#C87D6F', blend: true },
   },
@@ -156,7 +157,10 @@ export function resolveMaterialColorsConfig(
   const config = {
     ...defaultMaterialColorsConfig,
     ...input,
-    custom: resolveCustomColorsConfig(input.custom),
+    custom: resolveCustomColorsConfig(
+      input.source ?? defaultMaterialColorsConfig.source,
+      input.custom,
+    ),
   } satisfies ResolvedMaterialColorsConfig
 
   validateMaterialColorsConfig(config)
@@ -165,9 +169,11 @@ export function resolveMaterialColorsConfig(
 }
 
 function resolveCustomColorsConfig(
+  source: string,
   input: MaterialCustomColorsConfig | undefined,
 ): Required<MaterialCustomColorsConfig> {
   return {
+    blue: resolveCustomColorConfig({ color: source, blend: true }, input?.blue),
     brown: resolveCustomColorConfig(
       defaultMaterialColorsConfig.custom.brown,
       input?.brown,
@@ -224,6 +230,7 @@ function validateMaterialColorsConfig(config: ResolvedMaterialColorsConfig) {
 
   parseHexColor(config.custom.brown?.color, 'custom.brown.color')
   parseHexColor(config.custom.pink?.color, 'custom.pink.color')
+  parseHexColor(config.custom.blue?.color, 'custom.blue.color')
 }
 
 function createScheme(

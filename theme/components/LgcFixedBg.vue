@@ -67,59 +67,109 @@ watch(
 
 // Multi-layer atmosphere stays raw CSS (not expressible cleanly as utilities).
 .lgc-fixed-bg-atmosphere {
+  --lgc-fixed-bg-pink-color: var(--md-custom-color-pink-container);
+  --lgc-fixed-bg-brown-color: var(--md-custom-color-brown-container);
+  --lgc-fixed-bg-pink-presence: 50%;
+  --lgc-fixed-bg-brown-presence: 38%;
+  --lgc-fixed-bg-blue-presence: 58%;
+  --lgc-fixed-bg-top-presence: 52%;
+  --lgc-fixed-bg-soft-opacity: 0.72;
+  --lgc-fixed-bg-soft-brown-color: var(--md-custom-color-brown-container);
+  --lgc-fixed-bg-soft-pink-color: var(--md-custom-color-pink-container);
+  --lgc-fixed-bg-soft-brown-presence: 32%;
+  --lgc-fixed-bg-soft-pink-presence: 30%;
+  --lgc-fixed-bg-soft-blue-presence: 16%;
+
   background:
     radial-gradient(
-      circle,
-      color-mix(in srgb, var(--md-sys-color-primary) 24%, transparent) 0 2px,
-      transparent 2.6px
+      ellipse at 22% 14%,
+      color-mix(
+        in srgb,
+        var(--lgc-fixed-bg-pink-color) var(--lgc-fixed-bg-pink-presence),
+        transparent
+      ),
+      transparent 42%
     ),
     radial-gradient(
-      circle,
-      color-mix(in srgb, var(--md-sys-color-tertiary) 20%, transparent) 0 1.4px,
-      transparent 2px
+      ellipse at 76% 22%,
+      color-mix(
+        in srgb,
+        var(--lgc-fixed-bg-brown-color) var(--lgc-fixed-bg-brown-presence),
+        transparent
+      ),
+      transparent 44%
     ),
     radial-gradient(
-      closest-side at 48% 28%,
-      color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent),
-      transparent 74%
-    ),
-    radial-gradient(
-      closest-side at 34% 58%,
-      color-mix(in srgb, var(--md-sys-color-primary-container) 34%, transparent),
-      transparent 80%
-    ),
-    radial-gradient(
-      closest-side at 68% 54%,
-      color-mix(in srgb, var(--md-sys-color-tertiary-container) 28%, transparent),
-      transparent 82%
+      ellipse at 50% 108%,
+      color-mix(
+        in srgb,
+        var(--md-custom-color-blue-container) var(--lgc-fixed-bg-blue-presence),
+        transparent
+      ),
+      transparent 66%
     ),
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--md-sys-color-primary-container) 42%, transparent) 0%,
-      color-mix(in srgb, var(--md-sys-color-surface) 96%, transparent) 44%,
+      color-mix(
+          in srgb,
+          var(--md-custom-color-blue-container) var(--lgc-fixed-bg-top-presence),
+          transparent
+        )
+        0%,
+      color-mix(in srgb, var(--md-sys-color-surface) 94%, transparent) 52%,
       var(--md-sys-color-surface) 100%
     );
-  background-position:
-    0 0,
-    28px 22px,
-    center,
-    center,
-    center,
-    center;
-  background-size:
-    84px 84px,
-    132px 132px,
-    auto,
-    auto,
-    auto,
-    auto;
+}
+
+html.dark .lgc-fixed-bg-atmosphere {
+  --lgc-fixed-bg-pink-color: var(--md-custom-color-pink);
+  --lgc-fixed-bg-brown-color: var(--md-custom-color-brown);
+  --lgc-fixed-bg-pink-presence: 12%;
+  --lgc-fixed-bg-brown-presence: 11%;
+  --lgc-fixed-bg-blue-presence: 44%;
+  --lgc-fixed-bg-top-presence: 38%;
+  --lgc-fixed-bg-soft-opacity: 0.62;
+  --lgc-fixed-bg-soft-brown-color: var(--md-custom-color-brown);
+  --lgc-fixed-bg-soft-pink-color: var(--md-custom-color-pink);
+  --lgc-fixed-bg-soft-brown-presence: 12%;
+  --lgc-fixed-bg-soft-pink-presence: 8%;
+  --lgc-fixed-bg-soft-blue-presence: 10%;
 }
 
 .lgc-fixed-bg-atmosphere::before {
   content: '';
-  @apply 'absolute inset-0 opacity-82';
-  backdrop-filter: blur(42px);
-  mask-image: radial-gradient(ellipse at 50% 42%, black 0 44%, transparent 76%);
+  @apply 'absolute inset-0';
+  opacity: var(--lgc-fixed-bg-soft-opacity);
+  background:
+    radial-gradient(
+      ellipse at 64% 34%,
+      color-mix(
+        in srgb,
+        var(--lgc-fixed-bg-soft-brown-color) var(--lgc-fixed-bg-soft-brown-presence),
+        transparent
+      ),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse at 24% 30%,
+      color-mix(
+        in srgb,
+        var(--lgc-fixed-bg-soft-pink-color) var(--lgc-fixed-bg-soft-pink-presence),
+        transparent
+      ),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 38% 52%,
+      color-mix(
+        in srgb,
+        var(--md-custom-color-blue) var(--lgc-fixed-bg-soft-blue-presence),
+        transparent
+      ),
+      transparent 62%
+    );
+  backdrop-filter: blur(38px);
+  mask-image: radial-gradient(ellipse at 50% 46%, black 0 48%, transparent 78%);
 }
 
 .lgc-fixed-bg-image,

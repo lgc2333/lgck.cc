@@ -13,6 +13,8 @@ describe('material colors', () => {
     expect(readToken(css, 'html.dark', '--md-sys-color-primary')).toMatchHexColor()
     expect(readToken(css, ':root', '--md-custom-color-brown')).toMatchHexColor()
     expect(readToken(css, ':root', '--md-custom-color-on-brown')).toMatchHexColor()
+    expect(readToken(css, ':root', '--md-custom-color-blue')).toMatchHexColor()
+    expect(readToken(css, ':root', '--md-custom-color-on-blue')).toMatchHexColor()
     expect(
       readToken(css, ':root', '--md-custom-color-pink-container'),
     ).toMatchHexColor()
@@ -39,17 +41,31 @@ describe('material colors', () => {
     )
   })
 
+  it('uses the source color as the default blue custom color', () => {
+    const defaultCss = generateMaterialColorsCss()
+    const customSourceCss = generateMaterialColorsCss({ source: '#2e6f9f' })
+
+    expect(readToken(customSourceCss, ':root', '--md-custom-color-blue')).not.toBe(
+      readToken(defaultCss, ':root', '--md-custom-color-blue'),
+    )
+  })
+
   it('allows overriding fixed custom colors', () => {
     const defaultCss = generateMaterialColorsCss()
     const css = generateMaterialColorsCss({
       custom: {
+        blue: { color: '#2196f3', blend: false },
         brown: { color: '#795548', blend: false },
         pink: { color: '#e91e63', blend: false },
       },
     })
 
+    expect(readToken(css, ':root', '--md-custom-color-blue')).toMatchHexColor()
     expect(readToken(css, ':root', '--md-custom-color-brown')).toMatchHexColor()
     expect(readToken(css, ':root', '--md-custom-color-pink')).toMatchHexColor()
+    expect(readToken(css, ':root', '--md-custom-color-blue')).not.toBe(
+      readToken(defaultCss, ':root', '--md-custom-color-blue'),
+    )
     expect(readToken(css, ':root', '--md-custom-color-brown')).not.toBe(
       readToken(defaultCss, ':root', '--md-custom-color-brown'),
     )

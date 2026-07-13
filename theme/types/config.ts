@@ -86,7 +86,7 @@ export interface HeaderLinksConfig {
 // ─── Landing ────────────────────────────────────────────────────────────────
 
 export type LandingLinkVariant =
-  'primary' | 'secondary' | 'surface' | 'transparent' | 'brown' | 'pink'
+  'primary' | 'secondary' | 'surface' | 'transparent' | 'blue' | 'brown' | 'pink'
 
 export type LandingMode = 'full' | 'full-only' | 'compact' | 'disabled'
 
@@ -236,6 +236,7 @@ export interface MaterialCustomColorConfig {
 }
 
 export interface MaterialCustomColorsConfig {
+  blue?: Partial<MaterialCustomColorConfig>
   brown?: Partial<MaterialCustomColorConfig>
   pink?: Partial<MaterialCustomColorConfig>
 }
