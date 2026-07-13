@@ -2,6 +2,7 @@ catalogMode: prefer
 cleanupUnusedCatalogs: true
 
 packages:
+  - addons/*
   - blog
   - demo
   - theme
@@ -30,7 +31,9 @@ catalog:
   '@iconify-json/material-symbols': ^1.2.83
   '@iconify-json/ri': ^1.2.10
   '@poupe/material-color-utilities': 0.4.1
+  '@waline/client': 3.4.1
   '@vueuse/core': ^14.3.0
+  artalk: ^2.9.1
   '@unocss/eslint-plugin': ^66.7.5
   eslint: ^10.6.0
   eslint-config-prettier: ^10.1.8
@@ -39,7 +42,10 @@ catalog:
   sponsorkit: ^17.1.1
   typescript: ^6.0.3
   valaxy: ^0.28.11
+  valaxy-addon-artalk: ^0.1.4
   valaxy-addon-components: ^0.1.0
+  valaxy-addon-twikoo: ^0.0.4
+  valaxy-addon-waline: ^0.2.1
   vue-gtag-next: ^1.14.0
   unocss: ^66.7.5
   vite-plugin-font: ^5.1.2

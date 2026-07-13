@@ -47,6 +47,7 @@ accessibility:
   posts_pagination: Pagination
   post_navigation: Post navigation
   post_metadata: Post metadata
+  comment_provider: Comment provider
   open_post_outline: Open article outline
   close_post_outline: Close article outline
   post_outline: Article outline

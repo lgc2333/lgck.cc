@@ -13,6 +13,7 @@ const props = defineProps<{
   path: string
   tags: string[]
   title: string
+  url?: string
 }>()
 
 const { t } = useI18n()
@@ -42,12 +43,13 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
     <LgcPostMetaChips only-taxonomies :categories="categories" :tags="tags" />
   </div>
 
-  <RouterLink
+  <AppLink
     class="lgc-post-arrow lgc-card-arrow max-sm:hidden"
     sm="inline-grid"
-    :to="path"
+    :to="url || path"
     :aria-label="t('post.read_more')"
   >
-    <span i-material-symbols-arrow-forward-rounded />
-  </RouterLink>
+    <span v-if="url" i-material-symbols-open-in-new-rounded />
+    <span v-else i-material-symbols-arrow-forward-rounded />
+  </AppLink>
 </template>

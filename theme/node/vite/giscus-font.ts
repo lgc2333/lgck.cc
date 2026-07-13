@@ -2,17 +2,13 @@ import { Buffer } from 'node:buffer'
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import type { ServerResponse } from 'node:http'
 import { extname, isAbsolute, join, relative } from 'node:path'
-import { fileURLToPath } from 'node:url'
 
 import type { Plugin } from 'vite'
 
 export const publicGiscusFontThemePath = '/assets/giscus-fonts.css'
 
 const publicGiscusFontAssetPathPrefix = '/assets/giscus-fonts/'
-const fontCacheDir = fileURLToPath(
-  new URL('../node_modules/.valaxy/cache/', import.meta.url),
-)
-const tokenCssPath = new URL('../../theme/styles/base.scss', import.meta.url)
+const tokenCssPath = new URL('../../styles/base.scss', import.meta.url)
 const fontFaceBlockRE = /@font-face\s*\{[^}]*\}/g
 const fontImportRE =
   /@import\s+url\(["']?https:\/\/fonts\.googleapis\.com\/[^"')]+["']?\);/g
@@ -23,12 +19,18 @@ const harmonyOSLocalSourceRE =
   /src\s*:\s*local\(["']?HarmonyOS Sans(?: SC)?(?: (?:Thin|Light|Medium|Bold|Black))?["']?\),\s*/g
 
 export function giscusFontPlugin(): Plugin {
+  let fontCacheDir = ''
+
   return {
-    name: 'blog:giscus-font',
+    name: 'valaxy-theme-lgcuwukii:giscus-font',
+
+    configResolved(config) {
+      fontCacheDir = join(config.root, 'node_modules/.valaxy/cache')
+    },
 
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        if (serveDevGiscusFont(req.url, res)) {
+        if (serveDevGiscusFont(req.url, res, fontCacheDir)) {
           return
         }
 
@@ -52,13 +54,17 @@ export function giscusFontPlugin(): Plugin {
   }
 }
 
-function serveDevGiscusFont(url: string | undefined, res: ServerResponse) {
+function serveDevGiscusFont(
+  url: string | undefined,
+  res: ServerResponse,
+  fontCacheDir: string,
+) {
   const pathname = url?.split('?')[0]
   if (!pathname) {
     return false
   }
 
-  const css = getDevGiscusFont(pathname)
+  const css = getDevGiscusFont(pathname, fontCacheDir)
   if (css === undefined) {
     return false
   }
@@ -74,17 +80,17 @@ function serveDevGiscusFont(url: string | undefined, res: ServerResponse) {
   return true
 }
 
-function getDevGiscusFont(pathname: string) {
+function getDevGiscusFont(pathname: string, fontCacheDir: string) {
   if (pathname === publicGiscusFontThemePath) {
-    return buildDevGiscusFontCss()
+    return buildDevGiscusFontCss(fontCacheDir)
   }
 
   if (pathname.startsWith(publicGiscusFontAssetPathPrefix)) {
-    return readDevGiscusFontAsset(pathname)
+    return readDevGiscusFontAsset(pathname, fontCacheDir)
   }
 }
 
-function buildDevGiscusFontCss() {
+function buildDevGiscusFontCss(fontCacheDir: string) {
   if (!existsSync(fontCacheDir)) {
     return `${extractFontImportCss(readFileSync(tokenCssPath, 'utf8')).join('\n')}\n`
   }
@@ -118,7 +124,7 @@ function rewriteDevFontUrls(css: string, cacheDirName: string) {
   )
 }
 
-function readDevGiscusFontAsset(pathname: string) {
+function readDevGiscusFontAsset(pathname: string, fontCacheDir: string) {
   const relativePath = decodeURIComponent(
     pathname.slice(publicGiscusFontAssetPathPrefix.length),
   )

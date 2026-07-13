@@ -1,5 +1,6 @@
 import { defineValaxyConfig } from 'valaxy'
 import { addonComponents } from 'valaxy-addon-components'
+import { addonGiscus } from 'valaxy-addon-giscus'
 import type { ThemeConfig } from 'valaxy-theme-lgcuwukii'
 
 const safelist = [
@@ -29,8 +30,31 @@ export default defineValaxyConfig<ThemeConfig>({
       },
     },
   },
-  addons: [addonComponents()],
+  addons: [
+    addonComponents(),
+    addonGiscus({
+      repo: 'lgc2333/blog',
+      repoId: 'R_kgDOLr1GDQ',
+      category: 'Announcements',
+      categoryId: 'DIC_kwDOLr1GDc4Cen96',
+      mapping: 'pathname',
+      strict: '1',
+      reactionsEnabled: '1',
+      emitMetadata: '0',
+      inputPosition: 'top',
+      lang: 'zh-CN',
+      loading: 'lazy',
+    }),
+  ],
   unocss: { safelist },
+  vite: {
+    preview: {
+      allowedHosts: true,
+    },
+    server: {
+      allowedHosts: true,
+    },
+  },
   // Site-owned non-Material icons (theme only ships material-symbols + ic).
   unocssPresets: {
     icons: {

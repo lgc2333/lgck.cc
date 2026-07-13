@@ -1,3 +1,5 @@
+<!-- Overriding because we need layout transition -->
+
 <script setup lang="ts">
 // @ts-expect-error virtual module
 import ValaxyThemeApp from '/@valaxyjs/ThemeAppVue'

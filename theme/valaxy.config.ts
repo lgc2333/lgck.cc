@@ -4,6 +4,8 @@ import Font from 'vite-plugin-font'
 import {
   defaultThemeConfig,
   generateSafelist,
+  giscusFontPlugin,
+  giscusThemePlugin,
   harmonyOSFontFamilyPlugin,
   loadingBootstrapPlugin,
   materialColorsPlugin,
@@ -29,6 +31,8 @@ export default defineTheme<ThemeConfig>((options) => {
         Font.vite(),
         harmonyOSFontFamilyPlugin(),
         materialColorsPlugin(options),
+        giscusFontPlugin(),
+        giscusThemePlugin(options),
         loadingBootstrapPlugin(),
       ],
     },

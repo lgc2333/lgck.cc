@@ -1,0 +1,36 @@
+{
+  "name": "valaxy-addon-giscus",
+  "type": "module",
+  "version": "0.0.1",
+  "packageManager": "pnpm@11.11.0+sha512.4463f65fd80ed80d69bc1d4bf163ee94f605c7380fc318bb5b2ebe15f8cd12d49c51a4d59e951b401e764d3b6ca751cbf51bc50ed7001a6bcb4935e684c34882",
+  "description": "Giscus comment addon for Valaxy",
+  "keywords": [
+    "valaxy",
+    "addon",
+    "giscus"
+  ],
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.ts"
+    },
+    "./types": {
+      "types": "./types/index.ts",
+      "default": "./types/index.ts"
+    },
+    "./*": "./*"
+  },
+  "main": "index.ts",
+  "types": "index.d.ts",
+  "peerDependencies": {
+    "valaxy": "catalog:"
+  },
+  "dependencies": {
+    "@giscus/vue": "catalog:"
+  },
+  "devDependencies": {
+    "valaxy": "catalog:",
+    "vue": "catalog:",
+    "vue-i18n": "catalog:"
+  }
+}

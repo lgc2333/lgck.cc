@@ -27,7 +27,13 @@
     "vue-router": "catalog:"
   },
   "devDependencies": {
+    "@waline/client": "catalog:",
+    "artalk": "catalog:",
     "valaxy-addon-algolia": "catalog:",
+    "valaxy-addon-artalk": "catalog:",
+    "valaxy-addon-giscus": "workspace:*",
+    "valaxy-addon-twikoo": "catalog:",
+    "valaxy-addon-waline": "catalog:",
     "vitest": "catalog:"
   }
 }

@@ -192,6 +192,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/posts/type-link-jump': RouteRecordInfo<
+      '/posts/type-link-jump',
+      '/posts/type-link-jump',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/tags/': RouteRecordInfo<
       '/tags/',
       '/tags',
@@ -391,6 +398,14 @@ declare module 'vue-router/auto-routes' {
     'pages/posts/test.md': {
       routes:
         | '/posts/test'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/type-link-jump.md': {
+      routes:
+        | '/posts/type-link-jump'
       views:
         | never
       pathParamNames:

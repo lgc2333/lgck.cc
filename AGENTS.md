@@ -6,7 +6,8 @@ For docs mainly for AI (like `AGENTS.md`), keep them concise and token efficient
 
 ## Project Structure
 
-- pnpm workspace packages are `blog`, `demo`, and `theme`; shared versions live in the `pnpm-workspace.yaml` catalog.
+- pnpm workspace packages are `blog`, `demo`, `theme`, and `addons/*`; shared versions live in the `pnpm-workspace.yaml` catalog.
+- `addons/giscus/`: local Valaxy addon package `valaxy-addon-giscus`.
 - `blog/`: production Valaxy site. Edit source in `pages/`, `components/`, `styles/`, `setup/`, `public/`, `site.config.ts`, and `valaxy.config.ts`.
 - `theme/`: package `valaxy-theme-lgcuwukii`; structure, component grouping, design direction, and **full styling policy** live in `theme/AGENTS.md`.
 - `demo/`: local theme demo that consumes `theme` through `workspace:*`.

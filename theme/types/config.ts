@@ -189,6 +189,16 @@ export interface PostFooterConfig {
   sponsor: Partial<PostFooterSponsorConfig>
 }
 
+// ─── Giscus ─────────────────────────────────────────────────────────────────
+
+export interface GiscusConfig {
+  /**
+   * Let the theme set `valaxy-addon-giscus` light/dark theme CSS.
+   * @default true
+   */
+  useTheme: boolean
+}
+
 declare module 'valaxy' {
   interface PostFrontMatter {
     /**
@@ -371,6 +381,11 @@ export interface ThemeConfig extends DefaultTheme.Config {
    * Post footer behavior.
    */
   postFooter?: Partial<PostFooterConfig>
+
+  /**
+   * Giscus addon integration.
+   */
+  giscus?: Partial<GiscusConfig>
 
   /**
    * Material color generation.

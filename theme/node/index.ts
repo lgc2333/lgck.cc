@@ -1,9 +1,13 @@
 export { defaultThemeConfig } from './config'
-export { harmonyOSFontFamilyPlugin } from './font'
-export { loadingBootstrapPlugin } from './loading-bootstrap-plugin'
+export { generateSafelist } from './config'
 export {
   defaultMaterialColorsConfig,
   generateMaterialColorsCss,
 } from './material-colors'
-export { materialColorsPlugin } from './material-colors-plugin'
-export { generateSafelist } from './safelist'
+export {
+  giscusFontPlugin,
+  giscusThemePlugin,
+  harmonyOSFontFamilyPlugin,
+  loadingBootstrapPlugin,
+  materialColorsPlugin,
+} from './vite'

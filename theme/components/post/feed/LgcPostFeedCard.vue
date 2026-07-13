@@ -23,6 +23,7 @@ const tags = computed(() => normalizePostListValue(props.post.tags))
 const title = computed(() => normalizeLocaleText(props.post.title, locale.value, t))
 const hasCover = computed(() => Boolean(props.post.cover))
 const postPath = computed(() => props.post.path || '')
+const postUrl = computed(() => props.post.url || '')
 const coverContentMask = computed<CoverContentMask>(() => {
   const mask =
     props.post.coverContentMask ?? themeConfig.value.postFeed?.coverContentMask
@@ -61,6 +62,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
       :position="coverContentPosition"
       :tags="tags"
       :title="title"
+      :url="postUrl"
     />
 
     <LgcPostFeedPlainCard
@@ -72,6 +74,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
       :path="postPath"
       :tags="tags"
       :title="title"
+      :url="postUrl"
     />
   </article>
 </template>

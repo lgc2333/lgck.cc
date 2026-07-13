@@ -1,6 +1,7 @@
 import { computed, ref } from 'vue'
 
 import type { FixedBgImageMeta } from '../types'
+import { createFixedBgRandomQueue } from '../utils/fixedBg'
 import { useThemeConfig } from './config'
 
 const SWITCH_DEBOUNCE = 120
@@ -43,17 +44,6 @@ function resetListStateIfNeeded(list: FixedBgImageMeta[]) {
   lastListKey = listKey
   sequentialIndex = -1
   randomQueue = []
-}
-
-function createRandomQueue(length: number) {
-  const queue = Array.from({ length }, (_, index) => index)
-
-  for (let i = queue.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[queue[i], queue[j]] = [queue[j], queue[i]]
-  }
-
-  return queue
 }
 
 function preloadImage(meta: FixedBgImageMeta) {
@@ -102,7 +92,10 @@ export function useFixedBg() {
     resetListStateIfNeeded(list)
 
     if (themeConfig.value.fixedBg?.switchMode === 'random') {
-      if (!randomQueue.length) randomQueue = createRandomQueue(list.length)
+      if (!randomQueue.length) {
+        randomQueue = createFixedBgRandomQueue(list, visibleImage.value?.url)
+      }
+
       const index = randomQueue.shift()
       return typeof index === 'number' ? list[index] : undefined
     }

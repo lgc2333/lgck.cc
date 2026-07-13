@@ -15,13 +15,13 @@ If an M3 Expressive decision is unclear, check official refs before implementing
 
 - `valaxy.config.ts`: `defineTheme()` — defaults, focused Vite plugins, Uno safelist/icons
 - `App.vue`: theme shell (`LgcLoading`)
-- `client/`: user-facing exports; `node/`: defaults, font plugin, material colors, loading bootstrap, icon safelist
+- `client/`: user-facing exports; `node/`: defaults/material colors/safelist; `node/vite/`: Vite plugins (fonts, material colors CSS, loading bootstrap, Giscus theme/font CSS)
 - `types/index.ts`: public theme config + Valaxy augmentation (`PostFrontMatter`, `DefaultTheme`, `*.ttf`)
 - `components/`: auto-registered; `ValaxyApp` / `ValaxyMain` / `layout` override slots stay at root; `Lgc*` grouped by surface (`header/`, `landing/`, `floating/`, `loading/`, `search/`, `post/`)
 - `layouts/`: default, home, post, 404
 - `composables/`: config, header, language motion, search
 - `utils/`: locale, post, routes, repo URLs, search text, M3 loading
-- `styles/`: global SCSS + tokens (`index.ts` → fonts + `index.scss`)
+- `styles/`: global SCSS + tokens (`index.ts` → fonts + `index.scss`); `styles/giscus/` owns Giscus iframe theme CSS
 - `assets/fonts/`, `locales/`, `pages/` (theme routes)
 
 ## Direction
@@ -111,7 +111,7 @@ PLEASE: Double-check the code you wrote meets the following constraints before y
 - Prefer attributify for all element-local utilities (`flex`/`text`/`bg`/`p`/`rounded`/`max-inline`…); move leftovers to `class` only when attributify cannot express them; use `un-` if attr conflicts with DOM/Vue prop
 - Tokens in `styles/base.scss`; call with `$token` (`bg-$md-sys-color-surface`, `p-$lgc-space-lg`)
 - Icons/safelist only in `valaxy.config.ts` (no standalone Uno config). Theme icon packs: `material-symbols` + `ic` only (Material family). Material Symbols Rounded primary; site-owned packs (e.g. `ri`) load in site configs, not theme. Config icons must be safelisted/collections-loaded
-- Fonts: `styles/fonts.ts`, `assets/fonts/`, `node/font.ts`
+- Fonts: `styles/fonts.ts`, `assets/fonts/`, `node/vite/font.ts`
 
 ### Tokens
 
@@ -159,6 +159,7 @@ Breakpoints only from theme config (sm/md/lg/xl above). Prefer Uno variants over
 - Defaults `node/config.ts` = minimal behavior only
 - Types in `types/` before wiring options
 - `postFooter.sponsor.link`: site-owned sponsor page link; when set, it wins over `siteConfig.sponsor.methods`
+- `giscus.useTheme`: when true, theme overwrites `valaxy-addon-giscus.options.theme` with its generated `/assets/giscus/*.css`
 - `landing.links`: flat list = auto layout; nested list = explicit dock rows
 - Site content (title, author, avatar, nav, landing links, socials) → `site.config.ts` / `themeConfig` / demos, not hard-coded defaults
 

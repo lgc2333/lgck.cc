@@ -47,6 +47,7 @@ accessibility:
   posts_pagination: 文章分页
   post_navigation: 文章导航
   post_metadata: 文章元信息
+  comment_provider: 评论系统
   open_post_outline: 打开文章目录
   close_post_outline: 关闭文章目录
   post_outline: 文章目录

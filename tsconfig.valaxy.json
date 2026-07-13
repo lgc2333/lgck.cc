@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "noEmit": true
   },
   "include": ["**/*.ts", "**/*.vue", "**/.valaxy/**/*.d.ts"],

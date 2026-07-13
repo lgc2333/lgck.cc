@@ -1,9 +1,11 @@
 import { readFileSync } from 'node:fs'
 import type { ServerResponse } from 'node:http'
 
+import type { ResolvedValaxyOptions } from 'valaxy'
 import type { Plugin } from 'vite'
 
-import { generateMaterialColorsCss } from '../../theme/node/material-colors'
+import type { ThemeConfig } from '../../types'
+import { generateMaterialColorsCss } from '../material-colors'
 import { publicGiscusFontThemePath } from './giscus-font'
 
 const publicBaseThemePath = '/assets/giscus/base.css'
@@ -12,8 +14,8 @@ const publicDarkThemePath = '/assets/giscus/dark.css'
 const emittedBaseThemeFileName = 'assets/giscus/base.css'
 const emittedLightThemeFileName = 'assets/giscus/light.css'
 const emittedDarkThemeFileName = 'assets/giscus/dark.css'
-const baseThemeCssPath = new URL('../styles/giscus/base.css', import.meta.url)
-const tokenCssPath = new URL('../../theme/styles/base.scss', import.meta.url)
+const baseThemeCssPath = new URL('../../styles/giscus/base.css', import.meta.url)
+const tokenCssPath = new URL('../../styles/base.scss', import.meta.url)
 const forwardedVarPrefixes = [
   '--lgc-',
   '--md-sys-',
@@ -22,14 +24,16 @@ const forwardedVarPrefixes = [
   '--va-font-family-',
 ]
 
-export function giscusThemePlugin(): Plugin {
+export function giscusThemePlugin(
+  options?: ResolvedValaxyOptions<ThemeConfig>,
+): Plugin {
   return {
-    name: 'blog:giscus-theme',
+    name: 'valaxy-theme-lgcuwukii:giscus-theme',
     enforce: 'post',
 
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        if (serveDevGiscusTheme(req.url, res)) {
+        if (serveDevGiscusTheme(req.url, res, options)) {
           return
         }
 
@@ -96,13 +100,17 @@ export function giscusThemePlugin(): Plugin {
   }
 }
 
-function serveDevGiscusTheme(url: string | undefined, res: ServerResponse) {
+function serveDevGiscusTheme(
+  url: string | undefined,
+  res: ServerResponse,
+  options?: ResolvedValaxyOptions<ThemeConfig>,
+) {
   const pathname = url?.split('?')[0]
   if (!pathname) {
     return false
   }
 
-  const css = getDevGiscusThemeCss(pathname)
+  const css = getDevGiscusThemeCss(pathname, options)
   if (css === undefined) {
     return false
   }
@@ -113,8 +121,11 @@ function serveDevGiscusTheme(url: string | undefined, res: ServerResponse) {
   return true
 }
 
-function getDevGiscusThemeCss(pathname: string) {
-  const cssVars = getSourceCssVars()
+function getDevGiscusThemeCss(
+  pathname: string,
+  options?: ResolvedValaxyOptions<ThemeConfig>,
+) {
+  const cssVars = getSourceCssVars(options)
 
   if (pathname === publicBaseThemePath) {
     return buildGiscusBaseCss(readFileSync(baseThemeCssPath, 'utf8'))
@@ -129,9 +140,12 @@ function getDevGiscusThemeCss(pathname: string) {
   }
 }
 
-function getSourceCssVars() {
+function getSourceCssVars(options?: ResolvedValaxyOptions<ThemeConfig>) {
   const tokenCss = readFileSync(tokenCssPath, 'utf8')
-  const sourceCss = [generateMaterialColorsCss(), tokenCss]
+  const sourceCss = [
+    generateMaterialColorsCss(options?.config.themeConfig?.colors),
+    tokenCss,
+  ]
   const rootVars = collectCssVars(sourceCss, ':root')
   const darkVars = new Map(rootVars)
 

@@ -12,9 +12,9 @@
     "sponsor": "sponsorkit"
   },
   "dependencies": {
-    "@giscus/vue": "catalog:",
     "valaxy": "catalog:",
     "valaxy-addon-components": "catalog:",
+    "valaxy-addon-giscus": "workspace:*",
     "valaxy-theme-lgcuwukii": "workspace:*",
     "vue-gtag-next": "catalog:",
     "vue-i18n": "catalog:",

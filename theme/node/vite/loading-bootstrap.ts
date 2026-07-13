@@ -5,7 +5,7 @@ import type { Plugin, ResolvedConfig } from 'vite'
 
 export function loadingBootstrapPlugin(): Plugin {
   const loadingBootstrapPath = normalizePath(
-    fileURLToPath(new URL('../client/loading-bootstrap.ts', import.meta.url)),
+    fileURLToPath(new URL('../../client/loading-bootstrap.ts', import.meta.url)),
   )
   let config: ResolvedConfig
   let loadingBootstrapFileName: string | undefined

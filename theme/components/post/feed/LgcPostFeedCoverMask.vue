@@ -17,6 +17,7 @@ withDefaults(
     position: CoverContentPosition
     tags: string[]
     title: string
+    url?: string
   }>(),
   {
     mask: 'gradient',
@@ -56,17 +57,18 @@ const { t } = useI18n()
         :title="title"
       />
 
-      <RouterLink
+      <AppLink
         class="lgc-post-arrow lgc-card-arrow max-sm:hidden -translate-y-1/2"
         absolute
         right="$lgc-space-xl sm:$lgc-space-2xl"
         top="1/2"
         sm="inline-grid"
-        :to="path"
+        :to="url || path"
         :aria-label="t('post.read_more')"
       >
-        <span i-material-symbols-arrow-forward-rounded />
-      </RouterLink>
+        <span v-if="url" i-material-symbols-open-in-new-rounded />
+        <span v-else i-material-symbols-arrow-forward-rounded />
+      </AppLink>
     </div>
   </LgcPostCoverFrame>
 </template>
