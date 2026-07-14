@@ -220,13 +220,6 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
-    '/collections/README': RouteRecordInfo<
-      '/collections/README',
-      '/collections/README',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
     '/notes/': RouteRecordInfo<
       '/notes/',
       '/notes',
@@ -920,14 +913,6 @@ declare module 'vue-router/auto-routes' {
     'pages/collections/love-and-peace/3.md': {
       routes:
         | '/collections/love-and-peace/3'
-      views:
-        | never
-      pathParamNames:
-        | never
-    }
-    'pages/collections/README.md': {
-      routes:
-        | '/collections/README'
       views:
         | never
       pathParamNames:
