@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import LgcCollectionDrawer from '../collection/LgcCollectionDrawer.vue'
+</script>
+
 <template>
   <div
     class="lgc-floating-actions"
@@ -9,6 +13,7 @@
     fixed
     gap="$lgc-space-sm"
   >
+    <LgcCollectionDrawer />
     <LgcPostOutlineAction />
     <div class="md:flex max-md:hidden">
       <LgcFixedBgAction />

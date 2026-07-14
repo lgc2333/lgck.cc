@@ -89,6 +89,48 @@ const siteConfig = useSiteConfig()
       minmax(0, calc(100% - var(--lgc-post-aside-width) - var(--lgc-space-lg)))
       var(--lgc-post-aside-width);
   }
+
+  .lgc-post-aside-stack {
+    --post-aside-stack-top: calc(var(--lgc-header-height) + var(--lgc-space-lg));
+    --post-aside-stack-max-height: calc(
+      100vh - var(--post-aside-stack-top) - var(--lgc-space-lg)
+    );
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .lgc-post-aside-stack.has-post-toc {
+    grid-template-rows: minmax(0, 1fr) minmax(0, 2fr);
+  }
+
+  .lgc-post-aside-stack.has-post-toc:has(
+      > .lgc-collection-aside .lgc-collection-nav:not(.is-expanded)
+    ) {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .lgc-post-aside-stack > .lgc-collection-aside,
+  .lgc-post-aside-stack > .lgc-post-aside {
+    min-block-size: 0;
+    max-block-size: 100%;
+  }
+
+  .lgc-post-aside-stack > .lgc-collection-aside,
+  .lgc-post-aside-stack > .lgc-post-aside {
+    block-size: 100%;
+  }
+
+  .lgc-post-aside-stack > .lgc-collection-aside .lgc-collection-aside-scroll,
+  .lgc-post-aside-stack > .lgc-post-aside .lgc-post-outline-scroll {
+    min-block-size: 0;
+    max-block-size: none;
+  }
+
+  .lgc-post-aside-stack
+    > .lgc-collection-aside:has(.lgc-collection-nav.is-expanded)
+    .lgc-collection-aside-scroll,
+  .lgc-post-aside-stack > .lgc-post-aside .lgc-post-outline-scroll {
+    block-size: 100%;
+  }
 }
 
 @screen xl {
@@ -107,6 +149,24 @@ const siteConfig = useSiteConfig()
     justify-self: start;
     inline-size: var(--lgc-post-aside-width);
     margin-inline-start: calc(100% + var(--lgc-space-lg));
+  }
+
+  .lgc-post-shell:has(> .lgc-collection-post-aside) > .lgc-collection-post-aside {
+    grid-area: 1 / 1;
+    align-self: start;
+    justify-self: end;
+    inline-size: var(--lgc-post-aside-width);
+    margin-inline-end: calc(100% + var(--lgc-space-lg));
+    margin-inline-start: 0;
+  }
+
+  .lgc-post-shell:has(> .lgc-collection-post-aside) > .lgc-post-toc-aside {
+    grid-area: 1 / 1;
+    align-self: start;
+    justify-self: start;
+    inline-size: var(--lgc-post-aside-width);
+    margin-inline-start: calc(100% + var(--lgc-space-lg));
+    margin-inline-end: 0;
   }
 }
 </style>

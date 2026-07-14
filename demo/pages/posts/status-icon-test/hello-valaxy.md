@@ -4,10 +4,10 @@ title:
   en: Hello, Valaxy!
 date: 2022-03-22
 updated: 2022-03-23
-categories: $locale:category.valaxy_notes
+categories: valaxy_notes
 tags:
   - valaxy
-  - $locale:tag.notes
+  - notes
 top: 1
 cover: https://cdn.yunyoujun.cn/img/bg/girl-in-water-tank.webp
 ---

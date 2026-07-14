@@ -6,7 +6,7 @@ draft: true
 hide: index
 date: 2021-07-14
 tags:
-  - $locale:tag.draft
+  - draft
 ---
 
 草稿内容

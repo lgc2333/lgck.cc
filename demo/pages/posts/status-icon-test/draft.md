@@ -5,7 +5,7 @@ title:
 draft: true
 date: 2021-07-14
 tags:
-  - $locale:tag.draft
+  - draft
 ---
 
 ::: zh-CN

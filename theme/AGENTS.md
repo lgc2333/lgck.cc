@@ -17,7 +17,7 @@ If an M3 Expressive decision is unclear, check official refs before implementing
 - `App.vue`: theme shell (`LgcLoading`)
 - `client/`: user-facing exports; `node/`: defaults/material colors/safelist; `node/vite/`: Vite plugins (fonts, material colors CSS, loading bootstrap, Giscus theme/font CSS)
 - `types/index.ts`: public theme config + Valaxy augmentation (`PostFrontMatter`, `DefaultTheme`, `*.ttf`)
-- `components/`: auto-registered; `ValaxyApp` / `ValaxyMain` / `layout` override slots stay at root; `Lgc*` grouped by surface (`header/`, `landing/`, `floating/`, `loading/`, `search/`, `post/`)
+- `components/`: auto-registered; `ValaxyApp` / `ValaxyMain` / `layout` override slots stay at root; `Lgc*` grouped by surface (`header/`, `landing/`, `floating/`, `loading/`, `search/`, `post/`, `collection/`)
 - `layouts/`: default, home, post, 404
 - `composables/`: config, header, language motion, search
 - `utils/`: locale, post, routes, repo URLs, search text, M3 loading
@@ -38,7 +38,8 @@ Valaxy blog: landing home, floating header, unified search, post feed/layouts, f
 - `LgcLandingHome.vue`: first viewport + optional posts
 - Header: `LgcHeader` / `LgcHeaderActions` / `LgcHeaderDrawer` / `LgcHeaderLink`
 - Search: `LgcUnifiedSearch` + `composables/search*.ts` (local/fuse/Algolia); field/preview/panel/results own display
-- `ValaxyMain.vue`: post shell — `main-header` full `layout-inner` width; body/nav/comment in `.lgc-main-reading` (`--lgc-container-reading`). Pieces: `LgcPostArticleHeader/Nav`, `LgcPostContentAfter/Sponsor/Aside/Outline/OutlineAction`, `LgcPostCoverFrame`, `LgcPostMetaChips`, `LgcPostFeed*`, pagination
+- `ValaxyMain.vue`: post shell — `main-header` full `layout-inner` width; body/nav/comment in `.lgc-main-reading` (`--lgc-container-reading`); collection pages stack collection nav + TOC in the right aside at lg and split collection left / TOC right at xl. Pieces: `LgcPostArticleHeader/Nav`, `LgcPostContentAfter/Sponsor/Aside/Outline/OutlineAction`, `LgcPostCoverFrame`, `LgcPostMetaChips`, `LgcPostFeed*`, pagination
+- Collections: `layouts/collections.vue` reuses `LgcPostFeed source="collections"`; `layouts/collection.vue` reuses `layouts/post.vue` with the `collection` prop; `components/collection/LgcCollection*` own collection article navigation. Feed collapsed cards use the same post-card frame. Collection nav opens from a mobile floating action drawer below lg, stacks with TOC at lg, and moves left at xl; sticky asides must stay height-limited.
 - Loading: `LgcLoading*` + `utils/m3-loading-indicator/`
 - `utils/pagination.ts`, `utils/post.ts` (dates/locale)
 - `styles/base.scss`: sole MD + `--lgc-*` token source (+ html/body base)
@@ -131,11 +132,13 @@ PLEASE: Double-check the code you wrote meets the following constraints before y
 
 ### Responsive (Wind4)
 
-Breakpoints only from theme config (sm/md/lg/xl above). Prefer Uno variants over free-form layout `@media`.
+Breakpoints only from theme config (sm/md/lg/xl above). Use Uno/Wind4 variants or `@screen`; CSS `@media` width breakpoints are forbidden.
 
 - Works: `sm:`/`md:`/`lg:`/`xl:` (min), `max-sm:`/`max-md:` (max), wind4 `lt-sm`/`at-sm`
 - Broken: `min-sm:` / `min-md:` (empty) — use plain `sm:` / `md:`
-- Token overrides: `@screen sm`. Matching max-sm: `@media (width <= 599.9px)` ok
+- Token overrides: prefer mobile defaults + `@screen sm` upward overrides
+- Forbidden: `@media` containing `width`, `min-width`, or `max-width` for breakpoints
+- Allowed: non-width media queries such as `prefers-reduced-motion`
 
 ### Utility name pitfalls
 

@@ -13,6 +13,7 @@ const props = withDefaults(
     titleClass?: string
     /** Hide tag row below sm (plain card shows a separate mobile chips row). */
     tagsDesktopOnly?: boolean
+    part?: 'all' | 'title' | 'body'
     /** Cover-card surface: title/excerpt layout owned here, not via parent :deep. */
     surface?: 'default' | 'cover'
     coverMask?: 'gradient' | 'card'
@@ -20,6 +21,7 @@ const props = withDefaults(
   }>(),
   {
     tagsDesktopOnly: false,
+    part: 'all',
     surface: 'default',
     coverMask: 'gradient',
     coverAlign: 'left',
@@ -36,7 +38,7 @@ const shouldRenderAsTemplate = computed(() => {
 const rootClass = computed(() => {
   if (props.surface !== 'cover') return 'min-w-0 self-center max-sm:contents'
   return [
-    'lgc-post-body-cover min-w-0 self-center',
+    'lgc-post-body-cover-content min-w-0 self-center',
     `is-mask-${props.coverMask}`,
     `is-align-${props.coverAlign}`,
   ]
@@ -65,7 +67,35 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
 </script>
 
 <template>
-  <div :class="rootClass">
+  <h3 v-if="part === 'title'" :class="titleClass">
+    <!-- No text= on RouterLink: HTMLAnchorElement.text replaces children -->
+    <RouterLink
+      class="lgc-post-title-link text-inherit no-underline focus-visible:text-$md-sys-color-primary hover:text-$md-sys-color-primary"
+      :class="props.titleClass"
+      :to="path"
+    >
+      {{ title }}
+    </RouterLink>
+  </h3>
+
+  <div v-else-if="part === 'body'" min-w="0">
+    <div
+      v-if="excerpt && shouldRenderAsTemplate"
+      class="lgc-post-excerpt markdown-body overflow-hidden"
+    >
+      <ValaxyDynamicComponent :template-str="excerpt" />
+    </div>
+    <div
+      v-else-if="excerpt"
+      class="lgc-post-excerpt markdown-body overflow-hidden"
+      v-html="excerpt"
+    />
+    <div v-if="hasTaxonomies" :class="tagsClass" flex="~ wrap" gap="$lgc-space-sm">
+      <LgcPostMetaChips only-taxonomies :categories="categories" :tags="tags" />
+    </div>
+  </div>
+
+  <div v-else :class="rootClass">
     <h3 :class="titleClass">
       <!-- No text= on RouterLink: HTMLAnchorElement.text replaces children -->
       <RouterLink
@@ -88,27 +118,27 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
 
 <style scoped lang="scss">
 // Residual: cover-on-mask color/shadow tokens from LgcPostCoverFrame (parent cascade).
-.lgc-post-body-cover.is-mask-gradient .lgc-post-title {
+.lgc-post-body-cover-content.is-mask-gradient .lgc-post-title {
   color: var(--lgc-post-cover-on-mask);
   text-shadow: var(--lgc-post-cover-text-shadow);
 }
 
-.lgc-post-body-cover.is-mask-gradient .lgc-post-excerpt {
+.lgc-post-body-cover-content.is-mask-gradient .lgc-post-excerpt {
   color: var(--lgc-post-cover-on-mask-variant);
   text-shadow: 0 1px 4px
     color-mix(in srgb, var(--md-sys-color-surface) 24%, transparent);
 }
 
-.lgc-post-body-cover.is-mask-card .lgc-post-title {
+.lgc-post-body-cover-content.is-mask-card .lgc-post-title {
   @apply 'text-$md-sys-color-on-surface';
 }
 
-.lgc-post-body-cover.is-align-right .lgc-post-title,
-.lgc-post-body-cover.is-align-right .lgc-post-excerpt {
+.lgc-post-body-cover-content.is-align-right .lgc-post-title,
+.lgc-post-body-cover-content.is-align-right .lgc-post-excerpt {
   @apply 'sm:text-right';
 }
 
-.lgc-post-body-cover.is-align-right .lgc-post-tags {
+.lgc-post-body-cover-content.is-align-right .lgc-post-tags {
   @apply 'sm:justify-end';
 }
 </style>

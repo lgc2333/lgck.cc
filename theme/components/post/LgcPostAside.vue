@@ -2,6 +2,15 @@
 import { useFrontmatter, useOutline } from 'valaxy'
 import { computed } from 'vue'
 
+withDefaults(
+  defineProps<{
+    embedded?: boolean
+  }>(),
+  {
+    embedded: false,
+  },
+)
+
 const frontmatter = useFrontmatter()
 const { headers, handleClick } = useOutline()
 
@@ -19,9 +28,12 @@ const showAside = computed(() => {
     <aside
       v-if="showAside"
       class="lgc-post-aside hidden lg:block"
+      :class="{ 'is-embedded': embedded }"
+      grid
       sticky
       top="$post-aside-top"
       max-h="$post-aside-max-height"
+      min-h="0"
       overflow-hidden
       p="$lgc-space-lg"
       rounded="$lgc-radius-large"
@@ -31,6 +43,7 @@ const showAside = computed(() => {
       <div
         class="lgc-post-outline-scroll"
         max-h="$post-aside-content-max-height"
+        min-h="0"
         min-w="0"
         overflow-x-hidden
         overflow-y-auto
@@ -62,6 +75,15 @@ const showAside = computed(() => {
 .lgc-post-aside-leave-to {
   opacity: 0;
   transform: translateY(var(--lgc-space-md));
+}
+
+.lgc-post-aside.is-embedded {
+  @apply 'static';
+  max-height: none;
+}
+
+.lgc-post-aside.is-embedded .lgc-post-outline-scroll {
+  max-height: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

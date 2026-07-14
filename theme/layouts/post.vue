@@ -1,16 +1,51 @@
 <script setup lang="ts">
-import { useFrontmatter, usePostList } from 'valaxy'
+import { useCollection, useFrontmatter, useOutline, usePostList } from 'valaxy'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+
+const props = withDefaults(
+  defineProps<{
+    collection?: boolean
+  }>(),
+  {
+    collection: false,
+  },
+)
 
 const route = useRoute()
 const frontmatter = useFrontmatter()
 const posts = usePostList()
+const { collection } = useCollection()
+const { headers } = useOutline()
 
 const showArticleNav = computed(() => frontmatter.value.nav !== false)
+const showPostToc = computed(() => {
+  return (
+    frontmatter.value.aside !== false &&
+    frontmatter.value.toc !== false &&
+    headers.value.length > 0
+  )
+})
 const currentIndex = computed(() => posts.value.findIndex((p) => p.path === route.path))
 const nextPost = computed(() => posts.value[currentIndex.value - 1])
 const prevPost = computed(() => posts.value[currentIndex.value + 1])
+const currentCollectionItemIndex = computed(() => {
+  const items = collection.value?.items
+  if (!props.collection || !items?.length) return -1
+
+  const path = stripTrailingSlash(route.path)
+  const slug = path.split('/').pop()
+  return items.findIndex((item) => {
+    if (item.key && item.key === slug) return true
+    if (item.link && !/^https?:\/\//.test(item.link))
+      return stripTrailingSlash(item.link) === path
+    return false
+  })
+})
+
+function stripTrailingSlash(path: string) {
+  return path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path
+}
 </script>
 
 <template>
@@ -18,20 +53,61 @@ const prevPost = computed(() => posts.value[currentIndex.value + 1])
     <div class="lgc-page-surface">
       <RouterView v-slot="{ Component }">
         <component :is="Component">
+          <template #main-header-after>
+            <LgcCollectionExpandCard v-if="props.collection" />
+          </template>
+
           <template #main-content-after>
             <LgcPostContentAfter />
           </template>
 
           <template #main-nav>
+            <LgcCollectionPrevNext
+              v-if="
+                props.collection && showArticleNav && currentCollectionItemIndex >= 0
+              "
+              :collection="collection"
+              :current-index="currentCollectionItemIndex"
+            />
             <LgcPostArticleNav
-              v-if="showArticleNav"
+              v-else-if="showArticleNav"
               :next-post="nextPost"
               :prev-post="prevPost"
             />
           </template>
 
           <template #aside>
-            <LgcPostAside />
+            <template v-if="props.collection">
+              <div
+                class="lgc-post-aside lgc-post-aside-stack hidden! lg:grid! xl:hidden!"
+                :class="{ 'has-post-toc': showPostToc }"
+                sticky
+                top="$post-aside-stack-top"
+                max-h="$post-aside-stack-max-height"
+                gap="$lgc-space-lg"
+                overflow-hidden
+              >
+                <LgcCollectionAside
+                  embedded
+                  :collapsible="showPostToc"
+                  :collection="collection"
+                  :current-index="currentCollectionItemIndex"
+                />
+                <LgcPostAside v-if="showPostToc" embedded />
+              </div>
+
+              <LgcCollectionAside
+                class="lgc-post-aside lgc-collection-post-aside hidden! xl:block!"
+                :collection="collection"
+                :current-index="currentCollectionItemIndex"
+              />
+              <LgcPostAside
+                v-if="showPostToc"
+                class="lgc-post-aside lgc-post-toc-aside hidden! xl:block!"
+              />
+            </template>
+
+            <LgcPostAside v-else class="lgc-post-aside lgc-post-toc-aside" />
           </template>
         </component>
       </RouterView>

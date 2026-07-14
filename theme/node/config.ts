@@ -46,6 +46,7 @@ const baseIconSafelist = [
   'i-material-symbols-volunteer-activism-outline-rounded',
   'i-material-symbols-keyboard-return-rounded',
   'i-material-symbols-travel-explore-rounded',
+  'i-material-symbols-auto-stories-rounded',
 ]
 
 /**

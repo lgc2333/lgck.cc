@@ -4,8 +4,6 @@ import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
-import { useActiveOutline } from '../../../composables'
-
 const route = useRoute()
 const frontmatter = useFrontmatter()
 const { t } = useI18n()
@@ -14,14 +12,12 @@ const drawerOpen = ref(false)
 
 const showAction = computed(() => {
   return (
-    route.meta.layout === 'post' &&
+    (route.meta.layout === 'post' || route.meta.layout === 'collection') &&
     frontmatter.value.aside !== false &&
     frontmatter.value.toc !== false &&
     headers.value.length > 0
   )
 })
-const { activeTitle } = useActiveOutline(headers, { enabled: showAction })
-const activeOutlineTitle = computed(() => activeTitle.value || t('post.outline'))
 
 watch(showAction, (shown) => {
   if (!shown) drawerOpen.value = false
@@ -47,23 +43,10 @@ function onDrawerNavigate(event: MouseEvent) {
     aria-controls="lgc-post-outline-drawer"
     :aria-expanded="drawerOpen"
     button-class="lg:hidden!"
-    interactive-detail
     :label="t('accessibility.open_post_outline')"
     @click="openDrawer"
   >
     <span i-material-symbols-format-list-bulleted-rounded aria-hidden="true" />
-
-    <template #detail>
-      <span
-        block
-        font="900"
-        text="$md-sys-color-on-surface"
-        whitespace="pre-wrap"
-        wrap="anywhere"
-      >
-        {{ activeOutlineTitle }}
-      </span>
-    </template>
   </LgcFloatingActionButton>
 
   <ClientOnly>
@@ -80,6 +63,7 @@ function onDrawerNavigate(event: MouseEvent) {
           <button
             class="lgc-post-outline-scrim"
             type="button"
+            backdrop="blur-$lgc-mask-blur"
             border-0
             inset-0
             absolute
@@ -167,7 +151,6 @@ function onDrawerNavigate(event: MouseEvent) {
   );
   width: var(--post-outline-drawer-width);
   grid-template-rows: auto minmax(0, 1fr);
-  backdrop-filter: blur(var(--lgc-elevate-blur));
   border-radius: var(--lgc-radius-large) 0 0 var(--lgc-radius-large);
 }
 

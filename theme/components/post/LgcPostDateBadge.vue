@@ -8,6 +8,7 @@ defineProps<{
 
 <template>
   <time
+    class="lgc-post-date-badge"
     flex="~ col items-center justify-center"
     w="[84px] sm:[96px]"
     h="[84px] sm:[96px]"

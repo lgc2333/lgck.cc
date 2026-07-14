@@ -42,6 +42,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
   >
     <button
       class="lgc-search-scrim"
+      backdrop="blur-$lgc-mask-blur"
       border-0
       bg="$search-scrim-bg"
       opacity-100
@@ -52,7 +53,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
       @click="$emit('close')"
     />
     <aside
-      class="lgc-search-drawer rounded-l-0 rounded-br-$lgc-radius-large rounded-tr-$lgc-radius-large [grid-template-rows:auto_auto_minmax(0,1fr)]"
+      class="lgc-search-drawer rounded-r-0 rounded-bl-$lgc-radius-large rounded-tl-$lgc-radius-large [grid-template-rows:auto_auto_minmax(0,1fr)]"
       p="$lgc-space-lg"
       grid
       h-full
@@ -120,7 +121,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
 
   <div
     v-else
-    class="lgc-search-mobile text-$md-sys-color-on-surface hidden [grid-template-rows:auto_minmax(0,1fr)] max-md:grid"
+    class="lgc-search-mobile text-$md-sys-color-on-surface hidden [grid-template-rows:auto_minmax(0,1fr)] max-sm:grid"
     inset-0
     fixed
     z="$lgc-layer-modal"

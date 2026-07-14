@@ -28,6 +28,7 @@ siteConfig:
 nav:
   home: 首页
   posts: 文章
+  collections: 合集
   archives: 归档
   categories: 分类
   tags: 标签
@@ -53,6 +54,7 @@ tag:
   test: 测试
   i18n: 国际化
   valaxy: Valaxy
+  cover: 封面
 
 category:
   valaxy_notes: Valaxy 笔记

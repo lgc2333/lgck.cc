@@ -8,12 +8,27 @@ post_feed:
   title: 所有文章
   empty: 还没有公开文章。
 
+collection:
+  all: 合集
+  title: '合集：{name}'
+  article_hint_title: '当前文章来自合集：{name}'
+  article_hint_desc_before: 可通过右下角的
+  article_hint_desc_after: 按钮打开合集列表。
+  badge: 合集
+  chapters: 章节
+  index: 合集首页
+  chapter_count: '{n} 个章节'
+  empty: 还没有章节。
+  empty_all: 还没有合集。
+  expand: 展开章节
+  open: 打开合集目录
+  collapse: 收起章节
+
 search:
   view_all: 查看全部搜索结果
 
 fixed_bg:
-  title: 背景图片
-  empty_description: 暂无详情
+  unknown_title: 背景图片
   refresh: 更换背景
   loading: 背景正在加载
 
@@ -48,6 +63,9 @@ accessibility:
   scroll_to_posts: 滚动到文章列表
   posts_pagination: 文章分页
   post_navigation: 文章导航
+  collections: 合集
+  collection_navigation: 合集导航
+  close_collection: 关闭合集目录
   post_metadata: 文章元信息
   comment_provider: 评论系统
   open_post_outline: 打开文章目录

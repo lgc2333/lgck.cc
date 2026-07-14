@@ -8,12 +8,27 @@ post_feed:
   title: All Posts
   empty: No public posts yet.
 
+collection:
+  all: Collections
+  title: 'Collection: {name}'
+  article_hint_title: 'Current article is from collection {name}'
+  article_hint_desc_before: Use the bottom-right
+  article_hint_desc_after: button to open the collection list.
+  badge: Collection
+  chapters: Chapters
+  index: Collection index
+  chapter_count: '{n} chapters'
+  empty: No chapters yet.
+  empty_all: No collections yet.
+  expand: Expand chapters
+  open: Open collection
+  collapse: Collapse chapters
+
 search:
   view_all: View all search results
 
 fixed_bg:
-  title: Background image
-  empty_description: No details yet
+  unknown_title: Background image
   refresh: Switch background
   loading: Background loading
 
@@ -48,6 +63,9 @@ accessibility:
   scroll_to_posts: Scroll to posts
   posts_pagination: Pagination
   post_navigation: Post navigation
+  collections: Collections
+  collection_navigation: Collection navigation
+  close_collection: Close collection
   post_metadata: Post metadata
   comment_provider: Comment provider
   open_post_outline: Open article outline

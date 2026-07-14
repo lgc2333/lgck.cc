@@ -4,10 +4,10 @@ title:
   en: 'Cover Test 05: Fifth Post'
 date: 2020-06-27
 categories:
-  - $locale:category.demo
+  - demo
 tags:
-  - $locale:tag.cover
-  - $locale:tag.test
+  - cover
+  - test
 cover: https://cdn.yunyoujun.cn/img/bg/girl-in-water-tank.webp
 coverContentPosition: right
 coverContentMask: card

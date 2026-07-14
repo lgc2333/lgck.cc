@@ -38,7 +38,8 @@ export function useUnifiedSearch() {
     closeAllLayers,
     closeDrawer: closeSearchDrawer,
     closeInline: closeInlineLayer,
-    isMobile,
+    isBelowLg,
+    isMaxSm,
     mobileSearchMode,
     openDrawer,
     openInline,
@@ -141,7 +142,8 @@ export function useUnifiedSearch() {
 
     await ensureSearchLoaded()
 
-    if (isMobile.value) openMobilePanel()
+    if (isMaxSm.value) openMobilePanel()
+    else if (isBelowLg.value) openResultsDrawer()
     else openInlineSearch()
   }
 

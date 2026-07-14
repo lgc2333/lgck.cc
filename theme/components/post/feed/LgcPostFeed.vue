@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useSiteConfig, useSiteStore } from 'valaxy'
+import type { CollectionConfig, Post } from 'valaxy'
+import { useCollections, usePostListWithCollections, useSiteConfig } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
@@ -13,10 +14,12 @@ import {
 
 const props = withDefaults(
   defineProps<{
+    collectionKeys?: string[]
     flush?: boolean
     label?: string
     limit?: number
     paginate?: boolean
+    source?: 'posts' | 'collections'
     title?: string
   }>(),
   {
@@ -25,23 +28,44 @@ const props = withDefaults(
     label: 'Posts',
     limit: 6,
     paginate: false,
+    source: 'posts',
   },
 )
 
 const { t } = useI18n()
 const siteConfig = useSiteConfig()
-const siteStore = useSiteStore()
+const postListWithCollections = usePostListWithCollections()
+const { collections } = useCollections()
 const route = useRoute()
 
 const feedLabel = computed(() => props.label)
 const feedTitle = computed(() => props.title || t('post_feed.title'))
+const emptyText = computed(() =>
+  props.source === 'collections' ? t('collection.empty_all') : t('post_feed.empty'),
+)
 
 const pageSize = computed(() => Math.max(1, siteConfig.value.pageSize || 7))
+const collectionPosts = computed(() => {
+  const keys = props.collectionKeys
+  const byKey = new Map(
+    collections.value.map((collection) => [collection.key, collection]),
+  )
+  const sourceCollections =
+    keys && keys.length
+      ? keys
+          .map((key) => byKey.get(key))
+          .filter((collection): collection is CollectionConfig => Boolean(collection))
+      : collections.value
+
+  return sourceCollections.map(collectionToPost)
+})
 // Valaxy keeps hide:index in postList; production feed must drop all hide:* (yun).
 const sourcePosts = computed(() =>
-  import.meta.env.DEV
-    ? siteStore.postList
-    : siteStore.postList.filter((post) => !post.hide),
+  props.source === 'collections'
+    ? collectionPosts.value
+    : import.meta.env.DEV
+      ? postListWithCollections.value
+      : postListWithCollections.value.filter((post) => !post.hide),
 )
 const pagePosts = computed(() => {
   if (props.paginate) return sourcePosts.value
@@ -66,10 +90,29 @@ const posts = computed(() => {
   if (!props.paginate) return pagePosts.value
   return slicePageItems(pagePosts.value, curPage.value, pageSize.value)
 })
+
+function collectionToPost(collection: CollectionConfig): Post {
+  const path =
+    collection.path || (collection.key ? `/collections/${collection.key}/` : '')
+  return {
+    title: collection.title || collection.name || collection.key || path,
+    path,
+    cover: collection.cover,
+    categories: collection.categories,
+    tags: collection.tags,
+    _collection: collection,
+  } as Post
+}
 </script>
 
 <template>
-  <section id="posts" scroll-mt="$lgc-space-lg" :aria-label="t('menu.posts')">
+  <section
+    id="posts"
+    scroll-mt="$lgc-space-lg"
+    :aria-label="
+      source === 'collections' ? t('accessibility.collections') : t('menu.posts')
+    "
+  >
     <div
       grid
       box-border
@@ -82,8 +125,8 @@ const posts = computed(() => {
       <div flex="~ items-end justify-between" mb="$lgc-space-sm" gap="$lgc-space-lg">
         <div>
           <p
+            class="text-size-$lgc-body-small text-$md-sys-color-primary"
             m="0"
-            text="$md-sys-color-primary size-$lgc-body-small"
             font="800"
             aria-hidden="true"
           >
@@ -100,13 +143,13 @@ const posts = computed(() => {
       </template>
       <p
         v-else
+        class="text-$md-sys-color-on-surface-variant"
         m="0"
         p="$lgc-space-2xl"
         rounded="$lgc-radius-large"
-        text="$md-sys-color-on-surface-variant"
         bg="$md-sys-color-surface-container"
       >
-        {{ t('post_feed.empty') }}
+        {{ emptyText }}
       </p>
 
       <LgcPostPagination

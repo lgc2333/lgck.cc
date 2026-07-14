@@ -21,10 +21,25 @@ const { t, locale } = useI18n()
 const date = computed(() => formatPostDateParts(props.post.date))
 const tags = computed(() => normalizePostListValue(props.post.tags))
 const title = computed(() => normalizeLocaleText(props.post.title, locale.value, t))
-const hasCover = computed(() => Boolean(props.post.cover))
 const postPath = computed(() => props.post.path || '')
 const postTitleClass = computed(() => props.post.postTitleClass || '')
 const postUrl = computed(() => props.post.url || '')
+const collection = computed(() => props.post._collection)
+const collectionPath = computed(() => {
+  const item = collection.value
+  if (!item) return postPath.value
+  if (item.path) return item.path
+  if (item.key) return `/collections/${item.key}/`
+  return postPath.value
+})
+const collectionTitle = computed(() =>
+  normalizeLocaleText(collection.value?.title || props.post.title, locale.value, t),
+)
+const collectionDescription = computed(() =>
+  normalizeLocaleText(collection.value?.description || '', locale.value, t),
+)
+const cover = computed(() => collection.value?.cover || props.post.cover || '')
+const cardVariant = computed<'cover' | 'plain'>(() => (cover.value ? 'cover' : 'plain'))
 const coverContentMask = computed<CoverContentMask>(() => {
   const mask =
     props.post.coverContentMask ?? themeConfig.value.postFeed?.coverContentMask
@@ -38,108 +53,97 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 </script>
 
 <template>
-  <article
-    class="lgc-post-card lgc-card-link"
-    grid
-    items-start
-    relative
-    gap="$lgc-space-lg sm:$lgc-space-2xl"
-    p="$lgc-space-xl sm:$lgc-space-2xl"
-    :class="{
-      'has-cover': hasCover,
-    }"
+  <LgcPostFeedCardFrame
+    :cover="cover"
+    :mask="coverContentMask"
+    :position="coverContentPosition"
+    :title="collection ? collectionTitle : title"
+    :variant="cardVariant"
   >
-    <LgcPostStatusIcons :post="post" />
+    <template #status>
+      <LgcPostStatusIcons v-if="!collection" :post="post" />
+    </template>
 
-    <LgcPostFeedCoverMask
-      v-if="post.cover"
-      :categories="post.categories"
-      :cover="post.cover"
-      :date="date"
-      :excerpt="post.excerpt"
-      :excerpt-type="post.excerpt_type"
-      :mask="coverContentMask"
-      :path="postPath"
-      :position="coverContentPosition"
-      :tags="tags"
-      :title="title"
-      :title-class="postTitleClass"
-      :url="postUrl"
-    />
+    <template #corner>
+      <LgcCollectionFeedBadge v-if="collection" />
+      <LgcPostDateBadge v-else v-bind="date" />
+    </template>
 
-    <LgcPostFeedPlainCard
-      v-else
-      :categories="post.categories"
-      :date="date"
-      :excerpt="post.excerpt"
-      :excerpt-type="post.excerpt_type"
-      :path="postPath"
-      :tags="tags"
-      :title="title"
-      :title-class="postTitleClass"
-      :url="postUrl"
-    />
-  </article>
+    <template v-if="collection" #title>
+      <LgcCollectionFeedContent
+        :collection="collection"
+        :description="collectionDescription"
+        part="title"
+        :path="collectionPath"
+        :title="collectionTitle"
+      />
+    </template>
+
+    <template v-else #title>
+      <LgcPostFeedCardDetails
+        part="title"
+        :categories="post.categories"
+        :excerpt="post.excerpt"
+        :excerpt-type="post.excerpt_type"
+        :path="postPath"
+        :tags="tags"
+        :title="title"
+        :title-class="postTitleClass"
+      />
+    </template>
+
+    <template #content>
+      <LgcCollectionFeedContent
+        v-if="collection"
+        :align="coverContentPosition"
+        :collection="collection"
+        :description="collectionDescription"
+        :mask="coverContentMask"
+        :part="cardVariant === 'cover' ? 'all' : 'body'"
+        :path="collectionPath"
+        :surface="cardVariant === 'cover' ? 'cover' : 'plain'"
+        :title="collectionTitle"
+      />
+
+      <LgcPostFeedCardDetails
+        v-else
+        :cover-align="coverContentPosition"
+        :cover-mask="coverContentMask"
+        :part="cardVariant === 'cover' ? 'all' : 'body'"
+        :surface="cardVariant === 'cover' ? 'cover' : 'default'"
+        tags-desktop-only
+        :categories="post.categories"
+        :excerpt="post.excerpt"
+        :excerpt-type="post.excerpt_type"
+        :path="postPath"
+        :tags="tags"
+        :title="title"
+        :title-class="postTitleClass"
+      />
+    </template>
+
+    <template v-if="!collection" #below>
+      <div
+        v-if="post.categories || tags.length"
+        class="col-span-full"
+        flex="~ wrap"
+        gap="$lgc-space-sm"
+        sm="hidden"
+      >
+        <LgcPostMetaChips only-taxonomies :categories="post.categories" :tags="tags" />
+      </div>
+    </template>
+
+    <template #action>
+      <AppLink
+        class="lgc-post-arrow lgc-card-arrow max-sm:hidden"
+        sm="inline-grid"
+        :to="collection ? collectionPath : postUrl || postPath"
+        :aria-label="collection ? t('collection.open') : t('post.read_more')"
+      >
+        <span v-if="!collection && postUrl" i-material-symbols-open-in-new-rounded />
+        <span v-else i-material-symbols-arrow-forward-rounded />
+      </AppLink>
+    </template>
+  </LgcPostFeedCardFrame>
 </template>
-
-<style scoped lang="scss">
-// Residual: grid tracks, rest bg token, title/arrow-owned lift (giscus).
-.lgc-post-card {
-  --lgc-post-card-rest-bg: var(--md-sys-color-surface-container-low);
-  --post-card-cols: 84px minmax(0, 1fr);
-  grid-template-columns: var(--post-card-cols);
-  background: var(--lgc-post-card-rest-bg);
-}
-
-@screen sm {
-  .lgc-post-card:not(.has-cover) {
-    --post-card-cols: 120px minmax(0, 1fr) auto;
-  }
-}
-
-.lgc-post-card:focus-within {
-  @apply 'rounded-$lgc-radius-large-active bg-$md-sys-color-surface-container';
-}
-
-.lgc-post-card > :not(.lgc-post-status-icons) {
-  @apply 'relative z-$lgc-layer-local-base';
-}
-
-// Whole-card hover: keep rest shape/lift (no radius morph, no translate).
-// Lift + radius morph only when title or arrow is the target.
-.lgc-post-card.lgc-card-link:hover {
-  @apply 'rounded-$lgc-radius-large';
-  transform: none;
-}
-
-.lgc-post-card.lgc-card-link:active {
-  @apply 'rounded-$lgc-radius-large';
-  background: var(--lgc-post-card-rest-bg);
-  transform: none;
-}
-
-.lgc-post-card.lgc-card-link:has(
-    :deep(.lgc-post-title-link:hover),
-    :deep(.lgc-post-title-link:focus-visible),
-    :deep(.lgc-post-arrow:hover),
-    :deep(.lgc-post-arrow:focus-visible)
-  ) {
-  @apply 'rounded-$lgc-radius-large-active';
-  transform: translateY(-2px);
-}
-
-.lgc-post-card.lgc-card-link:has(
-    :deep(.lgc-post-title-link:active),
-    :deep(.lgc-post-arrow:active)
-  ) {
-  @apply 'rounded-$lgc-radius-large-active';
-  background: var(--md-sys-color-surface-container-high);
-  transform: scale(var(--lgc-card-press-scale));
-}
-
-// Keep rest bg as plain-card low while cover loads / fails (image covers when ready).
-.lgc-post-card.has-cover {
-  @apply 'block p-0';
-  color: var(--lgc-post-cover-on-mask);
-}
-</style>

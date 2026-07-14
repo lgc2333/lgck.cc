@@ -28,6 +28,7 @@ siteConfig:
 nav:
   home: Home
   posts: Posts
+  collections: Collections
   archives: Archives
   categories: Categories
   tags: Tags
@@ -53,6 +54,7 @@ tag:
   test: Test
   i18n: i18n
   valaxy: Valaxy
+  cover: Cover
 
 category:
   valaxy_notes: Valaxy Notes

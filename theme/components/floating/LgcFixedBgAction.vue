@@ -11,11 +11,9 @@ const actionHref = computed(() => {
   const image = visibleImage.value
   return image?.sourceUrl || image?.url || ''
 })
-const title = computed(() => visibleImage.value?.title || t('fixed_bg.title'))
+const title = computed(() => visibleImage.value?.title || t('fixed_bg.unknown_title'))
 const author = computed(() => visibleImage.value?.author)
-const description = computed(
-  () => visibleImage.value?.description || t('fixed_bg.empty_description'),
-)
+const description = computed(() => visibleImage.value?.description)
 const switchLabel = computed(() =>
   isSwitching.value ? t('fixed_bg.loading') : t('fixed_bg.refresh'),
 )
@@ -59,6 +57,7 @@ function refreshBackground() {
           {{ author }}
         </span>
         <span
+          v-if="description"
           block
           mt="0.5"
           font="400"

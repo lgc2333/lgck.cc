@@ -73,6 +73,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/collections/empty-notes/': RouteRecordInfo<
+      '/collections/empty-notes/',
+      '/collections/empty-notes',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/collections/hamster/': RouteRecordInfo<
       '/collections/hamster/',
       '/collections/hamster',
@@ -216,6 +223,20 @@ declare module 'vue-router/auto-routes' {
     '/collections/love-and-peace/3': RouteRecordInfo<
       '/collections/love-and-peace/3',
       '/collections/love-and-peace/3',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/uncollapsed-notes/': RouteRecordInfo<
+      '/collections/uncollapsed-notes/',
+      '/collections/uncollapsed-notes',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/uncollapsed-notes/1': RouteRecordInfo<
+      '/collections/uncollapsed-notes/1',
+      '/collections/uncollapsed-notes/1',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -750,6 +771,14 @@ declare module 'vue-router/auto-routes' {
       pathParamNames:
         | never
     }
+    'pages/collections/empty-notes/index.md': {
+      routes:
+        | '/collections/empty-notes/'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
     'pages/collections/hamster/index.md': {
       routes:
         | '/collections/hamster/'
@@ -913,6 +942,22 @@ declare module 'vue-router/auto-routes' {
     'pages/collections/love-and-peace/3.md': {
       routes:
         | '/collections/love-and-peace/3'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/uncollapsed-notes/index.md': {
+      routes:
+        | '/collections/uncollapsed-notes/'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/uncollapsed-notes/1.md': {
+      routes:
+        | '/collections/uncollapsed-notes/1'
       views:
         | never
       pathParamNames:

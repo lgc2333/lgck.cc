@@ -4,12 +4,12 @@ title:
   en: Valaxy Content Test
 date: 2021-07-14
 categories:
-  - $locale:category.aaa
-  - $locale:category.bbb
-  - $locale:category.ccc
+  - aaa
+  - bbb
+  - ccc
 tags:
   - valaxy
-  - $locale:tag.test
+  - test
   - test
 hide: index
 ---

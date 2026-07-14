@@ -4,10 +4,10 @@ title:
   en: 'Cover Test 04: Button Edges'
 date: 2020-06-28
 categories:
-  - $locale:category.demo
+  - demo
 tags:
-  - $locale:tag.cover
-  - $locale:tag.test
+  - cover
+  - test
 cover: https://i.pixiv.re/img-master/img/2026/03/09/00/48/28/142076600_p0_master1200.jpg
 coverContentMask: card
 ---

@@ -41,12 +41,10 @@ const fixedBgActionHref = computed(() => {
   return image?.sourceUrl || image?.url || ''
 })
 const fixedBgActionLabel = computed(
-  () => visibleImage.value?.title || t('fixed_bg.title'),
+  () => visibleImage.value?.title || t('fixed_bg.unknown_title'),
 )
 const fixedBgActionAuthor = computed(() => visibleImage.value?.author)
-const fixedBgActionDescription = computed(
-  () => visibleImage.value?.description || t('fixed_bg.empty_description'),
-)
+const fixedBgActionDescription = computed(() => visibleImage.value?.description)
 const fixedBgSwitchLabel = computed(() =>
   isSwitching.value ? t('fixed_bg.loading') : t('fixed_bg.refresh'),
 )
@@ -101,6 +99,7 @@ function linkLabel(item: HeaderNavLink) {
         v-if="open"
         class="lgc-drawer-backdrop"
         z="$lgc-layer-overlay"
+        backdrop="blur-$lgc-mask-blur"
         border-0
         inset-0
         fixed
@@ -243,6 +242,7 @@ function linkLabel(item: HeaderNavLink) {
                 {{ fixedBgActionAuthor }}
               </span>
               <span
+                v-if="fixedBgActionDescription"
                 mt="0.5"
                 font="400"
                 text="$md-sys-color-on-surface-variant size-$lgc-body-small"
@@ -321,7 +321,7 @@ function linkLabel(item: HeaderNavLink) {
 </template>
 
 <style scoped lang="scss">
-// Residual: scrim color-mix, drawer width min(), blur, asymmetric radius, state-layer
+// Residual: scrim color-mix, drawer width min(), asymmetric radius, state-layer
 // color-mix, grid tracks. Multi-use link chrome stays @apply (state/hover cascade).
 // Transition *name* classes must stay CSS (Vue Transition cannot take attributify).
 .lgc-drawer-backdrop {
@@ -334,7 +334,6 @@ function linkLabel(item: HeaderNavLink) {
     calc(100vw - var(--lgc-control-size))
   );
   width: var(--drawer-panel-width);
-  backdrop-filter: blur(var(--lgc-elevate-blur));
   border-radius: 0 var(--lgc-radius-large) var(--lgc-radius-large) 0;
 }
 

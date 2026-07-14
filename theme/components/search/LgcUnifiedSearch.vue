@@ -76,7 +76,7 @@ const setRootRef: VNodeRef = (element) => {
       pointer-events-none
       justify-items-end
       overflow-hidden
-      max-md="hidden"
+      max-lg="hidden"
       :class="{ 'is-open': openInline }"
     >
       <LgcUnifiedSearchField

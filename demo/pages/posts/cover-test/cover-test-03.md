@@ -4,10 +4,10 @@ title:
   en: 'Cover Test 03: Wind in the List'
 date: 2020-06-29
 categories:
-  - $locale:category.demo
+  - demo
 tags:
-  - $locale:tag.cover
-  - $locale:tag.test
+  - cover
+  - test
 cover: https://i.pixiv.re/img-master/img/2025/11/28/19/59/55/137990343_p0_master1200.jpg
 ---
 

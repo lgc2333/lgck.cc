@@ -4,10 +4,10 @@ title:
   en: 'Cover Test 01: Morning Commit'
 date: 2020-07-01
 categories:
-  - $locale:category.demo
+  - demo
 tags:
-  - $locale:tag.cover
-  - $locale:tag.test
+  - cover
+  - test
 cover: https://cdn.yunyoujun.cn/img/bg/girl-in-water-tank.webp
 ---
 
