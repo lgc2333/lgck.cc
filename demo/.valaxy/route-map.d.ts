@@ -66,6 +66,167 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/collections/': RouteRecordInfo<
+      '/collections/',
+      '/collections',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/hamster/': RouteRecordInfo<
+      '/collections/hamster/',
+      '/collections/hamster',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/hamster/1': RouteRecordInfo<
+      '/collections/hamster/1',
+      '/collections/hamster/1',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/hamster/2': RouteRecordInfo<
+      '/collections/hamster/2',
+      '/collections/hamster/2',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/hamster/3': RouteRecordInfo<
+      '/collections/hamster/3',
+      '/collections/hamster/3',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/hamster/dim-star-sky': RouteRecordInfo<
+      '/collections/hamster/dim-star-sky',
+      '/collections/hamster/dim-star-sky',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/hamster/hamsters-evolve-today': RouteRecordInfo<
+      '/collections/hamster/hamsters-evolve-today',
+      '/collections/hamster/hamsters-evolve-today',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/hamster/meeting': RouteRecordInfo<
+      '/collections/hamster/meeting',
+      '/collections/hamster/meeting',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/hamster/our-journey-is-the-stars-and-sea': RouteRecordInfo<
+      '/collections/hamster/our-journey-is-the-stars-and-sea',
+      '/collections/hamster/our-journey-is-the-stars-and-sea',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/hamster/the-duelist-romance': RouteRecordInfo<
+      '/collections/hamster/the-duelist-romance',
+      '/collections/hamster/the-duelist-romance',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/hamster/the-lizard-king': RouteRecordInfo<
+      '/collections/hamster/the-lizard-king',
+      '/collections/hamster/the-lizard-king',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/hamster/the-third-kind': RouteRecordInfo<
+      '/collections/hamster/the-third-kind',
+      '/collections/hamster/the-third-kind',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/hamster/they-are-the-gods': RouteRecordInfo<
+      '/collections/hamster/they-are-the-gods',
+      '/collections/hamster/they-are-the-gods',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/hamster/to-be-or-not-to-be': RouteRecordInfo<
+      '/collections/hamster/to-be-or-not-to-be',
+      '/collections/hamster/to-be-or-not-to-be',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/links-test/': RouteRecordInfo<
+      '/collections/links-test/',
+      '/collections/links-test',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/links-test/1': RouteRecordInfo<
+      '/collections/links-test/1',
+      '/collections/links-test/1',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/links-test/2': RouteRecordInfo<
+      '/collections/links-test/2',
+      '/collections/links-test/2',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/links-test/3': RouteRecordInfo<
+      '/collections/links-test/3',
+      '/collections/links-test/3',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/love-and-peace/': RouteRecordInfo<
+      '/collections/love-and-peace/',
+      '/collections/love-and-peace',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/love-and-peace/1': RouteRecordInfo<
+      '/collections/love-and-peace/1',
+      '/collections/love-and-peace/1',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/love-and-peace/2': RouteRecordInfo<
+      '/collections/love-and-peace/2',
+      '/collections/love-and-peace/2',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/love-and-peace/3': RouteRecordInfo<
+      '/collections/love-and-peace/3',
+      '/collections/love-and-peace/3',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/README': RouteRecordInfo<
+      '/collections/README',
+      '/collections/README',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/notes/': RouteRecordInfo<
       '/notes/',
       '/notes',
@@ -80,9 +241,387 @@ declare module 'vue-router/auto-routes' {
       { page: ParamValue<false> },
       | never
     >,
-    '/posts/draft': RouteRecordInfo<
-      '/posts/draft',
-      '/posts/draft',
+    '/posts/cover-test/cover-test-01': RouteRecordInfo<
+      '/posts/cover-test/cover-test-01',
+      '/posts/cover-test/cover-test-01',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/cover-test/cover-test-02': RouteRecordInfo<
+      '/posts/cover-test/cover-test-02',
+      '/posts/cover-test/cover-test-02',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/cover-test/cover-test-03': RouteRecordInfo<
+      '/posts/cover-test/cover-test-03',
+      '/posts/cover-test/cover-test-03',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/cover-test/cover-test-04': RouteRecordInfo<
+      '/posts/cover-test/cover-test-04',
+      '/posts/cover-test/cover-test-04',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/cover-test/cover-test-05': RouteRecordInfo<
+      '/posts/cover-test/cover-test-05',
+      '/posts/cover-test/cover-test-05',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-001': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-001',
+      '/posts/dummy-pagination-test/pagination-test-001',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-002': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-002',
+      '/posts/dummy-pagination-test/pagination-test-002',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-003': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-003',
+      '/posts/dummy-pagination-test/pagination-test-003',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-004': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-004',
+      '/posts/dummy-pagination-test/pagination-test-004',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-005': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-005',
+      '/posts/dummy-pagination-test/pagination-test-005',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-006': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-006',
+      '/posts/dummy-pagination-test/pagination-test-006',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-007': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-007',
+      '/posts/dummy-pagination-test/pagination-test-007',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-008': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-008',
+      '/posts/dummy-pagination-test/pagination-test-008',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-009': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-009',
+      '/posts/dummy-pagination-test/pagination-test-009',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-010': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-010',
+      '/posts/dummy-pagination-test/pagination-test-010',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-011': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-011',
+      '/posts/dummy-pagination-test/pagination-test-011',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-012': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-012',
+      '/posts/dummy-pagination-test/pagination-test-012',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-013': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-013',
+      '/posts/dummy-pagination-test/pagination-test-013',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-014': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-014',
+      '/posts/dummy-pagination-test/pagination-test-014',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-015': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-015',
+      '/posts/dummy-pagination-test/pagination-test-015',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-016': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-016',
+      '/posts/dummy-pagination-test/pagination-test-016',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-017': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-017',
+      '/posts/dummy-pagination-test/pagination-test-017',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-018': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-018',
+      '/posts/dummy-pagination-test/pagination-test-018',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-019': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-019',
+      '/posts/dummy-pagination-test/pagination-test-019',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-020': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-020',
+      '/posts/dummy-pagination-test/pagination-test-020',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-021': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-021',
+      '/posts/dummy-pagination-test/pagination-test-021',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-022': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-022',
+      '/posts/dummy-pagination-test/pagination-test-022',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-023': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-023',
+      '/posts/dummy-pagination-test/pagination-test-023',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-024': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-024',
+      '/posts/dummy-pagination-test/pagination-test-024',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-025': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-025',
+      '/posts/dummy-pagination-test/pagination-test-025',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-026': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-026',
+      '/posts/dummy-pagination-test/pagination-test-026',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-027': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-027',
+      '/posts/dummy-pagination-test/pagination-test-027',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-028': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-028',
+      '/posts/dummy-pagination-test/pagination-test-028',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-029': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-029',
+      '/posts/dummy-pagination-test/pagination-test-029',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-030': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-030',
+      '/posts/dummy-pagination-test/pagination-test-030',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-031': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-031',
+      '/posts/dummy-pagination-test/pagination-test-031',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-032': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-032',
+      '/posts/dummy-pagination-test/pagination-test-032',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-033': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-033',
+      '/posts/dummy-pagination-test/pagination-test-033',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-034': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-034',
+      '/posts/dummy-pagination-test/pagination-test-034',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-035': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-035',
+      '/posts/dummy-pagination-test/pagination-test-035',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-036': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-036',
+      '/posts/dummy-pagination-test/pagination-test-036',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-037': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-037',
+      '/posts/dummy-pagination-test/pagination-test-037',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-038': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-038',
+      '/posts/dummy-pagination-test/pagination-test-038',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-039': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-039',
+      '/posts/dummy-pagination-test/pagination-test-039',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-040': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-040',
+      '/posts/dummy-pagination-test/pagination-test-040',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-041': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-041',
+      '/posts/dummy-pagination-test/pagination-test-041',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-042': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-042',
+      '/posts/dummy-pagination-test/pagination-test-042',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-043': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-043',
+      '/posts/dummy-pagination-test/pagination-test-043',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-044': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-044',
+      '/posts/dummy-pagination-test/pagination-test-044',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-045': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-045',
+      '/posts/dummy-pagination-test/pagination-test-045',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-046': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-046',
+      '/posts/dummy-pagination-test/pagination-test-046',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-047': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-047',
+      '/posts/dummy-pagination-test/pagination-test-047',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-048': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-048',
+      '/posts/dummy-pagination-test/pagination-test-048',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-049': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-049',
+      '/posts/dummy-pagination-test/pagination-test-049',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/posts/dummy-pagination-test/pagination-test-050': RouteRecordInfo<
+      '/posts/dummy-pagination-test/pagination-test-050',
+      '/posts/dummy-pagination-test/pagination-test-050',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -90,13 +629,6 @@ declare module 'vue-router/auto-routes' {
     '/posts/encrypted-post': RouteRecordInfo<
       '/posts/encrypted-post',
       '/posts/encrypted-post',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
-    '/posts/hello-valaxy': RouteRecordInfo<
-      '/posts/hello-valaxy',
-      '/posts/hello-valaxy',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -122,79 +654,30 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
-    '/posts/pagination-test-01': RouteRecordInfo<
-      '/posts/pagination-test-01',
-      '/posts/pagination-test-01',
+    '/posts/status-icon-test/draft': RouteRecordInfo<
+      '/posts/status-icon-test/draft',
+      '/posts/status-icon-test/draft',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/pagination-test-02': RouteRecordInfo<
-      '/posts/pagination-test-02',
-      '/posts/pagination-test-02',
+    '/posts/status-icon-test/draft-hide': RouteRecordInfo<
+      '/posts/status-icon-test/draft-hide',
+      '/posts/status-icon-test/draft-hide',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/pagination-test-03': RouteRecordInfo<
-      '/posts/pagination-test-03',
-      '/posts/pagination-test-03',
+    '/posts/status-icon-test/hello-valaxy': RouteRecordInfo<
+      '/posts/status-icon-test/hello-valaxy',
+      '/posts/status-icon-test/hello-valaxy',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/pagination-test-04': RouteRecordInfo<
-      '/posts/pagination-test-04',
-      '/posts/pagination-test-04',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
-    '/posts/pagination-test-05': RouteRecordInfo<
-      '/posts/pagination-test-05',
-      '/posts/pagination-test-05',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
-    '/posts/pagination-test-06': RouteRecordInfo<
-      '/posts/pagination-test-06',
-      '/posts/pagination-test-06',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
-    '/posts/pagination-test-07': RouteRecordInfo<
-      '/posts/pagination-test-07',
-      '/posts/pagination-test-07',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
-    '/posts/pagination-test-08': RouteRecordInfo<
-      '/posts/pagination-test-08',
-      '/posts/pagination-test-08',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
-    '/posts/pagination-test-09': RouteRecordInfo<
-      '/posts/pagination-test-09',
-      '/posts/pagination-test-09',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
-    '/posts/pagination-test-10': RouteRecordInfo<
-      '/posts/pagination-test-10',
-      '/posts/pagination-test-10',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
-    '/posts/test': RouteRecordInfo<
-      '/posts/test',
-      '/posts/test',
+    '/posts/status-icon-test/test': RouteRecordInfo<
+      '/posts/status-icon-test/test',
+      '/posts/status-icon-test/test',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -266,6 +749,190 @@ declare module 'vue-router/auto-routes' {
       pathParamNames:
         | never
     }
+    'pages/collections/index.md': {
+      routes:
+        | '/collections/'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/hamster/index.md': {
+      routes:
+        | '/collections/hamster/'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/hamster/1.md': {
+      routes:
+        | '/collections/hamster/1'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/hamster/2.md': {
+      routes:
+        | '/collections/hamster/2'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/hamster/3.md': {
+      routes:
+        | '/collections/hamster/3'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/hamster/dim-star-sky.md': {
+      routes:
+        | '/collections/hamster/dim-star-sky'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/hamster/hamsters-evolve-today.md': {
+      routes:
+        | '/collections/hamster/hamsters-evolve-today'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/hamster/meeting.md': {
+      routes:
+        | '/collections/hamster/meeting'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/hamster/our-journey-is-the-stars-and-sea.md': {
+      routes:
+        | '/collections/hamster/our-journey-is-the-stars-and-sea'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/hamster/the-duelist-romance.md': {
+      routes:
+        | '/collections/hamster/the-duelist-romance'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/hamster/the-lizard-king.md': {
+      routes:
+        | '/collections/hamster/the-lizard-king'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/hamster/the-third-kind.md': {
+      routes:
+        | '/collections/hamster/the-third-kind'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/hamster/they-are-the-gods.md': {
+      routes:
+        | '/collections/hamster/they-are-the-gods'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/hamster/to-be-or-not-to-be.md': {
+      routes:
+        | '/collections/hamster/to-be-or-not-to-be'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/links-test/index.md': {
+      routes:
+        | '/collections/links-test/'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/links-test/1.md': {
+      routes:
+        | '/collections/links-test/1'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/links-test/2.md': {
+      routes:
+        | '/collections/links-test/2'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/links-test/3.md': {
+      routes:
+        | '/collections/links-test/3'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/love-and-peace/index.md': {
+      routes:
+        | '/collections/love-and-peace/'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/love-and-peace/1.md': {
+      routes:
+        | '/collections/love-and-peace/1'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/love-and-peace/2.md': {
+      routes:
+        | '/collections/love-and-peace/2'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/love-and-peace/3.md': {
+      routes:
+        | '/collections/love-and-peace/3'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/README.md': {
+      routes:
+        | '/collections/README'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
     'pages/notes/index.md': {
       routes:
         | '/notes/'
@@ -282,9 +949,441 @@ declare module 'vue-router/auto-routes' {
       pathParamNames:
         | 'page'
     }
-    'pages/posts/draft.md': {
+    'pages/posts/cover-test/cover-test-01.md': {
       routes:
-        | '/posts/draft'
+        | '/posts/cover-test/cover-test-01'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/cover-test/cover-test-02.md': {
+      routes:
+        | '/posts/cover-test/cover-test-02'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/cover-test/cover-test-03.md': {
+      routes:
+        | '/posts/cover-test/cover-test-03'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/cover-test/cover-test-04.md': {
+      routes:
+        | '/posts/cover-test/cover-test-04'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/cover-test/cover-test-05.md': {
+      routes:
+        | '/posts/cover-test/cover-test-05'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-001.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-001'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-002.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-002'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-003.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-003'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-004.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-004'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-005.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-005'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-006.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-006'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-007.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-007'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-008.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-008'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-009.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-009'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-010.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-010'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-011.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-011'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-012.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-012'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-013.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-013'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-014.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-014'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-015.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-015'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-016.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-016'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-017.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-017'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-018.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-018'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-019.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-019'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-020.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-020'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-021.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-021'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-022.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-022'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-023.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-023'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-024.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-024'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-025.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-025'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-026.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-026'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-027.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-027'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-028.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-028'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-029.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-029'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-030.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-030'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-031.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-031'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-032.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-032'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-033.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-033'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-034.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-034'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-035.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-035'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-036.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-036'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-037.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-037'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-038.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-038'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-039.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-039'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-040.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-040'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-041.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-041'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-042.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-042'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-043.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-043'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-044.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-044'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-045.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-045'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-046.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-046'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-047.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-047'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-048.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-048'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-049.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-049'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/dummy-pagination-test/pagination-test-050.md': {
+      routes:
+        | '/posts/dummy-pagination-test/pagination-test-050'
       views:
         | never
       pathParamNames:
@@ -293,14 +1392,6 @@ declare module 'vue-router/auto-routes' {
     'pages/posts/encrypted-post.md': {
       routes:
         | '/posts/encrypted-post'
-      views:
-        | never
-      pathParamNames:
-        | never
-    }
-    'pages/posts/hello-valaxy.md': {
-      routes:
-        | '/posts/hello-valaxy'
       views:
         | never
       pathParamNames:
@@ -330,89 +1421,33 @@ declare module 'vue-router/auto-routes' {
       pathParamNames:
         | never
     }
-    'pages/posts/pagination-test-01.md': {
+    'pages/posts/status-icon-test/draft.md': {
       routes:
-        | '/posts/pagination-test-01'
+        | '/posts/status-icon-test/draft'
       views:
         | never
       pathParamNames:
         | never
     }
-    'pages/posts/pagination-test-02.md': {
+    'pages/posts/status-icon-test/draft-hide.md': {
       routes:
-        | '/posts/pagination-test-02'
+        | '/posts/status-icon-test/draft-hide'
       views:
         | never
       pathParamNames:
         | never
     }
-    'pages/posts/pagination-test-03.md': {
+    'pages/posts/status-icon-test/hello-valaxy.md': {
       routes:
-        | '/posts/pagination-test-03'
+        | '/posts/status-icon-test/hello-valaxy'
       views:
         | never
       pathParamNames:
         | never
     }
-    'pages/posts/pagination-test-04.md': {
+    'pages/posts/status-icon-test/test.md': {
       routes:
-        | '/posts/pagination-test-04'
-      views:
-        | never
-      pathParamNames:
-        | never
-    }
-    'pages/posts/pagination-test-05.md': {
-      routes:
-        | '/posts/pagination-test-05'
-      views:
-        | never
-      pathParamNames:
-        | never
-    }
-    'pages/posts/pagination-test-06.md': {
-      routes:
-        | '/posts/pagination-test-06'
-      views:
-        | never
-      pathParamNames:
-        | never
-    }
-    'pages/posts/pagination-test-07.md': {
-      routes:
-        | '/posts/pagination-test-07'
-      views:
-        | never
-      pathParamNames:
-        | never
-    }
-    'pages/posts/pagination-test-08.md': {
-      routes:
-        | '/posts/pagination-test-08'
-      views:
-        | never
-      pathParamNames:
-        | never
-    }
-    'pages/posts/pagination-test-09.md': {
-      routes:
-        | '/posts/pagination-test-09'
-      views:
-        | never
-      pathParamNames:
-        | never
-    }
-    'pages/posts/pagination-test-10.md': {
-      routes:
-        | '/posts/pagination-test-10'
-      views:
-        | never
-      pathParamNames:
-        | never
-    }
-    'pages/posts/test.md': {
-      routes:
-        | '/posts/test'
+        | '/posts/status-icon-test/test'
       views:
         | never
       pathParamNames:

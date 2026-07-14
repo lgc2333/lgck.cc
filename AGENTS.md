@@ -118,7 +118,7 @@ Use English conventional commit messages:
 ```text
 type(optional scope): description
 
-optional body
+- optional list of changes
 
 optional footer(s)
 ```
