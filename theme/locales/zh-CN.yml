@@ -26,6 +26,8 @@ post:
   sponsor_methods: 展开赞助方式
   sponsor_methods_close: 收起赞助方式
   copyright: 版权协议
+  decrypt_password_placeholder: 输入密码
+  encrypt_again: 重新加密
   outline: 文章目录
   status_draft: 草稿
   status_pinned: '置顶: {n}'

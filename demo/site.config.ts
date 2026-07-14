@@ -105,6 +105,10 @@ export default defineSiteConfig({
     enable: true,
   },
 
+  encrypt: {
+    enable: true,
+  },
+
   redirects: {
     rules: [{ from: '/page', to: '/page/1' }],
   },

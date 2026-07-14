@@ -81,7 +81,7 @@ function linkLabel(item: LandingLink) {
   --lgc-dock-hover-color: var(--md-sys-color-on-primary);
   --lgc-dock-hover-bg: var(--md-sys-color-primary);
 
-  --lgc-dock-transparent-opacity: 25%;
+  --lgc-dock-transparent-opacity: 30%;
   --lgc-dock-transparent-hover-opacity: 50%;
 
   transition-property:

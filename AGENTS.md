@@ -79,6 +79,7 @@ ATTENTION: If you encounter a reusable pitfall, you MUST RECORD IT BELOW AS EARL
 ### Tools
 
 - When searching for text that starts with `--` using `rg`, pass `--` before the pattern, e.g. `rg -- "--lgc-space"`.
+- Multi-agent worktree changes are user-owned unless proven otherwise; do not revert unexpected diffs just because they are outside the current task.
 
 ### Styling / Vue
 

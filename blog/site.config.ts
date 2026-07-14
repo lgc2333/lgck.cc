@@ -41,6 +41,7 @@ export default defineSiteConfig({
   statistics: { enable: true },
   frontmatter: { time_warning: TIME_DAY * 90 },
   comment: { enable: true },
+  encrypt: { enable: true },
 
   social: [
     {

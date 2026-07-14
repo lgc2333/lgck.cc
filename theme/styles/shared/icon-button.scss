@@ -1,6 +1,6 @@
 .lgc-icon-button-base {
   @apply 'inline-grid shrink-0 place-items-center p-0 border-0';
-  @apply 'text-$md-sys-color-on-surface-variant bg-transparent';
+  @apply 'text-$md-sys-color-on-surface bg-transparent';
   // Residual: Uno leaves transition-[…max-inline-size…] untransformed in dist.
   transition-property:
     background-color, border-radius, color, max-inline-size, transform;

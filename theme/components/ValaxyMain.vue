@@ -21,7 +21,7 @@ const siteConfig = useSiteConfig()
         <div
           class="lgc-post-shell"
           w="full"
-          max-w="$lgc-container-reading lg:$lgc-container-wide xl:$lgc-container-reading"
+          max-w="$lgc-container-reading"
           justify-items="stretch"
           gap="$lgc-space-lg"
           mx-auto
@@ -46,6 +46,9 @@ const siteConfig = useSiteConfig()
                     pb="0"
                   >
                     <ValaxyMd :frontmatter="frontmatter">
+                      <ClientOnly>
+                        <LgcPostTimeWarning :frontmatter="frontmatter" />
+                      </ClientOnly>
                       <slot name="main-content-md" />
                       <slot />
                     </ValaxyMd>
@@ -81,6 +84,7 @@ const siteConfig = useSiteConfig()
 <style lang="scss">
 @screen lg {
   .lgc-post-shell:has(> .lgc-post-aside) {
+    max-width: var(--lgc-container-wide);
     grid-template-columns:
       minmax(0, calc(100% - var(--lgc-post-aside-width) - var(--lgc-space-lg)))
       var(--lgc-post-aside-width);
@@ -89,6 +93,7 @@ const siteConfig = useSiteConfig()
 
 @screen xl {
   .lgc-post-shell:has(> .lgc-post-aside) {
+    max-width: var(--lgc-container-reading);
     grid-template-columns: minmax(0, var(--lgc-container-reading));
   }
 

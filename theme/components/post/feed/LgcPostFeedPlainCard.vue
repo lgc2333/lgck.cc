@@ -13,6 +13,7 @@ const props = defineProps<{
   path: string
   tags: string[]
   title: string
+  titleClass?: string
   url?: string
 }>()
 
@@ -31,6 +32,7 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
     :path="path"
     :tags="tags"
     :title="title"
+    :title-class="titleClass"
   />
 
   <div

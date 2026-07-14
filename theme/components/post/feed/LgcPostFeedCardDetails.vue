@@ -10,6 +10,7 @@ const props = withDefaults(
     path: string
     tags: string[]
     title: string
+    titleClass?: string
     /** Hide tag row below sm (plain card shows a separate mobile chips row). */
     tagsDesktopOnly?: boolean
     /** Cover-card surface: title/excerpt layout owned here, not via parent :deep. */
@@ -69,6 +70,7 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
       <!-- No text= on RouterLink: HTMLAnchorElement.text replaces children -->
       <RouterLink
         class="lgc-post-title-link text-inherit no-underline focus-visible:text-$md-sys-color-primary hover:text-$md-sys-color-primary"
+        :class="props.titleClass"
         :to="path"
       >
         {{ title }}

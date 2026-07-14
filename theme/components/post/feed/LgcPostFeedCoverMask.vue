@@ -17,6 +17,7 @@ withDefaults(
     position: CoverContentPosition
     tags: string[]
     title: string
+    titleClass?: string
     url?: string
   }>(),
   {
@@ -55,6 +56,7 @@ const { t } = useI18n()
         :path="path"
         :tags="tags"
         :title="title"
+        :title-class="titleClass"
       />
 
       <AppLink

@@ -26,6 +26,8 @@ post:
   sponsor_methods: Show sponsor methods
   sponsor_methods_close: Hide sponsor methods
   copyright: License
+  decrypt_password_placeholder: Enter password
+  encrypt_again: Encrypt again
   outline: On this page
   status_draft: Draft
   status_pinned: 'Pinned: {n}'

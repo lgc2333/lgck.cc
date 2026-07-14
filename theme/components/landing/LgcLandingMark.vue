@@ -66,6 +66,7 @@ defineProps<{
     </div>
     <div
       v-if="name"
+      class="lgc-mark-name"
       text="$md-sys-color-on-surface size-$lgc-title-medium"
       font="800"
       leading="[1.2]"
@@ -76,16 +77,21 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
+// Residual: text-shadow has no project utility and shares a landing token.
+.lgc-mark-name {
+  text-shadow: var(--lgc-landing-text-shadow);
+}
+
 // Residual: color-mix ring + max-inline-size transition geometry.
 .lgc-mark-avatar {
   --lgc-mark-avatar-bg: color-mix(
     in srgb,
-    var(--md-sys-color-surface-container-high) 15%,
+    var(--md-sys-color-surface-container-high) 30%,
     transparent
   );
   --lgc-mark-avatar-border: color-mix(
     in srgb,
-    var(--md-sys-color-surface-container-high) 20%,
+    var(--md-sys-color-surface-container-high) 30%,
     transparent
   );
 }

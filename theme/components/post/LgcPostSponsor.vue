@@ -127,6 +127,7 @@ onBeforeUnmount(() => {
         v-if="variant === 'link' && link"
         class="lgc-post-sponsor-action lgc-panel-link"
         justify-self="end"
+        max-sm="col-span-full justify-self-stretch w-full justify-center"
         self-center
         :to="link"
       >
@@ -139,6 +140,7 @@ onBeforeUnmount(() => {
         class="lgc-post-sponsor-action lgc-panel-link"
         type="button"
         justify-self="end"
+        max-sm="col-span-full justify-self-stretch w-full justify-center"
         self-center
         :aria-expanded="expanded"
         @click="expanded = !expanded"
@@ -198,6 +200,12 @@ onBeforeUnmount(() => {
 // Residual: shared state-layer color-mix and method/header grid sizing.
 .lgc-post-sponsor-header {
   grid-template-columns: var(--lgc-control-size) minmax(0, 1fr) auto;
+}
+
+@media (width <= 599.9px) {
+  .lgc-post-sponsor-header {
+    grid-template-columns: var(--lgc-control-size) minmax(0, 1fr);
+  }
 }
 
 .lgc-post-sponsor-action {

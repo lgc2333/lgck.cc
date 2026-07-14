@@ -23,6 +23,7 @@ const tags = computed(() => normalizePostListValue(props.post.tags))
 const title = computed(() => normalizeLocaleText(props.post.title, locale.value, t))
 const hasCover = computed(() => Boolean(props.post.cover))
 const postPath = computed(() => props.post.path || '')
+const postTitleClass = computed(() => props.post.postTitleClass || '')
 const postUrl = computed(() => props.post.url || '')
 const coverContentMask = computed<CoverContentMask>(() => {
   const mask =
@@ -62,6 +63,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
       :position="coverContentPosition"
       :tags="tags"
       :title="title"
+      :title-class="postTitleClass"
       :url="postUrl"
     />
 
@@ -74,6 +76,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
       :path="postPath"
       :tags="tags"
       :title="title"
+      :title-class="postTitleClass"
       :url="postUrl"
     />
   </article>

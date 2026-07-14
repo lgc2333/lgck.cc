@@ -15,28 +15,30 @@ const showAside = computed(() => {
 </script>
 
 <template>
-  <aside
-    v-if="showAside"
-    class="lgc-post-aside hidden lg:block"
-    sticky
-    top="$post-aside-top"
-    max-h="$post-aside-max-height"
-    overflow-hidden
-    p="$lgc-space-lg"
-    rounded="$lgc-radius-large"
-    bg="$md-sys-color-surface-container"
-    text="$md-sys-color-on-surface"
-  >
-    <div
-      class="lgc-post-outline-scroll"
-      max-h="$post-aside-content-max-height"
-      min-w="0"
-      overflow-x-hidden
-      overflow-y-auto
+  <Transition name="lgc-post-aside">
+    <aside
+      v-if="showAside"
+      class="lgc-post-aside hidden lg:block"
+      sticky
+      top="$post-aside-top"
+      max-h="$post-aside-max-height"
+      overflow-hidden
+      p="$lgc-space-lg"
+      rounded="$lgc-radius-large"
+      bg="$md-sys-color-surface-container"
+      text="$md-sys-color-on-surface"
     >
-      <LgcPostOutline :headers="headers" :on-click="handleClick" track-active />
-    </div>
-  </aside>
+      <div
+        class="lgc-post-outline-scroll"
+        max-h="$post-aside-content-max-height"
+        min-w="0"
+        overflow-x-hidden
+        overflow-y-auto
+      >
+        <LgcPostOutline :headers="headers" :on-click="handleClick" track-active />
+      </div>
+    </aside>
+  </Transition>
 </template>
 
 <style scoped lang="scss">
@@ -47,5 +49,30 @@ const showAside = computed(() => {
   --post-aside-content-max-height: calc(
     var(--post-aside-max-height) - var(--lgc-space-lg) - var(--lgc-space-lg)
   );
+}
+
+.lgc-post-aside-enter-active,
+.lgc-post-aside-leave-active {
+  transition:
+    opacity var(--lgc-motion-medium) var(--lgc-easing-standard),
+    transform var(--lgc-motion-medium) var(--lgc-easing-standard);
+}
+
+.lgc-post-aside-enter-from,
+.lgc-post-aside-leave-to {
+  opacity: 0;
+  transform: translateY(var(--lgc-space-md));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lgc-post-aside-enter-active,
+  .lgc-post-aside-leave-active {
+    transition: none;
+  }
+
+  .lgc-post-aside-enter-from,
+  .lgc-post-aside-leave-to {
+    transform: none;
+  }
 }
 </style>

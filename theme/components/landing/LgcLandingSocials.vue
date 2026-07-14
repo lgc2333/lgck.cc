@@ -22,7 +22,7 @@ const { $t } = useValaxyI18n()
     <AppLink
       v-for="item in socials"
       :key="`${item.name}-${item.link}`"
-      class="lgc-social-link lgc-icon-button-base lgc-icon-button-hover"
+      class="lgc-social-link lgc-icon-button-base"
       w="$lgc-control-size-compact"
       h="$lgc-control-size-compact"
       rounded="$lgc-radius-control hover:$lgc-radius-lg-plus active:$lgc-radius-control-active"
@@ -37,20 +37,39 @@ const { $t } = useValaxyI18n()
 </template>
 
 <style scoped lang="scss">
-// Residual only: classic transform + multi-duration list.
+// Residual: transparent dock color-mix vars + classic transform + multi-duration list.
 // Quiet morph radius is Uno on the element. Wind4 hover:-translate-y / active:scale
 // set `translate`/`scale` props; icon-button-hover's scale cannot be cancelled by
 // `transform: none` alone — keep classic transform here and reset `scale`.
 .lgc-social-link {
+  --lgc-social-transparent-opacity: 30%;
+  --lgc-social-transparent-hover-opacity: 50%;
+  --lgc-social-color: var(--md-sys-color-on-surface);
+  --lgc-social-bg: color-mix(
+    in srgb,
+    var(--md-sys-color-surface-container-highest) var(--lgc-social-transparent-opacity),
+    transparent
+  );
+  --lgc-social-hover-color: var(--md-sys-color-primary);
+  --lgc-social-hover-bg: color-mix(
+    in srgb,
+    var(--md-sys-color-primary-container) var(--lgc-social-transparent-hover-opacity),
+    transparent
+  );
+
   transition-property: background-color, border-radius, color, transform;
   transition-duration:
     var(--lgc-motion-short), var(--lgc-motion-medium), var(--lgc-motion-short),
     var(--lgc-motion-short);
   transition-timing-function: var(--lgc-easing-standard);
+  color: var(--lgc-social-color);
+  background: var(--lgc-social-bg);
 }
 
 .lgc-social-link:hover,
 .lgc-social-link:focus-visible {
+  color: var(--lgc-social-hover-color);
+  background: var(--lgc-social-hover-bg);
   transform: translateY(-1px);
 }
 

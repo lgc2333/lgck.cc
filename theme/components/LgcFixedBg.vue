@@ -187,11 +187,9 @@ html.dark .lgc-fixed-bg-atmosphere {
 }
 
 .lgc-fixed-bg-mask {
-  --lgc-fixed-bg-mask-opacity: 65%;
-
   background: color-mix(
     in srgb,
-    var(--md-sys-color-surface-container) var(--lgc-fixed-bg-mask-opacity),
+    var(--md-sys-color-surface-container) var(--lgc-fixed-bg-image-mask-opacity),
     transparent
   );
 }

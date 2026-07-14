@@ -43,7 +43,7 @@ function onDrawerNavigate(event: MouseEvent) {
 
 <template>
   <LgcFloatingActionButton
-    v-if="showAction"
+    :show="showAction"
     aria-controls="lgc-post-outline-drawer"
     :aria-expanded="drawerOpen"
     button-class="lg:hidden!"

@@ -73,6 +73,11 @@
     0 4px 8px 3px rgb(var(--lgc-elevation-shadow-color) / 0.1);
   --lgc-elevation-shadow-overlay: 0 16px 40px
     color-mix(in srgb, var(--md-sys-color-scrim, #000) 16%, transparent);
+  --lgc-landing-text-shadow:
+    0 0 1px color-mix(in srgb, var(--md-sys-color-surface) 100%, transparent),
+    0 0 4px color-mix(in srgb, var(--md-sys-color-surface) 92%, transparent),
+    0 2px 8px color-mix(in srgb, var(--md-sys-color-surface) 72%, transparent),
+    0 1px 2px color-mix(in srgb, var(--md-sys-color-scrim, #000) 18%, transparent);
 
   // --- Space rhythm (shared scale; one-off layout chrome may use bare px) ---
   --lgc-space-xs: 4px;
@@ -161,9 +166,10 @@
   --lgc-surface-blur: 8px;
   --lgc-header-blur: 12px;
   --lgc-elevate-blur: 3px;
+  --lgc-fixed-bg-image-mask-opacity: 20%;
   --lgc-surface-mask-bg: color-mix(
     in srgb,
-    var(--md-sys-color-surface) 10%,
+    var(--md-sys-color-surface) 50%,
     transparent
   );
 }
@@ -172,6 +178,13 @@
   :root {
     --lgc-header-height: 88px;
   }
+}
+
+html.dark {
+  --lgc-landing-text-shadow:
+    0 0 1px color-mix(in srgb, var(--md-sys-color-scrim, #000) 72%, transparent),
+    0 1px 4px color-mix(in srgb, var(--md-sys-color-scrim, #000) 52%, transparent),
+    0 4px 10px color-mix(in srgb, var(--md-sys-color-scrim, #000) 34%, transparent);
 }
 
 // --- Base ---

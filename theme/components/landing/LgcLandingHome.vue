@@ -85,7 +85,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
         />
 
         <h1
-          class="font-$lgc-font-display font-900"
+          class="lgc-landing-title font-$lgc-font-display font-900"
           m="0"
           max-w="$landing-title-max-w"
           text="$md-sys-color-on-surface size-$lgc-display-large"
@@ -97,10 +97,11 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 
         <p
           v-if="subtitle"
+          class="lgc-landing-description"
           m="0"
           mt="$lgc-space-xl"
           max-w="$lgc-measure-narrow"
-          text="$md-sys-color-on-surface-variant size-$lgc-body-large sm:size-$lgc-title-medium"
+          text="$md-sys-color-on-surface size-$lgc-body-large sm:size-$lgc-title-medium"
           leading="[2]"
         >
           {{ subtitle }}
@@ -121,6 +122,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
         no-underline
         grid
         absolute
+        z-1
         href="#posts"
         :aria-label="t('accessibility.scroll_to_posts')"
       >
@@ -157,6 +159,50 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 </template>
 
 <style scoped lang="scss">
+// Residual: paired edge gradients need opposite directions and pseudo-elements.
+.lgc-landing {
+  --landing-edge-fade-height: calc(var(--lgc-header-height) * 2);
+}
+
+.lgc-landing::before,
+.lgc-landing::after {
+  content: '';
+  @apply 'pointer-events-none absolute inset-x-0 z-0';
+  height: var(--landing-edge-fade-height);
+}
+
+.lgc-landing::before {
+  @apply 'top-0';
+  background: linear-gradient(
+    to top,
+    transparent 0%,
+    color-mix(in srgb, var(--lgc-surface-mask-bg) 18%, transparent) 34%,
+    color-mix(in srgb, var(--lgc-surface-mask-bg) 62%, transparent) 72%,
+    var(--lgc-surface-mask-bg) 100%
+  );
+}
+
+.lgc-landing::after {
+  @apply 'bottom-0';
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--lgc-surface-mask-bg) 18%, transparent) 34%,
+    color-mix(in srgb, var(--lgc-surface-mask-bg) 62%, transparent) 72%,
+    var(--lgc-surface-mask-bg) 100%
+  );
+}
+
+.lgc-home.is-full-only .lgc-landing::after {
+  @apply 'hidden';
+}
+
+// Residual: text-shadow has no project utility and shares a landing token.
+.lgc-landing-title,
+.lgc-landing-description {
+  text-shadow: var(--lgc-landing-text-shadow);
+}
+
 // Local calc owners for landing viewport math (not template [calc(...)]).
 .lgc-landing-center {
   --landing-center-min-h: calc(100vh - var(--lgc-header-height) - 80px);

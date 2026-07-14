@@ -3,14 +3,20 @@ import { computed } from 'vue'
 
 type ButtonClass = string | string[] | Record<string, boolean>
 
-const props = defineProps<{
-  ariaControls?: string
-  ariaExpanded?: boolean
-  buttonClass?: ButtonClass
-  href?: string
-  interactiveDetail?: boolean
-  label: string
-}>()
+const props = withDefaults(
+  defineProps<{
+    ariaControls?: string
+    ariaExpanded?: boolean
+    buttonClass?: ButtonClass
+    href?: string
+    interactiveDetail?: boolean
+    label: string
+    show?: boolean
+  }>(),
+  {
+    show: true,
+  },
+)
 
 const emit = defineEmits<{
   click: [event: MouseEvent]
@@ -20,25 +26,55 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
 </script>
 
 <template>
-  <span
-    v-if="interactiveDetail"
-    class="lgc-floating-action-button"
-    :class="[
-      {
-        'has-detail': $slots.detail,
-        'has-interactive-detail': interactiveDetail,
-      },
-      buttonClass,
-    ]"
-  >
-    <span v-if="$slots.detail" class="lgc-floating-action-detail">
-      <span class="lgc-floating-action-detail-inner">
-        <slot name="detail" />
+  <Transition name="lgc-floating-action-button-reveal">
+    <span
+      v-if="show && interactiveDetail"
+      class="lgc-floating-action-button"
+      :class="[
+        {
+          'has-detail': $slots.detail,
+          'has-interactive-detail': interactiveDetail,
+        },
+        buttonClass,
+      ]"
+    >
+      <span v-if="$slots.detail" class="lgc-floating-action-detail">
+        <span class="lgc-floating-action-detail-inner">
+          <slot name="detail" />
+        </span>
       </span>
+      <a
+        v-if="href"
+        class="lgc-floating-action-icon lgc-floating-action-icon-control"
+        :href="href"
+        target="_blank"
+        :rel="linkRel"
+        :aria-controls="ariaControls"
+        :aria-expanded="ariaExpanded"
+        :aria-label="label"
+        :title="label"
+        @click="emit('click', $event)"
+      >
+        <slot />
+      </a>
+      <button
+        v-else
+        class="lgc-floating-action-icon lgc-floating-action-icon-control"
+        type="button"
+        :aria-controls="ariaControls"
+        :aria-expanded="ariaExpanded"
+        :aria-label="label"
+        :title="label"
+        @click="emit('click', $event)"
+      >
+        <slot />
+      </button>
     </span>
+
     <a
-      v-if="href"
-      class="lgc-floating-action-icon lgc-floating-action-icon-control"
+      v-else-if="show && href"
+      class="lgc-floating-action-button"
+      :class="[{ 'has-detail': $slots.detail }, buttonClass]"
       :href="href"
       target="_blank"
       :rel="linkRel"
@@ -48,11 +84,20 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
       :title="label"
       @click="emit('click', $event)"
     >
-      <slot />
+      <span v-if="$slots.detail" class="lgc-floating-action-detail">
+        <span class="lgc-floating-action-detail-inner">
+          <slot name="detail" />
+        </span>
+      </span>
+      <span class="lgc-floating-action-icon">
+        <slot />
+      </span>
     </a>
+
     <button
-      v-else
-      class="lgc-floating-action-icon lgc-floating-action-icon-control"
+      v-else-if="show"
+      class="lgc-floating-action-button"
+      :class="[{ 'has-detail': $slots.detail }, buttonClass]"
       type="button"
       :aria-controls="ariaControls"
       :aria-expanded="ariaExpanded"
@@ -60,53 +105,16 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
       :title="label"
       @click="emit('click', $event)"
     >
-      <slot />
+      <span v-if="$slots.detail" class="lgc-floating-action-detail">
+        <span class="lgc-floating-action-detail-inner">
+          <slot name="detail" />
+        </span>
+      </span>
+      <span class="lgc-floating-action-icon">
+        <slot />
+      </span>
     </button>
-  </span>
-
-  <a
-    v-else-if="href"
-    class="lgc-floating-action-button"
-    :class="[{ 'has-detail': $slots.detail }, buttonClass]"
-    :href="href"
-    target="_blank"
-    :rel="linkRel"
-    :aria-controls="ariaControls"
-    :aria-expanded="ariaExpanded"
-    :aria-label="label"
-    :title="label"
-    @click="emit('click', $event)"
-  >
-    <span v-if="$slots.detail" class="lgc-floating-action-detail">
-      <span class="lgc-floating-action-detail-inner">
-        <slot name="detail" />
-      </span>
-    </span>
-    <span class="lgc-floating-action-icon">
-      <slot />
-    </span>
-  </a>
-
-  <button
-    v-else
-    class="lgc-floating-action-button"
-    :class="[{ 'has-detail': $slots.detail }, buttonClass]"
-    type="button"
-    :aria-controls="ariaControls"
-    :aria-expanded="ariaExpanded"
-    :aria-label="label"
-    :title="label"
-    @click="emit('click', $event)"
-  >
-    <span v-if="$slots.detail" class="lgc-floating-action-detail">
-      <span class="lgc-floating-action-detail-inner">
-        <slot name="detail" />
-      </span>
-    </span>
-    <span class="lgc-floating-action-icon">
-      <slot />
-    </span>
-  </button>
+  </Transition>
 </template>
 
 <style scoped lang="scss">
@@ -203,5 +211,30 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
   max-block-size: var(--lgc-floating-action-detail-block-max);
   max-inline-size: var(--lgc-floating-action-detail-max);
   @apply 'opacity-100';
+}
+
+.lgc-floating-action-button-reveal-enter-active,
+.lgc-floating-action-button-reveal-leave-active {
+  transition:
+    opacity var(--lgc-motion-medium) var(--lgc-easing-standard),
+    transform var(--lgc-motion-medium) var(--lgc-easing-standard);
+}
+
+.lgc-floating-action-button-reveal-enter-from,
+.lgc-floating-action-button-reveal-leave-to {
+  opacity: 0;
+  transform: translateY(var(--lgc-space-md));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lgc-floating-action-button-reveal-enter-active,
+  .lgc-floating-action-button-reveal-leave-active {
+    transition: none;
+  }
+
+  .lgc-floating-action-button-reveal-enter-from,
+  .lgc-floating-action-button-reveal-leave-to {
+    transform: none;
+  }
 }
 </style>

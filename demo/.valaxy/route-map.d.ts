@@ -87,6 +87,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/posts/encrypted-post': RouteRecordInfo<
+      '/posts/encrypted-post',
+      '/posts/encrypted-post',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/posts/hello-valaxy': RouteRecordInfo<
       '/posts/hello-valaxy',
       '/posts/hello-valaxy',
@@ -278,6 +285,14 @@ declare module 'vue-router/auto-routes' {
     'pages/posts/draft.md': {
       routes:
         | '/posts/draft'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/encrypted-post.md': {
+      routes:
+        | '/posts/encrypted-post'
       views:
         | never
       pathParamNames:
