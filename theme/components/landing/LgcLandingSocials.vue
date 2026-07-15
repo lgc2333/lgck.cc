@@ -22,7 +22,9 @@ const { $t } = useValaxyI18n()
     <AppLink
       v-for="item in socials"
       :key="`${item.name}-${item.link}`"
-      class="lgc-social-link lgc-icon-button-base"
+      class="lgc-social-link lgc-control-reset lgc-control-on-surface"
+      grid
+      place-items="center"
       w="$lgc-control-size-compact"
       h="$lgc-control-size-compact"
       rounded="$lgc-radius-control hover:$lgc-radius-lg-plus active:$lgc-radius-control-active"

@@ -29,6 +29,8 @@ export default antfu(
       'ts/no-redeclare': ['error', { ignoreDeclarationMerge: true }],
 
       'vue/v-on-event-hyphenation': 'off',
+
+      'yaml/plain-scalar': 'off',
     },
   },
 )

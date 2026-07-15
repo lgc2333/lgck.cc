@@ -39,7 +39,7 @@ const { iconClass, isRouteActive } = useHeaderNavItemState({
 
 <template>
   <AppLink
-    class="lgc-header-button lgc-header-link lgc-icon-button-base lgc-icon-button-hover"
+    class="lgc-header-button lgc-header-link lgc-control-reset lgc-control-on-surface lgc-control-state-layer"
     :class="{
       'is-optional': optional,
       'is-icon': mode === 'icon',

@@ -90,7 +90,7 @@ ATTENTION: If you encounter a reusable pitfall, you MUST RECORD IT BELOW AS EARL
 - Uno `@apply` may leave multi-property `transition-[…,max-inline-size,…]` untransformed (raw `@apply` in dist CSS / lightningcss warning). Use residual `transition-property: …` for lists that include `max-inline-size` (or other props that fail transform); keep `duration-`/`ease-` as `@apply`.
 - **Never put Uno attributify `text="…"` on `<a>`, `AppLink`, or `RouterLink`.** `HTMLAnchorElement` has a legacy `.text` DOM property (alias of `textContent`). Vue sets it as a prop and **replaces all children** with the attribute string. Put color/size on a child span via `class`/`text=`, or use residual CSS / `class="text-…"`.
 - **Never use bare HTML `hidden` as an Uno hide utility.** Vue emits the boolean `hidden` attribute; UA CSS is `[hidden] { display: none !important }`, so responsive show utilities cannot override it. Use `class="hidden max-md:grid"` (or residual `@apply 'hidden max-md:grid'`).
-- **When `lgc-icon-button-base` (`inline-grid`) fights display utilities, use trailing `!`** (e.g. `hidden! max-md:grid!`), not residual SCSS. Bare `hidden`/`max-md:grid` lose same-specificity cascade and the control stays always visible.
+- Shared control reset owns no display; use ordinary display utilities such as `hidden max-md:grid` plus explicit `grid`/`place-items` on the element.
 - Parent scoped CSS does **not** match non-root nodes inside child components. Header mobile hide for action buttons must live in `LgcHeaderActions` (or use `:deep`), not only in `LgcHeader`.
 - **Do not set a CSS custom property to itself** (e.g. inline `--lgc-header-link-max-width: var(--lgc-header-link-max-width)`). Self-reference is invalid at computed-value time; dependents become empty. Omit the inline override so `:root` applies, or set a concrete value.
 - **Wind4 `translate`/`scale` ≠ `transform`:** Uno `hover:-translate-y-*` / `active:scale-*` set the individual `translate` / `scale` properties. `transform: none` does **not** cancel them. Prefer residual classic `transform: translateY/scale(...)` for shared motion that other rules must override, or also reset `translate`/`scale`.
@@ -120,7 +120,7 @@ Use English conventional commit messages:
 ```text
 type(optional scope): description
 
-- Optional list of changes
+- List of changes, one change per row
 
 Optional footer(s)
 ```

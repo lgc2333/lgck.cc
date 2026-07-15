@@ -136,7 +136,9 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 
     <template #action>
       <AppLink
-        class="lgc-post-arrow lgc-card-arrow max-sm:hidden"
+        class="lgc-post-arrow max-sm:hidden"
+        place-items="center"
+        self-center
         sm="inline-grid"
         :to="collection ? collectionPath : postUrl || postPath"
         :aria-label="collection ? t('collection.open') : t('post.read_more')"

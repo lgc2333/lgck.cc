@@ -94,8 +94,10 @@ watch(
                 {{ title }}
               </span>
               <button
-                class="lgc-icon-button-base lgc-icon-button-hover"
+                class="lgc-control-reset lgc-control-on-surface lgc-control-state-layer"
                 type="button"
+                grid
+                place-items="center"
                 w="$lgc-control-size-compact"
                 h="$lgc-control-size-compact"
                 rounded="$lgc-radius-control"

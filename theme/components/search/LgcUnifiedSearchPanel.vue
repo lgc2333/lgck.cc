@@ -81,7 +81,9 @@ const isDrawer = computed(() => props.variant === 'drawer')
           @keydown="$emit('keydown', $event)"
         />
         <button
-          class="lgc-search-close lgc-icon-button-base lgc-icon-button-hover"
+          class="lgc-search-close lgc-control-reset lgc-control-on-surface lgc-control-state-layer"
+          grid
+          place-items="center"
           w="$lgc-control-size"
           h="$lgc-control-size"
           rounded="$lgc-radius-control"
@@ -146,7 +148,9 @@ const isDrawer = computed(() => props.variant === 'drawer')
       gap="$lgc-space-sm"
     >
       <button
-        class="lgc-search-close lgc-icon-button-base lgc-icon-button-hover"
+        class="lgc-search-close lgc-control-reset lgc-control-on-surface lgc-control-state-layer"
+        grid
+        place-items="center"
         w="$lgc-control-size"
         h="$lgc-control-size"
         rounded="$lgc-radius-control"

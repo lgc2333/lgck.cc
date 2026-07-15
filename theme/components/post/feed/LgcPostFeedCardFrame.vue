@@ -18,7 +18,7 @@ const props = withDefaults(
 
 <template>
   <article
-    class="lgc-post-card lgc-card-link"
+    class="lgc-post-card"
     grid
     items-start
     relative
@@ -82,8 +82,14 @@ const props = withDefaults(
 .lgc-post-card {
   --lgc-post-card-rest-bg: var(--md-sys-color-surface-container-low);
   --post-card-cols: 84px minmax(0, 1fr);
+
+  @apply 'overflow-hidden rounded-$lgc-radius-large text-$md-sys-color-on-surface';
   grid-template-columns: var(--post-card-cols);
   background: var(--lgc-post-card-rest-bg);
+  transition-property: background-color, border-radius, transform;
+  transition-duration:
+    var(--lgc-motion-short), var(--lgc-motion-medium), var(--lgc-motion-short);
+  transition-timing-function: var(--lgc-easing-standard);
 }
 
 @screen sm {
@@ -100,33 +106,27 @@ const props = withDefaults(
   @apply 'relative z-$lgc-layer-local-base';
 }
 
-// Whole-card hover: keep rest shape/lift (no radius morph, no translate).
 // Lift + radius morph only when title or arrow is the target.
-.lgc-post-card.lgc-card-link:hover {
-  @apply 'rounded-$lgc-radius-large';
-  transform: none;
-}
-
-.lgc-post-card.lgc-card-link:active {
-  @apply 'rounded-$lgc-radius-large';
-  background: var(--lgc-post-card-rest-bg);
-  transform: none;
-}
-
-.lgc-post-card.lgc-card-link:has(
-    .lgc-post-title-link:hover,
-    .lgc-post-title-link:focus-visible,
-    .lgc-post-arrow:hover,
-    .lgc-post-arrow:focus-visible
-  ) {
+.lgc-post-card:has(
+  .lgc-post-title-link:hover,
+  .lgc-post-title-link:focus-visible,
+  .lgc-post-arrow:hover,
+  .lgc-post-arrow:focus-visible
+) {
   @apply 'rounded-$lgc-radius-large-active';
   transform: translateY(-2px);
 }
 
-.lgc-post-card.lgc-card-link:has(.lgc-post-title-link:active, .lgc-post-arrow:active) {
+.lgc-post-card:has(.lgc-post-title-link:active, .lgc-post-arrow:active) {
   @apply 'rounded-$lgc-radius-large-active';
   background: var(--md-sys-color-surface-container-high);
   transform: scale(var(--lgc-card-press-scale));
+}
+
+.lgc-post-arrow {
+  @apply 'w-$lgc-control-size h-$lgc-control-size self-center';
+  @apply 'rounded-$lgc-radius-control text-$md-sys-color-primary';
+  @apply 'text-size-$lgc-icon-size bg-$md-sys-color-surface-container-highest';
 }
 
 // Keep rest bg as plain-card low while cover loads / fails.

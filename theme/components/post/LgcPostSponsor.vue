@@ -132,7 +132,7 @@ onBeforeUnmount(() => {
 
       <AppLink
         v-if="variant === 'link' && link"
-        class="lgc-post-sponsor-action lgc-panel-link"
+        class="lgc-post-sponsor-action"
         justify-self="end"
         max-sm="col-span-full justify-self-stretch w-full justify-center"
         self-center
@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
 
       <button
         v-else-if="variant === 'methods' && methods.length"
-        class="lgc-post-sponsor-action lgc-panel-link"
+        class="lgc-post-sponsor-action"
         type="button"
         justify-self="end"
         max-sm="col-span-full justify-self-stretch w-full justify-center"

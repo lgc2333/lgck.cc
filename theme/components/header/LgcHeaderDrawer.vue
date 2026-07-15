@@ -66,11 +66,12 @@ const { t } = useI18n()
             {{ t('menu.title') }}
           </span>
           <button
-            class="lgc-icon-button-base lgc-icon-button-hover"
+            class="lgc-control-reset lgc-control-on-surface lgc-control-state-layer"
             w="$lgc-control-size-compact"
             h="$lgc-control-size-compact"
             rounded-full
             grid
+            place-items="center"
             text="size-$lgc-icon-size"
             type="button"
             :aria-label="t('accessibility.close_nav')"

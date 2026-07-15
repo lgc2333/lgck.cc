@@ -28,7 +28,7 @@ const { t } = useI18n()
     <component
       :is="prev?.external ? 'a' : 'RouterLink'"
       v-if="prev"
-      class="lgc-prev-next-nav-item lgc-panel-link is-previous"
+      class="lgc-prev-next-nav-item is-previous"
       grid
       min-w="0"
       items-center
@@ -69,7 +69,7 @@ const { t } = useI18n()
     <component
       :is="next?.external ? 'a' : 'RouterLink'"
       v-if="next"
-      class="lgc-prev-next-nav-item lgc-panel-link is-next"
+      class="lgc-prev-next-nav-item is-next"
       min-w="0"
       gap="$lgc-space-sm"
       text-right
@@ -121,9 +121,26 @@ const { t } = useI18n()
   @apply 'md:grid-cols-2';
 }
 
-// Residual: asymmetric grid tracks (icon | copy vs copy | icon).
+// Residual: asymmetric grid tracks + classic transform for press/lift.
 .lgc-prev-next-nav-item {
+  @apply 'p-$lgc-space-lg rounded-$lgc-radius-large';
+  @apply 'text-$md-sys-color-on-surface no-underline';
+  @apply 'bg-$md-sys-color-surface-container';
   grid-template-columns: auto minmax(0, 1fr);
+  transition-property: background-color, border-radius, transform;
+  transition-duration: var(--lgc-motion-short);
+  transition-timing-function: var(--lgc-easing-standard);
+}
+
+.lgc-prev-next-nav-item:hover,
+.lgc-prev-next-nav-item:focus-visible {
+  @apply 'rounded-$lgc-radius-large-active bg-$md-sys-color-surface-container-high';
+  transform: translateY(-1px);
+}
+
+.lgc-prev-next-nav-item:active {
+  @apply 'bg-$md-sys-color-surface-container-highest';
+  transform: scale(var(--lgc-card-press-scale));
 }
 
 .lgc-prev-next-nav-item.is-next {

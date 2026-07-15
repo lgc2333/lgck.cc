@@ -51,7 +51,7 @@ function toggleLanguage() {
   <div flex="~ items-center" min-w="0" gap="$lgc-space-sm">
     <button
       v-if="showI18n"
-      class="lgc-header-button lgc-header-lang lgc-icon-button-base lgc-icon-button-hover"
+      class="lgc-header-button lgc-header-lang lgc-control-reset lgc-control-on-surface lgc-control-state-layer"
       :class="actionClasses"
       type="button"
       :aria-label="t('button.toggle_langs')"
@@ -71,9 +71,11 @@ function toggleLanguage() {
 
     <button
       v-if="showTheme"
-      class="lgc-header-button lgc-icon-button-base lgc-icon-button-hover"
+      class="lgc-header-button lgc-control-reset lgc-control-on-surface lgc-control-state-layer"
       :class="actionClasses"
       type="button"
+      grid
+      place-items="center"
       :aria-label="appStore.isDark ? t('button.toggle_light') : t('button.toggle_dark')"
       @click="appStore.toggleDarkWithTransition"
     >

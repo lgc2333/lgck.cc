@@ -21,7 +21,7 @@ If an M3 Expressive decision is unclear, check official refs before implementing
 - `layouts/`: default, home, post, 404
 - `composables/`: config, header, language motion, search
 - `utils/`: locale, post, routes, repo URLs, search text, M3 loading
-- `styles/`: global SCSS + tokens (`index.ts` → fonts + `index.scss`); `styles/shared/*` owns cross-component recipes only; `styles/giscus/` owns Giscus iframe theme CSS
+- `styles/`: global SCSS + tokens (`index.ts` → fonts + `index.scss`); `styles/shared/*` owns cross-component recipes only (control reset/state in `control.scss`; one-off card/action chrome stays component-local); `styles/giscus/` owns Giscus iframe theme CSS
 - `assets/fonts/`, `locales/`, `pages/` (theme routes)
 
 ## Direction

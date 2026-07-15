@@ -105,13 +105,15 @@ function stripTrailingSlash(path: string) {
 
       <button
         v-if="collapsible && resolvedItems.length"
-        class="lgc-collection-nav-toggle lgc-icon-button-base lgc-icon-button-hover"
+        class="lgc-collection-nav-toggle lgc-control-reset lgc-control-on-surface lgc-control-state-layer"
         type="button"
-        w="$lgc-control-size-sm"
         h="$lgc-control-size-sm"
+        w="$lgc-control-size-sm"
+        flex-none
+        grid
+        place-items="center"
         rounded="$lgc-radius-control"
         text="size-$lgc-icon-size-sm"
-        flex-none
         :aria-expanded="expanded"
         :aria-label="expanded ? t('collection.collapse') : t('collection.expand')"
         @click="toggleExpanded"

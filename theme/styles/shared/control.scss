@@ -1,17 +1,20 @@
-.lgc-icon-button-base {
-  @apply 'inline-grid shrink-0 place-items-center p-0 border-0';
-  @apply 'text-$md-sys-color-on-surface bg-transparent';
-  // Residual: Uno leaves transition-[…max-inline-size…] untransformed in dist.
+.lgc-control-reset {
+  @apply 'shrink-0 p-0 border-0 no-underline bg-transparent';
+  // Residual: Uno leaves transition-[...max-inline-size...] untransformed in dist.
   transition-property:
     background-color, border-radius, color, max-inline-size, transform;
   @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
 }
 
-.lgc-icon-button-hover {
+.lgc-control-on-surface {
+  @apply 'text-$md-sys-color-on-surface';
+}
+
+.lgc-control-state-layer {
   @apply 'hover:bg-$md-sys-color-primary-container hover:bg-op-$lgc-state-hover-opacity hover:text-$md-sys-color-primary';
   @apply 'active:bg-$md-sys-color-primary-container active:bg-op-$lgc-state-pressed-opacity';
 }
 
-.lgc-icon-button-hover:active {
+.lgc-control-state-layer:active {
   transform: scale(var(--lgc-control-press-scale));
 }

@@ -106,7 +106,7 @@ const setRootRef: VNodeRef = (element) => {
     </div>
 
     <button
-      class="lgc-header-button lgc-search-trigger lgc-icon-button-base lgc-icon-button-hover"
+      class="lgc-header-button lgc-search-trigger lgc-control-reset lgc-control-on-surface lgc-control-state-layer"
       :class="[
         actionClass,
         {
@@ -114,6 +114,8 @@ const setRootRef: VNodeRef = (element) => {
         },
       ]"
       type="button"
+      grid
+      place-items="center"
       :aria-expanded="openInline || openDrawer || mobileSearchMode"
       :aria-label="t('menu.search')"
       :title="t('menu.search')"
