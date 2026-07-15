@@ -80,7 +80,7 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
       v-html="excerpt"
     />
     <div v-if="hasTaxonomies" :class="tagsClass" flex="~ wrap" gap="$lgc-space-sm">
-      <LgcPostMetaChips only-taxonomies :categories="categories" :tags="tags" />
+      <LgcTaxonomyChips :categories="categories" :tags="tags" />
     </div>
   </div>
 
@@ -115,7 +115,7 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
       flex="~ wrap"
       gap="$lgc-space-sm"
     >
-      <LgcPostMetaChips only-taxonomies :categories="categories" :tags="tags" />
+      <LgcTaxonomyChips :categories="categories" :tags="tags" />
     </div>
   </div>
 </template>

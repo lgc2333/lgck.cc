@@ -19,7 +19,7 @@ For docs mainly for AI (like `AGENTS.md`), you MUST keep them concise and token 
 ```bash
 pnpm install
 pnpm lint                 # lint TypeScript, Vue, JS, and config files
-pnpm lint:fix             # auto-fix lint issues
+pnpm lint:fix             # auto-fix lint issues, then format
 pnpm check                # type-check root, blog, demo, and theme project refs
 pnpm format               # format files with Prettier
 pnpm --dir blog dev       # start the main blog locally
@@ -79,6 +79,8 @@ ATTENTION: If you encounter a reusable pitfall, you MUST RECORD IT BELOW AS EARL
 ### Tools
 
 - When searching for text that starts with `--` using `rg`, pass `--` before the pattern, e.g. `rg -- "--lgc-space"`.
+- Put `rg` options such as `-g` before path operands; after paths they are parsed as files.
+- `.serena/` is project-owned and can be tracked; do not delete or blanket-ignore it as scratch. Its own `.gitignore` filters local cache/config.
 - Multi-agent worktree changes are user-owned unless proven otherwise; do not revert unexpected diffs just because they are outside the current task.
 
 ### Styling / Vue
@@ -118,7 +120,7 @@ Use English conventional commit messages:
 ```text
 type(optional scope): description
 
-- optional list of changes
+- Optional list of changes
 
-optional footer(s)
+Optional footer(s)
 ```

@@ -130,7 +130,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
         gap="$lgc-space-sm"
         sm="hidden"
       >
-        <LgcPostMetaChips only-taxonomies :categories="post.categories" :tags="tags" />
+        <LgcTaxonomyChips :categories="post.categories" :tags="tags" />
       </div>
     </template>
 

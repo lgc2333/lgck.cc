@@ -110,7 +110,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
         {{ description }}
       </p>
       <div v-if="hasMeta" :aria-label="t('accessibility.post_metadata')">
-        <LgcPostMetaChips
+        <LgcPostMetaRow
           align="center"
           tone="on-cover"
           :categories="frontmatter.categories"
@@ -164,7 +164,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
       {{ description }}
     </p>
     <div v-if="hasMeta" :aria-label="t('accessibility.post_metadata')">
-      <LgcPostMetaChips
+      <LgcPostMetaRow
         align="center"
         :categories="frontmatter.categories"
         :created="frontmatter.date"

@@ -31,7 +31,7 @@ const props = withDefaults(
 const { t } = useI18n()
 const siteConfig = useSiteConfig()
 const tagClass = computed(() => [
-  'lgc-post-tag',
+  'lgc-post-meta-chip',
   props.tone === 'on-cover' ? 'is-on-cover' : '',
 ])
 const rowClass = computed(() => [
