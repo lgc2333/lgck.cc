@@ -32,6 +32,9 @@ const scoreLabel = computed(() => {
   if (typeof props.item.score !== 'number' || !Number.isFinite(props.item.score))
     return ''
 
+  if (props.item.provider === 'fuse')
+    return t('search.difference', { score: (props.item.score * 100).toFixed(1) })
+
   return t('search.score', { score: props.item.score.toFixed(1) })
 })
 

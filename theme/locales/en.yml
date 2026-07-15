@@ -27,6 +27,7 @@ collection:
 search:
   view_all: View all search results
   score: 'Score: {score}'
+  difference: 'Difference: {score}%'
 
 fixed_bg:
   unknown_title: Background image

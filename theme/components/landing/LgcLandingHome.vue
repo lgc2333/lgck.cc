@@ -29,7 +29,10 @@ const landingStyle = computed<StyleValue>(() => ({
 const author = computed(() => siteConfig.value.author)
 const title = computed(() => $t(siteConfig.value.title))
 const authorName = computed(() => $t(author.value.name))
+const authorIntro = computed(() => $t(author.value.intro || ''))
+const authorLink = computed(() => author.value.link)
 const avatar = computed(() => $t(author.value.avatar))
+const avatarShape = computed(() => landing.value.avatarShape || 'rounded')
 const authorStatus = computed(() => {
   const status = author.value.status
   if (!status) return undefined
@@ -38,7 +41,8 @@ const authorStatus = computed(() => {
     message: status.message ? $t(status.message) : status.message,
   }
 })
-const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtitle))
+const siteSubtitle = computed(() => $t(siteConfig.value.subtitle))
+const siteDescription = computed(() => $t(siteConfig.value.description))
 </script>
 
 <template>
@@ -79,33 +83,54 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
         <LgcLandingMark
           v-if="avatar"
           :avatar="avatar"
+          :avatar-shape="avatarShape"
+          :intro="authorIntro"
+          :link="authorLink"
           :name="authorName"
           :status="authorStatus"
           :title="title"
         />
 
-        <h1
-          class="lgc-landing-title font-$lgc-font-display font-900"
-          m="0"
-          max-w="$landing-title-max-w"
-          text="$md-sys-color-on-surface size-$lgc-display-large"
-          leading="[0.96]"
-          tracking-normal
+        <div
+          class="lgc-landing-heading"
+          grid
+          justify-items-center
+          gap="$lgc-space-xs sm:$lgc-space-sm"
+          w="full"
         >
-          {{ title }}
-        </h1>
+          <h1
+            class="lgc-landing-title font-$lgc-font-display font-900"
+            m="0"
+            max-w="$landing-title-max-w"
+            text="$md-sys-color-on-surface size-$lgc-display-large"
+            leading="[1.05]"
+            tracking-normal
+          >
+            {{ title }}
+          </h1>
 
-        <p
-          v-if="subtitle"
-          class="lgc-landing-description"
-          m="0"
-          mt="$lgc-space-xl"
-          max-w="$lgc-measure-narrow"
-          text="$md-sys-color-on-surface size-$lgc-body-large sm:size-$lgc-title-medium"
-          leading="[2]"
-        >
-          {{ subtitle }}
-        </p>
+          <p
+            v-if="siteSubtitle"
+            class="lgc-landing-subtitle"
+            m="0"
+            max-w="full"
+            text="$md-sys-color-on-surface size-$lgc-title-small sm:size-$lgc-title-large"
+            leading="[1.65]"
+          >
+            {{ siteSubtitle }}
+          </p>
+
+          <p
+            v-if="siteDescription"
+            class="lgc-landing-description"
+            m="0"
+            max-w="full"
+            text="$md-sys-color-on-surface size-$lgc-body-small sm:size-$lgc-body-large"
+            leading="[1.65]"
+          >
+            {{ siteDescription }}
+          </p>
+        </div>
 
         <LgcLandingDock v-if="hasLandingLinks" :links="landingLinks" />
         <LgcLandingSocials v-if="siteSocials?.length" :socials="siteSocials" />
@@ -134,7 +159,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
         />
       </a>
 
-      <LgcFooter v-if="isFullOnlyLanding" class="relative z-1" />
+      <LgcFooter v-if="isFullOnlyLanding" class="lgc-landing-footer relative z-1" />
     </section>
 
     <div
@@ -193,13 +218,17 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
   );
 }
 
-.lgc-home.is-full-only .lgc-landing::after {
-  @apply 'hidden';
-}
-
 // Residual: text-shadow has no project utility and shares a landing token.
 .lgc-landing-title,
+.lgc-landing-subtitle,
 .lgc-landing-description {
+  text-shadow: var(--lgc-landing-text-shadow);
+}
+
+// Residual: parent-state override clears the child footer gradient background.
+.lgc-home.is-full-only .lgc-landing-footer {
+  @apply 'text-$md-sys-color-on-surface';
+  background: none;
   text-shadow: var(--lgc-landing-text-shadow);
 }
 

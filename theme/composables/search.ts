@@ -72,7 +72,24 @@ export function useUnifiedSearch() {
       ? algoliaAddon.useAddonAlgolia()
       : undefined
 
-  const { results: fuseResults, fetchFuseListData } = useFuseSearch(debouncedQuery)
+  const fuseKeys = computed(() => {
+    const keys = siteConfig.value.fuse.options.keys || []
+
+    return keys.length === 0 ? ['title', 'tags', 'categories', 'excerpt'] : keys
+  })
+  const fuseSearchOptions = {
+    fuseOptions: {
+      includeMatches: true,
+      findAllMatches: true,
+      ...siteConfig.value.fuse.options,
+      includeScore: true,
+      keys: fuseKeys.value,
+    },
+  }
+  const { results: fuseResults, fetchFuseListData } = useFuseSearch(
+    debouncedQuery,
+    fuseSearchOptions,
+  )
   const {
     results: localResults,
     loading: localLoading,

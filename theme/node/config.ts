@@ -59,6 +59,7 @@ export const defaultThemeConfig: ThemeConfig = {
   landing: {
     mode: 'full',
     compactHeight: 65,
+    avatarShape: 'rounded',
     links: [],
   },
   postFeed: {

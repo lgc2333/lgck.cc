@@ -22,6 +22,7 @@ withDefaults(
     class="lgc-collection-aside text-$md-sys-color-on-surface"
     :class="{ 'is-embedded': embedded }"
     grid
+    content-start
     sticky
     top="$collection-aside-top"
     max-h="$collection-aside-max-height"

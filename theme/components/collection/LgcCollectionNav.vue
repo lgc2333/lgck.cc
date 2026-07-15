@@ -83,6 +83,7 @@ function stripTrailingSlash(path: string) {
       scrollable ? { '--collection-nav-scroll-max-height': scrollMaxHeight } : undefined
     "
     grid
+    content-start
     gap="$lgc-space-sm"
     min-h="0"
     min-w="0"

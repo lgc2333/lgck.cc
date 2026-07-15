@@ -90,6 +90,8 @@ export type LandingLinkVariant =
 
 export type LandingMode = 'full' | 'full-only' | 'compact' | 'disabled'
 
+export type LandingAvatarShape = 'rounded' | 'circle'
+
 export interface LandingLink {
   /**
    * Plain string, `$locale:key`, or `{ lang: text }` map.
@@ -120,6 +122,12 @@ export interface LandingConfig {
    * @default 65
    */
   compactHeight: number
+
+  /**
+   * Landing author avatar shape.
+   * @default 'rounded'
+   */
+  avatarShape: LandingAvatarShape
 
   links: LandingLinks
 }

@@ -37,7 +37,7 @@ function linkLabel(item: LandingLink) {
     class="lgc-dock"
     flex="~ col items-center"
     max-w="$lgc-measure-wide"
-    mt="28px sm:36px"
+    mt="$lgc-space-lg sm:36px"
     gap="$lgc-space-sm sm:$lgc-space-md"
     :aria-label="t('accessibility.landing_links')"
   >

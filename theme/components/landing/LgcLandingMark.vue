@@ -1,85 +1,195 @@
 <script setup lang="ts">
-defineProps<{
-  avatar?: string
-  name?: string
-  status?: {
-    emoji: string
-    message: string
-  }
-  title: string
-}>()
+import type { LandingAvatarShape } from '../../types'
+
+const props = withDefaults(
+  defineProps<{
+    avatar?: string
+    avatarShape?: LandingAvatarShape
+    intro?: string
+    link?: string
+    name?: string
+    status?: {
+      emoji: string
+      message: string
+    }
+    title: string
+  }>(),
+  {
+    avatarShape: 'rounded',
+  },
+)
 </script>
 
 <template>
-  <div grid="~ justify-items-center" mb="28px" gap="$lgc-space-sm">
-    <div relative>
-      <img
-        v-if="avatar"
-        class="lgc-mark-avatar"
-        w="$lgc-label-width sm:152px"
-        h="$lgc-label-width sm:152px"
-        rounded="[30px]"
-        object-cover
-        bg="$lgc-mark-avatar-bg"
-        border="3px solid $lgc-mark-avatar-border"
-        :src="avatar"
-        :alt="name || title"
-      />
-      <div
-        v-if="status?.emoji || status?.message"
-        class="lgc-mark-status"
-        text="$md-sys-color-on-primary-container size-$lgc-label-medium"
-        font="700"
-        inline-flex
-        whitespace-nowrap
-        items-center
-        box-border
-        justify-center
-        absolute
-        overflow-hidden
-        bg="$md-sys-color-primary-container"
-        right="$mark-status-offset-inline"
-        bottom="$mark-status-offset-block"
-        min-w="$mark-status-size"
-        max-inline="$mark-status-size"
-        h="$mark-status-size"
-        gap="0"
-        p="0"
-        rounded="[18px]"
-        border="3px solid $lgc-mark-status-border"
-        :aria-label="status.message"
-      >
-        <span flex-none aria-hidden="true">
-          {{ status.emoji }}
-        </span>
+  <div
+    class="lgc-mark"
+    grid="~ justify-items-center"
+    mb="$lgc-space-lg sm:36px"
+    gap="$lgc-space-xs sm:$lgc-space-sm"
+  >
+    <AppLink
+      v-if="props.link"
+      class="lgc-mark-identity text-inherit no-underline"
+      grid="~ justify-items-center"
+      gap="$lgc-space-sm"
+      :to="props.link"
+    >
+      <div class="lgc-mark-avatar-wrap" relative>
+        <img
+          v-if="props.avatar"
+          class="lgc-mark-avatar"
+          :class="{ 'is-circle': props.avatarShape === 'circle' }"
+          w="$lgc-label-width sm:152px"
+          h="$lgc-label-width sm:152px"
+          rounded="[30px]"
+          object-cover
+          bg="$lgc-mark-avatar-bg"
+          border="3px solid $lgc-mark-avatar-border"
+          :src="props.avatar"
+          :alt="props.name || props.title"
+        />
         <span
-          v-if="status.message"
-          class="lgc-mark-status-message"
-          max-inline="0"
-          opacity-0
-          text-ellipsis
+          v-if="props.status?.emoji || props.status?.message"
+          class="lgc-mark-status"
+          text="$md-sys-color-on-primary-container size-$lgc-label-medium"
+          font="700"
+          inline-flex
+          whitespace-nowrap
+          items-center
+          box-border
+          justify-center
+          absolute
           overflow-hidden
+          bg="$md-sys-color-primary-container"
+          right="$mark-status-offset-inline"
+          bottom="$mark-status-offset-block"
+          min-w="$mark-status-size"
+          max-inline="$mark-status-size"
+          h="$mark-status-size"
+          gap="0"
+          p="0"
+          rounded="[18px]"
+          border="3px solid $lgc-mark-status-border"
+          :aria-label="props.status.message"
         >
-          {{ status.message }}
+          <span flex-none aria-hidden="true">
+            {{ props.status.emoji }}
+          </span>
+          <span
+            v-if="props.status.message"
+            class="lgc-mark-status-message"
+            max-inline="0"
+            opacity-0
+            text-ellipsis
+            overflow-hidden
+          >
+            {{ props.status.message }}
+          </span>
         </span>
       </div>
-    </div>
+      <span
+        v-if="props.name"
+        class="lgc-mark-name"
+        text="$md-sys-color-on-surface size-$lgc-title-medium"
+        font="800"
+        leading="[1.2]"
+      >
+        {{ props.name }}
+      </span>
+    </AppLink>
+
     <div
-      v-if="name"
-      class="lgc-mark-name"
-      text="$md-sys-color-on-surface size-$lgc-title-medium"
-      font="800"
-      leading="[1.2]"
+      v-else
+      class="lgc-mark-identity text-inherit"
+      grid="~ justify-items-center"
+      gap="$lgc-space-sm"
     >
-      {{ name }}
+      <div class="lgc-mark-avatar-wrap" relative>
+        <img
+          v-if="props.avatar"
+          class="lgc-mark-avatar"
+          :class="{ 'is-circle': props.avatarShape === 'circle' }"
+          w="$lgc-label-width sm:152px"
+          h="$lgc-label-width sm:152px"
+          rounded="[30px]"
+          object-cover
+          bg="$lgc-mark-avatar-bg"
+          border="3px solid $lgc-mark-avatar-border"
+          :src="props.avatar"
+          :alt="props.name || props.title"
+        />
+        <div
+          v-if="props.status?.emoji || props.status?.message"
+          class="lgc-mark-status"
+          text="$md-sys-color-on-primary-container size-$lgc-label-medium"
+          font="700"
+          inline-flex
+          whitespace-nowrap
+          items-center
+          box-border
+          justify-center
+          absolute
+          overflow-hidden
+          bg="$md-sys-color-primary-container"
+          right="$mark-status-offset-inline"
+          bottom="$mark-status-offset-block"
+          min-w="$mark-status-size"
+          max-inline="$mark-status-size"
+          h="$mark-status-size"
+          gap="0"
+          p="0"
+          rounded="[18px]"
+          border="3px solid $lgc-mark-status-border"
+          :aria-label="props.status.message"
+        >
+          <span flex-none aria-hidden="true">
+            {{ props.status.emoji }}
+          </span>
+          <span
+            v-if="props.status.message"
+            class="lgc-mark-status-message"
+            max-inline="0"
+            opacity-0
+            text-ellipsis
+            overflow-hidden
+          >
+            {{ props.status.message }}
+          </span>
+        </div>
+      </div>
+      <div
+        v-if="props.name"
+        class="lgc-mark-name"
+        text="$md-sys-color-on-surface size-$lgc-title-medium"
+        font="800"
+        leading="[1.2]"
+      >
+        {{ props.name }}
+      </div>
     </div>
+
+    <p
+      v-if="props.intro"
+      class="lgc-mark-intro"
+      m="0"
+      max-w="$lgc-measure-narrow"
+      text="$md-sys-color-on-surface size-$lgc-body-medium sm:size-$lgc-body-large"
+      leading="[1.6]"
+    >
+      {{ props.intro }}
+    </p>
   </div>
 </template>
 
 <style scoped lang="scss">
 // Residual: text-shadow has no project utility and shares a landing token.
-.lgc-mark-name {
+.lgc-mark-name,
+.lgc-mark-intro {
   text-shadow: var(--lgc-landing-text-shadow);
+}
+
+.lgc-mark-avatar.is-circle {
+  @apply 'rounded-full';
 }
 
 // Residual: color-mix ring + max-inline-size transition geometry.

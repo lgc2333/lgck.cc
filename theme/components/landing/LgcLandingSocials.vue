@@ -15,7 +15,7 @@ const { $t } = useValaxyI18n()
   <nav
     v-if="socials.length"
     flex="~ wrap items-center justify-center"
-    mt="$lgc-space-2xl"
+    mt="$lgc-space-lg sm:36px"
     gap="$lgc-space-sm"
     :aria-label="t('accessibility.social_links')"
   >
