@@ -170,6 +170,7 @@ onBeforeUnmount(() => {
         v-if="expanded"
         class="lgc-post-sponsor-methods"
         grid
+        grid-cols="[repeat(auto-fit,minmax(136px,1fr))]"
         gap="$lgc-space-md"
         :class="{ 'is-expanded': expanded }"
       >
@@ -224,11 +225,7 @@ onBeforeUnmount(() => {
 }
 
 .lgc-post-sponsor-action:active {
-  @apply 'scale-$lgc-control-press-scale';
-}
-
-.lgc-post-sponsor-methods {
-  grid-template-columns: repeat(auto-fit, minmax(136px, 1fr));
+  transform: scale(var(--lgc-control-press-scale));
 }
 
 .lgc-post-sponsor-method {

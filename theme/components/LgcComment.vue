@@ -84,7 +84,7 @@ watchEffect(() => {
 .lgc-comment-provider {
   @apply 'inline-flex min-h-$lgc-control-size-sm items-center gap-$lgc-space-xs';
   @apply 'rounded-$lgc-radius-control px-$lgc-space-md';
-  @apply 'text-size-$lgc-label-large text-$md-sys-color-on-surface-variant';
+  @apply 'text-size-$lgc-label-medium text-$md-sys-color-on-surface-variant';
   @apply 'bg-$md-sys-color-surface-container-high';
   @apply 'transition-[background-color,border-radius,color,transform]';
   @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
@@ -93,7 +93,10 @@ watchEffect(() => {
   @apply 'focus-visible:rounded-$lgc-radius-control-active';
   @apply 'focus-visible:text-$md-sys-color-primary';
   @apply 'focus-visible:bg-$md-sys-color-primary-container';
-  @apply 'active:scale-$lgc-control-press-scale';
+}
+
+.lgc-comment-provider:active {
+  transform: scale(var(--lgc-control-press-scale));
 }
 
 .lgc-comment-provider.is-active {

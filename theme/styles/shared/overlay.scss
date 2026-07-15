@@ -41,12 +41,12 @@
 
 .lgc-side-drawer-enter-from .lgc-side-drawer-panel.is-right,
 .lgc-side-drawer-leave-to .lgc-side-drawer-panel.is-right {
-  @apply translate-x-full;
+  transform: translateX(100%);
 }
 
 .lgc-side-drawer-enter-from .lgc-side-drawer-panel.is-left,
 .lgc-side-drawer-leave-to .lgc-side-drawer-panel.is-left {
-  @apply '-translate-x-full';
+  transform: translateX(-100%);
 }
 
 @media (prefers-reduced-motion: reduce) {

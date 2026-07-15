@@ -140,6 +140,7 @@ function stripTrailingSlash(path: string) {
             v-if="item.isExternal"
             class="lgc-collection-nav-link"
             :class="{ 'is-active': item.active }"
+            grid-cols="[minmax(0,1fr)_auto]"
             :href="item.href"
             target="_blank"
             rel="noopener noreferrer"
@@ -160,6 +161,7 @@ function stripTrailingSlash(path: string) {
             v-else
             class="lgc-collection-nav-link"
             :class="{ 'is-active': item.active }"
+            grid-cols="[minmax(0,1fr)_auto]"
             :to="item.href || collectionPath"
             :aria-current="item.active ? 'page' : undefined"
             @click="onNavigate"
@@ -201,7 +203,6 @@ function stripTrailingSlash(path: string) {
   @apply 'font-800 leading-snug py-$lgc-space-xs';
   @apply 'transition-[background-color,color]';
   @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
-  grid-template-columns: minmax(0, 1fr) auto;
 }
 
 .lgc-collection-nav-link:hover,

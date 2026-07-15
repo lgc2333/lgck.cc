@@ -168,7 +168,8 @@ html.dark .lgc-fixed-bg-atmosphere {
       ),
       transparent 62%
     );
-  backdrop-filter: blur(38px);
+  backdrop-filter: blur(var(--lgc-fixed-bg-blur));
+  -webkit-mask-image: radial-gradient(ellipse at 50% 46%, black 0 48%, transparent 78%);
   mask-image: radial-gradient(ellipse at 50% 46%, black 0 48%, transparent 78%);
 }
 

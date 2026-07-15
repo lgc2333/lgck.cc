@@ -133,8 +133,7 @@ const { t } = useI18n()
 // Residual: multi-line clamp needs -webkit-box (line-clamp alone is incomplete here).
 .lgc-prev-next-nav-title {
   display: -webkit-box;
-  overflow-wrap: anywhere;
   -webkit-box-orient: vertical;
-  @apply 'overflow-hidden text-size-$lgc-body-medium leading-[1.45] line-clamp-2';
+  @apply 'overflow-hidden wrap-anywhere text-size-$lgc-body-medium leading-[1.45] line-clamp-2';
 }
 </style>

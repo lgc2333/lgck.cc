@@ -59,6 +59,7 @@ const showAside = computed(() => {
 .lgc-post-aside {
   --post-aside-top: calc(var(--lgc-header-height) + var(--lgc-space-lg));
   --post-aside-max-height: calc(100vh - var(--post-aside-top) - var(--lgc-space-lg));
+  --post-aside-max-height: calc(100dvh - var(--post-aside-top) - var(--lgc-space-lg));
   --post-aside-content-max-height: calc(
     var(--post-aside-max-height) - var(--lgc-space-lg) - var(--lgc-space-lg)
   );

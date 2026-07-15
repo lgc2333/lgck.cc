@@ -6,14 +6,26 @@ import {
   useLocalSearch,
   useSiteConfig,
 } from 'valaxy'
+import type { FuseListItem, LocalSearchResult } from 'valaxy'
 import * as addonAlgolia from 'valaxy-addon-algolia'
+import type { ComputedRef, Ref } from 'vue'
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import type { SearchItem } from '../types'
-import { useSearchResultAdapters } from './searchAdapters'
-import { useSearchKeyboard } from './searchKeyboard'
+import { normalizeLocaleText } from '../utils/post'
+import type { FuseSearchMatch } from '../utils/search'
+import {
+  buildSnippetSegments,
+  buildTextSegments,
+  cleanSearchText,
+  findFuseMatch,
+  highlightTerms,
+  segmentsToText,
+  truncateText,
+} from '../utils/search'
+import type { SearchLayer } from './searchLayers'
 import { useSearchLayers } from './searchLayers'
 
 const PREVIEW_LIMIT = 5
@@ -299,4 +311,175 @@ function clampSelectedIndex(selectedIndex: { value: number }, count: number) {
   }
 
   selectedIndex.value = Math.min(selectedIndex.value, count - 1)
+}
+
+type FuseSearchItem = FuseListItem & {
+  content?: string
+  excerpt?: string
+  link?: string
+  path?: string
+}
+
+interface FuseSearchResultLike {
+  item: FuseSearchItem
+  matches?: readonly FuseSearchMatch[]
+}
+
+function useSearchResultAdapters(options: { locale: Ref<string>; query: Ref<string> }) {
+  function normalizeFuseResult(result: FuseSearchResultLike): SearchItem {
+    const item = result.item
+    const to = normalizePath(item.link || item.path || '/')
+    const title = normalizeTitle(item.title) || to
+    const titleMatch = findFuseMatch(result.matches, 'title')
+    const excerptSegments = getFuseExcerptSegments(result)
+    const titleSegments = titleMatch
+      ? buildTextSegments(titleMatch.value || title, titleMatch.indices)
+      : highlightTerms(title, getQueryTerms())
+
+    return {
+      id: `fuse:${to}:${title}`,
+      title,
+      titleSegments,
+      excerpt: segmentsToText(excerptSegments),
+      excerptSegments,
+      path: stripHtmlSuffix(to),
+      to,
+      provider: 'fuse',
+    }
+  }
+
+  function normalizeLocalResult(result: LocalSearchResult): SearchItem {
+    const to = stripHtmlSuffix(result.id)
+    const section = [...(result.titles || []), result.title].filter(Boolean).join(' > ')
+    const path = stripHtmlSuffix(result.id.replace(/#.*$/, '')) || '/'
+    const terms = result.terms.length > 0 ? result.terms : getQueryTerms()
+    const titleSegments = highlightTerms(result.title || getPageTitle(path), terms)
+    const sectionSegments = section ? highlightTerms(section, terms) : undefined
+
+    return {
+      id: `local:${result.id}`,
+      title: result.title || getPageTitle(path),
+      titleSegments,
+      section,
+      sectionSegments,
+      path,
+      to,
+      provider: 'local',
+    }
+  }
+
+  function normalizeTitle(title: FuseListItem['title']): string {
+    return normalizeLocaleText(title, options.locale.value)
+  }
+
+  function getQueryTerms() {
+    return options.query.value.trim().split(/\s+/).filter(Boolean)
+  }
+
+  function getFuseExcerptSegments(result: FuseSearchResultLike) {
+    const matches = result.matches || []
+    const match =
+      findFuseMatch(matches, 'content') ||
+      findFuseMatch(matches, 'excerpt') ||
+      findFuseMatch(matches, 'title') ||
+      findFuseMatch(matches, 'tags') ||
+      findFuseMatch(matches, 'categories') ||
+      findFuseMatch(matches, 'author')
+
+    if (match) return buildSnippetSegments(match.value || '', match.indices)
+
+    const fallback = cleanSearchText(result.item.excerpt || result.item.content || '')
+    return fallback
+      ? highlightTerms(truncateText(fallback), getQueryTerms())
+      : undefined
+  }
+
+  return {
+    normalizeFuseResult,
+    normalizeLocalResult,
+  }
+}
+
+function useSearchKeyboard(options: {
+  activateSelected: () => void
+  activeLayer: ComputedRef<SearchLayer>
+  activeOptionsCount: ComputedRef<number>
+  closeActiveLayer: () => void
+  getActiveSelectedIndex: () => number
+  isSupported: ComputedRef<boolean>
+  openSearch: () => void | Promise<void>
+  setActiveSelectedIndex: (index: number) => void
+}) {
+  function onGlobalKeydown(event: KeyboardEvent) {
+    if (!options.isSupported.value) return
+
+    if (event.key.toLowerCase() === 'k' && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault()
+      options.openSearch()
+      return
+    }
+
+    if (options.activeLayer.value === 'none' || isEditingContent(event)) return
+
+    handleSearchKeydown(event)
+  }
+
+  function handleSearchKeydown(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault()
+        selectByOffset(1)
+        break
+      case 'ArrowUp':
+        event.preventDefault()
+        selectByOffset(-1)
+        break
+      case 'Enter':
+        event.preventDefault()
+        options.activateSelected()
+        break
+      case 'Escape':
+        event.preventDefault()
+        options.closeActiveLayer()
+        break
+    }
+  }
+
+  function selectByOffset(offset: number) {
+    const count = options.activeOptionsCount.value
+    if (count <= 0) return
+
+    options.setActiveSelectedIndex(
+      (options.getActiveSelectedIndex() + offset + count) % count,
+    )
+  }
+
+  return {
+    handleSearchKeydown,
+    onGlobalKeydown,
+  }
+}
+
+function isEditingContent(event: KeyboardEvent): boolean {
+  const element = event.target as HTMLElement | null
+  const tagName = element?.tagName
+
+  return Boolean(
+    element?.isContentEditable ||
+    tagName === 'INPUT' ||
+    tagName === 'SELECT' ||
+    tagName === 'TEXTAREA',
+  )
+}
+
+function normalizePath(path: string) {
+  return stripHtmlSuffix(path.startsWith('/') ? path : `/${path}`)
+}
+
+function stripHtmlSuffix(path: string) {
+  return path.replace(/\.html(?=($|#))/, '')
+}
+
+function getPageTitle(path: string): string {
+  return path.replace(/^\//, '') || '/'
 }

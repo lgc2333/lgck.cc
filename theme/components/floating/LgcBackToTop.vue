@@ -79,6 +79,7 @@ const strokeOffset = computed(() => {
 
 .lgc-back-to-top-fade-enter-from,
 .lgc-back-to-top-fade-leave-to {
-  @apply 'opacity-0 translate-y-$lgc-space-sm';
+  @apply 'opacity-0';
+  transform: translateY(var(--lgc-space-sm));
 }
 </style>

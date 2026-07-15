@@ -11,6 +11,7 @@ import {
   materialColorsPlugin,
 } from './node'
 import type { ThemeConfig } from './types'
+import { lgcBreakpoints } from './utils/breakpoints'
 
 export default defineTheme<ThemeConfig>((options) => {
   return {
@@ -41,12 +42,7 @@ export default defineTheme<ThemeConfig>((options) => {
       // MD3 window breakpoints as short variants (dp ≈ px).
       // Compact = base (< 600). https://m3.material.io/foundations/layout/breakpoints
       theme: {
-        breakpoint: {
-          sm: '600px', // medium
-          md: '840px', // expanded
-          lg: '1200px', // large
-          xl: '1600px', // extra-large
-        },
+        breakpoint: lgcBreakpoints,
       },
     },
     unocssPresets: {

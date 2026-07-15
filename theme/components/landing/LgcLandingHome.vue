@@ -113,7 +113,7 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 
       <a
         v-if="showPosts"
-        class="lgc-scroll-hint text-$md-sys-color-primary rounded-$lgc-radius-control bg-$md-sys-color-surface-container-high transition-[border-radius,transform] duration-$lgc-motion-short ease-$lgc-easing-standard hover:rounded-$lgc-radius-control-active -translate-x-1/2 hover:translate-y-$lgc-space-sm hover:-translate-x-1/2"
+        class="lgc-scroll-hint"
         bottom="$lgc-space-2xl"
         left="1/2"
         w="$lgc-control-size"
@@ -206,12 +206,14 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
 // Local calc owners for landing viewport math (not template [calc(...)]).
 .lgc-landing-center {
   --landing-center-min-h: calc(100vh - var(--lgc-header-height) - 80px);
+  --landing-center-min-h: calc(100dvh - var(--lgc-header-height) - 80px);
   --landing-title-max-w: calc(var(--lgc-container-wide) - 80px);
 }
 
 @screen sm {
   .lgc-landing-center {
     --landing-center-min-h: calc(100vh - var(--lgc-header-height) - 96px);
+    --landing-center-min-h: calc(100dvh - var(--lgc-header-height) - 96px);
   }
 }
 
@@ -245,5 +247,28 @@ const subtitle = computed(() => $t(author.value.intro || siteConfig.value.subtit
       var(--lgc-landing-compact-height) - var(--lgc-header-height) - 96px
     );
   }
+}
+
+.lgc-scroll-hint {
+  --lgc-scroll-hint-y: 0;
+  --lgc-scroll-hint-scale: 1;
+
+  @apply 'text-$md-sys-color-primary rounded-$lgc-radius-control';
+  @apply 'bg-$md-sys-color-surface-container-high no-underline';
+  @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
+  transition-property: border-radius, transform;
+  transform: translateX(-50%) translateY(var(--lgc-scroll-hint-y))
+    scale(var(--lgc-scroll-hint-scale));
+}
+
+.lgc-scroll-hint:hover,
+.lgc-scroll-hint:focus-visible {
+  --lgc-scroll-hint-y: var(--lgc-space-sm);
+
+  @apply 'rounded-$lgc-radius-control-active';
+}
+
+.lgc-scroll-hint:active {
+  --lgc-scroll-hint-scale: var(--lgc-control-press-scale);
 }
 </style>

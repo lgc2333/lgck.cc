@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 
 import type { SearchItem } from '../../types'
 import LgcUnifiedSearchField from './LgcUnifiedSearchField.vue'
-import LgcUnifiedSearchResults from './LgcUnifiedSearchResults.vue'
+import LgcUnifiedSearchResultList from './LgcUnifiedSearchResultList.vue'
 
 const props = defineProps<{
   variant: 'drawer' | 'mobile'
@@ -53,12 +53,12 @@ const isDrawer = computed(() => props.variant === 'drawer')
       @click="$emit('close')"
     />
     <aside
-      class="lgc-search-drawer rounded-r-0 rounded-bl-$lgc-radius-large rounded-tl-$lgc-radius-large [grid-template-rows:auto_auto_minmax(0,1fr)]"
+      class="lgc-search-drawer rounded-r-0 rounded-bl-$lgc-radius-large rounded-tl-$lgc-radius-large"
+      grid-rows="[auto_auto_minmax(0,1fr)]"
       p="$lgc-space-lg"
       grid
       h-full
       w="$search-drawer-width"
-      translate-x-0
       right-0
       top-0
       absolute
@@ -67,7 +67,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
       :aria-label="t('accessibility.search_results')"
     >
       <div
-        class="[grid-template-columns:minmax(0,1fr)_var(--lgc-control-size)]"
+        grid-cols="[minmax(0,1fr)_var(--lgc-control-size)]"
         grid
         items-center
         gap="$lgc-space-sm"
@@ -105,23 +105,34 @@ const isDrawer = computed(() => props.variant === 'drawer')
       >
         {{ countText }}
       </div>
-      <LgcUnifiedSearchResults
-        :has-query="hasQuery"
-        :loading="loading"
-        :loading-text="loadingText"
-        :no-results-text="noResultsText"
-        :placeholder="placeholder"
-        :results="results"
-        :selected-index="selectedIndex"
-        @navigate="$emit('navigate', $event)"
-        @select="$emit('select', $event)"
-      />
+      <div
+        class="lgc-search-results"
+        overscroll-contain
+        grid
+        min-h-0
+        content-start
+        overflow-auto
+        rounded="$lgc-radius-control"
+      >
+        <LgcUnifiedSearchResultList
+          :has-query="hasQuery"
+          :loading="loading"
+          :loading-text="loadingText"
+          :no-results-text="noResultsText"
+          :placeholder="placeholder"
+          :results="results"
+          :selected-index="selectedIndex"
+          @navigate="$emit('navigate', $event)"
+          @select="$emit('select', $event)"
+        />
+      </div>
     </aside>
   </div>
 
   <div
     v-else
-    class="lgc-search-mobile text-$md-sys-color-on-surface hidden [grid-template-rows:auto_minmax(0,1fr)] max-sm:grid"
+    class="lgc-search-mobile text-$md-sys-color-on-surface hidden max-sm:grid"
+    grid-rows="[auto_minmax(0,1fr)]"
     inset-0
     fixed
     z="$lgc-layer-modal"
@@ -129,7 +140,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
     bg="$md-sys-color-surface-container-low"
   >
     <div
-      class="[grid-template-columns:var(--lgc-control-size)_minmax(0,1fr)]"
+      grid-cols="[var(--lgc-control-size)_minmax(0,1fr)]"
       grid
       items-center
       gap="$lgc-space-sm"
@@ -156,16 +167,26 @@ const isDrawer = computed(() => props.variant === 'drawer')
       />
     </div>
 
-    <LgcUnifiedSearchResults
-      :has-query="hasQuery"
-      :loading="loading"
-      :loading-text="loadingText"
-      :no-results-text="noResultsText"
-      :placeholder="placeholder"
-      :results="results"
-      :selected-index="selectedIndex"
-      @navigate="$emit('navigate', $event)"
-      @select="$emit('select', $event)"
-    />
+    <div
+      class="lgc-search-results"
+      overscroll-contain
+      grid
+      min-h-0
+      content-start
+      overflow-auto
+      rounded="$lgc-radius-control"
+    >
+      <LgcUnifiedSearchResultList
+        :has-query="hasQuery"
+        :loading="loading"
+        :loading-text="loadingText"
+        :no-results-text="noResultsText"
+        :placeholder="placeholder"
+        :results="results"
+        :selected-index="selectedIndex"
+        @navigate="$emit('navigate', $event)"
+        @select="$emit('select', $event)"
+      />
+    </div>
   </div>
 </template>

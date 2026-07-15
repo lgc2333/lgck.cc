@@ -1,28 +1,17 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { useFixedBgPresenter } from '../../composables'
 
-import { useFixedBg } from '../../composables'
-
-const { canSwitchImage, isSwitching, switchNow, visibleImage } = useFixedBg()
-const { t } = useI18n()
-
-const actionHref = computed(() => {
-  const image = visibleImage.value
-  return image?.sourceUrl || image?.url || ''
-})
-const title = computed(() => visibleImage.value?.title || t('fixed_bg.unknown_title'))
-const author = computed(() => visibleImage.value?.author)
-const description = computed(() => visibleImage.value?.description)
-const switchLabel = computed(() =>
-  isSwitching.value ? t('fixed_bg.loading') : t('fixed_bg.refresh'),
-)
-
-function refreshBackground() {
-  if (isSwitching.value) return
-
-  void switchNow()
-}
+const {
+  actionHref,
+  author,
+  canSwitchImage,
+  description,
+  isSwitching,
+  refresh,
+  switchLabel,
+  title,
+  visibleImage,
+} = useFixedBgPresenter()
 </script>
 
 <template>
@@ -85,7 +74,7 @@ function refreshBackground() {
           type="button"
           :disabled="isSwitching"
           :aria-label="switchLabel"
-          @click="refreshBackground"
+          @click="refresh"
         >
           <span
             :class="{ 'is-loading': isSwitching }"

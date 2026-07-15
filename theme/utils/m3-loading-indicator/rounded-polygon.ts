@@ -218,27 +218,6 @@ export function circle(numVertices = 8, radius = 1, centerX = 0, centerY = 0) {
   )
 }
 
-export function rectangle(
-  width = 2,
-  height = 2,
-  rounding: CornerRounding = unrounded(),
-  perVertexRounding?: CornerRounding[],
-  centerX = 0,
-  centerY = 0,
-) {
-  const left = centerX - width / 2
-  const top = centerY - height / 2
-  const right = centerX + width / 2
-  const bottom = centerY + height / 2
-  return roundedPolygon(
-    [right, bottom, left, bottom, left, top, right, top],
-    rounding,
-    perVertexRounding,
-    centerX,
-    centerY,
-  )
-}
-
 export function star(
   numVerticesPerRadius: number,
   radius = 1,

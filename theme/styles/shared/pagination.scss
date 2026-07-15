@@ -29,7 +29,10 @@
   @apply 'focus-visible:text-$md-sys-color-primary';
   @apply 'focus-visible:bg-$md-sys-color-surface-container-high';
   @apply 'active:z-2 active:rounded-$lgc-radius-control-active';
-  @apply 'active:scale-$lgc-control-press-scale';
+}
+
+.lgc-pagination-control:active {
+  transform: scale(var(--lgc-control-press-scale));
 }
 
 .lgc-pagination-control.is-active {

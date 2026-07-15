@@ -132,6 +132,7 @@
   --lgc-label-width: 144px;
   --lgc-back-to-top-size: 56px;
   --lgc-meta-chip-min-height: 32px;
+  --lgc-error-icon-size: 48px;
   --lgc-progress-height: 4px;
   --lgc-focus-ring: 3px;
   --lgc-hairline: 1px;
@@ -144,11 +145,6 @@
   --lgc-measure-medium: 680px;
   --lgc-measure-wide: 760px;
   --lgc-measure-title: 820px;
-  // Docs mirrors of Uno theme breakpoints (sm/md from valaxy.config.ts).
-  --lgc-breakpoint-sm: 600px;
-  --lgc-breakpoint-md: 840px;
-  --lgc-breakpoint-lg: 1200px;
-  --lgc-breakpoint-xl: 1600px;
 
   // --- Layers ---
   --lgc-layer-background: -1;
@@ -166,6 +162,7 @@
   --lgc-surface-blur: 8px;
   --lgc-header-blur: 12px;
   --lgc-elevate-blur: 3px;
+  --lgc-fixed-bg-blur: 38px;
   --lgc-fixed-bg-image-mask-opacity: 20%;
   --lgc-mask-blur: 8px;
   --lgc-surface-mask-bg: color-mix(
@@ -190,16 +187,12 @@ html.dark {
 
 // --- Base ---
 
-.link {
-  @apply 'text-$md-sys-color-primary';
-}
-
 html {
   @apply 'text-$md-sys-color-on-surface bg-$md-sys-color-surface scroll-smooth';
 }
 
 #app {
-  @apply isolate min-h-screen;
+  @apply isolate min-h-screen min-h-dvh;
 }
 
 body {
@@ -228,6 +221,10 @@ button:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
   *,
   *::before,
   *::after {

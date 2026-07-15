@@ -52,7 +52,10 @@ const collectionTitle = computed(
       >
         {{ t('collection.article_hint_desc_before') }}
         <span
-          class="lgc-collection-expand-card-icon text-$md-sys-color-primary"
+          class="text-$md-sys-color-primary"
+          w="[1.4em]"
+          h="[1.4em]"
+          mx="[0.1em]"
           place-items="center"
           align-middle
           inline-grid
@@ -65,11 +68,3 @@ const collectionTitle = computed(
     </span>
   </aside>
 </template>
-
-<style scoped lang="scss">
-.lgc-collection-expand-card-icon {
-  inline-size: 1.4em;
-  block-size: 1.4em;
-  margin-inline: 0.1em;
-}
-</style>

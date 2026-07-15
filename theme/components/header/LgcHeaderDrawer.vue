@@ -1,21 +1,9 @@
 <script setup lang="ts">
-import { useAppStore, useLocale } from 'valaxy'
-import { computed, toRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute } from 'vue-router'
 
-import {
-  resolveHeaderNavItemState,
-  useFixedBg,
-  useHeaderNavItemState,
-  useLanguageFlip,
-  useThemeConfig,
-} from '../../composables'
 import type { HeaderActivePathRewrite, HeaderNavLink } from '../../types'
-import { formatLocaleName } from '../../utils/locale'
-import { normalizeLocaleText } from '../../utils/post'
 
-const props = defineProps<{
+defineProps<{
   addHome?: boolean
   activePathRewrites?: HeaderActivePathRewrite[]
   homeLink: HeaderNavLink
@@ -27,69 +15,7 @@ const emit = defineEmits<{
   close: []
 }>()
 
-const appStore = useAppStore()
-const route = useRoute()
-const themeConfig = useThemeConfig()
-const { t, locale } = useI18n()
-const { toggleLocales } = useLocale()
-const { flipLanguageIcon, languageFlipping, stopLanguageFlip } = useLanguageFlip()
-const { canSwitchImage, isSwitching, switchNow, visibleImage } = useFixedBg()
-const showI18n = computed(() => themeConfig.value.header?.i18n !== false)
-const languageName = computed(() => formatLocaleName(locale.value))
-const fixedBgActionHref = computed(() => {
-  const image = visibleImage.value
-  return image?.sourceUrl || image?.url || ''
-})
-const fixedBgActionLabel = computed(
-  () => visibleImage.value?.title || t('fixed_bg.unknown_title'),
-)
-const fixedBgActionAuthor = computed(() => visibleImage.value?.author)
-const fixedBgActionDescription = computed(() => visibleImage.value?.description)
-const fixedBgSwitchLabel = computed(() =>
-  isSwitching.value ? t('fixed_bg.loading') : t('fixed_bg.refresh'),
-)
-const homeLinkState = useHeaderNavItemState({
-  activeMatch: 'exact',
-  activePathRewrites: toRef(props, 'activePathRewrites'),
-  item: toRef(props, 'homeLink'),
-})
-
-function isDrawerLinkActive(item: HeaderNavLink) {
-  if (item.link === props.homeLink.link) return homeLinkState.isRouteActive.value
-
-  return resolveHeaderNavItemState(
-    route.path,
-    item,
-    item.link === '/' ? 'exact' : 'prefix',
-    props.activePathRewrites,
-  ).isRouteActive
-}
-
-function getDrawerIcon(item: HeaderNavLink) {
-  if (item.link === props.homeLink.link) return homeLinkState.iconClass.value
-
-  return resolveHeaderNavItemState(
-    route.path,
-    item,
-    item.link === '/' ? 'exact' : 'prefix',
-    props.activePathRewrites,
-  ).iconClass
-}
-
-function toggleLanguage() {
-  flipLanguageIcon()
-  toggleLocales()
-}
-
-function refreshFixedBg() {
-  if (isSwitching.value) return
-
-  void switchNow()
-}
-
-function linkLabel(item: HeaderNavLink) {
-  return normalizeLocaleText(item.text, locale.value, t)
-}
+const { t } = useI18n()
 </script>
 
 <template>
@@ -154,173 +80,21 @@ function linkLabel(item: HeaderNavLink) {
           </button>
         </div>
 
-        <nav
-          flex-1
-          grid
-          content-start
-          gap="1.5"
-          pt="$lgc-space-sm"
-          :aria-label="t('accessibility.mobile_nav_links')"
-        >
-          <AppLink
-            v-if="addHome"
-            class="lgc-drawer-link lgc-drawer-home"
-            :class="{ 'is-route-active': isDrawerLinkActive(homeLink) }"
-            :to="homeLink.link"
-            @click="emit('close')"
-          >
-            <span
-              class="lgc-drawer-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
-              :class="getDrawerIcon(homeLink)"
-              aria-hidden="true"
-            />
-            <span>{{ linkLabel(homeLink) }}</span>
-          </AppLink>
+        <LgcHeaderDrawerNav
+          :active-path-rewrites="activePathRewrites"
+          :add-home="addHome"
+          :home-link="homeLink"
+          :links="links"
+          @close="emit('close')"
+        />
 
-          <AppLink
-            v-for="item in links"
-            :key="`drawer-${item.link}`"
-            class="lgc-drawer-link"
-            :class="{ 'is-route-active': isDrawerLinkActive(item) }"
-            :to="item.link"
-            @click="emit('close')"
-          >
-            <span
-              class="lgc-drawer-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
-              :class="getDrawerIcon(item)"
-              aria-hidden="true"
-            />
-            <span>{{ linkLabel(item) }}</span>
-          </AppLink>
-        </nav>
-
-        <div
-          gap="1.5"
-          pt="$lgc-space-lg"
-          mt-auto
-          grid
-          :aria-label="t('accessibility.nav_settings')"
-        >
-          <a
-            v-if="visibleImage && fixedBgActionHref"
-            class="lgc-drawer-link"
-            items-center
-            py="$lgc-space-md"
-            :href="fixedBgActionHref"
-            target="_blank"
-            rel="noopener"
-            :aria-label="fixedBgActionLabel"
-            @click="emit('close')"
-          >
-            <span
-              class="lgc-drawer-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
-              i-material-symbols-imagesmode-outline-rounded
-              self-center
-              aria-hidden="true"
-            />
-            <span min-w="0">
-              <span
-                font="900"
-                text="$md-sys-color-on-surface"
-                leading-snug
-                block
-                whitespace="pre-wrap"
-                wrap="anywhere"
-              >
-                {{ fixedBgActionLabel }}
-              </span>
-              <span
-                v-if="fixedBgActionAuthor"
-                mt="0.5"
-                font="400"
-                text="$md-sys-color-on-surface-variant size-$lgc-body-small"
-                leading-snug
-                block
-                whitespace="pre-wrap"
-                wrap="anywhere"
-              >
-                {{ fixedBgActionAuthor }}
-              </span>
-              <span
-                v-if="fixedBgActionDescription"
-                mt="0.5"
-                font="400"
-                text="$md-sys-color-on-surface-variant size-$lgc-body-small"
-                leading-snug
-                block
-                whitespace="pre-wrap"
-                wrap="anywhere"
-              >
-                {{ fixedBgActionDescription }}
-              </span>
-            </span>
-          </a>
-
-          <button
-            v-if="canSwitchImage"
-            class="lgc-drawer-link font-inherit appearance-none bg-transparent cursor-pointer"
-            type="button"
-            :disabled="isSwitching"
-            :aria-label="fixedBgSwitchLabel"
-            @click="refreshFixedBg"
-          >
-            <span
-              class="lgc-drawer-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
-              :class="{ 'is-loading': isSwitching }"
-              i-material-symbols-refresh-rounded
-              aria-hidden="true"
-            />
-            <span>{{ fixedBgSwitchLabel }}</span>
-          </button>
-
-          <button
-            v-if="showI18n"
-            class="lgc-drawer-link font-inherit appearance-none bg-transparent cursor-pointer"
-            type="button"
-            :aria-label="t('button.toggle_langs')"
-            @click="toggleLanguage"
-          >
-            <span
-              class="lgc-drawer-icon lgc-lang-flip-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
-              :class="{ 'is-flipping': languageFlipping }"
-              i-material-symbols-translate-rounded
-              aria-hidden="true"
-              @animationend="stopLanguageFlip"
-            />
-            <span>{{ languageName }}</span>
-          </button>
-
-          <button
-            class="lgc-drawer-link font-inherit appearance-none bg-transparent cursor-pointer"
-            type="button"
-            :aria-label="
-              appStore.isDark ? t('button.toggle_light') : t('button.toggle_dark')
-            "
-            @click="appStore.toggleDarkWithTransition"
-          >
-            <span
-              v-if="!appStore.isDark"
-              class="lgc-drawer-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
-              i-material-symbols-light-mode-outline-rounded
-              aria-hidden="true"
-            />
-            <span
-              v-else
-              class="lgc-drawer-icon text-size-$lgc-icon-size h-$lgc-icon-size w-$lgc-icon-size"
-              i-material-symbols-dark-mode-outline-rounded
-              aria-hidden="true"
-            />
-            <span>
-              {{ appStore.isDark ? t('button.toggle_light') : t('button.toggle_dark') }}
-            </span>
-          </button>
-        </div>
+        <LgcHeaderDrawerSettings @close="emit('close')" />
       </aside>
     </Transition>
   </Teleport>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 // Residual: scrim color-mix, drawer width min(), asymmetric radius, state-layer
 // color-mix, grid tracks. Multi-use link chrome stays @apply (state/hover cascade).
 // Transition *name* classes must stay CSS (Vue Transition cannot take attributify).
@@ -339,7 +113,7 @@ function linkLabel(item: HeaderNavLink) {
 
 .lgc-drawer-link {
   --drawer-link-cols: var(--lgc-icon-size) minmax(0, 1fr);
-  grid-template-columns: var(--drawer-link-cols);
+  @apply 'grid-cols-[$drawer-link-cols]';
   @apply 'grid min-h-$lgc-control-size items-center gap-[14px]';
   @apply 'px-$lgc-space-lg border-0 rounded-$lgc-radius-control';
   @apply 'text-$md-sys-color-on-surface-variant text-size-$lgc-body-medium';
@@ -360,7 +134,7 @@ function linkLabel(item: HeaderNavLink) {
     currentColor var(--lgc-state-pressed-opacity),
     transparent
   );
-  @apply 'scale-$lgc-control-press-scale';
+  transform: scale(var(--lgc-control-press-scale));
 }
 
 .lgc-drawer-link:disabled,
@@ -413,6 +187,6 @@ function linkLabel(item: HeaderNavLink) {
 
 .lgc-drawer-slide-enter-from,
 .lgc-drawer-slide-leave-to {
-  @apply '-translate-x-full';
+  transform: translateX(-100%);
 }
 </style>

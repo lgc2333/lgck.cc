@@ -3,7 +3,7 @@
     <LgcFixedBg />
     <LgcHeader />
 
-    <div flex="~ col" min-h="screen" bg="$lgc-surface-mask-bg">
+    <div flex="~ col" min-h="screen dvh" bg="$lgc-surface-mask-bg">
       <main
         class="lgc-content-under-header"
         flex="~ col"

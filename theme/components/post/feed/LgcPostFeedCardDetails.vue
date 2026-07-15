@@ -36,38 +36,27 @@ const shouldRenderAsTemplate = computed(() => {
 })
 
 const rootClass = computed(() => {
-  if (props.surface !== 'cover') return 'min-w-0 self-center max-sm:contents'
-  return [
-    'lgc-post-body-cover-content min-w-0 self-center',
-    `is-mask-${props.coverMask}`,
-    `is-align-${props.coverAlign}`,
-  ]
+  if (props.surface !== 'cover') return 'is-default'
+  return ['is-cover', `is-mask-${props.coverMask}`, `is-align-${props.coverAlign}`]
 })
 
 const titleClass = computed(() => {
-  const base = 'lgc-post-title font-900'
-  if (props.surface !== 'cover') return `${base} max-sm:self-center`
-  return `${base} is-cover-title max-w-[704px] text-left`
+  return props.surface === 'cover' ? 'is-cover-title' : 'is-default-title'
 })
 
 // `markdown-body` unlocks css-i18n for `div[lang]`; type/rhythm reset lives in
 // `styles/markdown.scss` (`.markdown-body.lgc-post-excerpt`).
 const excerptClass = computed(() => {
-  const base = 'lgc-post-excerpt markdown-body mt-$lgc-space-md overflow-hidden'
-  if (props.surface !== 'cover') return `${base} max-sm:col-span-full max-sm:mt-0`
-  return `${base} is-cover-excerpt max-w-[672px] font-600 text-left`
+  return props.surface === 'cover' ? 'is-cover-excerpt' : 'is-default-excerpt'
 })
 
-const tagsClass = computed(() => [
-  'lgc-post-tags mt-$lgc-space-md',
-  props.tagsDesktopOnly ? 'max-sm:hidden sm:flex' : '',
-])
+const tagsClass = computed(() => [props.tagsDesktopOnly ? 'is-desktop-only' : ''])
 
 const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.length > 0)
 </script>
 
 <template>
-  <h3 v-if="part === 'title'" :class="titleClass">
+  <h3 v-if="part === 'title'" class="lgc-post-title font-900 max-sm:self-center">
     <!-- No text= on RouterLink: HTMLAnchorElement.text replaces children -->
     <RouterLink
       class="lgc-post-title-link text-inherit no-underline focus-visible:text-$md-sys-color-primary hover:text-$md-sys-color-primary"
@@ -95,8 +84,8 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
     </div>
   </div>
 
-  <div v-else :class="rootClass">
-    <h3 :class="titleClass">
+  <div v-else class="lgc-post-card-details" min-w="0" self-center :class="rootClass">
+    <h3 class="lgc-post-title font-900" :class="titleClass">
       <!-- No text= on RouterLink: HTMLAnchorElement.text replaces children -->
       <RouterLink
         class="lgc-post-title-link text-inherit no-underline focus-visible:text-$md-sys-color-primary hover:text-$md-sys-color-primary"
@@ -106,39 +95,82 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
         {{ title }}
       </RouterLink>
     </h3>
-    <div v-if="excerpt && shouldRenderAsTemplate" :class="excerptClass">
+    <div
+      v-if="excerpt && shouldRenderAsTemplate"
+      class="lgc-post-excerpt markdown-body"
+      :class="excerptClass"
+    >
       <ValaxyDynamicComponent :template-str="excerpt" />
     </div>
-    <div v-else-if="excerpt" :class="excerptClass" v-html="excerpt" />
-    <div v-if="hasTaxonomies" :class="tagsClass" flex="~ wrap" gap="$lgc-space-sm">
+    <div
+      v-else-if="excerpt"
+      class="lgc-post-excerpt markdown-body"
+      :class="excerptClass"
+      v-html="excerpt"
+    />
+    <div
+      v-if="hasTaxonomies"
+      class="lgc-post-tags"
+      :class="tagsClass"
+      flex="~ wrap"
+      gap="$lgc-space-sm"
+    >
       <LgcPostMetaChips only-taxonomies :categories="categories" :tags="tags" />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+.lgc-post-card-details.is-default {
+  @apply 'max-sm:contents';
+}
+
+.lgc-post-title.is-cover-title {
+  @apply 'max-w-[704px] text-left';
+}
+
+.lgc-post-excerpt {
+  @apply 'mt-$lgc-space-md overflow-hidden';
+}
+
+.lgc-post-excerpt.is-default-excerpt {
+  @apply 'max-sm:col-span-full max-sm:mt-0';
+}
+
+.lgc-post-excerpt.is-cover-excerpt {
+  @apply 'max-w-[672px] text-left font-600';
+}
+
+.lgc-post-tags {
+  @apply 'mt-$lgc-space-md';
+}
+
+.lgc-post-tags.is-desktop-only {
+  @apply 'max-sm:hidden sm:flex';
+}
+
 // Residual: cover-on-mask color/shadow tokens from LgcPostCoverFrame (parent cascade).
-.lgc-post-body-cover-content.is-mask-gradient .lgc-post-title {
+.lgc-post-card-details.is-mask-gradient .lgc-post-title {
   color: var(--lgc-post-cover-on-mask);
   text-shadow: var(--lgc-post-cover-text-shadow);
 }
 
-.lgc-post-body-cover-content.is-mask-gradient .lgc-post-excerpt {
+.lgc-post-card-details.is-mask-gradient .lgc-post-excerpt {
   color: var(--lgc-post-cover-on-mask-variant);
   text-shadow: 0 1px 4px
     color-mix(in srgb, var(--md-sys-color-surface) 24%, transparent);
 }
 
-.lgc-post-body-cover-content.is-mask-card .lgc-post-title {
+.lgc-post-card-details.is-mask-card .lgc-post-title {
   @apply 'text-$md-sys-color-on-surface';
 }
 
-.lgc-post-body-cover-content.is-align-right .lgc-post-title,
-.lgc-post-body-cover-content.is-align-right .lgc-post-excerpt {
+.lgc-post-card-details.is-align-right .lgc-post-title,
+.lgc-post-card-details.is-align-right .lgc-post-excerpt {
   @apply 'sm:text-right';
 }
 
-.lgc-post-body-cover-content.is-align-right .lgc-post-tags {
+.lgc-post-card-details.is-align-right .lgc-post-tags {
   @apply 'sm:justify-end';
 }
 </style>

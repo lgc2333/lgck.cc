@@ -52,12 +52,6 @@ const hasHeaderContent = computed(() =>
   Boolean(title.value || description.value || icon.value || hasMeta.value),
 )
 const hasCover = computed(() => Boolean(props.frontmatter.cover))
-
-const titleClass =
-  'lgc-article-title inline-flex items-center justify-center gap-$lgc-space-sm max-w-$lgc-measure-title m-0 text-$md-sys-color-on-surface text-size-$lgc-article-title font-900 tracking-normal leading-[1.15]'
-
-const descriptionClass =
-  'lgc-article-description max-w-$lgc-measure-medium m-0 text-$md-sys-color-on-surface-variant text-size-$lgc-body-large leading-[1.75]'
 </script>
 
 <template>
@@ -82,7 +76,18 @@ const descriptionClass =
     >
       <h1
         v-if="title || icon"
-        :class="[titleClass, frontmatter.pageTitleClass]"
+        class="lgc-article-title"
+        :class="frontmatter.pageTitleClass"
+        gap="$lgc-space-sm"
+        max-w="$lgc-measure-title"
+        m="0"
+        text="$md-sys-color-on-surface size-$lgc-article-title"
+        font="900"
+        tracking-normal
+        inline-flex
+        items-center
+        justify-center
+        leading="[1.15]"
         :style="titleColorStyle"
       >
         <span
@@ -94,7 +99,14 @@ const descriptionClass =
         />
         <span v-if="title">{{ title }}</span>
       </h1>
-      <p v-if="description" :class="descriptionClass">
+      <p
+        v-if="description"
+        class="lgc-article-description"
+        max-w="$lgc-measure-medium"
+        m="0"
+        text="$md-sys-color-on-surface-variant size-$lgc-body-large"
+        leading="[1.75]"
+      >
         {{ description }}
       </p>
       <div v-if="hasMeta" :aria-label="t('accessibility.post_metadata')">
@@ -124,13 +136,31 @@ const descriptionClass =
   >
     <h1
       v-if="title || icon"
-      :class="[titleClass, frontmatter.pageTitleClass]"
+      class="lgc-article-title"
+      :class="frontmatter.pageTitleClass"
+      gap="$lgc-space-sm"
+      max-w="$lgc-measure-title"
+      m="0"
+      text="$md-sys-color-on-surface size-$lgc-article-title"
+      font="900"
+      tracking-normal
+      inline-flex
+      items-center
+      justify-center
+      leading="[1.15]"
       :style="titleColorStyle"
     >
       <span v-if="icon" shrink-0 text="size-[0.9em]" :class="icon" aria-hidden="true" />
       <span v-if="title">{{ title }}</span>
     </h1>
-    <p v-if="description" :class="descriptionClass">
+    <p
+      v-if="description"
+      class="lgc-article-description"
+      max-w="$lgc-measure-medium"
+      m="0"
+      text="$md-sys-color-on-surface-variant size-$lgc-body-large"
+      leading="[1.75]"
+    >
       {{ description }}
     </p>
     <div v-if="hasMeta" :aria-label="t('accessibility.post_metadata')">

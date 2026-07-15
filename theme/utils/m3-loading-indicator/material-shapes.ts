@@ -101,10 +101,6 @@ function softBurst() {
   )
 }
 
-export function determinatePolygons() {
-  return [rotatePolygon(MaterialShapes.Circle, 360 / 20), MaterialShapes.SoftBurst]
-}
-
 export function indeterminatePolygons(): RoundedPolygon[] {
   return [
     MaterialShapes.SoftBurst,

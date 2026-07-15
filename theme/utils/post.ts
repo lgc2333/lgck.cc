@@ -12,10 +12,6 @@ export function normalizePostListValue(value: unknown) {
   return [String(value)].filter(Boolean)
 }
 
-export function normalizePostCategoryPath(value: unknown) {
-  return normalizePostListValue(value).join(' / ')
-}
-
 /** Category query string for /categories?category=… (Yun-compatible). */
 export function normalizePostCategoryQuery(value: unknown) {
   return normalizePostListValue(value).join('/')

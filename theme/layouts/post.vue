@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { useCollection, useFrontmatter, useOutline, usePostList } from 'valaxy'
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
+
+import { useCollectionPrevNextItems, usePostPrevNextItems } from '../composables'
 
 const props = withDefaults(
   defineProps<{
@@ -13,6 +16,7 @@ const props = withDefaults(
 )
 
 const route = useRoute()
+const { t } = useI18n()
 const frontmatter = useFrontmatter()
 const posts = usePostList()
 const { collection } = useCollection()
@@ -29,6 +33,7 @@ const showPostToc = computed(() => {
 const currentIndex = computed(() => posts.value.findIndex((p) => p.path === route.path))
 const nextPost = computed(() => posts.value[currentIndex.value - 1])
 const prevPost = computed(() => posts.value[currentIndex.value + 1])
+const { next: postNext, prev: postPrev } = usePostPrevNextItems(prevPost, nextPost)
 const currentCollectionItemIndex = computed(() => {
   const items = collection.value?.items
   if (!props.collection || !items?.length) return -1
@@ -42,6 +47,10 @@ const currentCollectionItemIndex = computed(() => {
     return false
   })
 })
+const { next: collectionNext, prev: collectionPrev } = useCollectionPrevNextItems(
+  collection,
+  currentCollectionItemIndex,
+)
 
 function stripTrailingSlash(path: string) {
   return path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path
@@ -62,17 +71,19 @@ function stripTrailingSlash(path: string) {
           </template>
 
           <template #main-nav>
-            <LgcCollectionPrevNext
+            <LgcPrevNextNav
               v-if="
                 props.collection && showArticleNav && currentCollectionItemIndex >= 0
               "
-              :collection="collection"
-              :current-index="currentCollectionItemIndex"
+              :next="collectionNext"
+              :prev="collectionPrev"
+              :label="t('accessibility.collection_navigation')"
             />
-            <LgcPostArticleNav
+            <LgcPrevNextNav
               v-else-if="showArticleNav"
-              :next-post="nextPost"
-              :prev-post="prevPost"
+              :next="postNext"
+              :prev="postPrev"
+              :label="t('accessibility.post_navigation')"
             />
           </template>
 

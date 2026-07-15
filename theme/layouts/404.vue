@@ -4,9 +4,6 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const { t } = useI18n()
-
-const actionClass =
-  'lgc-not-found-action inline-flex min-h-$lgc-control-size items-center gap-$lgc-space-sm px-$lgc-space-lg border-0 rounded-$lgc-radius-control text-$md-sys-color-on-surface bg-$md-sys-color-surface-container-high font-inherit font-900 no-underline transition-[background-color,border-radius,transform] duration-$lgc-motion-short ease-$lgc-easing-standard hover:rounded-$lgc-radius-control-active hover:bg-$md-sys-color-surface-container-highest active:scale-$lgc-control-press-scale'
 </script>
 
 <template>
@@ -29,7 +26,7 @@ const actionClass =
         h="96px"
         place-items="center"
         rounded="$lgc-radius-4xl"
-        text="$md-sys-color-on-primary-container size-48px"
+        text="$md-sys-color-on-primary-container size-$lgc-error-icon-size"
         bg="$md-sys-color-primary-container"
         aria-hidden="true"
       >
@@ -57,7 +54,7 @@ const actionClass =
       </div>
 
       <div flex="~ wrap justify-center" gap="$lgc-space-md">
-        <RouterLink class="is-primary" :class="actionClass" to="/">
+        <RouterLink class="lgc-not-found-action is-primary" to="/">
           <span
             i-material-symbols-home-rounded
             text="size-$lgc-icon-font-sm"
@@ -65,7 +62,7 @@ const actionClass =
           />
           <span>{{ t('button.home') }}</span>
         </RouterLink>
-        <button :class="actionClass" type="button" @click="router.back()">
+        <button class="lgc-not-found-action" type="button" @click="router.back()">
           <span
             i-material-symbols-keyboard-return-rounded
             text="size-$lgc-icon-font-sm"
@@ -87,6 +84,20 @@ const actionClass =
 </template>
 
 <style scoped lang="scss">
+.lgc-not-found-action {
+  @apply 'inline-flex min-h-$lgc-control-size items-center gap-$lgc-space-sm';
+  @apply 'px-$lgc-space-lg border-0 rounded-$lgc-radius-control';
+  @apply 'text-$md-sys-color-on-surface bg-$md-sys-color-surface-container-high';
+  @apply 'font-inherit font-900 no-underline';
+  @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
+  @apply 'hover:rounded-$lgc-radius-control-active hover:bg-$md-sys-color-surface-container-highest';
+  transition-property: background-color, border-radius, transform;
+}
+
+.lgc-not-found-action:active {
+  transform: scale(var(--lgc-control-press-scale));
+}
+
 // Residual: color-mix primary hover (no clean utility for mix percent).
 .lgc-not-found-action.is-primary {
   @apply 'text-$md-sys-color-on-primary bg-$md-sys-color-primary';

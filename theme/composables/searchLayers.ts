@@ -1,9 +1,11 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 
+import { maxLgcBreakpointQuery } from '../utils/breakpoints'
+
 export type SearchLayer = 'drawer' | 'mobile' | 'preview' | 'none'
 
-const MAX_SM_QUERY = '(max-width: 599.98px)'
-const BELOW_LG_QUERY = '(max-width: 1199.98px)'
+const MAX_SM_QUERY = maxLgcBreakpointQuery('sm')
+const BELOW_LG_QUERY = maxLgcBreakpointQuery('lg')
 
 export function useSearchLayers() {
   const openInline = ref(false)
@@ -40,7 +42,7 @@ export function useSearchLayers() {
         return
       }
 
-      if (mobileSearchMode.value) closeMobilePanel()
+      if (mobileSearchMode.value || openDrawer.value) openInlineSearch()
     }
 
     updateSearchLayout()
@@ -57,6 +59,7 @@ export function useSearchLayers() {
 
   function openInlineSearch() {
     mobileSearchMode.value = false
+    openDrawer.value = false
     openInline.value = true
   }
 
@@ -86,6 +89,8 @@ export function useSearchLayers() {
   }
 
   function openResultsDrawer() {
+    openInline.value = false
+    mobileSearchMode.value = false
     openDrawer.value = true
   }
 

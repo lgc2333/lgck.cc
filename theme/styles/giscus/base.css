@@ -1,3 +1,9 @@
+/*
+ * Managed Giscus iframe stylesheet.
+ * Raw CSS is intentional here because this file is emitted for the iframe, but
+ * it must still use theme tokens, shared state rules, and non-width responsiveness.
+ */
+
 :host,
 html {
   font-family: var(--va-font-sans);
@@ -16,7 +22,6 @@ main {
   --lgc-giscus-control-radius: var(--lgc-radius-control, 1.5rem);
   --lgc-giscus-control-radius-active: var(--lgc-radius-control-active, 1rem);
   --lgc-giscus-panel-radius: var(--lgc-radius-large, 1.75rem);
-  --lgc-giscus-panel-radius-active: calc(var(--lgc-giscus-panel-radius) - 0.375rem);
   --lgc-giscus-compact-radius: calc(var(--lgc-giscus-panel-radius) - 0.75rem);
   --lgc-giscus-small-radius: 0.75rem;
   --lgc-giscus-easing: var(--lgc-easing-standard, cubic-bezier(0.2, 0, 0, 1));
@@ -25,18 +30,12 @@ main {
   /* Elevate cards above the reading-panel (surface-container), not sink into it. */
   --lgc-giscus-card-bg: var(--md-sys-color-surface-container-high);
   --lgc-giscus-card-bg-high: var(--md-sys-color-surface-container-highest);
-  --lgc-giscus-card-bg-lowest: var(--md-sys-color-surface-container-lowest);
   --lgc-giscus-card-bg-nested: var(--md-sys-color-surface-container-highest);
   /* Soft inset vs elevated cards — avoid near-black lowest. */
   --lgc-giscus-card-bg-inset: color-mix(
     in srgb,
     var(--md-sys-color-surface-container) 72%,
     var(--md-sys-color-surface-container-high)
-  );
-  --lgc-giscus-border: color-mix(
-    in srgb,
-    var(--md-sys-color-outline-variant) 76%,
-    transparent
   );
   --lgc-giscus-subtle-border: color-mix(
     in srgb,
@@ -46,11 +45,6 @@ main {
   --lgc-giscus-hover-state: color-mix(
     in srgb,
     currentColor var(--lgc-state-hover-opacity, 8%),
-    transparent
-  );
-  --lgc-giscus-pressed-state: color-mix(
-    in srgb,
-    currentColor var(--lgc-state-pressed-opacity, 12%),
     transparent
   );
   --lgc-giscus-focus-ring: color-mix(
@@ -65,8 +59,8 @@ main {
   --lgc-giscus-popover-bg: var(--md-sys-color-surface-container-high);
   --lgc-giscus-popover-shadow: var(
     --lgc-elevation-shadow-level-2,
-    0 1px 2px rgb(0 0 0 / 0.14),
-    0 2px 6px 2px rgb(0 0 0 / 0.1)
+    0 1px 2px color-mix(in srgb, var(--md-sys-color-scrim, #000) 14%, transparent),
+    0 2px 6px 2px color-mix(in srgb, var(--md-sys-color-scrim, #000) 10%, transparent)
   );
   /*
    * Caret centering vs trigger (.gsc-reactions-button ≈ action-height).
@@ -201,7 +195,7 @@ main .gsc-reactions {
 }
 
 main .gsc-reactions-count {
-  font-size: 1rem;
+  font-size: var(--lgc-body-large, 1rem);
   line-height: 1.5;
 }
 
@@ -263,6 +257,7 @@ main .gsc-social-reaction-summary-item:active:enabled {
 
 main .gsc-header {
   align-items: flex-end;
+  flex-wrap: wrap;
   gap: 1rem;
   padding-bottom: 0.75rem;
   border-bottom: 0;
@@ -270,6 +265,7 @@ main .gsc-header {
 
 main .gsc-left-header {
   align-items: baseline;
+  flex-wrap: wrap;
   gap: 0.4rem 0.55rem;
   min-width: 0;
 }
@@ -281,7 +277,7 @@ main .gsc-comments-count-separator {
 
 main .gsc-comments-count,
 main .gsc-replies-count {
-  font-size: 1rem;
+  font-size: var(--lgc-body-large, 1rem);
   line-height: 1.5;
 }
 
@@ -290,7 +286,9 @@ main .gsc-left-header em {
 }
 
 main .gsc-right-header.BtnGroup {
+  align-self: flex-start;
   flex-shrink: 0;
+  flex-wrap: wrap;
   gap: 0.45rem;
   border-radius: 0;
   background: transparent !important;
@@ -328,7 +326,9 @@ main .gsc-right-header .btn {
 }
 
 main .gsc-right-header .BtnGroup-item .btn:hover,
-main .gsc-right-header .btn:hover {
+main .gsc-right-header .BtnGroup-item .btn:focus-visible,
+main .gsc-right-header .btn:hover,
+main .gsc-right-header .btn:focus-visible {
   border-radius: var(--lgc-giscus-control-radius-active) !important;
   background: color-mix(
     in srgb,
@@ -346,7 +346,8 @@ main .gsc-right-header .BtnGroup-item--selected .btn:active {
   color: var(--md-sys-color-on-primary-container) !important;
 }
 
-main .gsc-right-header .BtnGroup-item--selected .btn:hover {
+main .gsc-right-header .BtnGroup-item--selected .btn:hover,
+main .gsc-right-header .BtnGroup-item--selected .btn:focus-visible {
   border-radius: var(--lgc-giscus-control-radius-active) !important;
   background: color-mix(
     in srgb,
@@ -429,7 +430,8 @@ main .gsc-comment-box-tabs button {
 }
 
 /* Solid hover chip — mix onto card surface so it stays visible on nested boxes too. */
-main .gsc-comment-box-tabs button:hover {
+main .gsc-comment-box-tabs button:hover,
+main .gsc-comment-box-tabs button:focus-visible {
   border-radius: var(--lgc-giscus-control-radius-active) !important;
   background: color-mix(
     in srgb,
@@ -439,7 +441,8 @@ main .gsc-comment-box-tabs button:hover {
   color: var(--md-sys-color-on-surface) !important;
 }
 
-main .gsc-comment-box-is-reply .gsc-comment-box-tabs button:hover {
+main .gsc-comment-box-is-reply .gsc-comment-box-tabs button:hover,
+main .gsc-comment-box-is-reply .gsc-comment-box-tabs button:focus-visible {
   background: color-mix(
     in srgb,
     var(--md-sys-color-on-surface) 14%,
@@ -465,7 +468,8 @@ main .gsc-toolbar-item {
   padding: 0 0.55rem;
 }
 
-main .gsc-toolbar-item:hover:enabled {
+main .gsc-toolbar-item:hover:enabled,
+main .gsc-toolbar-item:focus-visible {
   border-radius: var(--lgc-giscus-control-radius-active) !important;
   background: var(--lgc-giscus-hover-state);
   color: var(--md-sys-color-on-surface);
@@ -485,8 +489,11 @@ main .gsc-comment-box-tabs button.color-bg-canvas {
 }
 
 main .gsc-comment-box-tabs button[aria-selected='true']:hover,
+main .gsc-comment-box-tabs button[aria-selected='true']:focus-visible,
 main .gsc-comment-box-tabs button.selected:hover,
-main .gsc-comment-box-tabs button.color-bg-canvas:hover {
+main .gsc-comment-box-tabs button.selected:focus-visible,
+main .gsc-comment-box-tabs button.color-bg-canvas:hover,
+main .gsc-comment-box-tabs button.color-bg-canvas:focus-visible {
   background: color-mix(
     in srgb,
     var(--md-sys-color-on-primary-container) 10%,
@@ -587,7 +594,7 @@ main .gsc-comment-box-bottom {
 
 main .gsc-comment-box-markdown-hint {
   color: var(--md-sys-color-outline);
-  font-size: 0.75rem;
+  font-size: var(--lgc-label-small, 0.75rem);
   line-height: 1.4;
 }
 
@@ -632,7 +639,9 @@ main .gsc-comment-box-bottom button.link-secondary {
 }
 
 main .gsc-comment-box-bottom > button.link-secondary:hover,
-main .gsc-comment-box-bottom button.link-secondary:hover {
+main .gsc-comment-box-bottom > button.link-secondary:focus-visible,
+main .gsc-comment-box-bottom button.link-secondary:hover,
+main .gsc-comment-box-bottom button.link-secondary:focus-visible {
   border-radius: var(--lgc-giscus-control-radius-active) !important;
   background: var(--lgc-giscus-hover-state) !important;
   color: var(--md-sys-color-on-surface) !important;
@@ -669,11 +678,14 @@ main .btn-primary {
 }
 
 main .btn:hover,
-main .btn-primary:hover:enabled {
+main .btn:focus-visible,
+main .btn-primary:hover:enabled,
+main .btn-primary:focus-visible {
   border-radius: var(--lgc-giscus-control-radius-active) !important;
 }
 
-main .btn-primary:hover:enabled {
+main .btn-primary:hover:enabled,
+main .btn-primary:focus-visible {
   color: var(--md-sys-color-on-primary) !important;
   background-color: color-mix(
     in srgb,
@@ -763,13 +775,14 @@ main .gsc-comment-content {
 
 main .gsc-comment-content.markdown,
 main .gsc-reply-content.markdown {
-  font-size: 0.9375rem;
+  font-size: var(--lgc-body-medium, 0.9375rem);
   line-height: 1.7;
 }
 
 main .gsc-comment-footer,
 main .gsc-reply-footer {
   align-items: center;
+  flex-wrap: wrap;
   margin: 0;
   padding: 0 0.25rem 0.25rem;
 }
@@ -834,8 +847,11 @@ main .gsc-upvote-button :is(svg, span, .Counter, .octicon) {
 }
 
 main .gsc-upvote-button:hover,
+main .gsc-upvote-button:focus-visible,
 main .gsc-reactions-button:hover,
-main .gsc-reactions-button.popover-only:hover {
+main .gsc-reactions-button:focus-visible,
+main .gsc-reactions-button.popover-only:hover,
+main .gsc-reactions-button.popover-only:focus-visible {
   border-radius: var(--lgc-giscus-small-radius) !important;
   background: color-mix(
     in srgb,
@@ -879,7 +895,8 @@ main .gsc-direct-reaction-button {
   padding-inline: 0.6rem;
 }
 
-main .gsc-direct-reaction-button:hover:enabled {
+main .gsc-direct-reaction-button:hover:enabled,
+main .gsc-direct-reaction-button:focus-visible {
   border-radius: var(--lgc-giscus-small-radius) !important;
   background: var(--md-sys-color-primary-container) !important;
   color: var(--md-sys-color-on-primary-container) !important;
@@ -993,7 +1010,8 @@ main .gsc-reply-box > button.form-control {
     transform var(--lgc-giscus-motion-short) var(--lgc-giscus-easing);
 }
 
-main .gsc-reply-box > button.form-control:hover {
+main .gsc-reply-box > button.form-control:hover,
+main .gsc-reply-box > button.form-control:focus-visible {
   border-radius: var(--lgc-giscus-control-radius-active) !important;
   background: var(--md-sys-color-primary-container) !important;
   color: var(--md-sys-color-on-primary-container) !important;
@@ -1042,7 +1060,7 @@ main .gsc-reactions-popover > p {
 main .gsc-reactions-popover > p {
   padding-inline: 0.1rem;
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 0.8125rem;
+  font-size: var(--lgc-label-medium, 0.8125rem);
   line-height: 1.35;
 }
 
@@ -1157,32 +1175,6 @@ main .gsc-pagination-button {
 main :is(button, a, textarea, summary):focus-visible {
   outline: 2px solid var(--lgc-giscus-focus-ring);
   outline-offset: 2px;
-}
-
-@media (max-width: 640px) {
-  main .gsc-header {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  main .gsc-right-header.BtnGroup {
-    align-self: flex-start;
-  }
-
-  main .gsc-comment {
-    border-radius: var(--lgc-giscus-compact-radius);
-  }
-
-  main .gsc-comment-footer,
-  main .gsc-reply-footer {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  main .gsc-comment-reactions,
-  main .gsc-reply-reactions {
-    margin-inline-start: 0;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

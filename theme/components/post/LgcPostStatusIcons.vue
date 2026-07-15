@@ -74,8 +74,12 @@ const hideIconClass = computed(() =>
 <style scoped lang="scss">
 // Residual: multi-layer drop-shadow not expressible cleanly as utilities.
 .lgc-post-status-icons {
-  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.24))
-    drop-shadow(0 2px 2px rgb(0 0 0 / 0.16));
+  filter: drop-shadow(
+      0 1px 1px color-mix(in srgb, var(--md-sys-color-scrim, #000) 24%, transparent)
+    )
+    drop-shadow(
+      0 2px 2px color-mix(in srgb, var(--md-sys-color-scrim, #000) 16%, transparent)
+    );
 }
 
 .lgc-post-status-icon {

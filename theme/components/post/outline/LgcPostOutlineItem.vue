@@ -6,6 +6,7 @@ const props = withDefaults(
   defineProps<{
     headers: MenuItem[]
     onClick: (event: MouseEvent) => void
+    activeLink?: string
     root?: boolean
   }>(),
   {
@@ -43,13 +44,20 @@ function onLinkClick(event: MouseEvent) {
       class="lgc-post-outline-item"
       :lang="resolveHeaderLang(lang, element) || locale"
     >
-      <a class="lgc-post-outline-link" :href="link" @click="onLinkClick">
+      <a
+        class="lgc-post-outline-link"
+        :class="{ active: activeLink === link }"
+        :href="link"
+        :aria-current="activeLink === link ? 'location' : undefined"
+        @click="onLinkClick"
+      >
         <span min-w="0" block whitespace-nowrap text-ellipsis overflow-hidden>
           {{ title }}
         </span>
       </a>
       <LgcPostOutlineItem
         v-if="children?.length"
+        :active-link="activeLink"
         :headers="children"
         :on-click="onClick"
         @navigate="emit('navigate', $event)"

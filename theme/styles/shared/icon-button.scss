@@ -9,5 +9,9 @@
 
 .lgc-icon-button-hover {
   @apply 'hover:bg-$md-sys-color-primary-container hover:bg-op-$lgc-state-hover-opacity hover:text-$md-sys-color-primary';
-  @apply 'active:bg-$md-sys-color-primary-container active:bg-op-$lgc-state-pressed-opacity active:scale-$lgc-control-press-scale';
+  @apply 'active:bg-$md-sys-color-primary-container active:bg-op-$lgc-state-pressed-opacity';
+}
+
+.lgc-icon-button-hover:active {
+  transform: scale(var(--lgc-control-press-scale));
 }

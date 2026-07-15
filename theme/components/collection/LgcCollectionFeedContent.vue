@@ -133,9 +133,8 @@ const rootClass = computed(() => [
 // Residual: multi-line clamp needs -webkit-box for stable browser support.
 .lgc-collection-feed-description {
   display: -webkit-box;
-  overflow-wrap: anywhere;
   -webkit-box-orient: vertical;
-  @apply 'overflow-hidden line-clamp-2';
+  @apply 'overflow-hidden wrap-anywhere line-clamp-2';
 }
 
 .lgc-collection-feed-content.is-surface-cover.is-mask-gradient

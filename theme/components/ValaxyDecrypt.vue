@@ -95,7 +95,13 @@ const ValaxyDeprecatedContent = defineComponent({
             v-html="hint"
           />
 
-          <div class="lgc-decrypt__field" grid items-center gap="$lgc-space-sm">
+          <div
+            class="lgc-decrypt__field"
+            grid
+            grid-cols="[minmax(0,1fr)_auto]"
+            items-center
+            gap="$lgc-space-sm"
+          >
             <input
               v-model="password"
               class="lgc-decrypt__input"
@@ -169,10 +175,6 @@ const ValaxyDeprecatedContent = defineComponent({
 </template>
 
 <style lang="scss" scoped>
-.lgc-decrypt__field {
-  grid-template-columns: minmax(0, 1fr) auto;
-}
-
 .lgc-decrypt__input,
 .lgc-decrypt__submit,
 .lgc-decrypt__reset {

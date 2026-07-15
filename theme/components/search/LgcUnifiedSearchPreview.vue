@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import type { SearchItem } from '../../types'
-import LgcUnifiedSearchResultButton from './LgcUnifiedSearchResultButton.vue'
+import LgcUnifiedSearchResultList from './LgcUnifiedSearchResultList.vue'
 
-const props = defineProps<{
+defineProps<{
   countText: string
   hasQuery: boolean
   loading: boolean
@@ -24,23 +23,10 @@ defineEmits<{
 }>()
 
 const { t } = useI18n()
-const previewRef = ref<HTMLElement>()
-
-watch(
-  () => props.selectedIndex,
-  async () => {
-    await nextTick()
-
-    previewRef.value
-      ?.querySelector('.lgc-search-result.is-selected')
-      ?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
-  },
-)
 </script>
 
 <template>
   <div
-    ref="previewRef"
     class="lgc-search-preview"
     flex="~ col"
     gap="$lgc-space-xs"
@@ -58,66 +44,34 @@ watch(
     shadow="$lgc-elevation-shadow-overlay"
     role="listbox"
   >
-    <div
-      v-if="loading"
-      class="lgc-search-note"
-      p="$lgc-space-xl"
-      text="$md-sys-color-on-surface-variant size-$lgc-body-small"
-      text-center
-      font="750"
+    <LgcUnifiedSearchResultList
+      preview
+      :has-query="hasQuery"
+      :loading="loading"
+      :loading-text="loadingText"
+      :no-results-text="noResultsText"
+      :placeholder="placeholder"
+      :results="previewResults"
+      :selected-index="selectedIndex"
+      @navigate="$emit('navigate', $event)"
+      @select="$emit('select', $event)"
     >
-      {{ loadingText }}
-    </div>
-    <div
-      v-else-if="!hasQuery"
-      class="lgc-search-note"
-      p="$lgc-space-xl"
-      text="$md-sys-color-on-surface-variant size-$lgc-body-small"
-      text-center
-      font="750"
-    >
-      {{ placeholder }}
-    </div>
-    <div
-      v-else-if="previewResults.length === 0"
-      class="lgc-search-note"
-      p="$lgc-space-xl"
-      text="$md-sys-color-on-surface-variant size-$lgc-body-small"
-      text-center
-      font="750"
-    >
-      {{ noResultsText }}
-    </div>
-    <div
-      v-else
-      class="lgc-search-result-list"
-      grid
-      gap="$lgc-hairline"
-      p="$lgc-hairline"
-    >
-      <LgcUnifiedSearchResultButton
-        v-for="(item, index) in previewResults"
-        :key="item.id"
-        :item="item"
-        preview
-        :selected="selectedIndex === index"
-        @mouseenter="$emit('select', index)"
-        @click="$emit('navigate', item)"
-      />
-      <button
-        class="lgc-search-result is-preview is-view-all"
-        :class="{ 'is-selected': viewAllSelected }"
-        type="button"
-        role="option"
-        :aria-selected="viewAllSelected"
-        @mouseenter="$emit('select', previewResults.length)"
-        @click="$emit('viewAll')"
-      >
-        <span class="lgc-search-result-title">{{ t('search.view_all') }}</span>
-        <span class="lgc-search-result-meta">
-          {{ countText }}
-        </span>
-      </button>
-    </div>
+      <template #footer>
+        <button
+          class="lgc-search-result is-preview is-view-all"
+          :class="{ 'is-selected': viewAllSelected }"
+          type="button"
+          role="option"
+          :aria-selected="viewAllSelected"
+          @mouseenter="$emit('select', previewResults.length)"
+          @click="$emit('viewAll')"
+        >
+          <span class="lgc-search-result-title">{{ t('search.view_all') }}</span>
+          <span class="lgc-search-result-meta">
+            {{ countText }}
+          </span>
+        </button>
+      </template>
+    </LgcUnifiedSearchResultList>
   </div>
 </template>

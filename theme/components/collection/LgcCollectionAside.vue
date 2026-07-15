@@ -55,6 +55,9 @@ withDefaults(
   --collection-aside-max-height: calc(
     100vh - var(--collection-aside-top) - var(--lgc-space-lg)
   );
+  --collection-aside-max-height: calc(
+    100dvh - var(--collection-aside-top) - var(--lgc-space-lg)
+  );
   --collection-aside-content-max-height: calc(
     var(--collection-aside-max-height) - var(--lgc-space-lg) - var(--lgc-space-lg)
   );

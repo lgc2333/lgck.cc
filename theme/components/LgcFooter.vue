@@ -182,8 +182,13 @@ const footerIconLink = computed(() => footerIcon.value?.url || themeRepository.v
   );
 }
 
-// Anchor hover cascade (multiple footer links) — multi-use @apply, not residual props.
+// Anchor hover/focus cascade (multiple footer links) — multi-use @apply.
 .lgc-footer a {
-  @apply 'text-inherit font-inherit no-underline hover:text-$md-sys-color-primary';
+  @apply 'text-inherit font-inherit no-underline';
+}
+
+.lgc-footer a:hover,
+.lgc-footer a:focus-visible {
+  @apply 'text-$md-sys-color-primary underline';
 }
 </style>

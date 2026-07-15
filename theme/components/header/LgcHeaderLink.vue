@@ -53,7 +53,14 @@ const { iconClass, isRouteActive } = useHeaderNavItemState({
     :to="item.link"
     :aria-label="label"
   >
-    <span class="lgc-header-icon" :class="iconClass" aria-hidden="true" />
+    <span
+      flex-none
+      w="$lgc-header-link-icon-size"
+      h="$lgc-header-link-icon-size"
+      text="size-$lgc-header-link-icon-size"
+      :class="iconClass"
+      aria-hidden="true"
+    />
     <span class="lgc-header-label">{{ label }}</span>
   </AppLink>
 </template>
@@ -91,13 +98,6 @@ const { iconClass, isRouteActive } = useHeaderNavItemState({
     @apply 'rounded-$lgc-radius-control-active';
     @apply 'text-$md-sys-color-on-primary-container bg-$md-sys-color-primary-container';
   }
-}
-
-.lgc-header-icon {
-  @apply 'flex-none';
-  inline-size: var(--lgc-header-link-icon-size);
-  block-size: var(--lgc-header-link-icon-size);
-  font-size: var(--lgc-header-link-icon-size);
 }
 
 .lgc-header-link.is-icon {

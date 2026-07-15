@@ -10,6 +10,7 @@ const props = defineProps<{
   loadingText: string
   noResultsText: string
   placeholder: string
+  preview?: boolean
   results: SearchItem[]
   selectedIndex: number
 }>()
@@ -19,14 +20,14 @@ defineEmits<{
   select: [index: number]
 }>()
 
-const resultsRef = ref<HTMLElement>()
+const listRef = ref<HTMLElement>()
 
 watch(
   () => props.selectedIndex,
   async () => {
     await nextTick()
 
-    resultsRef.value
+    listRef.value
       ?.querySelector('.lgc-search-result.is-selected')
       ?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
   },
@@ -34,16 +35,7 @@ watch(
 </script>
 
 <template>
-  <div
-    ref="resultsRef"
-    class="lgc-search-results"
-    overscroll-contain
-    grid
-    min-h-0
-    content-start
-    overflow-auto
-    rounded="$lgc-radius-control"
-  >
+  <div ref="listRef" contents>
     <div
       v-if="loading"
       class="lgc-search-note"
@@ -85,10 +77,12 @@ watch(
         v-for="(item, index) in results"
         :key="item.id"
         :item="item"
+        :preview="preview"
         :selected="selectedIndex === index"
         @mouseenter="$emit('select', index)"
         @click="$emit('navigate', item)"
       />
+      <slot name="footer" />
     </div>
   </div>
 </template>

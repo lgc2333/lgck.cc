@@ -83,7 +83,7 @@ html.dark {
   );
 
   @apply 'text-$md-sys-color-on-surface text-size-$lgc-body-large leading-[1.75]';
-  word-wrap: break-word;
+  @apply 'wrap-break-word';
 
   > .markdown-body {
     @apply pb-0;

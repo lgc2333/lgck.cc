@@ -38,9 +38,7 @@ const { $t } = useValaxyI18n()
 
 <style scoped lang="scss">
 // Residual: transparent dock color-mix vars + classic transform + multi-duration list.
-// Quiet morph radius is Uno on the element. Wind4 hover:-translate-y / active:scale
-// set `translate`/`scale` props; icon-button-hover's scale cannot be cancelled by
-// `transform: none` alone — keep classic transform here and reset `scale`.
+// Quiet morph radius is Uno on the element.
 .lgc-social-link {
   --lgc-social-transparent-opacity: 30%;
   --lgc-social-transparent-hover-opacity: 50%;
@@ -74,7 +72,6 @@ const { $t } = useValaxyI18n()
 }
 
 .lgc-social-link:active {
-  scale: none;
   transform: scale(var(--lgc-control-press-scale));
 }
 </style>

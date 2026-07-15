@@ -9,7 +9,7 @@
 // 48px icon buttons (items-center is mathematical, not optical).
 .lgc-header-label,
 .lgc-header-lang-label {
-  @apply 'translate-y-px';
+  transform: translateY(1px);
 }
 
 .lgc-lang-flip-icon.is-flipping {

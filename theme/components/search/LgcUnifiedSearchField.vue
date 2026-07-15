@@ -37,7 +37,8 @@ defineExpose({ focus })
 
 <template>
   <label
-    class="lgc-search-field [grid-template-columns:minmax(0,1fr)]"
+    class="lgc-search-field"
+    grid-cols="[minmax(0,1fr)]"
     grid
     items-center
     gap="$lgc-space-sm"
@@ -49,10 +50,10 @@ defineExpose({ focus })
     text="$md-sys-color-on-surface-variant"
     bg="$md-sys-color-surface-container-high"
     :class="[
-      { 'is-open': open },
-      hasIcon
-        ? 'w-full [grid-template-columns:var(--lgc-icon-size-sm)_minmax(0,1fr)]'
-        : undefined,
+      {
+        'has-icon': hasIcon,
+        'is-open': open,
+      },
     ]"
   >
     <span v-if="hasIcon" i-material-symbols-search-rounded aria-hidden="true" />

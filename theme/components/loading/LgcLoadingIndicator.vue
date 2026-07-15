@@ -2,19 +2,10 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-interface M3LoadingIndicatorCanvasOptions {
-  color?: string
-  contained?: boolean
-  containerColor?: string
-  paused?: boolean
-  speed?: number
-}
-
-interface M3LoadingIndicatorCanvasController {
-  destroy: () => void
-  start: () => void
-  update: (nextOptions: M3LoadingIndicatorCanvasOptions) => void
-}
+import type {
+  M3LoadingIndicatorCanvasController,
+  M3LoadingIndicatorCanvasOptions,
+} from '../../utils/m3-loading-indicator'
 
 const props = withDefaults(
   defineProps<{

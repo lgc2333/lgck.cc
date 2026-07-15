@@ -151,7 +151,7 @@ export function generateMaterialColorsCss(input?: Partial<MaterialColorsConfig>)
   ].join('\n')
 }
 
-export function resolveMaterialColorsConfig(
+function resolveMaterialColorsConfig(
   input: Partial<MaterialColorsConfig> = {},
 ): ResolvedMaterialColorsConfig {
   const config = {

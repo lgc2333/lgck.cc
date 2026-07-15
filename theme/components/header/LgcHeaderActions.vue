@@ -33,7 +33,11 @@ const { t, locale } = useI18n()
 const { toggleLocales } = useLocale()
 const { flipLanguageIcon, languageFlipping, stopLanguageFlip } = useLanguageFlip()
 const showI18n = computed(() => {
-  return props.showLanguage && themeConfig.value.header?.i18n !== false
+  return (
+    props.showLanguage &&
+    themeConfig.value.header?.i18n !== false &&
+    appStore.showToggleLocale
+  )
 })
 const languageName = computed(() => formatLocaleName(locale.value))
 

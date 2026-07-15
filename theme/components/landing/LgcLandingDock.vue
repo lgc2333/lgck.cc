@@ -83,12 +83,15 @@ function linkLabel(item: LandingLink) {
 
   --lgc-dock-transparent-opacity: 30%;
   --lgc-dock-transparent-hover-opacity: 50%;
+  --lgc-dock-lift: 0;
+  --lgc-dock-scale: 1;
 
   transition-property:
     background-color, border-radius, color, max-inline-size, transform;
   @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
   color: var(--lgc-dock-color);
   background: var(--lgc-dock-bg);
+  transform: translateY(var(--lgc-dock-lift)) scale(var(--lgc-dock-scale));
 
   &.is-surface {
     --lgc-dock-color: var(--md-sys-color-on-surface);
@@ -145,13 +148,15 @@ function linkLabel(item: LandingLink) {
   }
 
   &:hover {
-    @apply 'rounded-$lgc-radius-control-morph -translate-y-1px';
+    --lgc-dock-lift: -1px;
+
+    @apply 'rounded-$lgc-radius-control-morph';
     color: var(--lgc-dock-hover-color);
     background: var(--lgc-dock-hover-bg);
   }
 
   &:active {
-    @apply 'scale-$lgc-control-press-scale';
+    --lgc-dock-scale: var(--lgc-control-press-scale);
   }
 }
 </style>

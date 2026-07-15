@@ -56,6 +56,10 @@
   transition-delay: 0ms;
 }
 
+.lgc-search-field.has-icon {
+  @apply 'w-full grid-cols-[var(--lgc-icon-size-sm)_minmax(0,1fr)]';
+}
+
 .lgc-search-preview {
   --search-preview-top: calc(100% + var(--lgc-space-sm));
   --search-preview-width: min(
@@ -103,7 +107,7 @@
 
 .lgc-search-drawer-enter-from .lgc-search-drawer,
 .lgc-search-drawer-leave-to .lgc-search-drawer {
-  @apply translate-x-full;
+  transform: translateX(100%);
 }
 
 .lgc-search-result {

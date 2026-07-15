@@ -6,7 +6,7 @@ import {
   useFrontmatter,
   useOutline,
 } from 'valaxy'
-import { computed, ref, watch } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
@@ -26,7 +26,6 @@ const { t } = useI18n()
 const { collections } = useCollections()
 const frontmatter = useFrontmatter()
 const { headers } = useOutline()
-const open = ref(false)
 
 const activeCollection = computed(() => props.collection || findRouteCollection())
 const showAction = computed(
@@ -55,18 +54,6 @@ const currentIndex = computed(() => {
     return false
   })
 })
-watch(showAction, (shown) => {
-  if (!shown) open.value = false
-})
-
-function openDrawer() {
-  open.value = true
-}
-
-function closeDrawer() {
-  open.value = false
-}
-
 function stripTrailingSlash(path: string) {
   return path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path
 }
@@ -88,32 +75,27 @@ function findRouteCollection() {
 </script>
 
 <template>
-  <LgcFloatingActionButton
-    :show="showAction"
-    aria-controls="lgc-collection-drawer"
-    :aria-expanded="open"
-    :label="t('collection.open')"
-    mobile-only
-    @click="openDrawer"
-  >
-    <span i-material-symbols-auto-stories-rounded aria-hidden="true" />
-  </LgcFloatingActionButton>
-
-  <LgcSideDrawer
-    v-if="activeCollection"
+  <LgcFloatingDrawerAction
     id="lgc-collection-drawer"
-    :open="open"
+    :show="showAction"
+    :label="t('collection.open')"
+    :drawer-label="t('accessibility.collection_navigation')"
     :title="t('collection.chapters')"
-    :label="t('accessibility.collection_navigation')"
     :close-label="t('accessibility.close_collection')"
-    @close="closeDrawer"
   >
-    <LgcCollectionNav
-      :collapsible="showPostToc"
-      :collection="activeCollection"
-      :current-index="currentIndex"
-      :show-header="false"
-      @navigate="closeDrawer"
-    />
-  </LgcSideDrawer>
+    <template #icon>
+      <span i-material-symbols-auto-stories-rounded aria-hidden="true" />
+    </template>
+
+    <template #default="{ close }">
+      <LgcCollectionNav
+        v-if="activeCollection"
+        :collapsible="showPostToc"
+        :collection="activeCollection"
+        :current-index="currentIndex"
+        :show-header="false"
+        @navigate="close"
+      />
+    </template>
+  </LgcFloatingDrawerAction>
 </template>

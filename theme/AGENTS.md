@@ -36,8 +36,8 @@ Valaxy blog: landing home, floating header, unified search, post feed/layouts, f
 
 - `ValaxyApp.vue`: route transition timing; `.lgc-page-surface` animates
 - `LgcLandingHome.vue`: first viewport + optional posts
-- Header: `LgcHeader` / `LgcHeaderActions` / `LgcHeaderDrawer` / `LgcHeaderLink`
-- Search: `LgcUnifiedSearch` + `composables/search*.ts` (local/fuse/Algolia); field/preview/panel/results own display
+- Header: `LgcHeader` / `LgcHeaderActions` / `LgcHeaderDrawer` shell with `LgcHeaderDrawerNav` + `LgcHeaderDrawerSettings` / `LgcHeaderLink`
+- Search: `LgcUnifiedSearch` + `composables/search*.ts` (local/fuse/Algolia); field/preview/panel use `LgcUnifiedSearchResultList`
 - `ValaxyMain.vue`: post shell — `main-header` full `layout-inner` width; body/nav/comment in `.lgc-main-reading` (`--lgc-container-reading`); collection pages stack collection nav + TOC in the right aside at lg and split collection left / TOC right at xl. Pieces: `LgcPostArticleHeader/Nav`, `LgcPostContentAfter/Sponsor/Aside/Outline/OutlineAction`, `LgcPostCoverFrame`, `LgcPostMetaChips`, `LgcPostFeed*`, pagination
 - Collections: `layouts/collections.vue` reuses `LgcPostFeed source="collections"`; `layouts/collection.vue` reuses `layouts/post.vue` with the `collection` prop; `components/collection/LgcCollection*` own collection article navigation. Feed collapsed cards use the same post-card frame. Collection nav opens from a mobile floating action drawer below lg, stacks with TOC at lg, and moves left at xl; sticky asides must stay height-limited.
 - Loading: `LgcLoading*` + `utils/m3-loading-indicator/`
@@ -67,6 +67,7 @@ Valaxy blog: landing home, floating header, unified search, post feed/layouts, f
 - Articles: calm, readable, stable type
 - Chips / dates / nav / pagination = one control family
 - Covers stay legible on mobile and image-heavy posts
+- `LgcPostMetaChips` is a compatibility adapter; meta rows and taxonomy chips live in `LgcPostMetaRow` / `LgcTaxonomyChips`
 
 ## Avatar
 

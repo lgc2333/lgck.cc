@@ -29,7 +29,7 @@ const { t } = useI18n()
 const containerRef = ref<HTMLElement>() as Ref<HTMLElement>
 const markerRef = ref<HTMLElement>() as Ref<HTMLElement>
 
-useActiveOutline(toRef(props, 'headers'), {
+const { activeLink } = useActiveOutline(toRef(props, 'headers'), {
   containerRef,
   enabled: toRef(props, 'trackActive'),
   markerRef,
@@ -70,6 +70,7 @@ useActiveOutline(toRef(props, 'headers'), {
     >
       <LgcPostOutlineItem
         class="css-i18n-toc"
+        :active-link="activeLink"
         :headers="headers"
         :on-click="onClick"
         root

@@ -95,6 +95,9 @@ const siteConfig = useSiteConfig()
     --post-aside-stack-max-height: calc(
       100vh - var(--post-aside-stack-top) - var(--lgc-space-lg)
     );
+    --post-aside-stack-max-height: calc(
+      100dvh - var(--post-aside-stack-top) - var(--lgc-space-lg)
+    );
     grid-template-rows: minmax(0, 1fr);
   }
 
