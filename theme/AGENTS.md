@@ -17,11 +17,11 @@ If an M3 Expressive decision is unclear, check official refs before implementing
 - `App.vue`: theme shell (`LgcLoading`)
 - `client/`: user-facing exports; `node/`: defaults/material colors/safelist; `node/vite/`: Vite plugins (fonts, material colors CSS, loading bootstrap, Giscus theme/font CSS)
 - `types/index.ts`: public theme config + Valaxy augmentation (`PostFrontMatter`, `DefaultTheme`, `*.ttf`)
-- `components/`: auto-registered; `ValaxyApp` / `ValaxyMain` / `layout` override slots stay at root; `Lgc*` grouped by surface (`header/`, `landing/`, `floating/`, `loading/`, `search/`, `post/`, `collection/`)
+- `components/`: auto-registered; `ValaxyApp` / `ValaxyMain` / `layout` override slots stay at root; cross-surface primitives like `LgcSideDrawer` / `LgcPrevNextNav` stay root-level; other `Lgc*` grouped by surface (`header/`, `landing/`, `floating/`, `loading/`, `search/`, `post/`, `collection/`)
 - `layouts/`: default, home, post, 404
 - `composables/`: config, header, language motion, search
 - `utils/`: locale, post, routes, repo URLs, search text, M3 loading
-- `styles/`: global SCSS + tokens (`index.ts` → fonts + `index.scss`); `styles/giscus/` owns Giscus iframe theme CSS
+- `styles/`: global SCSS + tokens (`index.ts` → fonts + `index.scss`); `styles/shared/*` owns cross-component recipes only; `styles/giscus/` owns Giscus iframe theme CSS
 - `assets/fonts/`, `locales/`, `pages/` (theme routes)
 
 ## Direction
@@ -85,16 +85,19 @@ PLEASE: Double-check the code you wrote meets the following constraints before y
 - Order (DO NOT SKIP):
   1. Utility exists → put it on the element with attributify → stop.
   2. Attributify cannot express it (attr conflict, dynamic class, selector/variant shape) → use `class` on that element.
-  3. Need shared/calc → extract token/local var first, then Uno.
+  3. Need shared/calc → extract token/local var first, then Uno `$token`.
   4. Multi-use / hover·active cascade → class + `@apply '…'` (quote in SCSS when the string contains `$` or `:`).
   5. Allowlist residual only → write raw + a one-line why comment.
   6. Still want SCSS? Re-read this section.
 - YOU GET WHIPPED FOR:
   - SCSS for `display/margin/padding/gap/flex/grid` / solid color tokens / `font-size` / `border-radius` / sizing; magic values instead of extracted vars;
-  - One-off classes that only wrap a single `@apply`; Uno `shortcuts` / theme color spacing scales;
+  - One-off classes that only wrap a single `@apply`; template `class` stuffed with static utility tokens that could be attributify;
+  - Raw `var(--lgc-*)` / `var(--md-sys-*)` for normal utility-owned CSS when `$lgc-*` / `$md-sys-*` works;
+  - Uno `shortcuts` / theme color spacing scales;
   - JS-built color utilities (use semantic `is-*` only); `@apply` walls on one-off nodes.
 - Class:
   - One-off → write attributify on the element first; use `class` only when attributify cannot represent it, and delete the class + rule.
+  - Static utilities in templates belong in attributify, not `class`; reserve `class` for semantic hooks, dynamic states, icons, or unsupported arbitrary selector shapes.
   - Multi-state → class + `@apply`, residual only for the hard parts.
   - `@apply` respects Prettier `printWidth` 88.
   - Global → `styles/shared/*`; component residual → component `<style>`. `<Transition name>` enter/leave must be CSS only.
@@ -120,7 +123,7 @@ PLEASE: Double-check the code you wrote meets the following constraints before y
 - **Unify:** radius, type/font size, elevation/shadow, icon size — no parallel scales
 - Layout chrome may stay bare px (landing pads, dense gaps, cover insets, date badges)
 - Space `--lgc-space-*` for rhythm; one-offs need not join. Radius: role tokens (`--lgc-radius-control`, …)
-- Prefer `$lgc-*` / `$md-sys-*`; residual may `var(--lgc-*)`; component APIs may `var(--…)`
+- Prefer `$lgc-*` / `$md-sys-*`; residual may use `var(--…)` only for custom-prop definitions, calc owners, `color-mix`, component APIs, or raw properties Uno cannot express.
 - No one-off CSS var for a single use unless clear API or calc owner
 - JS: semantic `is-*` classes only — **no** color utilities built in script strings
 

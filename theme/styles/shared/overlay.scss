@@ -1,0 +1,58 @@
+.lgc-side-drawer-scrim {
+  background: color-mix(in srgb, var(--md-sys-color-scrim, #000) 40%, transparent);
+}
+
+.lgc-side-drawer-panel {
+  --lgc-side-drawer-width-source: var(--lgc-post-drawer-width);
+  --lgc-side-drawer-width: min(
+    var(--lgc-side-drawer-width-source),
+    calc(100vw - var(--lgc-space-3xl))
+  );
+
+  @apply 'w-$lgc-side-drawer-width grid-rows-[auto_minmax(0,1fr)]';
+}
+
+.lgc-side-drawer-panel.is-right {
+  right: 0;
+  @apply 'rounded-l-$lgc-radius-large rounded-r-0';
+}
+
+.lgc-side-drawer-panel.is-left {
+  left: 0;
+  @apply 'rounded-l-0 rounded-r-$lgc-radius-large';
+}
+
+.lgc-side-drawer-enter-active,
+.lgc-side-drawer-leave-active,
+.lgc-side-drawer-enter-active .lgc-side-drawer-scrim,
+.lgc-side-drawer-leave-active .lgc-side-drawer-scrim {
+  @apply 'transition-opacity duration-$lgc-motion-medium ease-$lgc-easing-standard';
+}
+
+.lgc-side-drawer-enter-active .lgc-side-drawer-panel,
+.lgc-side-drawer-leave-active .lgc-side-drawer-panel {
+  @apply 'transition-transform duration-$lgc-motion-medium ease-$lgc-easing-standard';
+}
+
+.lgc-side-drawer-enter-from .lgc-side-drawer-scrim,
+.lgc-side-drawer-leave-to .lgc-side-drawer-scrim {
+  @apply opacity-0;
+}
+
+.lgc-side-drawer-enter-from .lgc-side-drawer-panel.is-right,
+.lgc-side-drawer-leave-to .lgc-side-drawer-panel.is-right {
+  @apply translate-x-full;
+}
+
+.lgc-side-drawer-enter-from .lgc-side-drawer-panel.is-left,
+.lgc-side-drawer-leave-to .lgc-side-drawer-panel.is-left {
+  @apply '-translate-x-full';
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lgc-side-drawer-enter-active,
+  .lgc-side-drawer-leave-active,
+  .lgc-side-drawer-panel {
+    transition-duration: 1ms;
+  }
+}

@@ -11,6 +11,7 @@ const props = withDefaults(
     href?: string
     interactiveDetail?: boolean
     label: string
+    mobileOnly?: boolean
     show?: boolean
   }>(),
   {
@@ -34,6 +35,7 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
         {
           'has-detail': $slots.detail,
           'has-interactive-detail': interactiveDetail,
+          'is-mobile-only': mobileOnly,
         },
         buttonClass,
       ]"
@@ -74,7 +76,10 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
     <a
       v-else-if="show && href"
       class="lgc-floating-action-button"
-      :class="[{ 'has-detail': $slots.detail }, buttonClass]"
+      :class="[
+        { 'has-detail': $slots.detail, 'is-mobile-only': mobileOnly },
+        buttonClass,
+      ]"
       :href="href"
       target="_blank"
       :rel="linkRel"
@@ -97,7 +102,10 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
     <button
       v-else-if="show"
       class="lgc-floating-action-button"
-      :class="[{ 'has-detail': $slots.detail }, buttonClass]"
+      :class="[
+        { 'has-detail': $slots.detail, 'is-mobile-only': mobileOnly },
+        buttonClass,
+      ]"
       type="button"
       :aria-controls="ariaControls"
       :aria-expanded="ariaExpanded"
@@ -126,7 +134,7 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
   );
   --lgc-floating-action-motion-duration: var(--lgc-motion-medium);
 
-  max-inline-size: var(--lgc-back-to-top-size);
+  @apply 'max-inline-$lgc-back-to-top-size';
   @apply 'inline-flex min-h-$lgc-back-to-top-size items-center justify-end overflow-hidden';
   @apply 'gap-0 border-0 p-0 no-underline appearance-none cursor-pointer';
   @apply 'rounded-$lgc-radius-control-active text-$md-sys-color-primary bg-$md-sys-color-surface-container-high backdrop-blur-$lgc-elevate-blur';
@@ -143,7 +151,7 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
 .lgc-floating-action-button:hover,
 .lgc-floating-action-button:focus-visible,
 .lgc-floating-action-button:focus-within {
-  max-inline-size: var(--lgc-floating-action-open-max);
+  @apply 'max-inline-$lgc-floating-action-open-max';
   @apply 'rounded-$lgc-radius-control-active bg-$md-sys-color-surface-container-highest';
   @apply 'text-$md-sys-color-primary shadow-$lgc-elevation-shadow-level-3';
 }
@@ -161,6 +169,10 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
   @apply 'cursor-default';
 }
 
+.lgc-floating-action-button.is-mobile-only {
+  @apply 'lg:hidden!';
+}
+
 .lgc-floating-action-icon {
   @apply 'relative grid h-$lgc-back-to-top-size w-$lgc-back-to-top-size flex-none place-items-center';
   @apply 'text-size-$lgc-icon-size';
@@ -174,8 +186,7 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
   --lgc-floating-action-edge-feather: var(--lgc-space-md);
 
   max-block-size: 0;
-  max-inline-size: 0;
-  @apply 'block overflow-hidden opacity-0';
+  @apply 'block max-inline-0 overflow-hidden opacity-0';
   transition-property: max-inline-size, max-block-size, opacity;
   transition-duration:
     var(--lgc-floating-action-motion-duration),
@@ -209,8 +220,7 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
 .lgc-floating-action-button:focus-visible .lgc-floating-action-detail,
 .lgc-floating-action-button:focus-within .lgc-floating-action-detail {
   max-block-size: var(--lgc-floating-action-detail-block-max);
-  max-inline-size: var(--lgc-floating-action-detail-max);
-  @apply 'opacity-100';
+  @apply 'max-inline-$lgc-floating-action-detail-max opacity-100';
 }
 
 .lgc-floating-action-button-reveal-enter-active,

@@ -2,7 +2,7 @@
 
 Note for Claude: Check if `CLAUDE.md` is a symlink first; the tool refuses to write through symlinks.
 
-For docs mainly for AI (like `AGENTS.md`), keep them concise and token efficient.
+For docs mainly for AI (like `AGENTS.md`), you MUST keep them concise and token efficient.
 
 ## Project Structure
 

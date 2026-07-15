@@ -88,7 +88,14 @@ onBeforeUnmount(() => {
     text="$md-sys-color-on-surface"
     bg="$md-sys-color-secondary-container"
   >
-    <div class="lgc-post-sponsor-header" grid items-center gap="$lgc-space-md">
+    <div
+      class="lgc-post-sponsor-header"
+      grid
+      grid-cols="[$lgc-control-size_minmax(0,1fr)]"
+      items-center
+      gap="$lgc-space-md"
+      sm="grid-cols-[$lgc-control-size_minmax(0,1fr)_auto]"
+    >
       <span
         inline-grid
         self-center
@@ -197,17 +204,6 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped lang="scss">
-// Residual: shared state-layer color-mix and method/header grid sizing.
-.lgc-post-sponsor-header {
-  grid-template-columns: var(--lgc-control-size) minmax(0, 1fr) auto;
-}
-
-@media (width <= 599.9px) {
-  .lgc-post-sponsor-header {
-    grid-template-columns: var(--lgc-control-size) minmax(0, 1fr);
-  }
-}
-
 .lgc-post-sponsor-action {
   @apply 'inline-flex items-center gap-$lgc-space-sm';
   @apply 'px-$lgc-space-lg py-$lgc-space-sm rounded-$lgc-radius-control-active border-0 no-underline';
