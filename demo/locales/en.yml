@@ -4,9 +4,10 @@ docs:
 siteConfig:
   title: LgCuwukii Theme Demo
   subtitle: A Valaxy theme preview
-  description: LgCuwukii theme preview.
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
   author:
     name: YunYouJun
+    intro: A front-end developer and blogger.
   social:
     qq: QQ Group 1050458482
     weibo: Weibo

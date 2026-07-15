@@ -14,6 +14,7 @@ export interface SearchItem {
   section?: string
   sectionSegments?: SearchTextSegment[]
   path: string
+  score?: number
   to: string
   provider: SearchProvider
 }

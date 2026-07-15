@@ -1,6 +1,6 @@
 // Residual: browser scrollbar pseudo-elements and scroll fades are selector-only.
-.lgc-post-outline-scroll,
-.lgc-collection-aside-scroll,
+.lgc-post-outline-scroll.is-scrollable,
+.lgc-collection-nav-scroll.is-scrollable,
 .lgc-side-drawer-scroll {
   scrollbar-color: color-mix(
       in srgb,

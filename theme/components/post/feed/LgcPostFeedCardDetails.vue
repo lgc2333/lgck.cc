@@ -79,7 +79,13 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
       class="lgc-post-excerpt markdown-body overflow-hidden"
       v-html="excerpt"
     />
-    <div v-if="hasTaxonomies" :class="tagsClass" flex="~ wrap" gap="$lgc-space-sm">
+    <div
+      v-if="hasTaxonomies"
+      class="lgc-post-tags"
+      :class="tagsClass"
+      flex="~ wrap"
+      gap="$lgc-space-sm"
+    >
       <LgcTaxonomyChips :categories="categories" :tags="tags" />
     </div>
   </div>

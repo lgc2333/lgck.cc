@@ -88,14 +88,7 @@ onBeforeUnmount(() => {
     text="$md-sys-color-on-surface"
     bg="$md-sys-color-secondary-container"
   >
-    <div
-      class="lgc-post-sponsor-header"
-      grid
-      grid-cols="[$lgc-control-size_minmax(0,1fr)]"
-      items-center
-      gap="$lgc-space-md"
-      sm="grid-cols-[$lgc-control-size_minmax(0,1fr)_auto]"
-    >
+    <div class="lgc-post-sponsor-header" grid items-center gap="$lgc-space-md">
       <span
         inline-grid
         self-center
@@ -207,7 +200,7 @@ onBeforeUnmount(() => {
 <style scoped lang="scss">
 .lgc-post-sponsor-action {
   @apply 'inline-flex items-center gap-$lgc-space-sm';
-  @apply 'px-$lgc-space-lg py-$lgc-space-sm rounded-$lgc-radius-control-active border-0 no-underline';
+  @apply 'px-$lgc-space-lg py-$lgc-space-sm rounded-$lgc-radius-control-active border-0 no-underline appearance-none';
   @apply 'text-$md-sys-color-on-primary-container';
   @apply 'text-size-$lgc-body-medium font-900 font-inherit cursor-pointer whitespace-nowrap';
   @apply 'transition-[background-color,border-radius,transform]';
@@ -219,9 +212,29 @@ onBeforeUnmount(() => {
   );
 }
 
+.lgc-post-sponsor-header {
+  --post-sponsor-header-cols: var(--lgc-control-size) minmax(0, 1fr);
+  --post-sponsor-header-cols-wide: var(--lgc-control-size) minmax(0, 1fr) auto;
+
+  // Residual: space-separated grid track var is more reliable than arbitrary
+  // grid-cols for this local template API.
+  grid-template-columns: var(--post-sponsor-header-cols);
+}
+
+@screen sm {
+  .lgc-post-sponsor-header {
+    grid-template-columns: var(--post-sponsor-header-cols-wide);
+  }
+}
+
 .lgc-post-sponsor-action:hover,
 .lgc-post-sponsor-action:focus-visible {
   @apply 'rounded-$lgc-radius-control-active';
+  background: color-mix(
+    in srgb,
+    var(--md-sys-color-primary-container) 72%,
+    var(--md-sys-color-primary)
+  );
 }
 
 .lgc-post-sponsor-action:active {

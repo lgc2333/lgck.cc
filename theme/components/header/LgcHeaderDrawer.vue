@@ -114,7 +114,7 @@ const { t } = useI18n()
 
 .lgc-drawer-link {
   --drawer-link-cols: var(--lgc-icon-size) minmax(0, 1fr);
-  @apply 'grid-cols-[$drawer-link-cols]';
+  grid-template-columns: var(--drawer-link-cols);
   @apply 'grid min-h-$lgc-control-size items-center gap-[14px]';
   @apply 'px-$lgc-space-lg border-0 rounded-$lgc-radius-control';
   @apply 'text-$md-sys-color-on-surface-variant text-size-$lgc-body-medium';

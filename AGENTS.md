@@ -120,7 +120,7 @@ Use English conventional commit messages:
 ```text
 type(optional scope): description
 
-- List of changes, one change per row
+- List of change descriptions, focus one place per row
 
 Optional footer(s)
 ```

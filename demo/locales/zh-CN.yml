@@ -4,9 +4,10 @@ docs:
 siteConfig:
   title: LgCuwukii 主题演示
   subtitle: Valaxy 主题预览
-  description: LgCuwukii 主题预览站点。
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
   author:
     name: 云游君
+    intro: A front-end developer and blogger.
   social:
     qq: QQ 群 1050458482
     weibo: 微博

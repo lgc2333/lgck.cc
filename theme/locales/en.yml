@@ -26,6 +26,7 @@ collection:
 
 search:
   view_all: View all search results
+  score: 'Score: {score}'
 
 fixed_bg:
   unknown_title: Background image

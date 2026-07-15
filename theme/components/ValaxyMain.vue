@@ -122,16 +122,20 @@ const siteConfig = useSiteConfig()
     block-size: 100%;
   }
 
-  .lgc-post-aside-stack > .lgc-collection-aside .lgc-collection-aside-scroll,
-  .lgc-post-aside-stack > .lgc-post-aside .lgc-post-outline-scroll {
+  .lgc-post-aside-stack > .lgc-collection-aside .lgc-collection-nav.is-scrollable,
+  .lgc-post-aside-stack > .lgc-post-aside .lgc-post-outline.is-scrollable,
+  .lgc-post-aside-stack
+    > .lgc-collection-aside
+    .lgc-collection-nav-scroll.is-scrollable,
+  .lgc-post-aside-stack > .lgc-post-aside .lgc-post-outline-scroll.is-scrollable {
     min-block-size: 0;
     max-block-size: none;
   }
 
   .lgc-post-aside-stack
     > .lgc-collection-aside:has(.lgc-collection-nav.is-expanded)
-    .lgc-collection-aside-scroll,
-  .lgc-post-aside-stack > .lgc-post-aside .lgc-post-outline-scroll {
+    .lgc-collection-nav.is-scrollable,
+  .lgc-post-aside-stack > .lgc-post-aside .lgc-post-outline.is-scrollable {
     block-size: 100%;
   }
 }

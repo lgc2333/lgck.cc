@@ -7,8 +7,12 @@ export default defineSiteConfig({
   subtitle: $t('siteConfig.subtitle'),
   url: 'https://lgcuwukii.valaxy.site/',
   author: {
-    avatar: 'https://www.yunyoujun.cn/images/avatar.jpg',
     name: $t('siteConfig.author.name'),
+    // email: '', // we don't show this
+    link: 'https://yunyoujun.cn',
+    avatar: 'https://www.yunyoujun.cn/images/avatar.jpg', // must set this to show author info on landing
+    status: { emoji: '🌌', message: 'The moonlight is beautiful.' },
+    intro: $t('siteConfig.author.intro'),
   },
   description: $t('siteConfig.description'),
   social: [

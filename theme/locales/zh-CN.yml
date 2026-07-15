@@ -26,6 +26,7 @@ collection:
 
 search:
   view_all: 查看全部搜索结果
+  score: '匹配分：{score}'
 
 fixed_bg:
   unknown_title: 背景图片

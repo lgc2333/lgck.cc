@@ -31,20 +31,16 @@ withDefaults(
     rounded="$lgc-radius-large"
     bg="$md-sys-color-surface-container"
   >
-    <div
-      class="lgc-collection-aside-scroll"
-      max-h="$collection-aside-content-max-height"
-      min-h="0"
-      min-w="0"
-      overflow-x-hidden
-      overflow-y-auto
-    >
-      <LgcCollectionNav
-        :collapsible="collapsible"
-        :collection="collection"
-        :current-index="currentIndex"
-      />
-    </div>
+    <LgcCollectionNav
+      class="lgc-collection-aside-nav"
+      :scrollable="!embedded"
+      :scroll-max-height="
+        embedded ? 'none' : 'var(--collection-aside-content-max-height)'
+      "
+      :collapsible="collapsible"
+      :collection="collection"
+      :current-index="currentIndex"
+    />
   </aside>
 </template>
 
@@ -65,10 +61,6 @@ withDefaults(
 
 .lgc-collection-aside.is-embedded {
   @apply 'static';
-  max-height: none;
-}
-
-.lgc-collection-aside.is-embedded .lgc-collection-aside-scroll {
   max-height: none;
 }
 </style>

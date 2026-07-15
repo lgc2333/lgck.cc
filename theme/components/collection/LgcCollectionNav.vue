@@ -10,11 +10,15 @@ const props = withDefaults(
     collapsible?: boolean
     collection?: CollectionConfig
     currentIndex?: number
+    scrollable?: boolean
+    scrollMaxHeight?: string
     showHeader?: boolean
   }>(),
   {
     collapsible: false,
     currentIndex: -1,
+    scrollable: false,
+    scrollMaxHeight: 'none',
     showHeader: true,
   },
 )
@@ -74,9 +78,13 @@ function stripTrailingSlash(path: string) {
   <section
     v-if="collection"
     class="lgc-collection-nav"
-    :class="{ 'is-expanded': expanded }"
+    :class="{ 'is-expanded': expanded, 'is-scrollable': scrollable }"
+    :style="
+      scrollable ? { '--collection-nav-scroll-max-height': scrollMaxHeight } : undefined
+    "
     grid
     gap="$lgc-space-sm"
+    min-h="0"
     min-w="0"
     :aria-label="t('accessibility.collection_navigation')"
   >
@@ -131,7 +139,14 @@ function stripTrailingSlash(path: string) {
       </button>
     </header>
 
-    <nav v-if="resolvedItems.length && expanded" min-w="0" overflow-x-hidden>
+    <nav
+      v-if="resolvedItems.length && expanded"
+      class="lgc-collection-nav-scroll"
+      :class="{ 'is-scrollable': scrollable }"
+      min-h="0"
+      min-w="0"
+      overflow-x-hidden
+    >
       <ul class="lgc-collection-nav-list">
         <li
           v-for="item in resolvedItems"
@@ -192,6 +207,15 @@ function stripTrailingSlash(path: string) {
 <style scoped lang="scss">
 .lgc-collection-nav-title {
   @apply 'text-$md-sys-color-on-surface-variant text-size-$lgc-label-medium font-900';
+}
+
+.lgc-collection-nav.is-scrollable {
+  @apply 'grid-rows-[auto_minmax(0,1fr)]';
+}
+
+.lgc-collection-nav-scroll.is-scrollable {
+  @apply 'overflow-y-auto';
+  max-height: var(--collection-nav-scroll-max-height);
 }
 
 .lgc-collection-nav-list {

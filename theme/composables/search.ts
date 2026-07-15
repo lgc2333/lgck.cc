@@ -323,6 +323,7 @@ type FuseSearchItem = FuseListItem & {
 interface FuseSearchResultLike {
   item: FuseSearchItem
   matches?: readonly FuseSearchMatch[]
+  score?: number
 }
 
 function useSearchResultAdapters(options: { locale: Ref<string>; query: Ref<string> }) {
@@ -343,6 +344,7 @@ function useSearchResultAdapters(options: { locale: Ref<string>; query: Ref<stri
       excerpt: segmentsToText(excerptSegments),
       excerptSegments,
       path: stripHtmlSuffix(to),
+      score: normalizeScore(result.score),
       to,
       provider: 'fuse',
     }
@@ -363,6 +365,7 @@ function useSearchResultAdapters(options: { locale: Ref<string>; query: Ref<stri
       section,
       sectionSegments,
       path,
+      score: normalizeScore(result.score),
       to,
       provider: 'local',
     }
@@ -392,6 +395,10 @@ function useSearchResultAdapters(options: { locale: Ref<string>; query: Ref<stri
     return fallback
       ? highlightTerms(truncateText(fallback), getQueryTerms())
       : undefined
+  }
+
+  function normalizeScore(score: unknown) {
+    return typeof score === 'number' && Number.isFinite(score) ? score : undefined
   }
 
   return {

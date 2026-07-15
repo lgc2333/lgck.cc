@@ -51,6 +51,7 @@ const rootClass = computed(() => [
       class="lgc-collection-feed-description text-size-$lgc-body-medium text-$md-sys-color-on-surface-variant"
       m="0"
       leading="[1.65]"
+      wrap="anywhere"
     >
       {{ description }}
     </p>
@@ -95,6 +96,7 @@ const rootClass = computed(() => [
       m="0"
       mt="$lgc-space-md"
       leading="[1.65]"
+      wrap="anywhere"
     >
       {{ description }}
     </p>
@@ -128,13 +130,6 @@ const rootClass = computed(() => [
 <style scoped lang="scss">
 .lgc-collection-feed-title {
   @apply 'max-w-[704px] text-left';
-}
-
-// Residual: multi-line clamp needs -webkit-box for stable browser support.
-.lgc-collection-feed-description {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  @apply 'overflow-hidden wrap-anywhere line-clamp-2';
 }
 
 .lgc-collection-feed-content.is-surface-cover.is-mask-gradient

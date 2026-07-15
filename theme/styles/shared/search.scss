@@ -113,7 +113,7 @@
 .lgc-search-result {
   @apply 'box-border grid w-full gap-$lgc-space-xs border-0';
   @apply 'rounded-$lgc-radius-sm text-$md-sys-color-on-surface text-left';
-  @apply 'bg-$md-sys-color-surface-container cursor-pointer font-inherit';
+  @apply 'bg-$md-sys-color-surface-container-high cursor-pointer font-inherit';
   @apply 'transition-[background-color,border-radius,color]';
   @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
   @apply 'py-[14px] px-$lgc-space-lg';

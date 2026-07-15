@@ -11,11 +11,15 @@ const props = withDefaults(
     headers: MenuItem[]
     onClick: (event: MouseEvent) => void
     showTitle?: boolean
+    scrollable?: boolean
+    scrollMaxHeight?: string
     title?: string
     trackActive?: boolean
   }>(),
   {
     showTitle: true,
+    scrollable: false,
+    scrollMaxHeight: 'none',
     title: '',
     trackActive: false,
   },
@@ -37,7 +41,16 @@ const { activeLink } = useActiveOutline(toRef(props, 'headers'), {
 </script>
 
 <template>
-  <div ref="containerRef" class="lgc-post-outline" grid relative gap="$lgc-space-sm">
+  <div
+    class="lgc-post-outline"
+    :class="{ 'is-scrollable': scrollable }"
+    :style="
+      scrollable ? { '--post-outline-scroll-max-height': scrollMaxHeight } : undefined
+    "
+    grid
+    min-h="0"
+    gap="$lgc-space-sm"
+  >
     <div
       v-if="showTitle"
       flex="~ items-center"
@@ -57,30 +70,45 @@ const { activeLink } = useActiveOutline(toRef(props, 'headers'), {
     </div>
 
     <div
-      v-if="trackActive"
-      ref="markerRef"
-      class="lgc-post-outline-marker"
-      aria-hidden="true"
-    />
-
-    <nav
-      :aria-label="title || t('accessibility.post_outline')"
+      ref="containerRef"
+      class="lgc-post-outline-scroll"
+      :class="{ 'is-scrollable': scrollable }"
+      min-h="0"
       min-w="0"
+      relative
       overflow-x-hidden
     >
-      <LgcPostOutlineItem
-        class="css-i18n-toc"
-        :active-link="activeLink"
-        :headers="headers"
-        :on-click="onClick"
-        root
-        @navigate="emit('navigate', $event)"
+      <div
+        v-if="trackActive"
+        ref="markerRef"
+        class="lgc-post-outline-marker"
+        aria-hidden="true"
       />
-    </nav>
+
+      <nav :aria-label="title || t('accessibility.post_outline')" min-w="0">
+        <LgcPostOutlineItem
+          class="css-i18n-toc"
+          :active-link="activeLink"
+          :headers="headers"
+          :on-click="onClick"
+          root
+          @navigate="emit('navigate', $event)"
+        />
+      </nav>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+.lgc-post-outline.is-scrollable {
+  @apply 'grid-rows-[auto_minmax(0,1fr)]';
+}
+
+.lgc-post-outline-scroll.is-scrollable {
+  @apply 'overflow-y-auto';
+  max-height: var(--post-outline-scroll-max-height);
+}
+
 // Residual: active marker is positioned by useActiveOutline.
 .lgc-post-outline-marker {
   --post-outline-marker-height: 20px;

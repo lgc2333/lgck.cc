@@ -40,16 +40,13 @@ const showAside = computed(() => {
       bg="$md-sys-color-surface-container"
       text="$md-sys-color-on-surface"
     >
-      <div
-        class="lgc-post-outline-scroll"
-        max-h="$post-aside-content-max-height"
-        min-h="0"
-        min-w="0"
-        overflow-x-hidden
-        overflow-y-auto
-      >
-        <LgcPostOutline :headers="headers" :on-click="handleClick" track-active />
-      </div>
+      <LgcPostOutline
+        :scrollable="!embedded"
+        :scroll-max-height="embedded ? 'none' : 'var(--post-aside-content-max-height)'"
+        :headers="headers"
+        :on-click="handleClick"
+        track-active
+      />
     </aside>
   </Transition>
 </template>
@@ -80,10 +77,6 @@ const showAside = computed(() => {
 
 .lgc-post-aside.is-embedded {
   @apply 'static';
-  max-height: none;
-}
-
-.lgc-post-aside.is-embedded .lgc-post-outline-scroll {
   max-height: none;
 }
 
