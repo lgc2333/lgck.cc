@@ -20,7 +20,7 @@ const collectionTitle = computed(
 
 <template>
   <aside
-    class="lgc-collection-expand-card text-$md-sys-color-on-surface lg:hidden!"
+    class="text-$md-sys-color-on-surface lg:hidden!"
     w="full"
     max-w="$lgc-container-reading"
     grid-cols="[auto_minmax(0,1fr)]"

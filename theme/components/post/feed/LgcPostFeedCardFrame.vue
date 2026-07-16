@@ -7,11 +7,16 @@ const props = withDefaults(
     mask?: CoverContentMask
     position?: CoverContentPosition
     title: string
+    titleClass?: string
+    titleKind?: 'post' | 'collection'
+    titleTo: string
     variant: 'plain' | 'cover'
   }>(),
   {
     mask: 'gradient',
     position: 'left',
+    titleClass: '',
+    titleKind: 'post',
   },
 )
 </script>
@@ -22,7 +27,7 @@ const props = withDefaults(
     grid
     items-start
     relative
-    gap="$lgc-space-lg sm:$lgc-space-2xl"
+    gap="$lgc-space-lg sm:$lgc-space-2xl md:$lgc-space-3xl"
     p="$lgc-space-xl sm:$lgc-space-2xl"
     :class="{ 'has-cover': props.variant === 'cover' && cover }"
   >
@@ -54,7 +59,21 @@ const props = withDefaults(
         </div>
 
         <div class="lgc-cover-content-panel-content">
-          <slot name="content" />
+          <div class="lgc-cover-content-panel-title">
+            <h3
+              class="lgc-post-title is-cover-title"
+              :class="{ 'is-collection-title': titleKind === 'collection' }"
+            >
+              <!-- No text= on RouterLink: HTMLAnchorElement.text replaces children -->
+              <RouterLink class="lgc-post-title-link" :class="titleClass" :to="titleTo">
+                {{ title }}
+              </RouterLink>
+            </h3>
+          </div>
+
+          <div class="lgc-cover-content-panel-body">
+            <slot name="content" />
+          </div>
         </div>
 
         <slot name="action" />
@@ -65,13 +84,20 @@ const props = withDefaults(
       <slot name="corner" />
       <div class="lgc-post-frame-content-plain">
         <div class="lgc-post-frame-title-plain">
-          <slot name="title" />
+          <h3
+            class="lgc-post-title"
+            :class="{ 'is-collection-title': titleKind === 'collection' }"
+          >
+            <!-- No text= on RouterLink: HTMLAnchorElement.text replaces children -->
+            <RouterLink class="lgc-post-title-link" :class="titleClass" :to="titleTo">
+              {{ title }}
+            </RouterLink>
+          </h3>
         </div>
         <div class="lgc-post-frame-body-plain">
           <slot name="content" />
         </div>
       </div>
-      <slot name="below" />
       <slot name="action" />
     </template>
   </article>
@@ -94,7 +120,7 @@ const props = withDefaults(
 
 @screen sm {
   .lgc-post-card:not(.has-cover) {
-    --post-card-cols: 120px minmax(0, 1fr) auto;
+    --post-card-cols: 96px minmax(0, 1fr) auto;
   }
 }
 
@@ -147,6 +173,10 @@ const props = withDefaults(
   @apply 'min-w-0 mt-$lgc-space-md max-sm:col-span-full max-sm:mt-0';
 }
 
+.lgc-post-title-link {
+  @apply 'text-inherit no-underline focus-visible:text-$md-sys-color-primary hover:text-$md-sys-color-primary';
+}
+
 // Residual: color-mix, gradient mask, asymmetric card radii, bleed layout.
 .lgc-cover-content-panel-corner {
   @apply 'relative z-$lgc-layer-local-raised row-start-1 col-start-1 self-start justify-self-start';
@@ -177,6 +207,10 @@ const props = withDefaults(
   @apply 'col-start-1 row-start-2 self-end relative min-w-0';
 }
 
+.lgc-cover-content-panel-body {
+  @apply 'min-w-0 mt-$lgc-space-md';
+}
+
 .lgc-cover-content-panel.is-gradient .lgc-cover-content-panel-content {
   --lgc-post-cover-gradient-padding-block-end: var(--lgc-space-xl);
   --lgc-post-cover-gradient-color: var(--md-sys-color-surface-container-lowest);
@@ -191,6 +225,23 @@ const props = withDefaults(
   @apply 'w-$cover-bleed-width mb-$cover-bleed-out mx-$cover-bleed-out';
   @apply 'py-$lgc-post-cover-gradient-padding-block-end ps-$lgc-post-cover-bleed pe-$cover-pad-inline-end';
   @apply 'text-$lgc-post-cover-on-mask';
+}
+
+.lgc-cover-content-panel.is-gradient .lgc-post-title {
+  color: var(--lgc-post-cover-on-mask);
+  text-shadow: var(--lgc-post-cover-text-shadow);
+}
+
+.lgc-cover-content-panel .lgc-post-excerpt {
+  @apply 'max-w-[672px] text-left font-600';
+}
+
+.lgc-cover-content-panel.is-gradient .lgc-post-excerpt,
+.lgc-cover-content-panel.is-gradient .lgc-collection-feed-description,
+.lgc-cover-content-panel.is-gradient .lgc-collection-feed-chapters {
+  color: var(--lgc-post-cover-on-mask-variant);
+  text-shadow: 0 1px 4px
+    color-mix(in srgb, var(--md-sys-color-surface) 24%, transparent);
 }
 
 .lgc-cover-content-panel.is-gradient .lgc-cover-content-panel-content::before {
@@ -219,6 +270,10 @@ const props = withDefaults(
   background: color-mix(in srgb, var(--md-sys-color-surface) 65%, transparent);
 }
 
+.lgc-cover-content-panel.is-card .lgc-post-title {
+  @apply 'text-$md-sys-color-on-surface';
+}
+
 @screen sm {
   .lgc-cover-content-panel.is-gradient .lgc-cover-content-panel-content {
     --lgc-post-cover-gradient-padding-block-end: var(--lgc-space-2xl);
@@ -229,6 +284,20 @@ const props = withDefaults(
   .lgc-cover-content-panel.is-gradient.is-right .lgc-cover-content-panel-content {
     @apply 'justify-self-stretch justify-items-end rounded-none';
     @apply 'mx-$cover-bleed-out px-$lgc-post-cover-bleed';
+  }
+
+  .lgc-cover-content-panel.is-right .lgc-post-title {
+    @apply 'text-right';
+  }
+
+  .lgc-cover-content-panel.is-right .lgc-post-excerpt,
+  .lgc-cover-content-panel.is-right .lgc-collection-feed-description {
+    @apply 'text-right';
+  }
+
+  .lgc-cover-content-panel.is-right .lgc-post-tags,
+  .lgc-cover-content-panel.is-right .lgc-collection-feed-chapters {
+    @apply 'justify-end';
   }
 
   .lgc-cover-content-panel.is-card .lgc-cover-content-panel-content {

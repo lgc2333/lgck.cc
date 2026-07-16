@@ -47,8 +47,12 @@ post:
   encrypt_again: Encrypt again
   outline: On this page
   status_draft: Draft
+  status_draft_desc: Draft
   status_pinned: 'Pinned: {n}'
+  status_pinned_desc: Pinned
   status_hide: 'Hidden: {mode}'
+  status_hide_index_desc: Hidden from home
+  status_hide_all_desc: Hidden everywhere
 
 accessibility:
   open_nav: Open navigation

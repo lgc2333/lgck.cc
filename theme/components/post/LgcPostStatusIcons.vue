@@ -3,18 +3,31 @@ import type { Post } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const props = defineProps<{
-  post: Post
-}>()
+const props = withDefaults(
+  defineProps<{
+    post: Post
+    variant?: 'overlay' | 'chip'
+    tone?: 'default' | 'on-cover'
+  }>(),
+  {
+    variant: 'overlay',
+    tone: 'default',
+  },
+)
 
 const { t } = useI18n()
 
 const draftTitle = computed(() => (props.post.draft ? t('post.status_draft') : ''))
+const draftDesc = computed(() => (props.post.draft ? t('post.status_draft_desc') : ''))
 
-const hideTitle = computed(() => {
+const hideMode = computed(() => {
   if (!props.post.hide) return ''
-  const mode = props.post.hide === true ? 'all' : String(props.post.hide)
-  return t('post.status_hide', { mode })
+  return props.post.hide === 'index' ? 'index' : 'all'
+})
+const hideTitle = computed(() => {
+  if (hideMode.value === 'index') return t('post.status_hide_index_desc')
+  if (hideMode.value === 'all') return t('post.status_hide_all_desc')
+  return ''
 })
 
 const pinnedTitle = computed(() => {
@@ -22,12 +35,24 @@ const pinnedTitle = computed(() => {
   if (!top) return ''
   return t('post.status_pinned', { n: top })
 })
+const pinnedDesc = computed(() =>
+  Number(props.post.top || 0) ? t('post.status_pinned_desc') : '',
+)
 
+const hasDraftStatus = computed(() => Boolean(props.post.draft))
+const hasHideStatus = computed(() => Boolean(props.post.hide))
+const hasPinnedStatus = computed(() => Boolean(Number(props.post.top || 0)))
 const title = computed(() =>
   [draftTitle.value, pinnedTitle.value, hideTitle.value].filter(Boolean).join(', '),
 )
 
-const hasStatusIcons = computed(() => Boolean(title.value))
+const hasStatusIcons = computed(
+  () => hasDraftStatus.value || hasPinnedStatus.value || hasHideStatus.value,
+)
+const chipClass = computed(() => [
+  'lgc-post-meta-chip',
+  props.tone === 'on-cover' ? 'is-on-cover' : '',
+])
 
 /** Yun: hide:index uses a softer eye icon than full hide. */
 const hideIconClass = computed(() =>
@@ -38,8 +63,43 @@ const hideIconClass = computed(() =>
 </script>
 
 <template>
+  <template v-if="hasStatusIcons && variant === 'chip'">
+    <span
+      v-if="hasDraftStatus"
+      class="is-status"
+      :class="chipClass"
+      :title="draftTitle"
+      :aria-label="draftTitle"
+      role="img"
+    >
+      <span i-material-symbols-contract-edit-rounded aria-hidden="true" />
+      <span>{{ draftDesc }}</span>
+    </span>
+    <span
+      v-if="hasPinnedStatus"
+      class="is-status"
+      :class="chipClass"
+      :title="pinnedTitle"
+      :aria-label="pinnedTitle"
+      role="img"
+    >
+      <span i-ic-round-push-pin rotate-45 aria-hidden="true" />
+      <span>{{ pinnedDesc }}</span>
+    </span>
+    <span
+      v-if="hasHideStatus"
+      class="is-status"
+      :class="chipClass"
+      :title="hideTitle"
+      :aria-label="hideTitle"
+      role="img"
+    >
+      <span :class="[hideIconClass]" aria-hidden="true" />
+      <span>{{ hideTitle }}</span>
+    </span>
+  </template>
   <div
-    v-if="hasStatusIcons"
+    v-else-if="hasStatusIcons"
     class="lgc-post-status-icons"
     flex="~ col"
     absolute
@@ -50,19 +110,19 @@ const hideIconClass = computed(() =>
     :title="title"
   >
     <span
-      v-if="post.draft"
+      v-if="hasDraftStatus"
       class="lgc-post-status-icon is-draft bg-$md-sys-color-on-secondary-container"
       i-material-symbols-contract-edit-rounded
       aria-hidden="true"
     />
     <span
-      v-if="post.top"
+      v-if="hasPinnedStatus"
       class="lgc-post-status-icon is-pinned bg-$md-sys-color-primary-container rotate-45 dark:bg-$md-sys-color-primary"
       i-ic-round-push-pin
       aria-hidden="true"
     />
     <span
-      v-if="post.hide"
+      v-if="hasHideStatus"
       class="lgc-post-status-icon is-hidden bg-$md-sys-color-on-tertiary dark:bg-$md-sys-color-tertiary"
       :class="[hideIconClass]"
       aria-hidden="true"

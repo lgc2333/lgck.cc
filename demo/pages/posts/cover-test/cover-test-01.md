@@ -3,11 +3,11 @@ title:
   zh-CN: 封面测试 01：清晨的提交
   en: 'Cover Test 01: Morning Commit'
 date: 2020-07-01
-categories:
-  - demo
-tags:
-  - cover
-  - test
+# categories:
+#   - demo
+# tags:
+#   - cover
+#   - test
 cover: https://cdn.yunyoujun.cn/img/bg/girl-in-water-tank.webp
 ---
 

@@ -1,15 +1,26 @@
 // Shared post meta chip chrome. Residual: geometric pill (half min-height),
 // color-mix tones, multi-duration transition, classic transform.
 .lgc-post-meta-chip {
+  --lgc-meta-chip-text-color: var(--md-sys-color-on-secondary-container);
+  --lgc-meta-chip-bg-color: var(--md-sys-color-secondary-container);
+  --lgc-meta-chip-on-cover-mix-text-color: var(--md-sys-color-on-primary);
+  --lgc-meta-chip-on-cover-mix-bg-color: transparent;
+
   // leading-none: parent row may set leading-[1.4]; inherited line-height makes
   // label+icon read optically high inside the min-height pill.
   // pt-px: slight optical nudge down for CJK/latin + Material icon metrics.
   @apply 'inline-flex items-center gap-[2px] min-h-$lgc-meta-chip-min-height leading-none';
-  @apply 'px-$lgc-space-md pt-px text-$md-sys-color-on-secondary-container';
-  @apply 'text-size-$lgc-label-small font-700 bg-$md-sys-color-secondary-container no-underline';
+  @apply 'px-$lgc-space-md pt-px text-$lgc-meta-chip-text-color';
+  @apply 'text-size-$lgc-label-small font-700 bg-$lgc-meta-chip-bg-color no-underline';
   // Do NOT use radius-full (999) -- hover morph to control-morph (18) stays >=
   // half of 32px chips, so the shape change is invisible.
   border-radius: calc(var(--lgc-meta-chip-min-height) / 2);
+}
+
+.lgc-post-meta-chip.is-status {
+  --lgc-meta-chip-text-color: var(--md-sys-color-on-primary);
+  --lgc-meta-chip-bg-color: var(--md-sys-color-primary);
+  --lgc-meta-chip-on-cover-mix-text-color: var(--md-sys-color-secondary-container);
 }
 
 .lgc-post-meta-chip.is-link {
@@ -27,8 +38,8 @@
     transform: translateY(-1px);
     background: color-mix(
       in srgb,
-      var(--md-sys-color-secondary-container) 88%,
-      var(--md-sys-color-on-secondary-container)
+      var(--lgc-meta-chip-bg-color) 88%,
+      var(--lgc-meta-chip-text-color)
     );
   }
 
@@ -41,13 +52,13 @@
 .lgc-post-meta-chip.is-on-cover {
   color: color-mix(
     in srgb,
-    var(--md-sys-color-on-secondary-container) 88%,
-    var(--md-sys-color-on-primary)
+    var(--lgc-meta-chip-text-color) 88%,
+    var(--lgc-meta-chip-on-cover-mix-text-color)
   );
   background: color-mix(
     in srgb,
-    var(--md-sys-color-secondary-container) 78%,
-    transparent
+    var(--lgc-meta-chip-bg-color) 78%,
+    var(--lgc-meta-chip-on-cover-mix-bg-color)
   );
 }
 
@@ -55,13 +66,13 @@
 .lgc-post-meta-chip.is-on-cover.is-link:focus-visible {
   color: color-mix(
     in srgb,
-    var(--md-sys-color-on-secondary-container) 92%,
-    var(--md-sys-color-on-primary)
+    var(--lgc-meta-chip-text-color) 92%,
+    var(--lgc-meta-chip-on-cover-mix-text-color)
   );
   border-radius: var(--lgc-radius-md);
   background: color-mix(
     in srgb,
-    var(--md-sys-color-secondary-container) 88%,
-    transparent
+    var(--lgc-meta-chip-bg-color) 88%,
+    var(--lgc-meta-chip-on-cover-mix-bg-color)
   );
 }

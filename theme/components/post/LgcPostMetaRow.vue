@@ -13,6 +13,7 @@ import {
 
 const props = withDefaults(
   defineProps<{
+    post?: Post
     categories?: Post['categories']
     collections?: PostCollectionInfo[]
     tags?: Post['tags']
@@ -67,8 +68,12 @@ const readingTimeText = computed(() => {
   return t('statistics.reading_time', { n: props.readingTime })
 })
 const tagItems = computed(() => normalizePostListValue(props.tags))
+const hasStatusIcons = computed(() =>
+  Boolean(props.post?.draft || props.post?.hide || Number(props.post?.top || 0)),
+)
 const hasMeta = computed(
   () =>
+    hasStatusIcons.value ||
     Boolean(createdText.value) ||
     Boolean(updatedText.value) ||
     Boolean(wordCountText.value) ||
@@ -81,6 +86,7 @@ const hasMeta = computed(
 
 <template>
   <div v-if="hasMeta" class="lgc-post-meta" leading="[1.4]" :class="rowClass">
+    <LgcPostStatusIcons v-if="post" :post="post" variant="chip" :tone="tone" />
     <span v-if="createdText" :class="tagClass" :title="createdTitle">
       <span i-material-symbols-calendar-month-outline-rounded aria-hidden="true" />
       <time :datetime="createdText">{{ createdText }}</time>

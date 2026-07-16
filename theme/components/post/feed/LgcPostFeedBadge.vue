@@ -1,13 +1,17 @@
 <script setup lang="ts">
-defineProps<{
-  day: string
-  rest: string
-  datetime: string
-}>()
+withDefaults(
+  defineProps<{
+    as?: 'div' | 'time'
+  }>(),
+  {
+    as: 'div',
+  },
+)
 </script>
 
 <template>
-  <time
+  <component
+    :is="as"
     class="lgc-post-date-badge"
     flex="~ col items-center justify-center"
     w="[84px] sm:[96px]"
@@ -16,9 +20,10 @@ defineProps<{
     rounded="$lgc-radius-large"
     text="$md-sys-color-on-primary-container"
     bg="$md-sys-color-primary-container"
-    :datetime="datetime"
   >
-    <strong text="size-$lgc-date-badge-day" leading-none>{{ day }}</strong>
+    <span text="size-$lgc-date-badge-day" leading-none>
+      <slot />
+    </span>
     <span
       mt="$lgc-space-xs"
       text="size-$lgc-label-small"
@@ -26,7 +31,7 @@ defineProps<{
       tracking="[0.08em]"
       uppercase
     >
-      {{ rest }}
+      <slot name="label" />
     </span>
-  </time>
+  </component>
 </template>

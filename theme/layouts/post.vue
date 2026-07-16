@@ -86,7 +86,7 @@ function stripTrailingSlash(path: string) {
       <RouterView v-slot="{ Component }">
         <component :is="Component">
           <template #main-header-after>
-            <LgcCollectionExpandCard
+            <LgcCollectionHintCard
               v-if="hasCollectionContext"
               :collection="activeCollection"
             />

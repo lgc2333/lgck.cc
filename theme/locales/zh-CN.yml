@@ -47,8 +47,12 @@ post:
   encrypt_again: 重新加密
   outline: 文章目录
   status_draft: 草稿
+  status_draft_desc: 草稿
   status_pinned: '置顶: {n}'
+  status_pinned_desc: 置顶
   status_hide: '隐藏: {mode}'
+  status_hide_index_desc: 首页隐藏
+  status_hide_all_desc: 全局隐藏
 
 accessibility:
   open_nav: 打开导航

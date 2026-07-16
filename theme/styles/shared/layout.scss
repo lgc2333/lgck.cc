@@ -5,7 +5,7 @@
   padding-top: var(--content-pad-top);
 }
 
-@screen sm {
+@screen md {
   .lgc-content-under-header {
     --content-pad-top: calc(var(--lgc-header-height) + var(--lgc-space-3xl));
   }

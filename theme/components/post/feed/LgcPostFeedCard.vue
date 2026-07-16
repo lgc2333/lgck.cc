@@ -60,6 +60,9 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
     :mask="coverContentMask"
     :position="coverContentPosition"
     :title="collection ? collectionTitle : title"
+    :title-class="collection ? '' : postTitleClass"
+    :title-kind="collection ? 'collection' : 'post'"
+    :title-to="collection ? collectionPath : postPath"
     :variant="cardVariant"
   >
     <template #status>
@@ -67,79 +70,38 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
     </template>
 
     <template #corner>
-      <LgcCollectionFeedBadge v-if="collection" />
-      <LgcPostDateBadge v-else v-bind="date" />
-    </template>
-
-    <template v-if="collection" #title>
-      <LgcCollectionFeedContent
-        :collection="collection"
-        :description="collectionDescription"
-        part="title"
-        :path="collectionPath"
-        :title="collectionTitle"
-      />
-    </template>
-
-    <template v-else #title>
-      <LgcPostFeedCardDetails
-        part="title"
-        :categories="post.categories"
-        :collections="postCollections"
-        :excerpt="post.excerpt"
-        :excerpt-type="post.excerpt_type"
-        :path="postPath"
-        :tags="tags"
-        :title="title"
-        :title-class="postTitleClass"
-      />
+      <LgcPostFeedBadge
+        v-if="collection"
+        role="img"
+        :aria-label="t('collection.badge')"
+      >
+        <div i-material-symbols-auto-stories-rounded aria-hidden="true" />
+        <template #label>
+          {{ t('collection.badge') }}
+        </template>
+      </LgcPostFeedBadge>
+      <LgcPostFeedBadge v-else as="time" :datetime="date.datetime">
+        <strong>{{ date.day }}</strong>
+        <template #label>
+          {{ date.rest }}
+        </template>
+      </LgcPostFeedBadge>
     </template>
 
     <template #content>
       <LgcCollectionFeedContent
         v-if="collection"
-        :align="coverContentPosition"
         :collection="collection"
         :description="collectionDescription"
-        :mask="coverContentMask"
-        :part="cardVariant === 'cover' ? 'all' : 'body'"
-        :path="collectionPath"
-        :surface="cardVariant === 'cover' ? 'cover' : 'plain'"
-        :title="collectionTitle"
       />
-
       <LgcPostFeedCardDetails
         v-else
-        :cover-align="coverContentPosition"
-        :cover-mask="coverContentMask"
-        :part="cardVariant === 'cover' ? 'all' : 'body'"
-        :surface="cardVariant === 'cover' ? 'cover' : 'default'"
-        tags-desktop-only
         :categories="post.categories"
         :collections="postCollections"
         :excerpt="post.excerpt"
         :excerpt-type="post.excerpt_type"
-        :path="postPath"
         :tags="tags"
-        :title="title"
-        :title-class="postTitleClass"
       />
-    </template>
-
-    <template v-if="!collection" #below>
-      <div
-        v-if="post.categories || tags.length || postCollections.length"
-        class="col-span-full"
-        flex="~ wrap"
-        gap="$lgc-space-sm"
-        sm="hidden"
-      >
-        <LgcTaxonomyChips
-          :categories="post.categories"
-          :collections="postCollections"
-          :tags="tags"
-        />
-      </div>
     </template>
 
     <template #action>

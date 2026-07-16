@@ -55,7 +55,7 @@ Before implementing theme features, first inspect how the default theme `valaxy-
 
 ### Engineering
 
-- Prefer thoughtful refactors when tiny patches would create spaghetti code.
+- IMPORTANT: Prefer aggressive refactors, active code cleanup, and bold structure/architecture changes; do not keep legacy compatibility by default unless the user explicitly asks. Tiny patches create spaghetti code.
 - Keep dependency versions centralized in the workspace catalog unless a package truly needs an exception.
 - Full-project Prettier formatting churn is acceptable; keep formatter output instead of reverting it as noise.
 - If formatter output conflicts with an ESLint style rule, keep the formatter result and disable the conflicting ESLint rule in `eslint.config.mjs`.

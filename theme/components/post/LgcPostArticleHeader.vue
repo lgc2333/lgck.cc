@@ -34,6 +34,13 @@ const titleColorStyle = computed(() =>
 const showPostMeta = computed(() => isPostMetaLayout(route.meta.layout))
 const postPath = computed(() => props.frontmatter.path || route.path)
 const postCollections = usePostCollections(postPath)
+const hasStatusIcons = computed(() =>
+  Boolean(
+    props.frontmatter.draft ||
+    props.frontmatter.hide ||
+    Number(props.frontmatter.top || 0),
+  ),
+)
 
 const hasMeta = computed(() => {
   if (!showPostMeta.value) return false
@@ -42,6 +49,7 @@ const hasMeta = computed(() => {
     Boolean(siteConfig.value.statistics?.enable) &&
     (Boolean(fm.wordCount) || Boolean(fm.readingTime))
   return Boolean(
+    hasStatusIcons.value ||
     fm.date ||
     shouldShowPostUpdated(fm.date, fm.updated) ||
     fm.categories ||
@@ -116,6 +124,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
         <LgcPostMetaRow
           align="center"
           tone="on-cover"
+          :post="frontmatter"
           :categories="frontmatter.categories"
           :collections="postCollections"
           :created="frontmatter.date"
@@ -132,7 +141,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
     v-else-if="hasHeaderContent"
     justify-items="center"
     gap="$lgc-space-md"
-    pt="$lgc-space-2xl lg:$lgc-space-4xl"
+    pt="$lgc-space-2xl"
     pb="$lgc-space-3xl"
     text-center
     grid
@@ -170,6 +179,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
     <div v-if="hasMeta" :aria-label="t('accessibility.post_metadata')">
       <LgcPostMetaRow
         align="center"
+        :post="frontmatter"
         :categories="frontmatter.categories"
         :collections="postCollections"
         :created="frontmatter.date"
