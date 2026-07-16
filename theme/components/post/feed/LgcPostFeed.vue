@@ -106,62 +106,40 @@ function collectionToPost(collection: CollectionConfig): Post {
 </script>
 
 <template>
-  <section
+  <LgcIndexSection
     id="posts"
-    scroll-mt="$lgc-space-lg"
     :aria-label="
       source === 'collections' ? t('accessibility.collections') : t('menu.posts')
     "
+    :flush="flush"
+    heading="h2"
+    :label="feedLabel"
+    :surface="false"
+    :title="feedTitle"
   >
-    <div
-      grid
-      box-border
-      w="full"
-      max-w="$lgc-container-reading"
-      gap="$lgc-space-lg"
-      class="mx-auto pb-$lgc-space-3xl sm:py-$lgc-space-4xl"
-      :class="flush ? 'px-0' : 'px-$lgc-space-lg sm:px-$lgc-space-2xl'"
+    <template v-if="posts.length">
+      <LgcPostFeedCard v-for="post in posts" :key="post.path" :post="post" />
+    </template>
+    <p
+      v-else
+      class="text-$md-sys-color-on-surface-variant"
+      m="0"
+      p="$lgc-space-2xl"
+      rounded="$lgc-radius-large"
+      bg="$md-sys-color-surface-container"
     >
-      <div flex="~ items-end justify-between" mb="$lgc-space-sm" gap="$lgc-space-lg">
-        <div>
-          <p
-            class="text-size-$lgc-body-small text-$md-sys-color-primary"
-            m="0"
-            font="800"
-            aria-hidden="true"
-          >
-            {{ feedLabel }}
-          </p>
-          <h2 class="text-size-$lgc-headline-large leading-tight font-900 m-0">
-            {{ feedTitle }}
-          </h2>
-        </div>
-      </div>
+      {{ emptyText }}
+    </p>
 
-      <template v-if="posts.length">
-        <LgcPostFeedCard v-for="post in posts" :key="post.path" :post="post" />
-      </template>
-      <p
-        v-else
-        class="text-$md-sys-color-on-surface-variant"
-        m="0"
-        p="$lgc-space-2xl"
-        rounded="$lgc-radius-large"
-        bg="$md-sys-color-surface-container"
-      >
-        {{ emptyText }}
-      </p>
-
-      <LgcPostPagination
-        v-if="paginate && totalPages > 1"
-        :current-page="curPage"
-        :next-to="nextTo"
-        :pages="paginationPages"
-        :prev-to="prevTo"
-        :show-next="showNext"
-        :show-prev="showPrev"
-        :total-pages="totalPages"
-      />
-    </div>
-  </section>
+    <LgcPostPagination
+      v-if="paginate && totalPages > 1"
+      :current-page="curPage"
+      :next-to="nextTo"
+      :pages="paginationPages"
+      :prev-to="prevTo"
+      :show-next="showNext"
+      :show-prev="showPrev"
+      :total-pages="totalPages"
+    />
+  </LgcIndexSection>
 </template>

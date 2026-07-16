@@ -17,8 +17,8 @@ If an M3 Expressive decision is unclear, check official refs before implementing
 - `App.vue`: theme shell (`LgcLoading`)
 - `client/`: user-facing exports; `node/`: defaults/material colors/safelist; `node/vite/`: Vite plugins (fonts, material colors CSS, loading bootstrap, Giscus theme/font CSS)
 - `types/index.ts`: public theme config + Valaxy augmentation (`PostFrontMatter`, `DefaultTheme`, `*.ttf`)
-- `components/`: auto-registered; `ValaxyApp` / `ValaxyMain` / `layout` override slots stay at root; cross-surface primitives like `LgcSideDrawer` / `LgcPrevNextNav` stay root-level; other `Lgc*` grouped by surface (`header/`, `landing/`, `floating/`, `loading/`, `search/`, `post/`, `collection/`)
-- `layouts/`: default, home, post, 404
+- `components/`: auto-registered; `ValaxyApp` / `ValaxyMain` / `layout` override slots stay at root; cross-surface primitives like `LgcSideDrawer` / `LgcPrevNextNav` stay root-level; other `Lgc*` grouped by surface (`header/`, `landing/`, `floating/`, `loading/`, `search/`, `index/`, `category/`, `post/`, `collection/`)
+- `layouts/`: default, home, post, collection(s), categories, 404
 - `composables/`: config, header, language motion, search
 - `utils/`: locale, post, routes, repo URLs, search text, M3 loading
 - `styles/`: global SCSS + tokens (`index.ts` → fonts + `index.scss`); `styles/shared/*` owns cross-component recipes only (control reset/state in `control.scss`; one-off card/action chrome stays component-local); `styles/giscus/` owns Giscus iframe theme CSS
@@ -38,7 +38,8 @@ Valaxy blog: landing home, floating header, unified search, post feed/layouts, f
 - `LgcLandingHome.vue`: first viewport + optional posts
 - Header: `LgcHeader` / `LgcHeaderActions` / `LgcHeaderDrawer` shell with `LgcHeaderDrawerNav` + `LgcHeaderDrawerSettings` / `LgcHeaderLink`
 - Search: `LgcUnifiedSearch` + `composables/search*.ts` (local/fuse/Algolia); field/preview/panel use `LgcUnifiedSearchResultList`
-- `ValaxyMain.vue`: post shell — `main-header` full `layout-inner` width; body/nav/comment in `.lgc-main-reading` (`--lgc-container-reading`); collection pages stack collection nav + TOC in the right aside at lg and split collection left / TOC right at xl. Pieces: `LgcPostArticleHeader`, `LgcPostContentAfter/Sponsor/Aside/Outline/OutlineAction`, `LgcPostCoverFrame`, `LgcPostMetaRow`, `LgcTaxonomyChips`, `LgcPostFeed*`, `LgcPrevNextNav`, pagination
+- Index pages: `LgcIndexSection` owns shared section/header/container chrome for posts, categories, and future tags/archive layouts; category tree behavior/rendering lives in `LgcCategoryTree`
+- `ValaxyMain.vue`: post shell — `main-header` full `layout-inner` width; body/nav/comment in `.lgc-main-reading` (`--lgc-container-main`); collection pages stack collection nav + TOC in the right aside at lg and split collection left / TOC right at xl. Pieces: `LgcPostArticleHeader`, `LgcPostContentAfter/Sponsor/Aside/Outline/OutlineAction`, `LgcPostCoverFrame`, `LgcPostMetaRow`, `LgcTaxonomyChips`, `LgcPostFeed*`, `LgcPrevNextNav`, pagination
 - Collections: `layouts/collections.vue` reuses `LgcPostFeed source="collections"`; `layouts/collection.vue` reuses `layouts/post.vue` with the `collection` prop; `components/collection/LgcCollection*` own collection article navigation. Feed collapsed cards use the same post-card frame. Collection nav opens from a mobile floating action drawer below lg, stacks with TOC at lg, and moves left at xl; sticky asides must stay height-limited.
 - Loading: `LgcLoading*` + `utils/m3-loading-indicator/`
 - `utils/pagination.ts`, `utils/post.ts` (dates/locale)

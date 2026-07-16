@@ -7,8 +7,6 @@ import ValaxyThemeApp from '/@valaxyjs/ThemeAppVue'
 import ValaxyUserApp from '/@valaxyjs/UserAppVue'
 import { useLayout, useValaxyApp } from 'valaxy'
 
-import { getRouteContentKey } from '../utils/route'
-
 const layout = useLayout()
 
 if (layout.value !== 'empty') {
@@ -26,7 +24,7 @@ if (layout.value !== 'empty') {
   <RouterView v-slot="{ Component, route }">
     <!-- Duration owned by CSS `--lgc-motion-medium` on `.lgc-page-*` (transitionend). -->
     <Transition name="lgc-page" mode="out-in">
-      <component :is="Component" :key="getRouteContentKey(route.fullPath)" />
+      <component :is="Component" :key="route.path" />
     </Transition>
   </RouterView>
 </template>

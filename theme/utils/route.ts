@@ -2,10 +2,6 @@ import type { HeaderActivePathRewrite } from '../types'
 
 export type RouteActiveMatch = 'exact' | 'prefix'
 
-export function getRouteContentKey(fullPath: string) {
-  return fullPath.split('#', 1)[0]
-}
-
 export function isRouteLinkActive(
   currentPath: string,
   targetLink: string,

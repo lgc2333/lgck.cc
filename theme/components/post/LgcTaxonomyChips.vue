@@ -4,7 +4,8 @@ import { useValaxyI18n } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { normalizePostCategoryQuery, normalizePostListValue } from '../../utils/post'
+import { normalizePostListValue } from '../../utils/post'
+import { categoryRouteLocation } from '../../utils/taxonomy'
 
 const props = withDefaults(
   defineProps<{
@@ -48,7 +49,6 @@ const collectionItems = computed(() =>
     })
     .filter((item) => item.path),
 )
-const categoryQuery = computed(() => normalizePostCategoryQuery(props.categories))
 const categoryLabel = computed(() => {
   if (!props.categories) return ''
   if (Array.isArray(props.categories))
@@ -70,7 +70,7 @@ const tagItems = computed(() =>
     v-if="categoryLabel"
     class="is-link"
     :class="tagClass"
-    :to="{ path: '/categories', query: { category: categoryQuery } }"
+    :to="categoryRouteLocation(categories)"
   >
     <span i-material-symbols-folder-outline-rounded aria-hidden="true" />
     <span>{{ categoryLabel }}</span>

@@ -12,11 +12,6 @@ export function normalizePostListValue(value: unknown) {
   return [String(value)].filter(Boolean)
 }
 
-/** Category query string for /categories?category=… (Yun-compatible). */
-export function normalizePostCategoryQuery(value: unknown) {
-  return normalizePostListValue(value).join('/')
-}
-
 const LOCALE_PREFIX = '$locale:'
 
 /**
