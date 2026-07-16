@@ -1,14 +1,20 @@
 <script setup lang="ts">
+import type { CollectionConfig } from 'valaxy'
 import { useCollection, useValaxyI18n } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+const props = defineProps<{
+  collection?: CollectionConfig
+}>()
+
 const { t } = useI18n()
 const { $tO } = useValaxyI18n()
-const { collection } = useCollection()
+const { collection: routeCollection } = useCollection()
 
+const activeCollection = computed(() => props.collection || routeCollection.value)
 const collectionTitle = computed(
-  () => $tO(collection.value?.title || '') || t('collection.badge'),
+  () => $tO(activeCollection.value?.title || '') || t('collection.badge'),
 )
 </script>
 

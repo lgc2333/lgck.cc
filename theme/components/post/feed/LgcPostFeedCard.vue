@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Post } from 'valaxy'
+import { usePostCollections } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -22,6 +23,7 @@ const date = computed(() => formatPostDateParts(props.post.date))
 const tags = computed(() => normalizePostListValue(props.post.tags))
 const title = computed(() => normalizeLocaleText(props.post.title, locale.value, t))
 const postPath = computed(() => props.post.path || '')
+const postCollections = usePostCollections(postPath)
 const postTitleClass = computed(() => props.post.postTitleClass || '')
 const postUrl = computed(() => props.post.url || '')
 const collection = computed(() => props.post._collection)
@@ -83,6 +85,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
       <LgcPostFeedCardDetails
         part="title"
         :categories="post.categories"
+        :collections="postCollections"
         :excerpt="post.excerpt"
         :excerpt-type="post.excerpt_type"
         :path="postPath"
@@ -113,6 +116,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
         :surface="cardVariant === 'cover' ? 'cover' : 'default'"
         tags-desktop-only
         :categories="post.categories"
+        :collections="postCollections"
         :excerpt="post.excerpt"
         :excerpt-type="post.excerpt_type"
         :path="postPath"
@@ -124,13 +128,17 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
 
     <template v-if="!collection" #below>
       <div
-        v-if="post.categories || tags.length"
+        v-if="post.categories || tags.length || postCollections.length"
         class="col-span-full"
         flex="~ wrap"
         gap="$lgc-space-sm"
         sm="hidden"
       >
-        <LgcTaxonomyChips :categories="post.categories" :tags="tags" />
+        <LgcTaxonomyChips
+          :categories="post.categories"
+          :collections="postCollections"
+          :tags="tags"
+        />
       </div>
     </template>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Post } from 'valaxy'
+import type { Post, PostCollectionInfo } from 'valaxy'
 import { useSiteConfig } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -14,6 +14,7 @@ import {
 const props = withDefaults(
   defineProps<{
     categories?: Post['categories']
+    collections?: PostCollectionInfo[]
     tags?: Post['tags']
     created?: string | number | Date
     updated?: string | number | Date
@@ -25,6 +26,7 @@ const props = withDefaults(
   {
     tone: 'default',
     align: 'start',
+    collections: () => [],
   },
 )
 
@@ -71,6 +73,7 @@ const hasMeta = computed(
     Boolean(updatedText.value) ||
     Boolean(wordCountText.value) ||
     Boolean(readingTimeText.value) ||
+    props.collections.length > 0 ||
     Boolean(props.categories) ||
     tagItems.value.length > 0,
 )
@@ -94,6 +97,11 @@ const hasMeta = computed(
       <span i-material-symbols-timer-outline-rounded aria-hidden="true" />
       <time>{{ readingTimeText }}</time>
     </span>
-    <LgcTaxonomyChips :categories="categories" :tags="tags" :tone="tone" />
+    <LgcTaxonomyChips
+      :categories="categories"
+      :collections="collections"
+      :tags="tags"
+      :tone="tone"
+    />
   </div>
 </template>

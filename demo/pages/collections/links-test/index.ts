@@ -9,7 +9,7 @@ export default defineCollection({
     { title: '第一章 开始', key: '1' },
     { title: 'Valaxy 官网', link: 'https://valaxy.site' },
     { title: '第二章 旅途', key: '2' },
-    { title: 'Hello Valaxy', link: '/posts/hello-valaxy' },
+    { title: 'Hello Valaxy', link: '/posts/status-icon-test/hello-valaxy' },
     { title: '第三章 终点', key: '3' },
   ],
 })

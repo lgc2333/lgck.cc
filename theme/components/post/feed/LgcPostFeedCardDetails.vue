@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { Post } from 'valaxy'
+import type { Post, PostCollectionInfo } from 'valaxy'
 import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
     categories?: Post['categories']
+    collections?: PostCollectionInfo[]
     excerpt?: string
     excerptType?: string
     path: string
@@ -52,7 +53,12 @@ const excerptClass = computed(() => {
 
 const tagsClass = computed(() => [props.tagsDesktopOnly ? 'is-desktop-only' : ''])
 
-const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.length > 0)
+const hasTaxonomies = computed(
+  () =>
+    Boolean(props.categories) ||
+    props.tags.length > 0 ||
+    Boolean(props.collections?.length),
+)
 </script>
 
 <template>
@@ -86,7 +92,11 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
       flex="~ wrap"
       gap="$lgc-space-sm"
     >
-      <LgcTaxonomyChips :categories="categories" :tags="tags" />
+      <LgcTaxonomyChips
+        :categories="categories"
+        :collections="collections"
+        :tags="tags"
+      />
     </div>
   </div>
 
@@ -121,7 +131,11 @@ const hasTaxonomies = computed(() => Boolean(props.categories) || props.tags.len
       flex="~ wrap"
       gap="$lgc-space-sm"
     >
-      <LgcTaxonomyChips :categories="categories" :tags="tags" />
+      <LgcTaxonomyChips
+        :categories="categories"
+        :collections="collections"
+        :tags="tags"
+      />
     </div>
   </div>
 </template>

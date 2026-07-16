@@ -67,7 +67,7 @@ Valaxy blog: landing home, floating header, unified search, post feed/layouts, f
 - Articles: calm, readable, stable type
 - Chips / dates / nav / pagination = one control family
 - Covers stay legible on mobile and image-heavy posts
-- Post meta uses direct presenters: `LgcPostMetaRow` for article metadata, `LgcTaxonomyChips` for category/tag chips; shared chip chrome lives in `styles/shared/post-meta.scss`
+- Post meta uses direct presenters: `LgcPostMetaRow` for article metadata and `LgcTaxonomyChips` for collection/category/tag chips; shared chip chrome lives in `styles/shared/post-meta.scss`
 
 ## Avatar
 

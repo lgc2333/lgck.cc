@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { useCollection, useFrontmatter, useOutline, usePostList } from 'valaxy'
+import {
+  useCollection,
+  useFrontmatter,
+  useOutline,
+  usePostCollections,
+  usePostList,
+} from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
@@ -19,7 +25,7 @@ const route = useRoute()
 const { t } = useI18n()
 const frontmatter = useFrontmatter()
 const posts = usePostList()
-const { collection } = useCollection()
+const { collection: routeCollection } = useCollection()
 const { headers } = useOutline()
 
 const showArticleNav = computed(() => frontmatter.value.nav !== false)
@@ -34,9 +40,26 @@ const currentIndex = computed(() => posts.value.findIndex((p) => p.path === rout
 const nextPost = computed(() => posts.value[currentIndex.value - 1])
 const prevPost = computed(() => posts.value[currentIndex.value + 1])
 const { next: postNext, prev: postPrev } = usePostPrevNextItems(prevPost, nextPost)
+const routePath = computed(() => route.path)
+const postCollections = usePostCollections(routePath)
+const routeCollectionInfo = computed(() => {
+  const collectionKey = routeCollection.value?.key
+  if (collectionKey) {
+    return postCollections.value.find((item) => item.collection.key === collectionKey)
+  }
+
+  return postCollections.value[0]
+})
+const activeCollection = computed(() => {
+  if (props.collection) return routeCollection.value
+  return routeCollectionInfo.value?.collection
+})
+const hasCollectionContext = computed(() => Boolean(activeCollection.value))
 const currentCollectionItemIndex = computed(() => {
-  const items = collection.value?.items
-  if (!props.collection || !items?.length) return -1
+  if (routeCollectionInfo.value) return routeCollectionInfo.value.itemIndex
+
+  const items = activeCollection.value?.items
+  if (!items?.length) return -1
 
   const path = stripTrailingSlash(route.path)
   const slug = path.split('/').pop()
@@ -48,7 +71,7 @@ const currentCollectionItemIndex = computed(() => {
   })
 })
 const { next: collectionNext, prev: collectionPrev } = useCollectionPrevNextItems(
-  collection,
+  activeCollection,
   currentCollectionItemIndex,
 )
 
@@ -63,7 +86,10 @@ function stripTrailingSlash(path: string) {
       <RouterView v-slot="{ Component }">
         <component :is="Component">
           <template #main-header-after>
-            <LgcCollectionExpandCard v-if="props.collection" />
+            <LgcCollectionExpandCard
+              v-if="hasCollectionContext"
+              :collection="activeCollection"
+            />
           </template>
 
           <template #main-content-after>
@@ -73,7 +99,9 @@ function stripTrailingSlash(path: string) {
           <template #main-nav>
             <LgcPrevNextNav
               v-if="
-                props.collection && showArticleNav && currentCollectionItemIndex >= 0
+                hasCollectionContext &&
+                showArticleNav &&
+                currentCollectionItemIndex >= 0
               "
               :next="collectionNext"
               :prev="collectionPrev"
@@ -88,7 +116,7 @@ function stripTrailingSlash(path: string) {
           </template>
 
           <template #aside>
-            <template v-if="props.collection">
+            <template v-if="hasCollectionContext">
               <div
                 class="lgc-post-aside lgc-post-aside-stack hidden! lg:grid! xl:hidden!"
                 :class="{ 'has-post-toc': showPostToc }"
@@ -101,7 +129,7 @@ function stripTrailingSlash(path: string) {
                 <LgcCollectionAside
                   embedded
                   :collapsible="showPostToc"
-                  :collection="collection"
+                  :collection="activeCollection"
                   :current-index="currentCollectionItemIndex"
                 />
                 <LgcPostAside v-if="showPostToc" embedded />
@@ -109,7 +137,7 @@ function stripTrailingSlash(path: string) {
 
               <LgcCollectionAside
                 class="lgc-post-aside lgc-collection-post-aside hidden! xl:block!"
-                :collection="collection"
+                :collection="activeCollection"
                 :current-index="currentCollectionItemIndex"
               />
               <LgcPostAside

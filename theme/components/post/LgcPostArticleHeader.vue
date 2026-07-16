@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Post } from 'valaxy'
-import { useSiteConfig } from 'valaxy'
+import { usePostCollections, useSiteConfig } from 'valaxy'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
@@ -32,6 +32,8 @@ const titleColorStyle = computed(() =>
 
 /** Yun: article meta only on post / collection layouts. */
 const showPostMeta = computed(() => isPostMetaLayout(route.meta.layout))
+const postPath = computed(() => props.frontmatter.path || route.path)
+const postCollections = usePostCollections(postPath)
 
 const hasMeta = computed(() => {
   if (!showPostMeta.value) return false
@@ -43,6 +45,7 @@ const hasMeta = computed(() => {
     fm.date ||
     shouldShowPostUpdated(fm.date, fm.updated) ||
     fm.categories ||
+    postCollections.value.length > 0 ||
     (fm.tags && (Array.isArray(fm.tags) ? fm.tags.length : true)) ||
     stats,
   )
@@ -114,6 +117,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
           align="center"
           tone="on-cover"
           :categories="frontmatter.categories"
+          :collections="postCollections"
           :created="frontmatter.date"
           :reading-time="frontmatter.readingTime"
           :tags="frontmatter.tags"
@@ -167,6 +171,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
       <LgcPostMetaRow
         align="center"
         :categories="frontmatter.categories"
+        :collections="postCollections"
         :created="frontmatter.date"
         :reading-time="frontmatter.readingTime"
         :tags="frontmatter.tags"
