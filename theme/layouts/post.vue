@@ -81,8 +81,8 @@ function stripTrailingSlash(path: string) {
 </script>
 
 <template>
-  <Layout>
-    <div class="lgc-page-surface">
+  <LgcSiteShell>
+    <LgcPageSurface>
       <RouterView v-slot="{ Component }">
         <component :is="Component">
           <template #main-header-after>
@@ -150,6 +150,6 @@ function stripTrailingSlash(path: string) {
           </template>
         </component>
       </RouterView>
-    </div>
-  </Layout>
+    </LgcPageSurface>
+  </LgcSiteShell>
 </template>

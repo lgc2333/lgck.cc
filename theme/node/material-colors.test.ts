@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest'
 
-import { generateMaterialColorsCss } from './material-colors'
+import type { MaterialCustomColorsConfig } from '../types'
+import {
+  defaultMaterialColorsConfig,
+  generateMaterialColorsCss,
+} from './material-colors'
+
+const customColorSlots = Object.keys(defaultMaterialColorsConfig.custom)
+
+const overrideColors = ['#2196f3', '#795548', '#e91e63', '#9810fa', '#ff5722']
 
 describe('material colors', () => {
   it('generates Material system and fixed custom color tokens', () => {
@@ -11,16 +19,16 @@ describe('material colors', () => {
       /^#[0-9a-f]{6}f3$/,
     )
     expect(readToken(css, 'html.dark', '--md-sys-color-primary')).toMatchHexColor()
-    expect(readToken(css, ':root', '--md-custom-color-brown')).toMatchHexColor()
-    expect(readToken(css, ':root', '--md-custom-color-on-brown')).toMatchHexColor()
-    expect(readToken(css, ':root', '--md-custom-color-blue')).toMatchHexColor()
-    expect(readToken(css, ':root', '--md-custom-color-on-blue')).toMatchHexColor()
-    expect(
-      readToken(css, ':root', '--md-custom-color-pink-container'),
-    ).toMatchHexColor()
-    expect(
-      readToken(css, 'html.dark', '--md-custom-color-on-pink-container'),
-    ).toMatchHexColor()
+    customColorSlots.forEach((slot) => {
+      expect(readToken(css, ':root', `--md-custom-color-${slot}`)).toMatchHexColor()
+      expect(readToken(css, ':root', `--md-custom-color-on-${slot}`)).toMatchHexColor()
+      expect(
+        readToken(css, ':root', `--md-custom-color-${slot}-container`),
+      ).toMatchHexColor()
+      expect(
+        readToken(css, 'html.dark', `--md-custom-color-on-${slot}-container`),
+      ).toMatchHexColor()
+    })
   })
 
   it('changes generated roles when the scheme variant changes', () => {
@@ -53,25 +61,15 @@ describe('material colors', () => {
   it('allows overriding fixed custom colors', () => {
     const defaultCss = generateMaterialColorsCss()
     const css = generateMaterialColorsCss({
-      custom: {
-        blue: { color: '#2196f3', blend: false },
-        brown: { color: '#795548', blend: false },
-        pink: { color: '#e91e63', blend: false },
-      },
+      custom: createCustomColorOverrides(),
     })
 
-    expect(readToken(css, ':root', '--md-custom-color-blue')).toMatchHexColor()
-    expect(readToken(css, ':root', '--md-custom-color-brown')).toMatchHexColor()
-    expect(readToken(css, ':root', '--md-custom-color-pink')).toMatchHexColor()
-    expect(readToken(css, ':root', '--md-custom-color-blue')).not.toBe(
-      readToken(defaultCss, ':root', '--md-custom-color-blue'),
-    )
-    expect(readToken(css, ':root', '--md-custom-color-brown')).not.toBe(
-      readToken(defaultCss, ':root', '--md-custom-color-brown'),
-    )
-    expect(readToken(css, ':root', '--md-custom-color-pink')).not.toBe(
-      readToken(defaultCss, ':root', '--md-custom-color-pink'),
-    )
+    customColorSlots.forEach((slot) => {
+      expect(readToken(css, ':root', `--md-custom-color-${slot}`)).toMatchHexColor()
+      expect(readToken(css, ':root', `--md-custom-color-${slot}`)).not.toBe(
+        readToken(defaultCss, ':root', `--md-custom-color-${slot}`),
+      )
+    })
   })
 
   it('rejects invalid config', () => {
@@ -83,6 +81,18 @@ describe('material colors', () => {
     )
   })
 })
+
+function createCustomColorOverrides(): MaterialCustomColorsConfig {
+  return Object.fromEntries(
+    customColorSlots.map((slot, index) => [
+      slot,
+      {
+        color: overrideColors[index % overrideColors.length],
+        blend: false,
+      },
+    ]),
+  ) as MaterialCustomColorsConfig
+}
 
 function readToken(css: string, selector: ':root' | 'html.dark', token: string) {
   const block = new RegExp(`${escapeRegExp(selector)} \\{(?<body>[\\s\\S]*?)\\}`).exec(

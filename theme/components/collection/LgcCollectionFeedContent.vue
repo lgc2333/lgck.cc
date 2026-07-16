@@ -23,12 +23,12 @@ const hasBody = computed(
     v-if="hasBody"
     class="lgc-collection-feed-content"
     grid
-    gap="$lgc-space-md"
+    gap="$lgc-space-sm"
     min-w="0"
   >
     <p
       v-if="description"
-      class="lgc-collection-feed-description text-size-$lgc-body-medium text-$md-sys-color-on-surface-variant"
+      class="lgc-collection-feed-description text-size-$lgc-body-small text-$md-sys-color-on-surface-variant"
       m="0"
       leading="[1.65]"
       wrap="anywhere"
@@ -40,7 +40,7 @@ const hasBody = computed(
       v-if="previewItems.length"
       class="lgc-collection-feed-chapters text-size-$lgc-body-small text-$md-sys-color-on-surface-variant"
       flex="~ wrap"
-      gap-x="$lgc-space-sm"
+      gap-x="$lgc-space-xs"
       gap-y="$lgc-space-xs"
       font="700"
     >

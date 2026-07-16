@@ -7,9 +7,9 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <Layout>
-    <section
-      class="lgc-page-surface"
+  <LgcSiteShell>
+    <LgcPageSurface
+      as="section"
       justify-items="center"
       gap="$lgc-space-2xl"
       pt="0"
@@ -79,8 +79,8 @@ const { t } = useI18n()
       >
         <RouterView />
       </div>
-    </section>
-  </Layout>
+    </LgcPageSurface>
+  </LgcSiteShell>
 </template>
 
 <style scoped lang="scss">

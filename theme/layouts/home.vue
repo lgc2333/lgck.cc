@@ -13,11 +13,11 @@ const landingEnabled = computed(() => themeConfig.value.landing?.mode !== 'disab
 <template>
   <LgcLandingHome v-if="landingEnabled && !isPage" />
 
-  <Layout v-else>
-    <div class="lgc-page-surface" grid>
+  <LgcSiteShell v-else>
+    <LgcPageSurface grid>
       <slot>
         <RouterView />
       </slot>
-    </div>
-  </Layout>
+    </LgcPageSurface>
+  </LgcSiteShell>
 </template>

@@ -5,6 +5,6 @@ collections:
   - hamster
   - love-and-peace
   - links-test
-  - empty-notes
+  # - empty-notes
   - uncollapsed-notes
 ---

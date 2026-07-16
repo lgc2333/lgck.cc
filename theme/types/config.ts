@@ -257,6 +257,7 @@ export interface MaterialCustomColorsConfig {
   blue?: Partial<MaterialCustomColorConfig>
   brown?: Partial<MaterialCustomColorConfig>
   pink?: Partial<MaterialCustomColorConfig>
+  valaxy?: Partial<MaterialCustomColorConfig>
 }
 
 export interface MaterialColorsConfig {

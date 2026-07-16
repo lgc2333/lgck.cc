@@ -36,7 +36,11 @@ type SchemeConstructor = new (
   platform?: MaterialColorPlatform,
 ) => DynamicScheme
 
-type CustomColorSlot = keyof Required<MaterialCustomColorsConfig>
+type CustomColorSlot = Extract<keyof MaterialCustomColorsConfig, string>
+type ResolvedMaterialCustomColorsConfig = Record<
+  CustomColorSlot,
+  MaterialCustomColorConfig
+>
 
 const transparentSurfaceAlpha = 'f3'
 
@@ -49,8 +53,10 @@ const transparentSurfaceRoles = new Set<MaterialColorRole>([
 ])
 
 type ResolvedMaterialColorsConfig = Omit<MaterialColorsConfig, 'custom'> & {
-  custom: Required<MaterialCustomColorsConfig>
+  custom: ResolvedMaterialCustomColorsConfig
 }
+
+const customColorSlotPattern = /^[a-z][a-z0-9-]*$/
 
 const materialColorRoles = [
   'primary',
@@ -126,6 +132,7 @@ export const defaultMaterialColorsConfig = {
     blue: { color: '#D5ECF6', blend: true },
     brown: { color: '#A0703C', blend: true },
     pink: { color: '#C87D6F', blend: true },
+    valaxy: { color: '#9810fa', blend: true },
   },
 } satisfies MaterialColorsConfig
 
@@ -171,17 +178,26 @@ function resolveMaterialColorsConfig(
 function resolveCustomColorsConfig(
   source: string,
   input: MaterialCustomColorsConfig | undefined,
-): Required<MaterialCustomColorsConfig> {
+): ResolvedMaterialCustomColorsConfig {
+  const defaults = resolveDefaultCustomColorsConfig(source)
+
+  return Object.fromEntries(
+    objectEntries(defaults).map(([slot, defaultConfig]) => [
+      slot,
+      resolveCustomColorConfig(defaultConfig, input?.[slot]),
+    ]),
+  ) as ResolvedMaterialCustomColorsConfig
+}
+
+function resolveDefaultCustomColorsConfig(
+  source: string,
+): Record<CustomColorSlot, MaterialCustomColorConfig> {
   return {
-    blue: resolveCustomColorConfig({ color: source, blend: true }, input?.blue),
-    brown: resolveCustomColorConfig(
-      defaultMaterialColorsConfig.custom.brown,
-      input?.brown,
-    ),
-    pink: resolveCustomColorConfig(
-      defaultMaterialColorsConfig.custom.pink,
-      input?.pink,
-    ),
+    ...defaultMaterialColorsConfig.custom,
+    blue: {
+      ...defaultMaterialColorsConfig.custom.blue,
+      color: source,
+    },
   }
 }
 
@@ -228,9 +244,10 @@ function validateMaterialColorsConfig(config: ResolvedMaterialColorsConfig) {
     )
   }
 
-  parseHexColor(config.custom.brown?.color, 'custom.brown.color')
-  parseHexColor(config.custom.pink?.color, 'custom.pink.color')
-  parseHexColor(config.custom.blue?.color, 'custom.blue.color')
+  objectEntries(config.custom).forEach(([slot, colorConfig]) => {
+    validateCustomColorSlot(slot)
+    parseHexColor(colorConfig.color, `custom.${slot}.color`)
+  })
 }
 
 function createScheme(
@@ -269,7 +286,7 @@ function getSchemeRoleArgb(scheme: DynamicScheme, role: MaterialColorRole) {
 }
 
 function createCustomColorLines(
-  custom: Required<MaterialCustomColorsConfig>,
+  custom: ResolvedMaterialCustomColorsConfig,
   sourceArgb: number,
 ): Record<SchemeMode, string[]> {
   return {
@@ -279,13 +296,11 @@ function createCustomColorLines(
 }
 
 function createCustomColorModeLines(
-  custom: Required<MaterialCustomColorsConfig>,
+  custom: ResolvedMaterialCustomColorsConfig,
   sourceArgb: number,
   mode: SchemeMode,
 ) {
-  return (
-    Object.entries(custom) as [CustomColorSlot, MaterialCustomColorConfig][]
-  ).flatMap(([slot, config]) => {
+  return objectEntries(custom).flatMap(([slot, config]) => {
     const group = customColor(sourceArgb, {
       name: slot,
       value: parseHexColor(config.color, `custom.${slot}.color`),
@@ -332,6 +347,20 @@ function parseHexColor(color: unknown, field: string) {
   }
 }
 
+function validateCustomColorSlot(slot: string) {
+  if (customColorSlotPattern.test(slot)) return
+
+  throw new Error(
+    `[valaxy-theme-lgcuwukii] themeConfig.colors.custom slot "${slot}" must use lowercase kebab-case.`,
+  )
+}
+
 function kebabCase(value: string) {
   return value.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()
+}
+
+function objectEntries<T extends object>(value: T) {
+  type EntryKey = Extract<keyof T, string>
+
+  return Object.entries(value) as [EntryKey, T[EntryKey]][]
 }

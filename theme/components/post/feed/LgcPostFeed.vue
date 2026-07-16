@@ -114,7 +114,6 @@ function collectionToPost(collection: CollectionConfig): Post {
     :flush="flush"
     heading="h2"
     :label="feedLabel"
-    :surface="false"
     :title="feedTitle"
   >
     <template v-if="posts.length">

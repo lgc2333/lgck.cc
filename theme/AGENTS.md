@@ -17,7 +17,7 @@ If an M3 Expressive decision is unclear, check official refs before implementing
 - `App.vue`: theme shell (`LgcLoading`)
 - `client/`: user-facing exports; `node/`: defaults/material colors/safelist; `node/vite/`: Vite plugins (fonts, material colors CSS, loading bootstrap, Giscus theme/font CSS)
 - `types/index.ts`: public theme config + Valaxy augmentation (`PostFrontMatter`, `DefaultTheme`, `*.ttf`)
-- `components/`: auto-registered; `ValaxyApp` / `ValaxyMain` / `layout` override slots stay at root; cross-surface primitives like `LgcSideDrawer` / `LgcPrevNextNav` stay root-level; other `Lgc*` grouped by surface (`header/`, `landing/`, `floating/`, `loading/`, `search/`, `index/`, `category/`, `post/`, `collection/`)
+- `components/`: auto-registered; Valaxy contract overrides `ValaxyApp` / `ValaxyMain` stay at root; shell primitives `LgcSiteShell`, `LgcPageSurface`, `LgcSideDrawer`, `LgcPrevNextNav` stay root-level; other `Lgc*` grouped by surface (`header/`, `landing/`, `floating/`, `loading/`, `search/`, `index/`, `category/`, `post/`, `collection/`)
 - `layouts/`: default, home, post, collection(s), categories, 404
 - `composables/`: config, header, language motion, search
 - `utils/`: locale, post, routes, repo URLs, search text, M3 loading
@@ -34,7 +34,8 @@ Valaxy blog: landing home, floating header, unified search, post feed/layouts, f
 
 ## Surface Map
 
-- `ValaxyApp.vue`: route transition timing; `.lgc-page-surface` animates
+- `ValaxyApp.vue`: route transition timing; `LgcPageSurface` / `.lgc-page-surface` animates
+- `LgcSiteShell`: site chrome only (fixed bg, header, content container, footer, floating actions); route layouts own page type and `LgcPageSurface`
 - `LgcLandingHome.vue`: first viewport + optional posts
 - Header: `LgcHeader` / `LgcHeaderActions` / `LgcHeaderDrawer` shell with `LgcHeaderDrawerNav` + `LgcHeaderDrawerSettings` / `LgcHeaderLink`
 - Search: `LgcUnifiedSearch` + `composables/search*.ts` (local/fuse/Algolia); field/preview/panel use `LgcUnifiedSearchResultList`

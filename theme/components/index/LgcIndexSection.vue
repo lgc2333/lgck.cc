@@ -9,14 +9,12 @@ const props = withDefaults(
     heading?: 'h1' | 'h2' | 'h3'
     id?: string
     label?: string
-    surface?: boolean
     title?: string
     titleId?: string
   }>(),
   {
     flush: false,
     heading: 'h1',
-    surface: true,
   },
 )
 
@@ -40,7 +38,6 @@ const hasHeader = computed(
 <template>
   <section
     :id="id"
-    :class="surface ? 'lgc-page-surface' : undefined"
     scroll-mt="$lgc-space-lg"
     :aria-labelledby="resolvedTitleId"
     :aria-label="resolvedTitleId ? undefined : ariaLabel"

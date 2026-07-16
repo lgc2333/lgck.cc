@@ -8,6 +8,7 @@ const props = defineProps<{
   excerpt?: string
   excerptType?: string
   tags: string[]
+  tagTone: 'default' | 'on-cover'
 }>()
 
 const shouldRenderAsTemplate = computed(() => {
@@ -46,6 +47,7 @@ const hasBody = computed(() => Boolean(props.excerpt) || hasTaxonomies.value)
         :categories="categories"
         :collections="collections"
         :tags="tags"
+        :tone="tagTone"
       />
     </div>
   </div>

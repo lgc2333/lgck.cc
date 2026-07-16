@@ -101,6 +101,7 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
         :excerpt="post.excerpt"
         :excerpt-type="post.excerpt_type"
         :tags="tags"
+        :tag-tone="cover ? 'on-cover' : 'default'"
       />
     </template>
 

@@ -140,7 +140,14 @@ const footerIconLink = computed(() => footerIcon.value?.url || themeRepository.v
       >
         <i18n-t keypath="footer.powered" tag="span">
           <span>
-            <a :href="valaxyRepository" target="_blank" rel="noopener"> Valaxy </a>
+            <a
+              :href="valaxyRepository"
+              target="_blank"
+              rel="noopener"
+              color="$md-custom-color-valaxy!"
+            >
+              Valaxy
+            </a>
             <span> v{{ pkg.version }}</span>
           </span>
         </i18n-t>
@@ -152,6 +159,7 @@ const footerIconLink = computed(() => footerIcon.value?.url || themeRepository.v
             :title="themeConfig.pkg.name"
             target="_blank"
             rel="noopener"
+            color="$md-sys-color-primary!"
           >
             {{ themeDisplayName }}
           </a>

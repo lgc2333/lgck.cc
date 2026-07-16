@@ -124,18 +124,16 @@ export default defineConfig<ThemeConfig>({
             variant: 'pink',
           },
           {
-            text: $t('landing.about'),
-            link: '/about',
-            icon: 'i-material-symbols-person-outline-rounded',
-            variant: 'transparent',
-          },
-        ],
-        [
-          {
             text: $t('landing.test_blue'),
             link: '/about',
             icon: 'i-material-symbols-person-outline-rounded',
             variant: 'blue',
+          },
+          {
+            text: $t('landing.about'),
+            link: '/about',
+            icon: 'i-material-symbols-person-outline-rounded',
+            variant: 'transparent',
           },
         ],
       ],

@@ -18,31 +18,33 @@ const rootCategoryCount = computed(() => Array.from(categories.value.children).l
 </script>
 
 <template>
-  <Layout>
-    <LgcIndexSection
-      id="categories"
-      container="reading"
-      flush
-      label="Categories"
-      :title="pageTitle"
-      :description="t('counter.categories', rootCategoryCount)"
-    >
-      <template v-if="curCategory" #actions>
-        <RouterLink
-          class="lgc-category-clear"
-          :to="CATEGORY_ROUTE_PATH"
-          aria-label="Clear selected category"
-        >
-          <span i-material-symbols-close-rounded aria-hidden="true" />
-        </RouterLink>
-      </template>
+  <LgcSiteShell>
+    <LgcPageSurface>
+      <LgcIndexSection
+        id="categories"
+        container="reading"
+        flush
+        label="Categories"
+        :title="pageTitle"
+        :description="t('counter.categories', rootCategoryCount)"
+      >
+        <template v-if="curCategory" #actions>
+          <RouterLink
+            class="lgc-category-clear"
+            :to="CATEGORY_ROUTE_PATH"
+            aria-label="Clear selected category"
+          >
+            <span i-material-symbols-close-rounded aria-hidden="true" />
+          </RouterLink>
+        </template>
 
-      <LgcCategoryTree
-        :active-category="curCategory"
-        :categories="categories.children"
-      />
-    </LgcIndexSection>
-  </Layout>
+        <LgcCategoryTree
+          :active-category="curCategory"
+          :categories="categories.children"
+        />
+      </LgcIndexSection>
+    </LgcPageSurface>
+  </LgcSiteShell>
 </template>
 
 <style scoped lang="scss">

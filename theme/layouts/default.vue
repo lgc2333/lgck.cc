@@ -1,7 +1,7 @@
 <template>
-  <Layout>
-    <div class="lgc-page-surface">
+  <LgcSiteShell>
+    <LgcPageSurface>
       <RouterView />
-    </div>
-  </Layout>
+    </LgcPageSurface>
+  </LgcSiteShell>
 </template>

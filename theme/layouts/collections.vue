@@ -15,8 +15,8 @@ const pageTitle = computed(() => $tO(fm.value.title) || t('collection.all'))
 </script>
 
 <template>
-  <Layout>
-    <div class="lgc-page-surface">
+  <LgcSiteShell>
+    <LgcPageSurface>
       <LgcPostFeed
         flush
         source="collections"
@@ -25,6 +25,6 @@ const pageTitle = computed(() => $tO(fm.value.title) || t('collection.all'))
         :limit="0"
         :title="pageTitle"
       />
-    </div>
-  </Layout>
+    </LgcPageSurface>
+  </LgcSiteShell>
 </template>
