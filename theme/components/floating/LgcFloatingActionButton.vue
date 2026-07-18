@@ -64,6 +64,7 @@ useResizeObserver(detailInnerRef, ([entry]) => {
       ]"
       :style="detailSizeStyle"
     >
+      <slot name="chrome" />
       <span v-if="$slots.detail" class="lgc-floating-action-detail">
         <span ref="detailInnerRef" class="lgc-floating-action-detail-inner">
           <slot name="detail" />
@@ -114,6 +115,7 @@ useResizeObserver(detailInnerRef, ([entry]) => {
       :style="detailSizeStyle"
       @click="emit('click', $event)"
     >
+      <slot name="chrome" />
       <span v-if="$slots.detail" class="lgc-floating-action-detail">
         <span ref="detailInnerRef" class="lgc-floating-action-detail-inner">
           <slot name="detail" />
@@ -139,6 +141,7 @@ useResizeObserver(detailInnerRef, ([entry]) => {
       :style="detailSizeStyle"
       @click="emit('click', $event)"
     >
+      <slot name="chrome" />
       <span v-if="$slots.detail" class="lgc-floating-action-detail">
         <span ref="detailInnerRef" class="lgc-floating-action-detail-inner">
           <slot name="detail" />
@@ -171,7 +174,7 @@ useResizeObserver(detailInnerRef, ([entry]) => {
   --lgc-floating-action-motion-duration: var(--lgc-motion-short);
 
   @apply 'max-inline-$lgc-back-to-top-size';
-  @apply 'inline-flex min-h-$lgc-back-to-top-size items-center justify-end overflow-hidden';
+  @apply 'relative inline-flex min-h-$lgc-back-to-top-size items-center justify-end overflow-hidden';
   @apply 'gap-0 border-0 p-0 no-underline appearance-none cursor-pointer';
   @apply 'rounded-$lgc-radius-control-active text-$md-sys-color-primary bg-$md-sys-color-surface-container-high backdrop-blur-$lgc-elevate-blur';
   @apply 'shadow-$lgc-elevation-shadow-level-2';

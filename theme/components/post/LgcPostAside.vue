@@ -5,11 +5,9 @@ import { computed } from 'vue'
 withDefaults(
   defineProps<{
     embedded?: boolean
-    elevated?: boolean
   }>(),
   {
     embedded: false,
-    elevated: false,
   },
 )
 
@@ -30,7 +28,7 @@ const showAside = computed(() => {
     <aside
       v-if="showAside"
       class="lgc-post-aside hidden lg:block"
-      :class="{ 'is-embedded': embedded, 'is-elevated': elevated }"
+      :class="{ 'is-embedded': embedded }"
       grid
       sticky
       top="$post-aside-top"
@@ -62,6 +60,8 @@ const showAside = computed(() => {
   --post-aside-content-max-height: calc(
     var(--post-aside-max-height) - var(--lgc-space-lg) - var(--lgc-space-lg)
   );
+
+  // @apply 'xl:shadow-$lgc-elevation-shadow-level-1';
 }
 
 .lgc-post-aside-enter-active,
@@ -80,10 +80,6 @@ const showAside = computed(() => {
 .lgc-post-aside.is-embedded {
   @apply 'static';
   max-height: none;
-}
-
-.lgc-post-aside.is-elevated {
-  @apply 'shadow-$lgc-elevation-shadow-level-1';
 }
 
 @media (prefers-reduced-motion: reduce) {

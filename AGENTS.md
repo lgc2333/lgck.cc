@@ -56,7 +56,7 @@ Before implementing theme features, first inspect how the default theme `valaxy-
 ### Engineering
 
 - IMPORTANT: Prefer aggressive refactors, active code cleanup, and bold structure/architecture changes; do not keep legacy compatibility by default unless the user explicitly asks. Tiny patches create spaghetti code.
-- Parallel worktree changes are user-owned unless proven otherwise; do not revert unexpected diffs just because they are outside the current task.
+- Parallel worktree changes are user-owned unless proven otherwise; DO NOT REVERT unexpected diffs just because they are outside the current task.
 - Keep dependency versions centralized in the workspace catalog unless a package truly needs an exception.
 - Full-project Prettier formatting churn is acceptable; keep formatter output instead of reverting it as noise.
 - If formatter output conflicts with an ESLint style rule, keep the formatter result and disable the conflicting ESLint rule in `eslint.config.mjs`.

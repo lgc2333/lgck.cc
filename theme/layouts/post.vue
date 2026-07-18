@@ -139,16 +139,14 @@ function stripTrailingSlash(path: string) {
                 class="lgc-post-aside lgc-collection-post-aside hidden! xl:block!"
                 :collection="activeCollection"
                 :current-index="currentCollectionItemIndex"
-                elevated
               />
               <LgcPostAside
                 v-if="showPostToc"
                 class="lgc-post-aside lgc-post-toc-aside hidden! xl:block!"
-                elevated
               />
             </template>
 
-            <LgcPostAside v-else class="lgc-post-aside lgc-post-toc-aside" elevated />
+            <LgcPostAside v-else class="lgc-post-aside lgc-post-toc-aside" />
           </template>
         </component>
       </RouterView>
