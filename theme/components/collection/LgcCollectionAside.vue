@@ -7,11 +7,13 @@ withDefaults(
     collection?: CollectionConfig
     currentIndex?: number
     embedded?: boolean
+    elevated?: boolean
   }>(),
   {
     collapsible: false,
     currentIndex: -1,
     embedded: false,
+    elevated: false,
   },
 )
 </script>
@@ -20,7 +22,7 @@ withDefaults(
   <aside
     v-if="collection"
     class="lgc-collection-aside text-$md-sys-color-on-surface"
-    :class="{ 'is-embedded': embedded }"
+    :class="{ 'is-embedded': embedded, 'is-elevated': elevated }"
     grid
     content-start
     sticky
@@ -63,5 +65,9 @@ withDefaults(
 .lgc-collection-aside.is-embedded {
   @apply 'static';
   max-height: none;
+}
+
+.lgc-collection-aside.is-elevated {
+  @apply 'shadow-$lgc-elevation-shadow-level-1';
 }
 </style>
