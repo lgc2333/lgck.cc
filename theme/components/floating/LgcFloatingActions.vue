@@ -15,9 +15,7 @@ import LgcCollectionDrawer from '../collection/LgcCollectionDrawer.vue'
   >
     <LgcCollectionDrawer />
     <LgcPostOutlineAction />
-    <div class="md:flex max-md:hidden">
-      <LgcFixedBgAction />
-    </div>
+    <LgcFixedBgAction />
     <LgcBackToTop />
   </div>
 </template>

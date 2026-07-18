@@ -44,6 +44,9 @@ function closeDrawer() {
     @click="openDrawer"
   >
     <slot name="icon" />
+    <template v-if="$slots.detail" #detail>
+      <slot name="detail" />
+    </template>
   </LgcFloatingActionButton>
 
   <LgcSideDrawer

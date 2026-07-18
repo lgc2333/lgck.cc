@@ -25,7 +25,7 @@ collection:
   article_hint_desc_before: 可通过右下角的
   article_hint_desc_after: 按钮打开合集列表。
   badge: 合集
-  chapters: 章节
+  chapters: 合集章节
   index: 合集首页
   chapter_count: '{n} 个章节'
   empty: 还没有章节。

@@ -87,6 +87,17 @@ function findRouteCollection() {
       <span i-material-symbols-auto-stories-rounded aria-hidden="true" />
     </template>
 
+    <template #detail>
+      <span
+        font="900"
+        text="$md-sys-color-on-surface"
+        whitespace="pre-wrap"
+        wrap="anywhere"
+      >
+        {{ t('collection.chapters') }}
+      </span>
+    </template>
+
     <template #default="{ close }">
       <LgcCollectionNav
         v-if="activeCollection"

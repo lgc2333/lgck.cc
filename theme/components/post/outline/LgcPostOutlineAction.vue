@@ -37,6 +37,17 @@ function onDrawerNavigate(event: MouseEvent, close: () => void) {
       <span i-material-symbols-format-list-bulleted-rounded aria-hidden="true" />
     </template>
 
+    <template #detail>
+      <span
+        font="900"
+        text="$md-sys-color-on-surface"
+        whitespace="pre-wrap"
+        wrap="anywhere"
+      >
+        {{ t('post.outline') }}
+      </span>
+    </template>
+
     <template #default="{ close }">
       <LgcPostOutline
         :headers="headers"

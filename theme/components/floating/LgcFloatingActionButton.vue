@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { useResizeObserver } from '@vueuse/core'
+import { computed, ref } from 'vue'
 
 type ButtonClass = string | string[] | Record<string, boolean>
 
@@ -24,6 +25,28 @@ const emit = defineEmits<{
 }>()
 
 const linkRel = computed(() => (props.href ? 'noopener' : undefined))
+const detailInnerRef = ref<HTMLElement>()
+const detailInlineSize = ref(0)
+const detailBlockSize = ref(0)
+const detailSizeStyle = computed(() => {
+  if (!detailInlineSize.value || !detailBlockSize.value) return undefined
+
+  return {
+    '--lgc-floating-action-detail-inline-size': `${detailInlineSize.value}px`,
+    '--lgc-floating-action-detail-block-size': `${detailBlockSize.value}px`,
+  }
+})
+
+useResizeObserver(detailInnerRef, ([entry]) => {
+  if (!entry) return
+
+  const borderSize = Array.isArray(entry.borderBoxSize)
+    ? entry.borderBoxSize[0]
+    : entry.borderBoxSize
+
+  detailInlineSize.value = Math.ceil(borderSize?.inlineSize ?? entry.contentRect.width)
+  detailBlockSize.value = Math.ceil(borderSize?.blockSize ?? entry.contentRect.height)
+})
 </script>
 
 <template>
@@ -39,9 +62,10 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
         },
         buttonClass,
       ]"
+      :style="detailSizeStyle"
     >
       <span v-if="$slots.detail" class="lgc-floating-action-detail">
-        <span class="lgc-floating-action-detail-inner">
+        <span ref="detailInnerRef" class="lgc-floating-action-detail-inner">
           <slot name="detail" />
         </span>
       </span>
@@ -87,10 +111,11 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
       :aria-expanded="ariaExpanded"
       :aria-label="label"
       :title="label"
+      :style="detailSizeStyle"
       @click="emit('click', $event)"
     >
       <span v-if="$slots.detail" class="lgc-floating-action-detail">
-        <span class="lgc-floating-action-detail-inner">
+        <span ref="detailInnerRef" class="lgc-floating-action-detail-inner">
           <slot name="detail" />
         </span>
       </span>
@@ -111,10 +136,11 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
       :aria-expanded="ariaExpanded"
       :aria-label="label"
       :title="label"
+      :style="detailSizeStyle"
       @click="emit('click', $event)"
     >
       <span v-if="$slots.detail" class="lgc-floating-action-detail">
-        <span class="lgc-floating-action-detail-inner">
+        <span ref="detailInnerRef" class="lgc-floating-action-detail-inner">
           <slot name="detail" />
         </span>
       </span>
@@ -127,12 +153,22 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
 
 <style scoped lang="scss">
 .lgc-floating-action-button {
-  --lgc-floating-action-detail-max: 248px;
+  --lgc-floating-action-detail-max: 240px;
   --lgc-floating-action-detail-block-max: 12rem;
-  --lgc-floating-action-open-max: calc(
-    var(--lgc-floating-action-detail-max) + var(--lgc-back-to-top-size)
+  --lgc-floating-action-detail-inline-size: var(--lgc-floating-action-detail-max);
+  --lgc-floating-action-detail-block-size: var(--lgc-back-to-top-size);
+  --lgc-floating-action-detail-open-inline-size: min(
+    var(--lgc-floating-action-detail-inline-size),
+    var(--lgc-floating-action-detail-max)
   );
-  --lgc-floating-action-motion-duration: var(--lgc-motion-medium);
+  --lgc-floating-action-detail-open-block-size: min(
+    max(var(--lgc-floating-action-detail-block-size), var(--lgc-back-to-top-size)),
+    var(--lgc-floating-action-detail-block-max)
+  );
+  --lgc-floating-action-open-max: calc(
+    var(--lgc-floating-action-detail-open-inline-size) + var(--lgc-back-to-top-size)
+  );
+  --lgc-floating-action-motion-duration: var(--lgc-motion-short);
 
   @apply 'max-inline-$lgc-back-to-top-size';
   @apply 'inline-flex min-h-$lgc-back-to-top-size items-center justify-end overflow-hidden';
@@ -156,10 +192,6 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
   @apply 'text-$md-sys-color-primary shadow-$lgc-elevation-shadow-level-3';
 }
 
-.lgc-floating-action-button.has-detail {
-  @apply 'items-end';
-}
-
 .lgc-floating-action-button:active,
 .lgc-floating-action-button.has-interactive-detail:has(:active) {
   transform: scale(var(--lgc-control-press-scale));
@@ -178,49 +210,41 @@ const linkRel = computed(() => (props.href ? 'noopener' : undefined))
   @apply 'text-size-$lgc-icon-size';
 }
 
+.lgc-floating-action-button.has-detail .lgc-floating-action-icon {
+  @apply 'self-end';
+}
+
 .lgc-floating-action-icon-control {
   @apply 'border-0 p-0 text-current no-underline bg-transparent appearance-none cursor-pointer';
 }
 
 .lgc-floating-action-detail {
-  --lgc-floating-action-edge-feather: var(--lgc-space-md);
-
-  max-block-size: 0;
-  @apply 'block max-inline-0 overflow-hidden opacity-0';
-  transition-property: max-inline-size, max-block-size, opacity;
+  inline-size: 0;
+  block-size: 0;
+  @apply 'relative block flex-none self-end overflow-hidden opacity-0';
+  transition-property: inline-size, block-size, opacity;
   transition-duration:
     var(--lgc-floating-action-motion-duration),
     var(--lgc-floating-action-motion-duration),
     var(--lgc-floating-action-motion-duration);
   @apply 'ease-$lgc-easing-standard';
-
-  // Residual: alpha mask feather softens the animated clipping edge.
-  mask-image: linear-gradient(
-    to right,
-    black 0,
-    black calc(100% - var(--lgc-floating-action-edge-feather)),
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    black 0,
-    black calc(100% - var(--lgc-floating-action-edge-feather)),
-    transparent 100%
-  );
 }
 
 .lgc-floating-action-detail-inner {
   box-sizing: border-box;
-  inline-size: var(--lgc-floating-action-detail-max);
-  @apply 'block py-$lgc-space-sm pl-$lgc-space-md pr-$lgc-space-sm';
-  @apply 'text-left text-size-$lgc-body-small leading-snug text-$md-sys-color-on-surface';
+  min-block-size: var(--lgc-back-to-top-size);
+  // Residual: logical max-content keeps the label shrink-wrapped under a max width.
+  inline-size: max-content;
+  @apply 'absolute bottom-0 right-0 flex max-inline-$lgc-floating-action-detail-max flex-col items-end justify-center py-$lgc-space-sm pl-$lgc-space-md';
+  @apply 'text-right text-size-$lgc-body-small leading-snug text-$md-sys-color-on-surface';
 }
 
 .lgc-floating-action-button:hover .lgc-floating-action-detail,
 .lgc-floating-action-button:focus-visible .lgc-floating-action-detail,
 .lgc-floating-action-button:focus-within .lgc-floating-action-detail {
-  max-block-size: var(--lgc-floating-action-detail-block-max);
-  @apply 'max-inline-$lgc-floating-action-detail-max opacity-100';
+  inline-size: var(--lgc-floating-action-detail-open-inline-size);
+  block-size: var(--lgc-floating-action-detail-open-block-size);
+  @apply 'opacity-100';
 }
 
 .lgc-floating-action-button-reveal-enter-active,
