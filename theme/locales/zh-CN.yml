@@ -8,6 +8,11 @@ post_feed:
   title: 所有文章
   empty: 还没有公开文章。
 
+archive:
+  empty: 还没有可归档的文章。
+  sort_newest: 按最新在前显示
+  sort_oldest: 按最早在前显示
+
 collection:
   all: 合集
   title: '合集：{name}'

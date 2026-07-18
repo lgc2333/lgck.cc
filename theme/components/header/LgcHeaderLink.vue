@@ -98,6 +98,24 @@ const { iconClass, isRouteActive } = useHeaderNavItemState({
     @apply 'rounded-$lgc-radius-control-active';
     @apply 'text-$md-sys-color-on-primary-container bg-$md-sys-color-primary-container';
   }
+
+  &.is-route-active:hover,
+  &.is-route-active:focus-visible {
+    @apply 'rounded-$lgc-radius-control-active text-$md-sys-color-on-primary-container';
+    background: color-mix(
+      in srgb,
+      currentColor 10%,
+      var(--md-sys-color-primary-container)
+    );
+  }
+
+  &.is-route-active:active {
+    background: color-mix(
+      in srgb,
+      currentColor 16%,
+      var(--md-sys-color-primary-container)
+    );
+  }
 }
 
 .lgc-header-link.is-icon {

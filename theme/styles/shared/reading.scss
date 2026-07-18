@@ -1,7 +1,11 @@
-.lgc-reading-panel {
-  @apply 'w-full min-w-0 box-border p-$lgc-space-xl';
+.lgc-main-panel {
+  @apply 'w-full min-w-0 box-border';
   @apply 'rounded-$lgc-radius-large text-$md-sys-color-on-surface';
   @apply 'bg-$md-sys-color-surface-container';
+}
+
+.lgc-reading-panel {
+  @apply 'p-$lgc-space-xl';
   @apply 'md:p-$lgc-space-3xl lg:p-$lgc-space-4xl';
 }
 

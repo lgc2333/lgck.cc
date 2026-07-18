@@ -39,6 +39,7 @@ const rootCategoryCount = computed(() => Array.from(categories.value.children).l
         </template>
 
         <LgcCategoryTree
+          class="lgc-main-panel lgc-category-panel"
           :active-category="curCategory"
           :categories="categories.children"
         />
@@ -48,6 +49,10 @@ const rootCategoryCount = computed(() => Array.from(categories.value.children).l
 </template>
 
 <style scoped lang="scss">
+.lgc-category-panel {
+  @apply 'p-$lgc-space-sm sm:p-$lgc-space-md';
+}
+
 .lgc-category-clear {
   @apply 'inline-flex items-center justify-center border-0 bg-transparent p-0';
   @apply 'min-h-$lgc-control-size-sm w-$lgc-control-size-sm rounded-$lgc-radius-control';

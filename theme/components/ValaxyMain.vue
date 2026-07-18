@@ -35,7 +35,7 @@ const siteConfig = useSiteConfig()
             gap="$lgc-space-lg"
             grid
           >
-            <div class="lgc-reading-panel" overflow-hidden>
+            <div class="lgc-main-panel lgc-reading-panel" overflow-hidden>
               <div flex="~ col" w="full" min-w="0">
                 <slot name="main-content">
                   <div

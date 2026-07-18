@@ -143,12 +143,7 @@ function translateCategoryName(name: string) {
 </script>
 
 <template>
-  <nav
-    rounded="$lgc-radius-large"
-    p="$lgc-space-sm sm:$lgc-space-md"
-    bg="$md-sys-color-surface-container"
-    aria-label="Category article tree"
-  >
+  <nav aria-label="Category article tree">
     <TransitionGroup
       tag="ul"
       name="lgc-category-branch"
@@ -266,12 +261,13 @@ function translateCategoryName(name: string) {
   @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
   grid-template-columns: var(--lgc-control-size-sm) minmax(0, 1fr) auto;
   padding-inline-start: var(--category-indent);
-  transition-property: background-color, border-radius, color;
+  transition-property: background-color, border-radius, color, transform;
 }
 
-.lgc-category-tree-row:hover,
-.lgc-category-tree-row:focus-within {
-  @apply 'rounded-$lgc-radius-control-active bg-$md-sys-color-surface-container-high';
+.lgc-category-tree-row:not(.is-active):hover,
+.lgc-category-tree-row:not(.is-active):focus-within {
+  @apply 'rounded-$lgc-radius-control-active';
+  background: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
 }
 
 .lgc-category-tree-row.is-active {
@@ -286,6 +282,10 @@ function translateCategoryName(name: string) {
   @apply 'text-$md-sys-color-on-surface';
 }
 
+.lgc-category-tree-row:has(.lgc-category-link:active) {
+  transform: scale(var(--lgc-card-press-scale));
+}
+
 .lgc-category-toggle {
   @apply 'inline-flex items-center justify-center border-0 bg-transparent p-0';
   @apply 'min-h-$lgc-control-size-sm w-$lgc-control-size-sm rounded-$lgc-radius-control';
@@ -294,9 +294,15 @@ function translateCategoryName(name: string) {
   transition-property: background-color, border-radius, color, transform;
 }
 
-.lgc-category-toggle:hover,
-.lgc-category-toggle:focus-visible {
+.lgc-category-tree-row:not(.is-active) .lgc-category-toggle:hover,
+.lgc-category-tree-row:not(.is-active) .lgc-category-toggle:focus-visible {
   @apply 'rounded-$lgc-radius-control-active text-$md-sys-color-primary bg-$md-sys-color-surface-container-highest';
+}
+
+.lgc-category-tree-row.is-active .lgc-category-toggle:hover,
+.lgc-category-tree-row.is-active .lgc-category-toggle:focus-visible {
+  @apply 'rounded-$lgc-radius-control-active text-inherit';
+  background: color-mix(in srgb, currentColor 10%, transparent);
 }
 
 .lgc-category-toggle:active {
@@ -341,6 +347,10 @@ function translateCategoryName(name: string) {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .lgc-category-tree-row:has(.lgc-category-link:active) {
+    transform: none;
+  }
+
   .lgc-category-branch-enter-active,
   .lgc-category-branch-leave-active,
   .lgc-category-branch-move {

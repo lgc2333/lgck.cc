@@ -8,6 +8,11 @@ post_feed:
   title: All Posts
   empty: No public posts yet.
 
+archive:
+  empty: No dated posts yet.
+  sort_newest: Show newest first
+  sort_oldest: Show oldest first
+
 collection:
   all: Collections
   title: 'Collection: {name}'

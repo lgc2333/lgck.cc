@@ -45,7 +45,7 @@ watchEffect(() => {
 <template>
   <section
     v-if="hasContent"
-    class="lgc-reading-panel"
+    class="lgc-main-panel lgc-reading-panel"
     :aria-label="t('accessibility.comments')"
   >
     <ClientOnly>
