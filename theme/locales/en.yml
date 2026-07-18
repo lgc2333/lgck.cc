@@ -1,5 +1,3 @@
-valaxy_theme_lgcuwukii: Valaxy Theme LgCuwukii
-
 statistics:
   word_count: '{n} words'
   reading_time: '{n}m'
@@ -10,13 +8,9 @@ post_feed:
 
 archive:
   empty: No dated posts yet.
-  sort_newest: Show newest first
-  sort_oldest: Show oldest first
 
 category:
   uncategorized: Uncategorized
-  expand: Expand {name}
-  collapse: Collapse {name}
 
 collection:
   all: Collections
@@ -27,12 +21,8 @@ collection:
   badge: Collection
   chapters: Chapters
   index: Collection index
-  chapter_count: '{n} chapters'
   empty: No chapters yet.
   empty_all: No collections yet.
-  expand: Expand chapters
-  open: Open collection
-  collapse: Collapse chapters
 
 search:
   view_all: View all search results
@@ -52,7 +42,6 @@ post:
   sponsor_link: Open sponsor page
   sponsor_methods: Show sponsor methods
   sponsor_methods_close: Hide sponsor methods
-  copyright: License
   decrypt_password_placeholder: Enter password
   encrypt_again: Encrypt again
   outline: On this page
@@ -65,31 +54,49 @@ post:
   status_hide_all_desc: Hidden everywhere
 
 accessibility:
-  open_nav: Open navigation
-  close_nav: Close navigation
-  primary_nav: Primary navigation
-  mobile_nav: Mobile navigation
-  mobile_nav_links: Mobile navigation links
-  nav_settings: Navigation settings
-  close_search: Close search
-  search_results: Search results
-  landing: Landing
-  landing_links: Landing links
-  social_links: Social links
-  scroll_to_posts: Scroll to posts
-  posts_pagination: Pagination
-  category_tree: Category article tree
-  clear_category: Clear selected category
-  post_navigation: Post navigation
-  collections: Collections
-  collection_navigation: Collection navigation
-  close_collection: Close collection
-  post_metadata: Post metadata
-  comment_provider: Comment provider
-  open_post_outline: Open article outline
-  close_post_outline: Close article outline
-  post_outline: Article outline
-  prev_page: Previous page
-  next_page: Next page
-  comments: Comments
+  navigation:
+    open: Open navigation
+    close: Close navigation
+    primary: Primary navigation
+    mobile: Mobile navigation
+    mobile_links: Mobile navigation links
+    settings: Navigation settings
+  search:
+    close: Close search
+    results: Search results
+  landing:
+    label: Landing
+    links: Landing links
+    social_links: Social links
+    scroll_to_posts: Scroll to posts
+  archive:
+    sort_newest: Show newest first
+    sort_oldest: Show oldest first
+  category:
+    tree: Category article tree
+    clear: Clear selected category
+    expand: Expand {name}
+    collapse: Collapse {name}
+  collection:
+    list: Collections
+    navigation: Collection navigation
+    open: Open collection
+    close: Close collection
+    expand: Expand chapters
+    collapse: Collapse chapters
+  post:
+    navigation: Post navigation
+    metadata: Post metadata
+    read_more: Read post
+    outline:
+      open: Open article outline
+      close: Close article outline
+      label: Article outline
+  pagination:
+    posts: Pagination
+    prev_page: Previous page
+    next_page: Next page
+  comments:
+    label: Comments
+    provider: Comment provider
   loading: Loading

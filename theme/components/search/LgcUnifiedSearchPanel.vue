@@ -49,7 +49,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
       inset-0
       absolute
       type="button"
-      :aria-label="t('accessibility.close_search')"
+      :aria-label="t('accessibility.search.close')"
       @click="$emit('close')"
     />
     <aside
@@ -64,7 +64,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
       absolute
       text="$md-sys-color-on-surface"
       bg="$md-sys-color-surface-container-low"
-      :aria-label="t('accessibility.search_results')"
+      :aria-label="t('accessibility.search.results')"
     >
       <div
         grid-cols="[minmax(0,1fr)_var(--lgc-control-size)]"
@@ -89,7 +89,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
           rounded="$lgc-radius-control"
           text="size-$lgc-icon-size"
           type="button"
-          :aria-label="t('accessibility.close_search')"
+          :aria-label="t('accessibility.search.close')"
           @click="$emit('close')"
         >
           <span i-material-symbols-close-rounded aria-hidden="true" />
@@ -156,7 +156,7 @@ const isDrawer = computed(() => props.variant === 'drawer')
         rounded="$lgc-radius-control"
         text="size-$lgc-icon-size"
         type="button"
-        :aria-label="t('accessibility.close_search')"
+        :aria-label="t('accessibility.search.close')"
         @click="$emit('close')"
       >
         <span i-material-symbols-arrow-back-rounded aria-hidden="true" />

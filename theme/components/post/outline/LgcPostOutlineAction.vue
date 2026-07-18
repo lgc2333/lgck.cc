@@ -28,10 +28,10 @@ function onDrawerNavigate(event: MouseEvent, close: () => void) {
   <LgcFloatingDrawerAction
     id="lgc-post-outline-drawer"
     :show="showAction"
-    :label="t('accessibility.open_post_outline')"
-    :drawer-label="t('accessibility.post_outline')"
+    :label="t('accessibility.post.outline.open')"
+    :drawer-label="t('accessibility.post.outline.label')"
     :title="t('post.outline')"
-    :close-label="t('accessibility.close_post_outline')"
+    :close-label="t('accessibility.post.outline.close')"
   >
     <template #icon>
       <span i-material-symbols-format-list-bulleted-rounded aria-hidden="true" />

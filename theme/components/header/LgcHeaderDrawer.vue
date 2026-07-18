@@ -30,7 +30,7 @@ const { t } = useI18n()
         inset-0
         fixed
         type="button"
-        :aria-label="t('accessibility.close_nav')"
+        :aria-label="t('accessibility.navigation.close')"
         @click="emit('close')"
       />
     </Transition>
@@ -49,7 +49,7 @@ const { t } = useI18n()
         p="$lgc-space-lg"
         text="$md-sys-color-on-surface"
         bg="$md-sys-color-surface-container-low"
-        :aria-label="t('accessibility.mobile_nav')"
+        :aria-label="t('accessibility.navigation.mobile')"
       >
         <div
           flex="~ items-center justify-between"
@@ -74,7 +74,7 @@ const { t } = useI18n()
             place-items="center"
             text="size-$lgc-icon-size"
             type="button"
-            :aria-label="t('accessibility.close_nav')"
+            :aria-label="t('accessibility.navigation.close')"
             @click="emit('close')"
           >
             <span i-material-symbols-close-rounded aria-hidden="true" />

@@ -3,9 +3,15 @@
   "files.associations": {
     "*.css": "postcss"
   },
-  "i18n-ally.keystyle": "nested",
-  "i18n-ally.localesPaths": "locales",
-  "i18n-ally.sortKeys": true,
-  "i18n-ally.sourceLanguage": "en",
-  "scss.lint.unknownAtRules": "ignore"
+  "i18n-ally-next.enabledFrameworks": ["vue"],
+  "i18n-ally-next.keystyle": "nested",
+  "i18n-ally-next.localesPaths": [
+    "demo/locales",
+    "theme/locales",
+    "temp/valaxy/packages/valaxy/client/locales"
+  ],
+  "i18n-ally-next.sortKeys": true,
+  "i18n-ally-next.sourceLanguage": "en",
+  "scss.lint.unknownAtRules": "ignore",
+  "unocss.root": "."
 }

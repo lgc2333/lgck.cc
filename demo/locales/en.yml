@@ -1,6 +1,3 @@
-docs:
-  view_docs: See Docs
-
 siteConfig:
   title: LgCuwukii Theme Demo
   subtitle: A Valaxy theme preview
@@ -42,11 +39,6 @@ landing:
   sponsors: Sponsors
   about: About
   test_blue: Test Blue
-
-pages:
-  about: About
-  notes: Dev Notes
-  archives: Archives
 
 tag:
   notes: Notes

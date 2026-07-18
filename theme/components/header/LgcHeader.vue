@@ -87,7 +87,7 @@ function closeDrawer() {
       transition="[backdrop-filter,background-color,box-shadow]"
       duration="$lgc-motion-medium"
       ease="$lgc-easing-standard"
-      :aria-label="t('accessibility.primary_nav')"
+      :aria-label="t('accessibility.navigation.primary')"
     >
       <div
         class="lgc-header-primary"
@@ -101,7 +101,7 @@ function closeDrawer() {
           place-items="center"
           :aria-expanded="drawerOpen"
           aria-controls="lgc-mobile-drawer"
-          :aria-label="t('accessibility.open_nav')"
+          :aria-label="t('accessibility.navigation.open')"
           @click="drawerOpen = true"
         >
           <span i-material-symbols-menu-rounded aria-hidden="true" />

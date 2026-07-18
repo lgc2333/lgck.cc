@@ -32,8 +32,8 @@ const rootCategoryCount = computed(() => Array.from(categories.value.children).l
           <RouterLink
             class="lgc-category-clear"
             :to="CATEGORY_ROUTE_PATH"
-            :aria-label="t('accessibility.clear_category')"
-            :title="t('accessibility.clear_category')"
+            :aria-label="t('accessibility.category.clear')"
+            :title="t('accessibility.category.clear')"
           >
             <span i-material-symbols-close-rounded aria-hidden="true" />
           </RouterLink>

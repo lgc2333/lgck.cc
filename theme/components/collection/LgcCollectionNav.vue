@@ -87,7 +87,7 @@ function stripTrailingSlash(path: string) {
     gap="$lgc-space-sm"
     min-h="0"
     min-w="0"
-    :aria-label="t('accessibility.collection_navigation')"
+    :aria-label="t('accessibility.collection.navigation')"
   >
     <header
       v-if="showHeader"
@@ -124,7 +124,11 @@ function stripTrailingSlash(path: string) {
         rounded="$lgc-radius-control"
         text="size-$lgc-icon-size-sm"
         :aria-expanded="expanded"
-        :aria-label="expanded ? t('collection.collapse') : t('collection.expand')"
+        :aria-label="
+          expanded
+            ? t('accessibility.collection.collapse')
+            : t('accessibility.collection.expand')
+        "
         @click="toggleExpanded"
       >
         <span

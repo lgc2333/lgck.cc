@@ -85,7 +85,7 @@ const { activeLink } = useActiveOutline(toRef(props, 'headers'), {
         aria-hidden="true"
       />
 
-      <nav :aria-label="title || t('accessibility.post_outline')" min-w="0">
+      <nav :aria-label="title || t('accessibility.post.outline.label')" min-w="0">
         <LgcPostOutlineItem
           class="css-i18n-toc"
           :active-link="activeLink"

@@ -43,7 +43,7 @@ function toggleLanguage() {
     pt="$lgc-space-lg"
     mt-auto
     grid
-    :aria-label="t('accessibility.nav_settings')"
+    :aria-label="t('accessibility.navigation.settings')"
   >
     <a
       v-if="visibleImage && actionHref"

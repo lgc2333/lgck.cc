@@ -40,7 +40,7 @@ Run `format`, `lint`, and `check` after code changes. `theme/` has no package sc
 
 Invoke the local `valaxy` skill before Valaxy theme/site work. If upstream reference is needed, use `temp/valaxy` as a depth-1 clone of `YunYouJun/valaxy`, check out the tag matching the installed `valaxy` package version (for example `v0.28.11`), and read its `AGENTS.md` before exploring it.
 
-Before implementing theme features, first inspect how the default theme `valaxy-theme-yun` (in `temp/valaxy/packages`) handles the same behavior. Use it as a reference, not a template to copy blindly.
+Before implementing theme features, first inspect how the default theme `valaxy-theme-yun` (in `temp/valaxy/packages`) handles the same behavior. Use it as a reference, not a template to copy blindly. Also checkout valaxy docs under its `docs/` folder.
 
 ## Rules
 
@@ -56,11 +56,16 @@ Before implementing theme features, first inspect how the default theme `valaxy-
 ### Engineering
 
 - IMPORTANT: Prefer aggressive refactors, active code cleanup, and bold structure/architecture changes; do not keep legacy compatibility by default unless the user explicitly asks. Tiny patches create spaghetti code.
+- Parallel worktree changes are user-owned unless proven otherwise; do not revert unexpected diffs just because they are outside the current task.
 - Keep dependency versions centralized in the workspace catalog unless a package truly needs an exception.
 - Full-project Prettier formatting churn is acceptable; keep formatter output instead of reverting it as noise.
 - If formatter output conflicts with an ESLint style rule, keep the formatter result and disable the conflicting ESLint rule in `eslint.config.mjs`.
 - For M3 loading indicator work, read `theme/utils/m3-loading-indicator/NOTE.md` before editing; official AndroidX/Flutter source is the fact standard, not old staged diffs.
 - When project structure, theme structure, or design rules change, update `AGENTS.md` and related docs such as `theme/AGENTS.md` in the same change.
+
+### I18n
+
+- Accessibility-only text (`aria-label`, `title`, `sr-only`, etc.) belongs under `accessibility.*`; keep it in a feature namespace only when reused in non-accessibility UI.
 
 ### Configuration
 
@@ -69,7 +74,7 @@ Before implementing theme features, first inspect how the default theme `valaxy-
 
 ### Tools And Files
 
-- Do not call Chrome DevTools MCP tools in parallel.
+- Current `eslint --fix` can temporarily mangle clusters of standalone boolean attributify attrs; run Prettier afterward to normalize them instead of converting to utility `class`.
 - Store temporary files in `temp/<sub-category>/` at the project root. If a skill specifies another location, follow the skill.
 
 ## Gotchas
@@ -80,24 +85,21 @@ ATTENTION: If you encounter a reusable pitfall, you MUST RECORD IT BELOW AS EARL
 
 - When searching for text that starts with `--` using `rg`, pass `--` before the pattern, e.g. `rg -- "--lgc-space"`.
 - Put `rg` options such as `-g` before path operands; after paths they are parsed as files.
-- `.serena/` is project-owned and can be tracked; do not delete or blanket-ignore it as scratch. Its own `.gitignore` filters local cache/config.
-- Multi-agent worktree changes are user-owned unless proven otherwise; do not revert unexpected diffs just because they are outside the current task.
 
 ### Styling / Vue
 
-- Sass `@extend` cannot cross Vue scoped style / `@use` module boundaries reliably; prefer `@apply` shared classes or duplicate small declarations.
-- Under `lang="scss"`, always quote `@apply '…$token…'` so Sass does not treat `$token` as a Sass variable.
-- Uno `@apply` may leave multi-property `transition-[…,max-inline-size,…]` untransformed (raw `@apply` in dist CSS / lightningcss warning). Use residual `transition-property: …` for lists that include `max-inline-size` (or other props that fail transform); keep `duration-`/`ease-` as `@apply`.
 - **Never put Uno attributify `text="…"` on `<a>`, `AppLink`, or `RouterLink`.** `HTMLAnchorElement` has a legacy `.text` DOM property (alias of `textContent`). Vue sets it as a prop and **replaces all children** with the attribute string. Put color/size on a child span via `class`/`text=`, or use residual CSS / `class="text-…"`.
 - **Never use bare HTML `hidden` as an Uno hide utility.** Vue emits the boolean `hidden` attribute; UA CSS is `[hidden] { display: none !important }`, so responsive show utilities cannot override it. Use `class="hidden max-md:grid"` (or residual `@apply 'hidden max-md:grid'`).
-- Shared control reset owns no display; use ordinary display utilities such as `hidden max-md:grid` plus explicit `grid`/`place-items` on the element.
-- Parent scoped CSS does **not** match non-root nodes inside child components. Header mobile hide for action buttons must live in `LgcHeaderActions` (or use `:deep`), not only in `LgcHeader`.
 - **Do not set a CSS custom property to itself** (e.g. inline `--lgc-header-link-max-width: var(--lgc-header-link-max-width)`). Self-reference is invalid at computed-value time; dependents become empty. Omit the inline override so `:root` applies, or set a concrete value.
 - **Wind4 `translate`/`scale` ≠ `transform`:** Uno `hover:-translate-y-*` / `active:scale-*` set the individual `translate` / `scale` properties. `transform: none` does **not** cancel them. Prefer residual classic `transform: translateY/scale(...)` for shared motion that other rules must override, or also reset `translate`/`scale`.
 - `text-$token` is **color**; font-size is `text-size-$token` / `font-size-$token`. `border-$token` is border-color; width is `border-width-$token`.
+- Sass `@extend` cannot cross Vue scoped style / `@use` module boundaries reliably; prefer `@apply` shared classes or duplicate small declarations.
+- Under `lang="scss"`, always quote `@apply '…$token…'` so Sass does not treat `$token` as a Sass variable.
+- Uno `@apply` may leave multi-property `transition-[…,max-inline-size,…]` untransformed (raw `@apply` in dist CSS / lightningcss warning). Use residual `transition-property: …` for lists that include `max-inline-size` (or other props that fail transform); keep `duration-`/`ease-` as `@apply`.
+- Shared control reset owns no display; use ordinary display utilities such as `hidden max-md:grid` plus explicit `grid`/`place-items` on the element.
+- Parent scoped CSS does **not** match non-root nodes inside child components. Header mobile hide for action buttons must live in `LgcHeaderActions` (or use `:deep`), not only in `LgcHeader`.
 - Use Uno overflow-wrap utilities: `wrap="anywhere"` / `wrap="break-word"` / `wrap="normal"`, not raw `overflow-wrap` or arbitrary `[overflow-wrap:anywhere]`.
 - If an attributify name conflicts with a real Vue/DOM prop such as `disabled`, keep the real prop (e.g. `:disabled`) and use `un-disabled="…"`, or `class="disabled:…"` as fallback.
-- Current `eslint --fix` can temporarily mangle clusters of standalone boolean attributify attrs; run Prettier afterward to normalize them instead of converting to utility `class`.
 
 ### Valaxy
 

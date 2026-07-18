@@ -20,13 +20,13 @@ const { t } = useI18n()
     flex="~ wrap justify-center"
     gap="[2px]"
     pt="$lgc-space-lg"
-    :aria-label="t('accessibility.posts_pagination')"
+    :aria-label="t('accessibility.pagination.posts')"
   >
     <RouterLink
       v-if="showPrev"
       class="lgc-pagination-control"
       :to="prevTo"
-      :aria-label="t('accessibility.prev_page')"
+      :aria-label="t('accessibility.pagination.prev_page')"
     >
       <span i-material-symbols-arrow-back-ios-new-rounded aria-hidden="true" />
     </RouterLink>
@@ -53,7 +53,7 @@ const { t } = useI18n()
       v-if="showNext"
       class="lgc-pagination-control"
       :to="nextTo"
-      :aria-label="t('accessibility.next_page')"
+      :aria-label="t('accessibility.pagination.next_page')"
     >
       <span i-material-symbols-arrow-forward-ios-rounded aria-hidden="true" />
     </RouterLink>

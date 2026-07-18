@@ -39,7 +39,7 @@ function linkLabel(item: LandingLink) {
     max-w="$lgc-measure-wide"
     mt="$lgc-space-lg sm:36px"
     gap="$lgc-space-sm sm:$lgc-space-md"
-    :aria-label="t('accessibility.landing_links')"
+    :aria-label="t('accessibility.landing.links')"
   >
     <div
       v-for="(row, rowIndex) in linkRows"

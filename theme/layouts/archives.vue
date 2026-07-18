@@ -17,7 +17,9 @@ const archivePostCount = computed(
 )
 const archiveOrder = computed(() => (isDesc.value ? 'desc' : 'asc'))
 const orderActionLabel = computed(() =>
-  isDesc.value ? t('archive.sort_oldest') : t('archive.sort_newest'),
+  isDesc.value
+    ? t('accessibility.archive.sort_oldest')
+    : t('accessibility.archive.sort_newest'),
 )
 </script>
 

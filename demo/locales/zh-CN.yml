@@ -1,6 +1,3 @@
-docs:
-  view_docs: 查看文档指南
-
 siteConfig:
   title: LgCuwukii 主题演示
   subtitle: Valaxy 主题预览
@@ -42,11 +39,6 @@ landing:
   sponsors: 赞助者们
   about: 关于
   test_blue: 测试蓝色
-
-pages:
-  about: 关于
-  notes: 开发笔记
-  archives: 归档
 
 tag:
   notes: 笔记

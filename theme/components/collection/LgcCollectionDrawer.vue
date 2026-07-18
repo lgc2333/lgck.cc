@@ -78,10 +78,10 @@ function findRouteCollection() {
   <LgcFloatingDrawerAction
     id="lgc-collection-drawer"
     :show="showAction"
-    :label="t('collection.open')"
-    :drawer-label="t('accessibility.collection_navigation')"
+    :label="t('accessibility.collection.open')"
+    :drawer-label="t('accessibility.collection.navigation')"
     :title="t('collection.chapters')"
-    :close-label="t('accessibility.close_collection')"
+    :close-label="t('accessibility.collection.close')"
   >
     <template #icon>
       <span i-material-symbols-auto-stories-rounded aria-hidden="true" />

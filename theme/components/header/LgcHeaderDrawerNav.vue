@@ -60,7 +60,7 @@ function linkLabel(item: HeaderNavLink) {
     content-start
     gap="1.5"
     pt="$lgc-space-sm"
-    :aria-label="t('accessibility.mobile_nav_links')"
+    :aria-label="t('accessibility.navigation.mobile_links')"
   >
     <AppLink
       v-if="addHome"

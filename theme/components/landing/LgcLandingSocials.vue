@@ -17,7 +17,7 @@ const { $t } = useValaxyI18n()
     flex="~ wrap items-center justify-center"
     mt="$lgc-space-lg sm:36px"
     gap="$lgc-space-sm"
-    :aria-label="t('accessibility.social_links')"
+    :aria-label="t('accessibility.landing.social_links')"
   >
     <AppLink
       v-for="item in socials"

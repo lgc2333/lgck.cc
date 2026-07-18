@@ -1,5 +1,3 @@
-valaxy_theme_lgcuwukii: Valaxy 主题 LgCuwukii
-
 statistics:
   word_count: '{n} 字'
   reading_time: '{n} 分钟'
@@ -10,13 +8,9 @@ post_feed:
 
 archive:
   empty: 还没有可归档的文章。
-  sort_newest: 按最新在前显示
-  sort_oldest: 按最早在前显示
 
 category:
   uncategorized: 未分类
-  expand: 展开{name}
-  collapse: 收起{name}
 
 collection:
   all: 合集
@@ -27,12 +21,8 @@ collection:
   badge: 合集
   chapters: 合集章节
   index: 合集首页
-  chapter_count: '{n} 个章节'
   empty: 还没有章节。
   empty_all: 还没有合集。
-  expand: 展开章节
-  open: 打开合集目录
-  collapse: 收起章节
 
 search:
   view_all: 查看全部搜索结果
@@ -52,7 +42,6 @@ post:
   sponsor_link: 前往赞助页
   sponsor_methods: 展开赞助方式
   sponsor_methods_close: 收起赞助方式
-  copyright: 版权协议
   decrypt_password_placeholder: 输入密码
   encrypt_again: 重新加密
   outline: 文章目录
@@ -65,31 +54,49 @@ post:
   status_hide_all_desc: 全局隐藏
 
 accessibility:
-  open_nav: 打开导航
-  close_nav: 关闭导航
-  primary_nav: 主导航
-  mobile_nav: 移动导航
-  mobile_nav_links: 移动导航链接
-  nav_settings: 导航设置
-  close_search: 关闭搜索
-  search_results: 搜索结果
-  landing: 首页着陆
-  landing_links: 着陆页链接
-  social_links: 社交链接
-  scroll_to_posts: 滚动到文章列表
-  posts_pagination: 文章分页
-  category_tree: 分类文章树
-  clear_category: 清除已选分类
-  post_navigation: 文章导航
-  collections: 合集
-  collection_navigation: 合集导航
-  close_collection: 关闭合集目录
-  post_metadata: 文章元信息
-  comment_provider: 评论系统
-  open_post_outline: 打开文章目录
-  close_post_outline: 关闭文章目录
-  post_outline: 文章目录
-  prev_page: 上一页
-  next_page: 下一页
-  comments: 评论
+  navigation:
+    open: 打开导航
+    close: 关闭导航
+    primary: 主导航
+    mobile: 移动导航
+    mobile_links: 移动导航链接
+    settings: 导航设置
+  search:
+    close: 关闭搜索
+    results: 搜索结果
+  landing:
+    label: 首页着陆
+    links: 着陆页链接
+    social_links: 社交链接
+    scroll_to_posts: 滚动到文章列表
+  archive:
+    sort_newest: 按最新在前显示
+    sort_oldest: 按最早在前显示
+  category:
+    tree: 分类文章树
+    clear: 清除已选分类
+    expand: 展开{name}
+    collapse: 收起{name}
+  collection:
+    list: 合集
+    navigation: 合集导航
+    open: 打开合集章节
+    close: 关闭合集章节
+    expand: 展开章节
+    collapse: 收起章节
+  post:
+    navigation: 文章导航
+    metadata: 文章元信息
+    read_more: 阅读文章
+    outline:
+      open: 打开文章目录
+      close: 关闭文章目录
+      label: 文章目录
+  pagination:
+    posts: 文章分页
+    prev_page: 上一页
+    next_page: 下一页
+  comments:
+    label: 评论
+    provider: 评论系统
   loading: 加载中

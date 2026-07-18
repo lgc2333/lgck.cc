@@ -37,49 +37,35 @@ const strokeOffset = computed(() => {
 </script>
 
 <template>
-  <Transition name="lgc-back-to-top-fade">
-    <LgcFloatingActionButton
-      v-if="show"
-      :label="t('sidebar.return_top')"
-      @click="backToTop"
+  <LgcFloatingActionButton
+    :show="show"
+    :label="t('sidebar.return_top')"
+    @click="backToTop"
+  >
+    <span i-material-symbols-keyboard-arrow-up-rounded aria-hidden="true" />
+    <svg
+      w="full"
+      h="full"
+      pointer-events-none
+      inset-0
+      absolute
+      overflow-visible
+      viewBox="0 0 56 56"
+      aria-hidden="true"
     >
-      <span i-material-symbols-keyboard-arrow-up-rounded aria-hidden="true" />
-      <svg
-        w="full"
-        h="full"
-        pointer-events-none
-        inset-0
-        absolute
-        overflow-visible
-        viewBox="0 0 56 56"
-        aria-hidden="true"
-      >
-        <path
-          class="transition-[stroke-dashoffset] duration-$lgc-motion-short ease-$lgc-easing-standard"
-          stroke-current
-          :d="progressPath"
-          fill="none"
-          pathLength="1"
-          :stroke-width="progressStrokeWidth"
-          stroke-dasharray="1"
-          :stroke-dashoffset="strokeOffset"
-          stroke-linecap="round"
-        />
-      </svg>
-    </LgcFloatingActionButton>
-  </Transition>
+      <path
+        class="transition-[stroke-dashoffset] duration-$lgc-motion-short ease-$lgc-easing-standard"
+        stroke-current
+        :d="progressPath"
+        fill="none"
+        pathLength="1"
+        :stroke-width="progressStrokeWidth"
+        stroke-dasharray="1"
+        :stroke-dashoffset="strokeOffset"
+        stroke-linecap="round"
+      />
+    </svg>
+  </LgcFloatingActionButton>
 </template>
 
-<style scoped lang="scss">
-.lgc-back-to-top-fade-enter-active,
-.lgc-back-to-top-fade-leave-active {
-  @apply 'transition-[opacity,transform] duration-$lgc-motion-short';
-  @apply 'ease-$lgc-easing-standard';
-}
-
-.lgc-back-to-top-fade-enter-from,
-.lgc-back-to-top-fade-leave-to {
-  @apply 'opacity-0';
-  transform: translateY(var(--lgc-space-sm));
-}
-</style>
+<style scoped lang="scss"></style>

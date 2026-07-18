@@ -46,7 +46,7 @@ watchEffect(() => {
   <section
     v-if="hasContent"
     class="lgc-main-panel lgc-reading-panel"
-    :aria-label="t('accessibility.comments')"
+    :aria-label="t('accessibility.comments.label')"
   >
     <ClientOnly>
       <div
@@ -56,7 +56,7 @@ watchEffect(() => {
         gap="$lgc-space-xs"
         m-b="$lgc-space-lg"
         role="group"
-        :aria-label="t('accessibility.comment_provider')"
+        :aria-label="t('accessibility.comments.provider')"
       >
         <button
           v-for="comment in commentSystems"

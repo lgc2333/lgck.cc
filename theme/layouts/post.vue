@@ -105,13 +105,13 @@ function stripTrailingSlash(path: string) {
               "
               :next="collectionNext"
               :prev="collectionPrev"
-              :label="t('accessibility.collection_navigation')"
+              :label="t('accessibility.collection.navigation')"
             />
             <LgcPrevNextNav
               v-else-if="showArticleNav"
               :next="postNext"
               :prev="postPrev"
-              :label="t('accessibility.post_navigation')"
+              :label="t('accessibility.post.navigation')"
             />
           </template>
 

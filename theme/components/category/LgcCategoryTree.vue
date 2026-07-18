@@ -143,7 +143,7 @@ function translateCategoryName(name: string) {
 </script>
 
 <template>
-  <nav :aria-label="t('accessibility.category_tree')">
+  <nav :aria-label="t('accessibility.category.tree')">
     <TransitionGroup
       tag="ul"
       name="lgc-category-branch"
@@ -171,8 +171,8 @@ function translateCategoryName(name: string) {
             type="button"
             :aria-label="
               row.isExpanded
-                ? t('category.collapse', { name: row.label })
-                : t('category.expand', { name: row.label })
+                ? t('accessibility.category.collapse', { name: row.label })
+                : t('accessibility.category.expand', { name: row.label })
             "
             @click="toggleCategory(row.path)"
           >

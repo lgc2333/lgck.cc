@@ -112,7 +112,11 @@ const coverContentPosition = computed<CoverContentPosition>(() => {
         self-center
         sm="inline-grid"
         :to="collection ? collectionPath : postUrl || postPath"
-        :aria-label="collection ? t('collection.open') : t('post.read_more')"
+        :aria-label="
+          collection
+            ? t('accessibility.collection.open')
+            : t('accessibility.post.read_more')
+        "
       >
         <span v-if="!collection && postUrl" i-material-symbols-open-in-new-rounded />
         <span v-else i-material-symbols-arrow-forward-rounded />

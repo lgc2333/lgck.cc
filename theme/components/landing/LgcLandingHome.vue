@@ -65,7 +65,7 @@ const siteDescription = computed(() => $t(siteConfig.value.description))
       isolate
       pt="$lgc-header-height"
       pb="80px sm:96px"
-      :aria-label="t('accessibility.landing')"
+      :aria-label="t('accessibility.landing.label')"
     >
       <div
         class="lgc-landing-center"
@@ -149,7 +149,7 @@ const siteDescription = computed(() => $t(siteConfig.value.description))
         absolute
         z-1
         href="#posts"
-        :aria-label="t('accessibility.scroll_to_posts')"
+        :aria-label="t('accessibility.landing.scroll_to_posts')"
       >
         <!-- text-* via class only on <a>: HTMLAnchorElement.text wipes children -->
         <span

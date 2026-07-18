@@ -109,7 +109,7 @@ function collectionToPost(collection: CollectionConfig): Post {
   <LgcIndexSection
     id="posts"
     :aria-label="
-      source === 'collections' ? t('accessibility.collections') : t('menu.posts')
+      source === 'collections' ? t('accessibility.collection.list') : t('menu.posts')
     "
     :flush="flush"
     heading="h2"
