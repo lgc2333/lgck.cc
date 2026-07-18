@@ -13,6 +13,11 @@ archive:
   sort_newest: Show newest first
   sort_oldest: Show oldest first
 
+category:
+  uncategorized: Uncategorized
+  expand: Expand {name}
+  collapse: Collapse {name}
+
 collection:
   all: Collections
   title: 'Collection: {name}'
@@ -73,6 +78,8 @@ accessibility:
   social_links: Social links
   scroll_to_posts: Scroll to posts
   posts_pagination: Pagination
+  category_tree: Category article tree
+  clear_category: Clear selected category
   post_navigation: Post navigation
   collections: Collections
   collection_navigation: Collection navigation

@@ -143,13 +143,13 @@ function translateCategoryName(name: string) {
 </script>
 
 <template>
-  <nav aria-label="Category article tree">
+  <nav :aria-label="t('accessibility.category_tree')">
     <TransitionGroup
       tag="ul"
       name="lgc-category-branch"
       class="lgc-category-tree"
       role="tree"
-      aria-label="Categories"
+      :aria-label="t('menu.categories')"
     >
       <li v-for="row in treeRows" :key="row.key" role="none">
         <div
@@ -170,7 +170,9 @@ function translateCategoryName(name: string) {
             class="lgc-category-toggle"
             type="button"
             :aria-label="
-              row.isExpanded ? `Collapse ${row.label}` : `Expand ${row.label}`
+              row.isExpanded
+                ? t('category.collapse', { name: row.label })
+                : t('category.expand', { name: row.label })
             "
             @click="toggleCategory(row.path)"
           >

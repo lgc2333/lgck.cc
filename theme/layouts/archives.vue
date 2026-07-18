@@ -42,11 +42,11 @@ const orderActionLabel = computed(() =>
             @click="isDesc = !isDesc"
           >
             <span
-              v-if="isDesc"
-              i-material-symbols-arrow-downward-rounded
+              i-material-symbols-list-arrow-rounded
+              class="lgc-archive-order-icon"
+              :class="{ 'is-ascending': !isDesc }"
               aria-hidden="true"
             />
-            <span v-else i-material-symbols-arrow-upward-rounded aria-hidden="true" />
           </button>
         </template>
 
@@ -59,8 +59,8 @@ const orderActionLabel = computed(() =>
 <style scoped lang="scss">
 .lgc-archive-order {
   @apply 'inline-flex items-center justify-center border-0 bg-transparent p-0';
-  @apply 'min-h-$lgc-control-size-sm w-$lgc-control-size-sm rounded-$lgc-radius-control';
-  @apply 'text-size-$lgc-icon-size text-$md-sys-color-on-surface-variant cursor-pointer';
+  @apply 'h-$lgc-control-size-compact w-$lgc-control-size-compact rounded-$lgc-radius-control';
+  @apply 'text-size-$lgc-icon-size text-$md-sys-color-on-surface cursor-pointer';
   @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
   transition-property: background-color, border-radius, color, transform;
 }
@@ -72,5 +72,9 @@ const orderActionLabel = computed(() =>
 
 .lgc-archive-order:active {
   transform: scale(var(--lgc-control-press-scale));
+}
+
+.lgc-archive-order-icon.is-ascending {
+  transform: scaleY(-1);
 }
 </style>

@@ -13,6 +13,11 @@ archive:
   sort_newest: 按最新在前显示
   sort_oldest: 按最早在前显示
 
+category:
+  uncategorized: 未分类
+  expand: 展开{name}
+  collapse: 收起{name}
+
 collection:
   all: 合集
   title: '合集：{name}'
@@ -73,6 +78,8 @@ accessibility:
   social_links: 社交链接
   scroll_to_posts: 滚动到文章列表
   posts_pagination: 文章分页
+  category_tree: 分类文章树
+  clear_category: 清除已选分类
   post_navigation: 文章导航
   collections: 合集
   collection_navigation: 合集导航

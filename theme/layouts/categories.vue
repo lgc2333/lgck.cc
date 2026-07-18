@@ -32,7 +32,8 @@ const rootCategoryCount = computed(() => Array.from(categories.value.children).l
           <RouterLink
             class="lgc-category-clear"
             :to="CATEGORY_ROUTE_PATH"
-            aria-label="Clear selected category"
+            :aria-label="t('accessibility.clear_category')"
+            :title="t('accessibility.clear_category')"
           >
             <span i-material-symbols-close-rounded aria-hidden="true" />
           </RouterLink>
@@ -50,13 +51,13 @@ const rootCategoryCount = computed(() => Array.from(categories.value.children).l
 
 <style scoped lang="scss">
 .lgc-category-panel {
-  @apply 'p-$lgc-space-sm sm:p-$lgc-space-md';
+  @apply 'p-$lgc-space-lg md:p-$lgc-space-xl lg:p-$lgc-space-2xl';
 }
 
 .lgc-category-clear {
   @apply 'inline-flex items-center justify-center border-0 bg-transparent p-0';
-  @apply 'min-h-$lgc-control-size-sm w-$lgc-control-size-sm rounded-$lgc-radius-control';
-  @apply 'text-$md-sys-color-on-surface-variant no-underline cursor-pointer';
+  @apply 'h-$lgc-control-size-compact w-$lgc-control-size-compact rounded-$lgc-radius-control';
+  @apply 'text-size-$lgc-icon-size text-$md-sys-color-on-surface no-underline cursor-pointer';
   @apply 'duration-$lgc-motion-short ease-$lgc-easing-standard';
   transition-property: background-color, border-radius, color, transform;
 }
