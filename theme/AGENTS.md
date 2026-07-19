@@ -118,7 +118,7 @@ PLEASE: Double-check the code you wrote meets the following constraints before y
 - Prefer attributify for all element-local utilities (`flex`/`text`/`bg`/`p`/`rounded`/`max-inline`…); move leftovers to `class` only when attributify cannot express them; use `un-` if attr conflicts with DOM/Vue prop
 - Tokens in `styles/base.scss`; call with `$token` (`bg-$md-sys-color-surface`, `p-$lgc-space-lg`)
 - Icons/safelist only in `valaxy.config.ts` (no standalone Uno config). Theme icon packs: `material-symbols` + `ic` only (Material family). Material Symbols Rounded primary; site-owned packs (e.g. `ri`) load in site configs, not theme. Config icons must be safelisted/collections-loaded
-- Fonts: `assets/fonts/`, `node/vite/fonts.ts`
+- Fonts: `assets/fonts/`, `node/vite/fonts.ts`, `node/vite/fonts-dev.ts`, `node/vite/utils/fonts.ts`
 
 ### Tokens
 

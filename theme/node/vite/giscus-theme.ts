@@ -6,8 +6,8 @@ import type { Plugin } from 'vite'
 
 import type { ThemeConfig } from '../../types'
 import { generateMaterialColorsCss } from '../material-colors'
-import { hasThemeFonts, publicFontCssPath } from './fonts'
-import { setCssCorsHeaders } from './utils'
+import { hasThemeFonts } from './fonts'
+import { publicFontCssPath, setCssCorsHeaders } from './utils'
 
 const publicBaseThemePath = '/assets/giscus/base.css'
 const publicLightThemePath = '/assets/giscus/light.css'
