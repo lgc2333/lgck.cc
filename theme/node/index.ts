@@ -5,9 +5,10 @@ export {
   generateMaterialColorsCss,
 } from './material-colors'
 export {
-  giscusFontPlugin,
   giscusThemePlugin,
-  harmonyOSFontFamilyPlugin,
+  hasThemeFonts,
   loadingBootstrapPlugin,
   materialColorsPlugin,
+  themeFontPlugin,
+  themeFontPlugins,
 } from './vite'

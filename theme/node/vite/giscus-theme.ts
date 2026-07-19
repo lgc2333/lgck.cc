@@ -6,7 +6,8 @@ import type { Plugin } from 'vite'
 
 import type { ThemeConfig } from '../../types'
 import { generateMaterialColorsCss } from '../material-colors'
-import { publicGiscusFontThemePath } from './giscus-font'
+import { hasThemeFonts, publicFontCssPath } from './fonts'
+import { setCssCorsHeaders } from './utils'
 
 const publicBaseThemePath = '/assets/giscus/base.css'
 const publicLightThemePath = '/assets/giscus/light.css'
@@ -88,13 +89,13 @@ export function giscusThemePlugin(
       this.emitFile({
         type: 'asset',
         fileName: emittedLightThemeFileName,
-        source: buildGiscusThemeCss('light', rootVars),
+        source: buildGiscusThemeCss('light', rootVars, hasThemeFonts(options)),
       })
 
       this.emitFile({
         type: 'asset',
         fileName: emittedDarkThemeFileName,
-        source: buildGiscusThemeCss('dark', darkVars),
+        source: buildGiscusThemeCss('dark', darkVars, hasThemeFonts(options)),
       })
     },
   }
@@ -132,11 +133,11 @@ function getDevGiscusThemeCss(
   }
 
   if (pathname === publicLightThemePath) {
-    return buildGiscusThemeCss('light', cssVars.rootVars)
+    return buildGiscusThemeCss('light', cssVars.rootVars, hasThemeFonts(options))
   }
 
   if (pathname === publicDarkThemePath) {
-    return buildGiscusThemeCss('dark', cssVars.darkVars)
+    return buildGiscusThemeCss('dark', cssVars.darkVars, hasThemeFonts(options))
   }
 }
 
@@ -156,19 +157,23 @@ function getSourceCssVars(options?: ResolvedValaxyOptions<ThemeConfig>) {
   return { darkVars, rootVars }
 }
 
-function setCssCorsHeaders(res: ServerResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Content-Type', 'text/css; charset=utf-8')
-}
-
 function buildGiscusBaseCss(baseThemeCss: string) {
   return baseThemeCss
 }
 
-function buildGiscusThemeCss(mode: 'light' | 'dark', cssVars: Map<string, string>) {
+function buildGiscusThemeCss(
+  mode: 'light' | 'dark',
+  cssVars: Map<string, string>,
+  includeFonts: boolean,
+) {
+  const imports = [`@import url('https://giscus.app/themes/${mode}.css');`]
+
+  if (includeFonts) {
+    imports.push(`@import url('${publicFontCssPath.replace('/assets/', '../')}');`)
+  }
+
   return [
-    `@import url('https://giscus.app/themes/${mode}.css');`,
-    `@import url('${publicGiscusFontThemePath.replace('/assets/', '../')}');`,
+    ...imports,
     `@import url('./base.css');`,
     `html {\n  ${serializeCssVars(cssVars)}\n}`,
   ].join('\n')

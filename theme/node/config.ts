@@ -73,6 +73,10 @@ export const defaultThemeConfig: ThemeConfig = {
   giscus: {
     useTheme: true,
   },
+  fonts: {
+    useBundled: true,
+    families: [],
+  },
   colors: defaultMaterialColorsConfig,
   fixedBg: {
     switchMode: 'sequential',

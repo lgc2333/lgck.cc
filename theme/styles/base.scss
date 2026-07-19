@@ -1,21 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
-
 // Numeric keep-set: radius (px), type sizes, elevation/shadow, icon sizes.
 // Layout/spacing chrome (landing pads, dense gaps, cover insets, …) may stay bare px at call sites.
 // Non-numeric roles: MD colors, motion, layers, font families, brand accents.
 :root {
   // --- Font families ---
-  --lgc-font-family-cjk: 'HarmonyOS Sans LgCuwukii', system-ui;
-  --lgc-font-family-mono: 'JetBrains Mono';
   --lgc-font-family-system: system-ui;
-  --lgc-font-family-sans: var(--lgc-font-family-cjk), var(--lgc-font-family-system);
+  --lgc-font-family-sans: 'HarmonyOS Sans LgCuwukii', var(--lgc-font-family-system);
+  --lgc-font-family-serif: var(--lgc-font-family-sans);
+  --lgc-font-family-mono: 'JetBrains Mono', var(--lgc-font-family-system);
 
   --va-font-family-base: var(--lgc-font-family-sans);
   --va-font-sans: var(--lgc-font-family-sans);
-  --va-font-serif: var(--lgc-font-family-sans);
-  --va-font-mono:
-    var(--lgc-font-family-mono), var(--lgc-font-family-cjk),
-    var(--lgc-font-family-system);
+  --va-font-serif: var(--lgc-font-family-serif);
+  --va-font-mono: var(--lgc-font-family-mono);
 
   --lgc-font-display: var(--lgc-font-family-sans);
   --lgc-font-body: var(--va-font-family-base);
@@ -202,7 +198,7 @@ i,
 em,
 cite,
 dfn {
-  font-family: var(--lgc-font-family-cjk), var(--lgc-font-family-system);
+  font-family: var(--lgc-font-family-sans);
 }
 
 code,

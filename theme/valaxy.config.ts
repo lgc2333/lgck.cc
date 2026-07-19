@@ -1,21 +1,33 @@
+import { resolve } from 'node:path'
+
 import { defineTheme } from 'valaxy'
-import Font from 'vite-plugin-font'
 
 import {
   defaultThemeConfig,
   generateSafelist,
-  giscusFontPlugin,
   giscusThemePlugin,
-  harmonyOSFontFamilyPlugin,
+  hasThemeFonts,
   loadingBootstrapPlugin,
   materialColorsPlugin,
+  themeFontPlugins,
 } from './node'
+import { stripOutputFontPreloadLinks } from './node/vite/utils'
 import type { ThemeConfig } from './types'
 import { lgcBreakpoints } from './utils/breakpoints'
 
 export default defineTheme<ThemeConfig>((options) => {
+  const hasFonts = hasThemeFonts(options)
+
   return {
     themeConfig: defaultThemeConfig,
+
+    hooks: {
+      'build:after': () => {
+        if (!hasFonts) return
+        stripOutputFontPreloadLinks(resolve(options.userRoot, 'dist'))
+      },
+    },
+
     vite: {
       build: {
         rollupOptions: {
@@ -29,14 +41,13 @@ export default defineTheme<ThemeConfig>((options) => {
         },
       },
       plugins: [
-        Font.vite(),
-        harmonyOSFontFamilyPlugin(),
+        ...themeFontPlugins(options),
         materialColorsPlugin(options),
-        giscusFontPlugin(),
         giscusThemePlugin(options),
         loadingBootstrapPlugin(),
       ],
     },
+
     unocss: {
       safelist: generateSafelist(options),
       // MD3 window breakpoints as short variants (dp ≈ px).

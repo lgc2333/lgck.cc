@@ -19,6 +19,4 @@ declare module '*.ttf' {
   export const fontFamilyFallback: string
 }
 
-declare module 'virtual:lgc-material-colors.css' {}
-
 export {}

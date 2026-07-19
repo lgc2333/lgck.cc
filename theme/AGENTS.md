@@ -15,7 +15,7 @@ If an M3 Expressive decision is unclear, check official refs before implementing
 
 - `valaxy.config.ts`: `defineTheme()` — defaults, focused Vite plugins, Uno safelist/icons
 - `App.vue`: theme shell (`LgcLoading`)
-- `client/`: user-facing exports; `node/`: defaults/material colors/safelist; `node/vite/`: Vite plugins (fonts, material colors CSS, loading bootstrap, Giscus theme/font CSS)
+- `client/`: user-facing exports; `node/`: defaults/material colors/safelist; `node/vite/`: Vite plugins (fonts, material colors CSS, loading bootstrap, Giscus theme CSS)
 - `types/index.ts`: public theme config + Valaxy augmentation (`PostFrontMatter`, `DefaultTheme`, `*.ttf`)
 - `components/`: auto-registered; Valaxy contract overrides `ValaxyApp` / `ValaxyMain` stay at root; shell primitives `LgcSiteShell`, `LgcPageSurface`, `LgcSideDrawer`, `LgcPrevNextNav` stay root-level; other `Lgc*` grouped by surface (`header/`, `landing/`, `floating/`, `loading/`, `search/`, `index/`, `category/`, `tag/`, `post/`, `collection/`)
 - `layouts/`: default, home, post, collection(s), categories, tags, archives, 404
@@ -118,7 +118,7 @@ PLEASE: Double-check the code you wrote meets the following constraints before y
 - Prefer attributify for all element-local utilities (`flex`/`text`/`bg`/`p`/`rounded`/`max-inline`…); move leftovers to `class` only when attributify cannot express them; use `un-` if attr conflicts with DOM/Vue prop
 - Tokens in `styles/base.scss`; call with `$token` (`bg-$md-sys-color-surface`, `p-$lgc-space-lg`)
 - Icons/safelist only in `valaxy.config.ts` (no standalone Uno config). Theme icon packs: `material-symbols` + `ic` only (Material family). Material Symbols Rounded primary; site-owned packs (e.g. `ri`) load in site configs, not theme. Config icons must be safelisted/collections-loaded
-- Fonts: `styles/fonts.ts`, `assets/fonts/`, `node/vite/font.ts`
+- Fonts: `assets/fonts/`, `node/vite/fonts.ts`
 
 ### Tokens
 
@@ -169,6 +169,7 @@ Breakpoints only from theme config (sm/md/lg/xl above). Use Uno/Wind4 variants o
 - Types in `types/` before wiring options
 - `postFooter.sponsor.link`: site-owned sponsor page link; when set, it wins over `siteConfig.sponsor.methods`
 - `giscus.useTheme`: when true, theme overwrites `valaxy-addon-giscus.options.theme` with its generated `/assets/giscus/*.css`
+- `fonts.useBundled`: keep theme bundled local/Google fonts; `fonts.families`: extra local font files/folders for the theme font pipeline
 - `landing.links`: flat list = auto layout; nested list = explicit dock rows
 - Site content (title, author, avatar, nav, landing links, socials) → `site.config.ts` / `themeConfig` / demos, not hard-coded defaults
 

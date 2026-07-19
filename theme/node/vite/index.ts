@@ -1,5 +1,4 @@
-export { harmonyOSFontFamilyPlugin } from './font'
-export { giscusFontPlugin } from './giscus-font'
+export { hasThemeFonts, themeFontPlugin, themeFontPlugins } from './fonts'
 export { giscusThemePlugin } from './giscus-theme'
 export { loadingBootstrapPlugin } from './loading-bootstrap'
 export { materialColorsPlugin } from './material-colors'

@@ -3,6 +3,8 @@ import { fileURLToPath } from 'node:url'
 import { build, normalizePath } from 'vite'
 import type { Plugin, ResolvedConfig } from 'vite'
 
+import { resolveAssetUrl } from './utils'
+
 export function loadingBootstrapPlugin(): Plugin {
   const loadingBootstrapPath = normalizePath(
     fileURLToPath(new URL('../../client/loading-bootstrap.ts', import.meta.url)),
@@ -125,10 +127,4 @@ export function loadingBootstrapPlugin(): Plugin {
       ]
     },
   }
-}
-
-function resolveAssetUrl(base: string, fileName: string) {
-  if (!base || base === './') return `./${fileName}`
-
-  return `${base.replace(/\/$/, '')}/${fileName}`
 }

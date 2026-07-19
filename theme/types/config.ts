@@ -207,6 +207,35 @@ export interface GiscusConfig {
   useTheme: boolean
 }
 
+// ─── Fonts ──────────────────────────────────────────────────────────────────
+
+export interface FontFamilyConfig {
+  /**
+   * Final CSS font-family name emitted by the theme font pipeline.
+   */
+  family: string
+
+  /**
+   * Local font file or directory paths. Relative paths resolve from the site root;
+   * paths starting with `/` resolve from the site's `public/` directory.
+   */
+  paths: string | string[]
+}
+
+export interface FontConfig {
+  /**
+   * Bundle the theme's built-in fonts, including local font files and theme-owned
+   * Google Fonts imports.
+   * @default true
+   */
+  useBundled: boolean
+
+  /**
+   * Additional local font families handled by the theme's Vite font pipeline.
+   */
+  families: FontFamilyConfig[]
+}
+
 declare module 'valaxy' {
   interface PostFrontMatter {
     /**
@@ -395,6 +424,11 @@ export interface ThemeConfig extends DefaultTheme.Config {
    * Giscus addon integration.
    */
   giscus?: Partial<GiscusConfig>
+
+  /**
+   * Font bundling and additional local font families.
+   */
+  fonts?: Partial<FontConfig>
 
   /**
    * Material color generation.
