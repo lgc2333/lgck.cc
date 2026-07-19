@@ -45,11 +45,7 @@ const timelinePosts = computed(() =>
   ),
 )
 const selectedTagLabel = computed(() => (curTag.value ? $tTag(curTag.value) : ''))
-const pageDescription = computed(() =>
-  curTag.value
-    ? t('tag.selected', { name: selectedTagLabel.value })
-    : t('counter.tags', tagEntries.value.length),
-)
+const pageDescription = computed(() => t('counter.tags', tagEntries.value.length))
 const timelineEmptyText = computed(() =>
   t('tag.empty', { name: selectedTagLabel.value }),
 )

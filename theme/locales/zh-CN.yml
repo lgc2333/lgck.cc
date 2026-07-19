@@ -13,7 +13,6 @@ category:
   uncategorized: 未分类
 
 tag:
-  selected: '标签：{name}'
   empty: '还没有带有 {name} 标签的文章。'
 
 collection:

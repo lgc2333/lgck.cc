@@ -13,7 +13,6 @@ category:
   uncategorized: Uncategorized
 
 tag:
-  selected: 'Tag: {name}'
   empty: 'No posts tagged {name} yet.'
 
 collection:
