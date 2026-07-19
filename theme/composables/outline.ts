@@ -11,6 +11,8 @@ import {
   watch,
 } from 'vue'
 
+import { scrollActiveChildIntoView } from '../utils/scroll'
+
 const PAGE_OFFSET = 130
 interface ActiveOutlineOptions {
   containerRef?: Ref<HTMLElement | undefined>
@@ -23,6 +25,7 @@ interface OutlineEntry {
   element: HTMLElement
   link: string
   title: string
+  depth: number
 }
 
 function getAbsoluteTop(element: HTMLElement): number {
@@ -37,15 +40,16 @@ function getAbsoluteTop(element: HTMLElement): number {
   return current ? offsetTop : Number.NaN
 }
 
-function flattenHeaders(headers: MenuItem[], entries: OutlineEntry[] = []) {
+function flattenHeaders(headers: MenuItem[], entries: OutlineEntry[] = [], depth = 0) {
   for (const header of headers) {
     entries.push({
       element: header.element,
+      depth,
       link: header.link,
       title: header.title,
     })
 
-    if (header.children?.length) flattenHeaders(header.children, entries)
+    if (header.children?.length) flattenHeaders(header.children, entries, depth + 1)
   }
 
   return entries
@@ -97,11 +101,15 @@ export function useActiveOutline(
 
   const enabled = computed(() => toValue(options.enabled) !== false)
 
-  function setMarker(activeAnchor?: HTMLAnchorElement) {
+  function setMarker(activeAnchor?: HTMLAnchorElement, activeDepth = 0) {
     const marker = options.markerRef?.value
     if (!marker) return
 
     const markerTopOffset = toValue(options.markerTopOffset) ?? 0
+    marker.style.setProperty(
+      '--post-outline-marker-left',
+      activeAnchor ? `calc(${activeDepth} * var(--lgc-space-md))` : '0px',
+    )
 
     if (activeAnchor) {
       const centeredOffset = Math.round(
@@ -115,7 +123,7 @@ export function useActiveOutline(
     }
   }
 
-  function updateContainerActiveLink(link: string) {
+  function updateContainerActiveLink(link: string, activeDepth = 0) {
     if (previousActiveLink) previousActiveLink.classList.remove('active')
 
     const container = options.containerRef?.value
@@ -124,21 +132,22 @@ export function useActiveOutline(
 
     if (previousActiveLink) previousActiveLink.classList.add('active')
 
-    setMarker(previousActiveLink)
+    setMarker(previousActiveLink, activeDepth)
+    scrollActiveChildIntoView(container, previousActiveLink)
   }
 
   function updateActiveOutline() {
     if (!enabled.value) {
       activeLink.value = ''
       activeTitle.value = ''
-      updateContainerActiveLink('')
+      updateContainerActiveLink('', 0)
       return
     }
 
     const activeEntry = resolveActiveEntry(toValue(headers))
     activeLink.value = activeEntry?.link || ''
     activeTitle.value = activeEntry?.title || ''
-    updateContainerActiveLink(activeLink.value)
+    updateContainerActiveLink(activeLink.value, activeEntry?.depth ?? 0)
   }
 
   function queueUpdate() {

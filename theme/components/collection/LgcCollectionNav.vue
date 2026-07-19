@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { CollectionConfig } from 'valaxy'
 import { resolveCollectionItemHref, useValaxyI18n } from 'valaxy'
-import { computed, ref } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
+
+import { scrollActiveChildIntoView } from '../../utils/scroll'
 
 const props = withDefaults(
   defineProps<{
@@ -31,6 +33,7 @@ const { t } = useI18n()
 const { $tO } = useValaxyI18n()
 const route = useRoute()
 const expanded = ref(true)
+const scrollRef = ref<HTMLElement>()
 
 const collectionPath = computed(() => {
   if (props.collection?.path) return props.collection.path
@@ -69,9 +72,30 @@ function toggleExpanded() {
   expanded.value = !expanded.value
 }
 
+async function scrollActiveItemIntoView(behavior: ScrollBehavior = 'smooth') {
+  await nextTick()
+
+  const activeLink = scrollRef.value?.querySelector<HTMLElement>(
+    '.lgc-collection-nav-link.is-active',
+  )
+  scrollActiveChildIntoView(scrollRef.value, activeLink, behavior)
+}
+
 function stripTrailingSlash(path: string) {
   return path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path
 }
+
+onMounted(() => {
+  void scrollActiveItemIntoView('auto')
+})
+
+watch(
+  () => [props.currentIndex, route.path, expanded.value, resolvedItems.value.length],
+  () => {
+    void scrollActiveItemIntoView()
+  },
+  { flush: 'post' },
+)
 </script>
 
 <template>
@@ -146,6 +170,7 @@ function stripTrailingSlash(path: string) {
 
     <nav
       v-if="resolvedItems.length && expanded"
+      ref="scrollRef"
       class="lgc-collection-nav-scroll"
       :class="{ 'is-scrollable': scrollable }"
       min-h="0"
@@ -216,11 +241,11 @@ function stripTrailingSlash(path: string) {
 
 .lgc-collection-nav.is-scrollable {
   @apply 'grid-rows-[auto_minmax(0,1fr)]';
+  max-height: var(--collection-nav-scroll-max-height);
 }
 
 .lgc-collection-nav-scroll.is-scrollable {
   @apply 'overflow-y-auto';
-  max-height: var(--collection-nav-scroll-max-height);
 }
 
 .lgc-collection-nav-list {

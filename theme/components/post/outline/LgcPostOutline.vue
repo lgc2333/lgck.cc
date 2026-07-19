@@ -76,7 +76,9 @@ const { activeLink } = useActiveOutline(toRef(props, 'headers'), {
       min-h="0"
       min-w="0"
       relative
+      ms="[-2px]"
       overflow-x-hidden
+      ps="[2px]"
     >
       <div
         v-if="trackActive"
@@ -102,22 +104,25 @@ const { activeLink } = useActiveOutline(toRef(props, 'headers'), {
 <style scoped lang="scss">
 .lgc-post-outline.is-scrollable {
   @apply 'grid-rows-[auto_minmax(0,1fr)]';
+  max-height: var(--post-outline-scroll-max-height);
 }
 
 .lgc-post-outline-scroll.is-scrollable {
   @apply 'overflow-y-auto';
-  max-height: var(--post-outline-scroll-max-height);
 }
 
 // Residual: active marker is positioned by useActiveOutline.
 .lgc-post-outline-marker {
   --post-outline-marker-height: 20px;
+  --post-outline-marker-left: 0px;
   --post-outline-marker-width: 4px;
 
-  @apply 'pointer-events-none absolute left-0 top-0 z-2 w-[var(--post-outline-marker-width)] h-[var(--post-outline-marker-height)] opacity-0';
+  @apply 'pointer-events-none absolute top-0 z-2 w-[var(--post-outline-marker-width)] h-[var(--post-outline-marker-height)] opacity-0';
   @apply 'rounded-full bg-$md-sys-color-primary';
+  left: var(--post-outline-marker-left);
   transition:
     top var(--lgc-motion-medium) var(--lgc-easing-standard),
+    left var(--lgc-motion-medium) var(--lgc-easing-standard),
     opacity var(--lgc-motion-short) var(--lgc-easing-standard);
 }
 </style>
