@@ -12,6 +12,10 @@ archive:
 category:
   uncategorized: Uncategorized
 
+tag:
+  selected: 'Tag: {name}'
+  empty: 'No posts tagged {name} yet.'
+
 collection:
   all: Collections
   title: 'Collection: {name}'
@@ -77,6 +81,9 @@ accessibility:
     clear: Clear selected category
     expand: Expand {name}
     collapse: Collapse {name}
+  tag:
+    list: Tag list
+    clear: Clear selected tag
   collection:
     list: Collections
     navigation: Collection navigation

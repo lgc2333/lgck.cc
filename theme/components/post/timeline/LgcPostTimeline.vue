@@ -116,21 +116,29 @@ const emptyText = computed(() => props.emptyText || t('archive.empty'))
   );
 }
 
-// Residual: route-level order changes fade the whole timeline block.
+// Residual: order changes slide the whole timeline block like page surfaces.
 .lgc-post-timeline-year-enter-active,
 .lgc-post-timeline-year-leave-active {
-  transition: opacity var(--lgc-motion-short) var(--lgc-easing-standard);
+  transition-property: opacity, transform;
+  transition-duration: var(--lgc-motion-medium);
+  transition-timing-function: var(--lgc-easing-standard);
 }
 
 .lgc-post-timeline-year-enter-from,
 .lgc-post-timeline-year-leave-to {
   opacity: 0;
+  transform: translateY(var(--lgc-space-md));
 }
 
 @media (prefers-reduced-motion: reduce) {
   .lgc-post-timeline-year-enter-active,
   .lgc-post-timeline-year-leave-active {
     transition: none;
+  }
+
+  .lgc-post-timeline-year-enter-from,
+  .lgc-post-timeline-year-leave-to {
+    transform: none;
   }
 }
 </style>

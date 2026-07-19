@@ -12,6 +12,10 @@ archive:
 category:
   uncategorized: 未分类
 
+tag:
+  selected: '标签：{name}'
+  empty: '还没有带有 {name} 标签的文章。'
+
 collection:
   all: 合集
   title: '合集：{name}'
@@ -77,6 +81,9 @@ accessibility:
     clear: 清除已选分类
     expand: 展开{name}
     collapse: 收起{name}
+  tag:
+    list: 标签列表
+    clear: 清除已选标签
   collection:
     list: 合集
     navigation: 合集导航

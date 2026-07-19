@@ -5,7 +5,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { normalizePostListValue } from '../../utils/post'
-import { categoryRouteLocation } from '../../utils/taxonomy'
+import { categoryRouteLocation, tagRouteLocation } from '../../utils/taxonomy'
 
 const props = withDefaults(
   defineProps<{
@@ -91,7 +91,7 @@ const tagItems = computed(() =>
     :key="item.tag"
     class="is-link"
     :class="tagClass"
-    :to="{ path: '/tags/', query: { tag: item.tag } }"
+    :to="tagRouteLocation(item.tag)"
   >
     <span i-material-symbols-tag-rounded aria-hidden="true" />
     <span>{{ item.label }}</span>

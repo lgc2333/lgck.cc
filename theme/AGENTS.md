@@ -17,8 +17,8 @@ If an M3 Expressive decision is unclear, check official refs before implementing
 - `App.vue`: theme shell (`LgcLoading`)
 - `client/`: user-facing exports; `node/`: defaults/material colors/safelist; `node/vite/`: Vite plugins (fonts, material colors CSS, loading bootstrap, Giscus theme/font CSS)
 - `types/index.ts`: public theme config + Valaxy augmentation (`PostFrontMatter`, `DefaultTheme`, `*.ttf`)
-- `components/`: auto-registered; Valaxy contract overrides `ValaxyApp` / `ValaxyMain` stay at root; shell primitives `LgcSiteShell`, `LgcPageSurface`, `LgcSideDrawer`, `LgcPrevNextNav` stay root-level; other `Lgc*` grouped by surface (`header/`, `landing/`, `floating/`, `loading/`, `search/`, `index/`, `category/`, `post/`, `collection/`)
-- `layouts/`: default, home, post, collection(s), categories, archives, 404
+- `components/`: auto-registered; Valaxy contract overrides `ValaxyApp` / `ValaxyMain` stay at root; shell primitives `LgcSiteShell`, `LgcPageSurface`, `LgcSideDrawer`, `LgcPrevNextNav` stay root-level; other `Lgc*` grouped by surface (`header/`, `landing/`, `floating/`, `loading/`, `search/`, `index/`, `category/`, `tag/`, `post/`, `collection/`)
+- `layouts/`: default, home, post, collection(s), categories, tags, archives, 404
 - `composables/`: config, header, language motion, search
 - `utils/`: locale, post, routes, repo URLs, search text, M3 loading
 - `styles/`: global SCSS + tokens (`index.ts` → fonts + `index.scss`); `styles/shared/*` owns cross-component recipes only (`control.scss`, `reading.scss` panel base/padding); one-off card/action chrome stays component-local; `styles/giscus/` owns Giscus iframe theme CSS
