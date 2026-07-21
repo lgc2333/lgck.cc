@@ -6,6 +6,7 @@
   "i18n-ally-next.enabledFrameworks": ["vue"],
   "i18n-ally-next.keystyle": "nested",
   "i18n-ally-next.localesPaths": [
+    "blog/locales",
     "demo/locales",
     "theme/locales",
     "temp/valaxy/packages/valaxy/client/locales"

@@ -1,10 +1,12 @@
 [
   {
-    "avatar": "https://kanochi.cn/Pic/sign.jpg",
+    "avatar": "https://kanochi.cn/assets/sign.jpg",
     "name": "Nonokara",
     "url": "https://kanochi.cn/",
-    "color": "var(--va-c-primary-dark)",
     "blog": "Nonokara",
-    "desc": "淡咸夏海"
+    "desc": {
+      "zh-CN": "淡咸夏海",
+      "en": "Summer Salt Sea"
+    }
   }
 ]

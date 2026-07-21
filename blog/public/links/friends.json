@@ -3,23 +3,16 @@
     "avatar": "https://pic.imgdb.cn/item/630b536f16f2c2beb174795e.png",
     "name": "Rouphy",
     "url": "https://rouphy.github.io/",
-    "color": "var(--va-c-primary-dark)",
     "blog": "Roublog",
-    "desc": "nano博客，小子"
-  },
-  {
-    "avatar": "https://blog.lix.moe/wp-content/uploads/2023/12/lix_avatar.jpeg",
-    "name": "LixWorth",
-    "url": "https://blog.lix.moe/",
-    "color": "var(--va-c-primary-dark)",
-    "blog": "利克斯的养鸽场",
-    "desc": "写代码是热爱，写到世界爱上我！"
+    "desc": {
+      "zh-CN": "nano博客，小子",
+      "en": "A nano blog, buddy"
+    }
   },
   {
     "avatar": "https://cdn.sep.cc/avatar/2defd5540f480625cf9d09e5d4c3b7c4?s=512&r=pg",
     "name": "XieXiLin",
     "url": "https://www.xiexilin.com/",
-    "color": "var(--va-c-primary-dark)",
     "blog": "XieXiLin",
     "desc": "👋🏻 Hi there"
   },
@@ -27,40 +20,30 @@
     "avatar": "https://github.com/eya46.png",
     "name": "eya46",
     "url": "https://eya46.com/",
-    "color": "var(--va-c-primary-dark)",
     "blog": "eya46",
-    "desc": "eya46是eya46"
+    "desc": {
+      "zh-CN": "eya46是eya46",
+      "en": "eya46 is eya46"
+    }
   },
   {
     "avatar": "https://github.com/snowykami.png?size=80",
     "name": "SnowyKami",
     "url": "https://sfkm.me/",
-    "color": "var(--va-c-primary-dark)",
     "blog": "SnowyKamiBlog",
-    "desc": "SnowyKami of Liteyuki！"
-  },
-  {
-    "avatar": "https://server.akio.top/icon",
-    "name": "MisakaAkio",
-    "url": "https://www.akio.top/",
-    "color": "var(--va-c-primary-dark)",
-    "blog": "御坂秋生の小窝",
-    "desc": "不努力就只能听到别人的好消息"
-  },
-  {
-    "avatar": "https://halo.b4qaq.top/upload/t1x.jpg",
-    "name": "B4QAQ",
-    "url": "https://halo.b4qaq.top",
-    "color": "var(--va-c-primary-dark)",
-    "blog": "B4の小窝",
-    "desc": "不忘初心，方得始终"
+    "desc": {
+      "zh-CN": "Liteyuki 的 SnowyKami！",
+      "en": "SnowyKami of Liteyuki!"
+    }
   },
   {
     "avatar": "https://cdn.jsdelivr.net/gh/Eofs791/catpic@main/img/avatar.ico",
     "name": "见崎美咲",
-    "url": "https://eofs791.github.io",
-    "color": "var(--va-c-primary-dark)",
+    "url": "https://catarium.me/",
     "blog": "Catarium",
-    "desc": "见崎的猫箱"
+    "desc": {
+      "zh-CN": "见崎的猫箱",
+      "en": "Misaki's cat box"
+    }
   }
 ]

@@ -196,10 +196,10 @@ function createThemeFontPlugin(
     transformIndexHtml: {
       order: 'post',
       handler(html) {
-        if (!hasFonts || config.command !== 'build') return
+        if (!hasFonts) return
 
         return {
-          html: stripFontPreloadLinks(html),
+          html: config.command === 'build' ? stripFontPreloadLinks(html) : html,
           tags: [
             {
               tag: 'link',

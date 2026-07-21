@@ -1,26 +1,52 @@
 ---
-title: 友情链接
-icon: i-ri-link
+title:
+  zh-CN: 友情链接
+  en: Links
+icon: i-tabler-link
 nav: false
 ---
 
 <!-- markdownlint-disable MD033 -->
 
-<div class="text-center">
+::: en
+::: info {class="lgc-hide-from-excerpt"}
+This post was translated by LLM. There may be mistranslations or tones that do not closely match the original text.
+:::
+
+<div class="lgc-markdown-center-wrapper">
 
 ## ❤️
 
-<YunLinks links="/links/love.json" :random="false" />
+::: zh-CN
+2024/7/18 奔现纪念日
+:::
 
-## 小伙伴们
+::: en
+2024/7/18 IRL meetup anniversary
+:::
 
-<YunLinks links="/links/friends.json" :random="false" />
+<LgcLinks errorImg="i-material-symbols-person-outline-rounded" links="/links/love.json" />
 
+## 小伙伴们 {lang="zh-CN"}
+
+## Friends {lang="en"}
+
+<LgcLinks errorImg="i-material-symbols-person-outline-rounded" links="/links/friends.json" />
+
+::: zh-CN
 想出现在这里，或者更正信息吗？  
-Fork 本 Blog 的 <a href="https://github.com/lgc2333/blog" target="_blank">GitHub 仓库</a>，之后照葫芦画瓢修改 <a href="https://github.com/lgc2333/blog/blob/master/public/links/friends.json" target="_blank">此 JSON 文件</a>，改完提交 PR 即可~
+Fork 本 Blog 的 <a href="https://github.com/lgc2333/blog" target="_blank">GitHub 仓库</a>，之后照葫芦画瓢修改 <a href="https://github.com/lgc2333/blog/blob/master/blog/public/links/friends.json" target="_blank">此 JSON 文件</a>，改完提交 PR 即可~
+:::
 
-## 我的其他站点
+::: en
+Want to appear here, or fix your information?  
+Fork this blog's <a href="https://github.com/lgc2333/blog" target="_blank">GitHub repository</a>, edit <a href="https://github.com/lgc2333/blog/blob/master/blog/public/links/friends.json" target="_blank">this JSON file</a> by following the existing entries, and open a PR when you are done.
+:::
 
-<YunLinks links="/links/self.json" :random="false" />
+## 我的其他站点 {lang="zh-CN"}
+
+## My Other Sites {lang="en"}
+
+<LgcLinks links="/links/self.json" />
 
 </div>

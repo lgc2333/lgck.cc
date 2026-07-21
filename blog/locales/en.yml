@@ -1,0 +1,41 @@
+site:
+  title: LgCuwukii's Simple Site
+  subtitle: Hello there
+
+nav:
+  home: Home
+  posts: Posts
+  collections: Collections
+  archives: Archives
+  categories: Categories
+  tags: Tags
+
+landing:
+  posts: All Posts
+  about: About Me
+  links: Links
+  sponsor: Sponsors
+
+social:
+  rss: RSS
+  github: GitHub
+  bilibili: Bilibili
+  qq_group: QQ Group
+  telegram: Telegram
+  email: Email
+
+footer:
+  from_first_commit_start: ''
+  from_theme_refactor_start: ''
+  from_first_commit_end: 'since the first commit'
+  from_theme_refactor_end: 'since the theme starting to refresh and refactor'
+
+sponsor:
+  title: Sponsor Me
+  description: If this post was meaningful to you, consider supporting me.
+
+tag: {}
+
+category:
+  announcement: Announcement
+  welcome: Welcome

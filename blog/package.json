@@ -21,7 +21,9 @@
     "vue-router": "catalog:"
   },
   "devDependencies": {
-    "@iconify-json/ri": "catalog:",
+    "@iconify-json/mingcute": "catalog:",
+    "@iconify-json/simple-icons": "catalog:",
+    "@iconify-json/tabler": "catalog:",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "sponsorkit": "catalog:",

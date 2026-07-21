@@ -1,76 +1,85 @@
-import { defineSiteConfig } from 'valaxy'
+import { $t, defineSiteConfig } from 'valaxy'
 
 const TIME_DAY = 1000 * 60 * 60 * 24
 
 export default defineSiteConfig({
-  url: 'https://blog.lgc2333.top/',
-  title: '饼干的 Blog',
-  subtitle: '',
+  url: 'https://lgck.cc/',
+
+  title: $t('site.title'),
+  subtitle: $t('site.subtitle'),
   description: '',
   author: {
-    name: 'LgCookie',
-    email: 'lgc2333@126.com',
-    link: 'https://lgc2333.top/',
-    avatar: '/assets/favicon.png',
+    name: 'LgCuwukii☆',
+    link: '/about',
+    avatar: '/assets/lgcuwukii-512x.png',
     status: {
-      emoji: '❤️',
-      message: '恋爱中',
+      emoji: '🍪',
+      message: 'uwu',
     },
   },
+  favicon: '/assets/favicon.svg',
 
   lang: 'zh-CN',
-  languages: ['zh-CN'],
-  mode: 'auto',
+  languages: ['zh-CN', 'en'],
   timezone: 'Asia/Shanghai',
-  lastUpdated: true,
-  favicon: '/assets/favicon.png',
-  feed: { name: 'rss', favicon: '/assets/favicon.png' },
-  search: { enable: true, provider: 'fuse' },
-  fuse: {
-    options: {
-      ignoreLocation: true,
-      keys: ['title', 'excerpt', 'author', 'tags', 'categories', 'link', 'content'],
+
+  social: [
+    {
+      name: $t('social.rss'),
+      link: '/feed.xml',
+      icon: 'i-tabler-rss',
     },
-  },
+    {
+      name: $t('social.github'),
+      link: 'https://github.com/lgc2333/blog',
+      icon: 'i-mingcute-github-line',
+    },
+    {
+      name: $t('social.bilibili'),
+      link: 'https://space.bilibili.com/257534706',
+      icon: 'i-mingcute-bilibili-line',
+    },
+    {
+      name: $t('social.qq_group'),
+      link: 'https://qm.qq.com/q/EikuZ5sP4G',
+      icon: 'i-mingcute-qq-line',
+    },
+    {
+      name: $t('social.telegram'),
+      link: 'https://t.me/lgc2333',
+      icon: 'i-mingcute-telegram-line',
+    },
+    {
+      name: $t('social.email'),
+      link: 'mailto:lgc2333@126.com',
+      icon: 'i-mingcute-mail-line',
+    },
+  ],
+
+  mode: 'auto',
+  lastUpdated: true,
+  comment: { enable: true },
+  encrypt: { enable: true },
+  statistics: { enable: true },
+  vanillaLazyload: { enable: true },
+  feed: { favicon: '/assets/favicon.svg' },
   license: { enabled: true, type: 'by-nc' },
+  search: { enable: true, provider: 'fuse' },
+  frontmatter: { time_warning: TIME_DAY * 90 },
   mediumZoom: {
     enable: true,
     selector: '.markdown-body *:not(a img, img[data-no-zoom])',
   },
-  vanillaLazyload: { enable: true },
-  statistics: { enable: true },
-  frontmatter: { time_warning: TIME_DAY * 90 },
-  comment: { enable: true },
-  encrypt: { enable: true },
 
-  social: [
-    {
-      name: 'RSS',
-      link: '/rss.xml',
-      icon: 'i-ri-rss-line',
-      color: 'var(--va-c-text)',
-    },
-    {
-      name: '主站',
-      link: 'https://lgc2333.top/',
-      icon: 'i-ri-earth-line',
-      color: 'var(--va-c-text)',
-    },
-    {
-      name: 'GitHub',
-      link: 'https://github.com/lgc2333/blog',
-      icon: 'i-ri-github-line',
-      color: 'var(--va-c-text)',
-    },
-  ],
   sponsor: {
     enable: true,
-    title: '赞助我',
-    description: '如果你觉得这篇文章有意义，不妨赞助我一下',
+    title: $t('sponsor.title'),
+    description: $t('sponsor.description'),
   },
 
   redirects: {
     rules: [
+      { from: '/page', to: '/page/1' }, // site nav
       { from: '/donate', to: '/sponsor' }, // backward compatibility
     ],
   },

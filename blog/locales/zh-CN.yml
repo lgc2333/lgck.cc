@@ -1,0 +1,41 @@
+site:
+  title: 饼干的小站
+  subtitle: 点击输入文本
+
+nav:
+  home: 首页
+  posts: 文章
+  collections: 合集
+  archives: 归档
+  categories: 分类
+  tags: 标签
+
+landing:
+  posts: 文章列表
+  about: 关于本人
+  links: 友情链接
+  sponsor: 赞助者们
+
+social:
+  rss: RSS
+  github: GitHub
+  bilibili: 哔哩哔哩
+  qq_group: QQ 群
+  telegram: Telegram
+  email: 邮箱
+
+footer:
+  from_first_commit_start: 本站距第一次提交已有
+  from_theme_refactor_start: 本站距开始主题焕新与重构已有
+  from_first_commit_end: ''
+  from_theme_refactor_end: ''
+
+sponsor:
+  title: 赞助我
+  description: 如果你觉得这篇文章有意义，不妨赞助我一下
+
+tag: {}
+
+category:
+  announcement: 公告
+  welcome: 欢迎

@@ -59,13 +59,6 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
-    '/about/site': RouteRecordInfo<
-      '/about/site',
-      '/about/site',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
     '/archives/': RouteRecordInfo<
       '/archives/',
       '/archives',
@@ -76,6 +69,13 @@ declare module 'vue-router/auto-routes' {
     '/categories/': RouteRecordInfo<
       '/categories/',
       '/categories',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/collections/': RouteRecordInfo<
+      '/collections/',
+      '/collections',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -94,23 +94,23 @@ declare module 'vue-router/auto-routes' {
       { page: ParamValue<false> },
       | never
     >,
-    '/posts/2024-05-04-01/': RouteRecordInfo<
-      '/posts/2024-05-04-01/',
-      '/posts/2024-05-04-01',
+    '/posts/2024-05-04-welcome/': RouteRecordInfo<
+      '/posts/2024-05-04-welcome/',
+      '/posts/2024-05-04-welcome',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/2025-01-16-01/': RouteRecordInfo<
-      '/posts/2025-01-16-01/',
-      '/posts/2025-01-16-01',
+    '/posts/2025-01-16-nickname-change/': RouteRecordInfo<
+      '/posts/2025-01-16-nickname-change/',
+      '/posts/2025-01-16-nickname-change',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/archives/2024-04-11-01/': RouteRecordInfo<
-      '/posts/archives/2024-04-11-01/',
-      '/posts/archives/2024-04-11-01',
+    '/posts/2026-07-22-nickname-change-and-site-refactor/': RouteRecordInfo<
+      '/posts/2026-07-22-nickname-change-and-site-refactor/',
+      '/posts/2026-07-22-nickname-change-and-site-refactor',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -174,14 +174,6 @@ declare module 'vue-router/auto-routes' {
       pathParamNames:
         | never
     }
-    'pages/about/site.md': {
-      routes:
-        | '/about/site'
-      views:
-        | never
-      pathParamNames:
-        | never
-    }
     'pages/archives/index.md': {
       routes:
         | '/archives/'
@@ -193,6 +185,14 @@ declare module 'vue-router/auto-routes' {
     'pages/categories/index.md': {
       routes:
         | '/categories/'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/collections/index.md': {
+      routes:
+        | '/collections/'
       views:
         | never
       pathParamNames:
@@ -214,25 +214,25 @@ declare module 'vue-router/auto-routes' {
       pathParamNames:
         | 'page'
     }
-    'pages/posts/2024-05-04-01/index.md': {
+    'pages/posts/2024-05-04-welcome/index.md': {
       routes:
-        | '/posts/2024-05-04-01/'
+        | '/posts/2024-05-04-welcome/'
       views:
         | never
       pathParamNames:
         | never
     }
-    'pages/posts/2025-01-16-01/index.md': {
+    'pages/posts/2025-01-16-nickname-change/index.md': {
       routes:
-        | '/posts/2025-01-16-01/'
+        | '/posts/2025-01-16-nickname-change/'
       views:
         | never
       pathParamNames:
         | never
     }
-    'pages/posts/archives/2024-04-11-01/index.md': {
+    'pages/posts/2026-07-22-nickname-change-and-site-refactor/index.md': {
       routes:
-        | '/posts/archives/2024-04-11-01/'
+        | '/posts/2026-07-22-nickname-change-and-site-refactor/'
       views:
         | never
       pathParamNames:
