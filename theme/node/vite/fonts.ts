@@ -38,7 +38,9 @@ import {
 const fontsVirtualId = 'virtual:lgc-fonts'
 const resolvedFontsVirtualId = `\0${fontsVirtualId}`
 const require = createRequire(import.meta.url)
-const bundledFontsDir = fileURLToPath(new URL('../../assets/fonts', import.meta.url))
+const bundledFontsDir = normalizePath(
+  resolve(fileURLToPath(new URL('../../assets/fonts', import.meta.url))),
+)
 const bundledFontConfig: FontFamilyConfig = {
   family: 'HarmonyOS Sans LgCuwukii',
   paths: bundledFontsDir,
@@ -240,7 +242,7 @@ function resolveThemeFonts(options?: ResolvedValaxyOptions<ThemeConfig>) {
     if (!family) return
 
     resolveFontSources(familyConfig.paths).forEach((fontPath) => {
-      entries.push(...resolveConfiguredFontEntries(fontPath, family, options?.userRoot))
+      entries.push(...resolveConfiguredFontEntries(fontPath, family))
     })
   })
 
@@ -257,24 +259,14 @@ function resolveThemeFonts(options?: ResolvedValaxyOptions<ThemeConfig>) {
   }
 }
 
-function resolveConfiguredFontPath(fontPath: string, userRoot = process.cwd()) {
-  if (fontPath.startsWith('/') && !fontPath.startsWith('//')) {
-    return normalizePath(resolve(userRoot, `public${fontPath}`))
-  }
-
-  if (isAbsolute(fontPath)) {
-    return normalizePath(fontPath)
-  }
-
-  return normalizePath(resolve(userRoot, fontPath))
+export function resolveConfiguredFontPath(fontPath: string) {
+  return normalizePath(
+    isAbsolute(fontPath) ? fontPath : resolve(process.cwd(), fontPath),
+  )
 }
 
-function resolveConfiguredFontEntries(
-  fontPath: string,
-  family: string,
-  userRoot = process.cwd(),
-) {
-  const resolvedPath = resolveConfiguredFontPath(fontPath, userRoot)
+function resolveConfiguredFontEntries(fontPath: string, family: string) {
+  const resolvedPath = resolveConfiguredFontPath(fontPath)
 
   if (!existsSync(resolvedPath)) {
     throw new Error(

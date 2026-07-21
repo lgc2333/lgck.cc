@@ -216,8 +216,8 @@ export interface FontFamilyConfig {
   family: string
 
   /**
-   * Local font file or directory paths. Relative paths resolve from the site root;
-   * paths starting with `/` resolve from the site's `public/` directory.
+   * Local font file or directory paths. Relative paths resolve from the current
+   * working directory; absolute paths are used as-is.
    */
   paths: string | string[]
 }
