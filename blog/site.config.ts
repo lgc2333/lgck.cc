@@ -31,7 +31,7 @@ export default defineSiteConfig({
     },
     {
       name: $t('social.github'),
-      link: 'https://github.com/lgc2333/blog',
+      link: 'https://github.com/lgc2333/lgck.cc',
       icon: 'i-mingcute-github-line',
     },
     {

@@ -93,7 +93,7 @@ export default defineValaxyConfig<ThemeConfig>({
   addons: [
     addonComponents(),
     addonGiscus({
-      repo: 'lgc2333/blog',
+      repo: 'lgc2333/lgck.cc',
       repoId: 'R_kgDOLr1GDQ',
       category: 'Announcements',
       categoryId: 'DIC_kwDOLr1GDc4Cen96',
