@@ -6,9 +6,9 @@ For docs mainly for AI (like `AGENTS.md`), you MUST keep them concise and token 
 
 ## Project Structure
 
-- pnpm workspace packages are `blog`, `demo`, `theme`, and `addons/*`; shared versions live in the `pnpm-workspace.yaml` catalog.
+- pnpm workspace packages are `site`, `demo`, `theme`, and `addons/*`; shared versions live in the `pnpm-workspace.yaml` catalog.
 - `addons/giscus/`: local Valaxy addon package `valaxy-addon-giscus`.
-- `blog/`: production Valaxy site. Edit source in `pages/`, `components/`, `styles/`, `setup/`, `public/`, `site.config.ts`, and `valaxy.config.ts`.
+- `site/`: production Valaxy site. Edit source in `pages/`, `components/`, `styles/`, `setup/`, `public/`, `site.config.ts`, and `valaxy.config.ts`.
 - `theme/`: package `valaxy-theme-lgcuwukii`; structure, component grouping, design direction, and **full styling policy** live in `theme/AGENTS.md`.
 - `demo/`: local theme demo that consumes `theme` through `workspace:*`.
 - Generated outputs include `.valaxy/`, `dist/`, feed files, `valaxy-fuse-list.json`, and `*.tsbuildinfo`; do not edit them as source.
@@ -20,21 +20,21 @@ For docs mainly for AI (like `AGENTS.md`), you MUST keep them concise and token 
 pnpm install
 pnpm lint                 # lint TypeScript, Vue, JS, and config files
 pnpm lint:fix             # auto-fix lint issues, then format
-pnpm check                # type-check root, blog, demo, and theme project refs
+pnpm check                # type-check root, site, demo, and theme project refs
 pnpm format               # format files with Prettier
-pnpm --dir blog dev       # start the main blog locally
-pnpm --dir blog build     # production SSG build
-pnpm --dir blog build:spa # SPA build
-pnpm --dir blog serve     # preview built output
-pnpm --dir blog rss       # regenerate RSS output
-pnpm --dir blog sponsor   # regenerate sponsor assets
+pnpm --dir site dev       # start the main site locally
+pnpm --dir site build     # production SSG build
+pnpm --dir site build:spa # SPA build
+pnpm --dir site serve     # preview built output
+pnpm --dir site rss       # regenerate RSS output
+pnpm --dir site sponsor   # regenerate sponsor assets
 pnpm --dir demo dev       # start the theme demo locally
 pnpm --dir demo build     # demo SSG build
 pnpm --dir demo build:spa # demo SPA build
 pnpm --dir demo serve     # preview demo output
 ```
 
-Run `format`, `lint`, and `check` after code changes. `theme/` has no package scripts; validate theme work through root checks plus `blog`/`demo` builds as relevant.
+Run `format`, `lint`, and `check` after code changes. `theme/` has no package scripts; validate theme work through root checks plus `site`/`demo` builds as relevant.
 
 ## Valaxy Reference
 

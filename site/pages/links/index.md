@@ -35,12 +35,12 @@ This post was translated by LLM. There may be mistranslations or tones that do n
 
 ::: zh-CN
 想出现在这里，或者更正信息吗？  
-Fork 本站的 <a href="https://github.com/lgc2333/lgck.cc" target="_blank">GitHub 仓库</a>，之后照葫芦画瓢修改 <a href="https://github.com/lgc2333/lgck.cc/blob/master/blog/public/links/friends.json" target="_blank">此 JSON 文件</a>，改完提交 PR 即可~
+Fork 本站的 <a href="https://github.com/lgc2333/lgck.cc" target="_blank">GitHub 仓库</a>，之后照葫芦画瓢修改 <a href="https://github.com/lgc2333/lgck.cc/blob/master/site/public/links/friends.json" target="_blank">此 JSON 文件</a>，改完提交 PR 即可~
 :::
 
 ::: en
 Want to appear here, or fix your information?  
-Fork this site's <a href="https://github.com/lgc2333/lgck.cc" target="_blank">GitHub repository</a>, edit <a href="https://github.com/lgc2333/lgck.cc/blob/master/blog/public/links/friends.json" target="_blank">this JSON file</a> by following the existing entries, and open a PR when you are done.
+Fork this site's <a href="https://github.com/lgc2333/lgck.cc" target="_blank">GitHub repository</a>, edit <a href="https://github.com/lgc2333/lgck.cc/blob/master/site/public/links/friends.json" target="_blank">this JSON file</a> by following the existing entries, and open a PR when you are done.
 :::
 
 ## 我的其他站点 {lang="zh-CN"}

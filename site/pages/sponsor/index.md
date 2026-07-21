@@ -84,11 +84,11 @@ Your support gives me more motivation to keep creating.
 ### Direct sponsors (since this site launched) {lang="en"}
 
 ::: zh-CN
-如果需要订正信息，请直接向 <a href="https://github.com/lgc2333/lgck.cc/blob/master/blog/public/sponsors/direct-raw.json" target="_blank">此文件</a> 提交 PR
+如果需要订正信息，请直接向 <a href="https://github.com/lgc2333/lgck.cc/blob/master/site/public/sponsors/direct-raw.json" target="_blank">此文件</a> 提交 PR
 :::
 
 ::: en
-If any information needs correcting, please open a PR against <a href="https://github.com/lgc2333/lgck.cc/blob/master/blog/public/sponsors/direct-raw.json" target="_blank">this file</a>.
+If any information needs correcting, please open a PR against <a href="https://github.com/lgc2333/lgck.cc/blob/master/site/public/sponsors/direct-raw.json" target="_blank">this file</a>.
 :::
 
 <SponsorSvgDirect class="max-w-100% h-auto m-auto" />

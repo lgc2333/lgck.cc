@@ -3,7 +3,7 @@ cleanupUnusedCatalogs: true
 
 packages:
   - addons/*
-  - blog
+  - site
   - demo
   - theme
 

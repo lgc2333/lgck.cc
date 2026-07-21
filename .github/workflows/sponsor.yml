@@ -5,8 +5,8 @@ permissions: write-all
 on:
   push:
     paths:
-      - blog/sponsorkit.config.js
-      - blog/public/sponsors/direct-raw.json
+      - site/sponsorkit.config.js
+      - site/public/sponsors/direct-raw.json
       - .github/workflows/sponsor.yml
   schedule:
     - cron: '0 0 * * *'
@@ -30,7 +30,7 @@ jobs:
         run: |-
           commit_title="chore(sponsor-ci): update sponsor SVGs"
           pnpm i
-          cd blog
+          cd site
           export SPONSORKIT_AFDIAN_TOKEN=${{ secrets.SPONSORKIT_AFDIAN_TOKEN }}
           export SPONSORKIT_AFDIAN_USER_ID=${{ secrets.SPONSORKIT_AFDIAN_USER_ID }}
           pnpm sponsor

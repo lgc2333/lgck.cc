@@ -2,7 +2,7 @@
   "references": [
     { "path": "./tsconfig.root.json" },
     { "path": "./addons/giscus" },
-    { "path": "./blog" },
+    { "path": "./site" },
     { "path": "./demo" },
     { "path": "./theme" }
   ],
