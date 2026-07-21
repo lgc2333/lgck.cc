@@ -5,7 +5,7 @@ export default defineSiteConfig({
   languages: ['zh-CN', 'en'],
   title: $t('siteConfig.title'),
   subtitle: $t('siteConfig.subtitle'),
-  url: 'https://lgcuwukii.valaxy.site/',
+  url: 'https://valaxy-demo.lgck.cc/',
   author: {
     name: $t('siteConfig.author.name'),
     // email: '', // we don't show this

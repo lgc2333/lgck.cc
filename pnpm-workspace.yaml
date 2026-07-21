@@ -16,6 +16,7 @@ allowBuilds:
   protobufjs: true
   sharp: false
   vue-demi: false
+  workerd: true
 
 minimumReleaseAgeExclude:
   - '@unocss/config@66.7.4'
@@ -23,6 +24,14 @@ minimumReleaseAgeExclude:
   - '@unocss/eslint-plugin@66.7.4'
   - '@unocss/rule-utils@66.7.4'
   - prettier@3.9.4 || 3.9.6
+  - '@cloudflare/workerd-darwin-64@1.20260721.1'
+  - '@cloudflare/workerd-darwin-arm64@1.20260721.1'
+  - '@cloudflare/workerd-linux-64@1.20260721.1'
+  - '@cloudflare/workerd-linux-arm64@1.20260721.1'
+  - '@cloudflare/workerd-windows-64@1.20260721.1'
+  - miniflare@4.20260721.0
+  - workerd@1.20260721.1
+  - wrangler@4.113.0
 
 catalog:
   '@antfu/eslint-config': ^9.1.0
@@ -63,3 +72,4 @@ catalog:
   vue-i18n: ^11.4.7
   vue-router: ^5.2.0
   vue-tsc: ^3.3.7
+  wrangler: ^4.113.0

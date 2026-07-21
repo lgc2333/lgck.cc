@@ -6,6 +6,7 @@
     "build": "npm run build:ssg",
     "build:spa": "valaxy build",
     "build:ssg": "valaxy build --ssg",
+    "deploy": "wrangler deploy",
     "dev": "valaxy",
     "rss": "valaxy rss",
     "serve": "vite preview",
@@ -29,6 +30,7 @@
     "sponsorkit": "catalog:",
     "typescript": "catalog:",
     "unocss": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "wrangler": "catalog:"
   }
 }

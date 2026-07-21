@@ -6,6 +6,7 @@
     "build": "npm run build:ssg",
     "build:spa": "valaxy build",
     "build:ssg": "valaxy build --ssg",
+    "deploy": "wrangler deploy",
     "dev": "valaxy",
     "rss": "valaxy rss",
     "serve": "vite preview"
@@ -18,6 +19,7 @@
   "devDependencies": {
     "@iconify-json/ri": "catalog:",
     "vite": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "wrangler": "catalog:"
   }
 }
