@@ -3,6 +3,7 @@ cleanupUnusedCatalogs: true
 
 packages:
   - addons/*
+  - legacy
   - site
   - demo
   - theme

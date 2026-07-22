@@ -221,6 +221,18 @@ importers:
         specifier: 'catalog:'
         version: 4.113.0
 
+  legacy:
+    devDependencies:
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.10(@types/node@26.0.1)(vite@8.1.5(@types/node@26.0.1)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.0)(yaml@2.9.0))
+      wrangler:
+        specifier: 'catalog:'
+        version: 4.113.0
+
   site:
     dependencies:
       valaxy:

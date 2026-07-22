@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "legacy-redirect",
+  "main": "./src/index.ts",
+  "compatibility_date": "2026-07-21",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "lgc2333.top/*",
+      "zone_name": "lgc2333.top",
+    },
+    {
+      "pattern": "*.lgc2333.top/*",
+      "zone_name": "lgc2333.top",
+    },
+  ],
+}

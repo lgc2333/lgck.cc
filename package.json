@@ -8,7 +8,8 @@
     "check": "vue-tsc -b --noEmit",
     "deploy:demo": "pnpm run build:demo && pnpm --dir demo deploy",
     "deploy:site": "pnpm run build:site && pnpm --dir site deploy",
-    "deploy:workers": "pnpm run deploy:site && pnpm run deploy:demo",
+    "deploy:legacy": "pnpm --dir legacy deploy",
+    "deploy:workers": "pnpm run deploy:site && pnpm run deploy:demo && pnpm run deploy:legacy",
     "format": "prettier -cw .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix && pnpm run format"
