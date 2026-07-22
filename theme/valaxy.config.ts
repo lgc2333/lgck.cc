@@ -54,6 +54,9 @@ export default defineTheme<ThemeConfig>((options) => {
       // Compact = base (< 600). https://m3.material.io/foundations/layout/breakpoints
       theme: {
         breakpoint: lgcBreakpoints,
+        font: {
+          mono: 'var(--va-font-mono)',
+        },
       },
     },
     unocssPresets: {

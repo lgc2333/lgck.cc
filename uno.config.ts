@@ -12,6 +12,9 @@ export const unoConfig: UserConfig = {
       lg: '1200px', // large
       xl: '1600px', // extra-large
     },
+    font: {
+      mono: 'var(--va-font-mono)',
+    },
   },
 }
 
