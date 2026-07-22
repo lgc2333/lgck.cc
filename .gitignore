@@ -33,3 +33,5 @@ temp/
 
 .agents/skills/*
 .claude/skills/*
+
+.wrangler

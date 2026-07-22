@@ -2,6 +2,15 @@ const sourceDomain = 'lgc2333.top'
 const targetDomain = 'lgck.cc'
 const redirectStatus = 308
 
+const prefixRedirects = [{ prefix: 'blog', toPrefix: '' }] as const
+
+function getTargetHostname(prefix: string) {
+  const redirect = prefixRedirects.find((rule) => rule.prefix === prefix)
+  const targetPrefix = redirect?.toPrefix ?? prefix
+
+  return targetPrefix ? `${targetPrefix}.${targetDomain}` : targetDomain
+}
+
 export function getRedirectHostname(hostname: string) {
   const normalizedHostname = hostname.toLowerCase()
 
@@ -13,7 +22,7 @@ export function getRedirectHostname(hostname: string) {
 
   const legacyPrefix = normalizedHostname.slice(0, -sourceSuffix.length)
 
-  return `${legacyPrefix}.${targetDomain}`
+  return getTargetHostname(legacyPrefix)
 }
 
 export default {
