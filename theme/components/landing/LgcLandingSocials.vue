@@ -19,7 +19,7 @@ const { $t } = useValaxyI18n()
     gap="$lgc-space-sm"
     :aria-label="t('accessibility.landing.social_links')"
   >
-    <AppLink
+    <a
       v-for="item in socials"
       :key="`${item.name}-${item.link}`"
       class="lgc-social-link lgc-control-reset lgc-control-on-surface"
@@ -28,13 +28,14 @@ const { $t } = useValaxyI18n()
       w="$lgc-control-size-compact"
       h="$lgc-control-size-compact"
       rounded="$lgc-radius-control hover:$lgc-radius-lg-plus active:$lgc-radius-control-active"
-      :to="item.link"
+      :href="item.link"
       :aria-label="$t(item.name)"
-      rel="noopener"
+      target="_blank"
+      rel="noopener noreferrer"
     >
       <!-- font-size on icon host, not AppLink: HTMLAnchorElement.text wipes children -->
       <span class="text-size-$lgc-icon-font-sm" :class="item.icon" aria-hidden="true" />
-    </AppLink>
+    </a>
   </nav>
 </template>
 

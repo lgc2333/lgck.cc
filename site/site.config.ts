@@ -10,8 +10,9 @@ export default defineSiteConfig({
   description: '',
   author: {
     name: 'LgCuwukii☆',
-    link: '/about',
     avatar: '/assets/lgcuwukii-512x.png',
+    link: '/about',
+    email: 'lgc2333@126.com',
     status: {
       emoji: '🍪',
       message: 'uwu',
