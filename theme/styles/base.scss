@@ -167,6 +167,13 @@
   );
 }
 
+html:root {
+  // Valaxy defaults are emitted later as :root; keep mono aliases on the theme token.
+  --va-font-mono: var(--lgc-font-family-mono);
+  --font-mono: var(--lgc-font-family-mono);
+  --default-monoFont-family: var(--lgc-font-family-mono);
+}
+
 @screen sm {
   :root {
     --lgc-header-height: 88px;

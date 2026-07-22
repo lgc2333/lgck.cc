@@ -96,7 +96,7 @@ ATTENTION: If you encounter a reusable pitfall, you MUST RECORD IT BELOW AS EARL
 - Sass `@extend` cannot cross Vue scoped style / `@use` module boundaries reliably; prefer `@apply` shared classes or duplicate small declarations.
 - Under `lang="scss"`, always quote `@apply '…$token…'` so Sass does not treat `$token` as a Sass variable.
 - Uno `@apply` may leave multi-property `transition-[…,max-inline-size,…]` untransformed (raw `@apply` in dist CSS / lightningcss warning). Use residual `transition-property: …` for lists that include `max-inline-size` (or other props that fail transform); keep `duration-`/`ease-` as `@apply`.
-- Wind4 preflight emits a later `code,kbd,samp,pre` reset using `--default-monoFont-family`; set `unocss.theme.font.mono` to the theme mono token instead of fighting it with selector order.
+- Wind4 preflight plus later Valaxy defaults can reset code fonts through `--default-monoFont-family` / `--va-font-mono`; keep `unocss.theme.font.mono` and the narrow `html:root` mono alias bridge in theme base.
 - Shared control reset owns no display; use ordinary display utilities such as `hidden max-md:grid` plus explicit `grid`/`place-items` on the element.
 - Parent scoped CSS does **not** match non-root nodes inside child components. Header mobile hide for action buttons must live in `LgcHeaderActions` (or use `:deep`), not only in `LgcHeader`.
 - Use Uno overflow-wrap utilities: `wrap="anywhere"` / `wrap="break-word"` / `wrap="normal"`, not raw `overflow-wrap` or arbitrary `[overflow-wrap:anywhere]`.
