@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "valaxy-demo-lgck-cc",
+  "name": "valaxy-theme-demo",
   "compatibility_date": "2026-07-21",
   "workers_dev": false,
   "assets": {

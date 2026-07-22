@@ -155,4 +155,13 @@ export default defineConfig<ThemeConfig>({
       },
     },
   },
+
+  // vite: {
+  //   preview: {
+  //     allowedHosts: true,
+  //   },
+  //   server: {
+  //     allowedHosts: true,
+  //   },
+  // },
 })
