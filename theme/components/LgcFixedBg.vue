@@ -66,6 +66,8 @@ watch(
 
 // Multi-layer atmosphere stays raw CSS (not expressible cleanly as utilities).
 .lgc-fixed-bg-atmosphere {
+  --lgc-fixed-bg-canvas-inline-size: max(100vw, calc(100vh * 16 / 9));
+  --lgc-fixed-bg-canvas-block-size: max(100vh, calc(100vw * 9 / 16));
   --lgc-fixed-bg-pink-color: var(--md-custom-color-pink-container);
   --lgc-fixed-bg-brown-color: var(--md-custom-color-brown-container);
   --lgc-fixed-bg-pink-presence: 50%;
@@ -78,7 +80,20 @@ watch(
   --lgc-fixed-bg-soft-brown-presence: 32%;
   --lgc-fixed-bg-soft-pink-presence: 30%;
   --lgc-fixed-bg-soft-blue-presence: 16%;
+}
 
+.lgc-fixed-bg-atmosphere::before,
+.lgc-fixed-bg-atmosphere::after {
+  content: '';
+  @apply absolute;
+  inline-size: var(--lgc-fixed-bg-canvas-inline-size);
+  block-size: var(--lgc-fixed-bg-canvas-block-size);
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.lgc-fixed-bg-atmosphere::before {
   background:
     radial-gradient(
       ellipse at 22% 14%,
@@ -135,9 +150,7 @@ html.dark .lgc-fixed-bg-atmosphere {
   --lgc-fixed-bg-soft-blue-presence: 10%;
 }
 
-.lgc-fixed-bg-atmosphere::before {
-  content: '';
-  @apply 'absolute inset-0';
+.lgc-fixed-bg-atmosphere::after {
   opacity: var(--lgc-fixed-bg-soft-opacity);
   background:
     radial-gradient(
