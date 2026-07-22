@@ -2,10 +2,6 @@
   display: none;
 }
 
-.lgc-markdown-center-wrapper {
-  @apply 'text-center [&_h2]:b-0! [&>:first-child]:mt-0! [&>:last-child]:mb-0! [&>[lang]:first-child>:first-child]:mt-0! [&>[lang]:last-child>:last-child]:mb-0!';
-}
-
 .lgc-sponsor-afdian {
   @apply 'flex gap-3 items-center';
   @apply 'w-fit m-auto p-x-4.5 p-y-4 rounded-$lgc-radius-lg';

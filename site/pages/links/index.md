@@ -13,7 +13,7 @@ nav: false
 This post was translated by LLM. There may be mistranslations or tones that do not closely match the original text.
 :::
 
-<div class="lgc-markdown-center-wrapper">
+<div text-center class="[&_h2]:b-0!">
 
 ## ❤️
 

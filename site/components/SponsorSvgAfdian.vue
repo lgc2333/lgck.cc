@@ -3,5 +3,8 @@ import afdianSvg from '../public/sponsors/afdian.svg?raw'
 </script>
 
 <template>
-  <div v-html="afdianSvg" />
+  <div
+    class="m-auto h-auto w-full [&>svg]:h-auto [&>svg]:max-w-full"
+    v-html="afdianSvg"
+  />
 </template>

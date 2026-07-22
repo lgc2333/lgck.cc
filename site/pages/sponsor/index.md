@@ -13,7 +13,7 @@ nav: false
 This post was translated by LLM. There may be mistranslations or tones that do not closely match the original text.
 :::
 
-<div class="lgc-markdown-center-wrapper">
+<div text-center class="[&_h2]:b-0!">
 
 ::: zh-CN
 感谢各位支持!  
@@ -77,7 +77,7 @@ Your support gives me more motivation to keep creating.
 
 ### Afdian {lang="en"}
 
-<SponsorSvgAfdian class="max-w-100% h-auto m-auto" />
+<SponsorSvgAfdian />
 
 ### 直接赞助（自建站以来） {lang="zh-CN"}
 
@@ -91,6 +91,6 @@ Your support gives me more motivation to keep creating.
 If any information needs correcting, please open a PR against <a href="https://github.com/lgc2333/lgck.cc/blob/master/site/public/sponsors/direct-raw.json" target="_blank">this file</a>.
 :::
 
-<SponsorSvgDirect class="max-w-100% h-auto m-auto" />
+<SponsorSvgDirect />
 
 </div>

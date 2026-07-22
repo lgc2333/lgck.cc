@@ -1,12 +1,18 @@
 <script lang="ts" setup>
 import type { PageData, Post } from 'valaxy'
 import { useSiteConfig } from 'valaxy'
+import { ref } from 'vue'
+
+import { useMarkdownEdgeMarkers } from '../composables'
 
 defineProps<{
   frontmatter: Post
   data?: PageData
 }>()
 const siteConfig = useSiteConfig()
+const markdownRoot = ref<HTMLElement | null>(null)
+
+useMarkdownEdgeMarkers(markdownRoot)
 </script>
 
 <template>
@@ -39,6 +45,7 @@ const siteConfig = useSiteConfig()
               <div flex="~ col" w="full" min-w="0">
                 <slot name="main-content">
                   <div
+                    ref="markdownRoot"
                     class="markdown-body"
                     max-w="none"
                     min-w="0"

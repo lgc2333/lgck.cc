@@ -30,8 +30,13 @@ export default defineSiteConfig({
       icon: 'i-tabler-rss',
     },
     {
-      name: $t('social.github'),
+      name: $t('social.repo'),
       link: 'https://github.com/lgc2333/lgck.cc',
+      icon: 'i-tabler-brand-git',
+    },
+    {
+      name: $t('social.github'),
+      link: 'https://github.com/lgc2333',
       icon: 'i-mingcute-github-line',
     },
     {
