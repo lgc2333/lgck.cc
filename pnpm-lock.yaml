@@ -124,6 +124,9 @@ catalogs:
       specifier: ^4.113.0
       version: 4.113.0
 
+patchedDependencies:
+  sponsorkit@17.1.1: 3f6eabab6a33f6df2d27e5b3511d00f2eacec5a27d53b995688a39eec30de09c
+
 importers:
 
   .:
@@ -274,7 +277,7 @@ importers:
         version: 3.9.6
       sponsorkit:
         specifier: 'catalog:'
-        version: 17.1.1
+        version: 17.1.1(patch_hash=3f6eabab6a33f6df2d27e5b3511d00f2eacec5a27d53b995688a39eec30de09c)
       typescript:
         specifier: 'catalog:'
         version: 6.0.3
@@ -10923,7 +10926,7 @@ snapshots:
 
   speakingurl@14.0.1: {}
 
-  sponsorkit@17.1.1:
+  sponsorkit@17.1.1(patch_hash=3f6eabab6a33f6df2d27e5b3511d00f2eacec5a27d53b995688a39eec30de09c):
     dependencies:
       ansis: 4.3.1
       cac: 7.0.0

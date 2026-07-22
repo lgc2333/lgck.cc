@@ -1,0 +1,97 @@
+diff --git a/dist/cli.mjs b/dist/cli.mjs
+index 729a4fade83fe55ab84dfd8954b2c9a67091cc50..b2473b91c41e6b45eef519ad9c2a79c73982d0d0 100644
+--- a/dist/cli.mjs
++++ b/dist/cli.mjs
+@@ -74,7 +74,8 @@ const circlesRenderer = {
+           }
+         },
+         0.5,
+-        config.imageFormat
++        config.imageFormat,
++        composer.getNextCropId()
+       ));
+     }
+     composer.height = config.width;
+diff --git a/dist/index.d.mts b/dist/index.d.mts
+index 04203cdb1852ceb332fc6475a24db73177dd6226..c202eb5e7814c54bdbe45f9ad46aad1bc44e2f75 100644
+--- a/dist/index.d.mts
++++ b/dist/index.d.mts
+@@ -1,13 +1,15 @@
+ import { Buffer as Buffer$1 } from 'node:buffer';
+ import * as consola from 'consola';
+ 
+-declare function genSvgImage(x: number, y: number, size: number, radius: number, base64Image: string, imageFormat: ImageFormat): string;
+-declare function generateBadge(x: number, y: number, sponsor: Sponsor, preset: BadgePreset, radius: number, imageFormat: ImageFormat): Promise<string>;
++declare function genSvgImage(x: number, y: number, size: number, radius: number, base64Image: string, imageFormat: ImageFormat, cropId: string): string;
++declare function generateBadge(x: number, y: number, sponsor: Sponsor, preset: BadgePreset, radius: number, imageFormat: ImageFormat, cropId: string): Promise<string>;
+ declare class SvgComposer {
+     readonly config: Required<SponsorkitRenderOptions>;
+     height: number;
+     body: string;
++    private cropId;
+     constructor(config: Required<SponsorkitRenderOptions>);
++    getNextCropId(): string;
+     addSpan(height?: number): this;
+     addTitle(text: string, classes?: string): this;
+     addText(text: string, classes?: string): this;
+diff --git a/dist/shared/sponsorkit.CIuglHuW.mjs b/dist/shared/sponsorkit.CIuglHuW.mjs
+index 5c55524590a27c7ec9727a14ba82731a772219f4..0892be9a63fe55bb931e1118915836c83a570997 100644
+--- a/dist/shared/sponsorkit.CIuglHuW.mjs
++++ b/dist/shared/sponsorkit.CIuglHuW.mjs
+@@ -1,7 +1,7 @@
+ import { loadConfig as loadConfig$1 } from 'unconfig';
+ import process from 'node:process';
+ import dotenv from 'dotenv';
+-import crypto, { createHash } from 'node:crypto';
++import { createHash } from 'node:crypto';
+ import { Buffer } from 'node:buffer';
+ import { consola } from 'consola';
+ import { $fetch, ofetch } from 'ofetch';
+@@ -332,15 +332,14 @@ function partitionTiers(sponsors, tiers, includePastSponsors) {
+   return tierMappings;
+ }
+ 
+-function genSvgImage(x, y, size, radius, base64Image, imageFormat) {
+-  const cropId = `c${crypto.createHash("md5").update(base64Image).digest("hex").slice(0, 6)}`;
++function genSvgImage(x, y, size, radius, base64Image, imageFormat, cropId) {
+   return `
+   <clipPath id="${cropId}">
+     <rect x="${x}" y="${y}" width="${size}" height="${size}" rx="${size * radius}" ry="${size * radius}" />
+   </clipPath>
+   <image x="${x}" y="${y}" width="${size}" height="${size}" href="data:image/${imageFormat};base64,${base64Image}" clip-path="url(#${cropId})"/>`;
+ }
+-async function generateBadge(x, y, sponsor, preset, radius, imageFormat) {
++async function generateBadge(x, y, sponsor, preset, radius, imageFormat, cropId) {
+   const { login } = sponsor;
+   let name = (sponsor.name || sponsor.login).trim();
+   const url = sponsor.websiteUrl || sponsor.linkUrl;
+@@ -362,7 +361,7 @@ async function generateBadge(x, y, sponsor, preset, radius, imageFormat) {
+   const avatarBase64 = avatar.toString("base64");
+   return `<a ${url ? `href="${url}" ` : ""}class="${preset.classes || "sponsorkit-link"}" target="_blank" id="${login}">
+   ${preset.name ? `<text x="${x + size / 2}" y="${y + size + 18}" text-anchor="middle" class="${preset.name.classes || "sponsorkit-name"}" fill="${preset.name.color || "currentColor"}">${encodeHtmlEntities(name)}</text>
+-  ` : ""}${genSvgImage(x, y, size, radius, avatarBase64, imageFormat)}
++  ` : ""}${genSvgImage(x, y, size, radius, avatarBase64, imageFormat, cropId)}
+ </a>`.trim();
+ }
+ class SvgComposer {
+@@ -371,6 +370,10 @@ class SvgComposer {
+   }
+   height = 0;
+   body = "";
++  cropId = 0;
++  getNextCropId() {
++    return `c${this.cropId++}`;
++  }
+   addSpan(height = 0) {
+     this.height += height;
+     return this;
+@@ -393,7 +396,8 @@ class SvgComposer {
+       const x = offsetX + preset.boxWidth * i;
+       const y = this.height;
+       const radius = s.sponsor.type === "Organization" ? 0.1 : 0.5;
+-      return await generateBadge(x, y, s.sponsor, preset, radius, this.config.imageFormat);
++      const cropId = this.getNextCropId();
++      return await generateBadge(x, y, s.sponsor, preset, radius, this.config.imageFormat, cropId);
+     }));
+     this.body += sponsorLine.join("\n");
+     this.height += preset.boxHeight;

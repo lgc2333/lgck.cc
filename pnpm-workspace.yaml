@@ -74,3 +74,6 @@ catalog:
   vue-router: ^5.2.0
   vue-tsc: ^3.3.7
   wrangler: ^4.113.0
+
+patchedDependencies:
+  sponsorkit@17.1.1: patches/sponsorkit@17.1.1.patch
