@@ -87,6 +87,10 @@ export default defineSiteConfig({
     rules: [
       { from: '/page', to: '/page/1' }, // site nav
       { from: '/donate', to: '/sponsor' }, // backward compatibility
+      // shortcuts
+      { from: '/ab', to: '/about' },
+      { from: '/sp', to: '/sponsor' },
+      { from: '/dn', to: '/sponsor' },
     ],
   },
 })
