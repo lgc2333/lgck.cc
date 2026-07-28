@@ -5,13 +5,6 @@
   @apply 'focus-visible:rounded-$lgc-radius-control-active';
 }
 
-// Optical: heavy CJK/latin labels read high next to Material icon glyphs in
-// 48px icon buttons (items-center is mathematical, not optical).
-.lgc-header-label,
-.lgc-header-lang-label {
-  transform: translateY(1px);
-}
-
 .lgc-lang-flip-icon.is-flipping {
   animation: lgc-lang-flip var(--lgc-motion-lang-flip) var(--lgc-easing-standard);
 }

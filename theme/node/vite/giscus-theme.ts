@@ -71,7 +71,7 @@ export function giscusThemePlugin(
         }
       })
 
-      const rootVars = collectCssVars(cssAssets, ':root')
+      const rootVars = collectRootCssVars(cssAssets)
       const darkVars = new Map(rootVars)
 
       collectCssVars(cssAssets, 'html.dark').forEach((value, name) => {
@@ -147,7 +147,7 @@ function getSourceCssVars(options?: ResolvedValaxyOptions<ThemeConfig>) {
     generateMaterialColorsCss(options?.config.themeConfig?.colors),
     tokenCss,
   ]
-  const rootVars = collectCssVars(sourceCss, ':root')
+  const rootVars = collectRootCssVars(sourceCss)
   const darkVars = new Map(rootVars)
 
   collectCssVars(sourceCss, 'html.dark').forEach((value, name) => {
@@ -191,6 +191,16 @@ function collectCssVars(cssAssets: string[], selector: string) {
         }
       }
     }
+  })
+
+  return vars
+}
+
+function collectRootCssVars(cssAssets: string[]) {
+  const vars = collectCssVars(cssAssets, ':root')
+
+  collectCssVars(cssAssets, 'html:root').forEach((value, name) => {
+    vars.set(name, value)
   })
 
   return vars

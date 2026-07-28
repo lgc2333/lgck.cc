@@ -168,9 +168,14 @@
 }
 
 html:root {
-  // Valaxy defaults are emitted later as :root; keep mono aliases on the theme token.
+  // Valaxy defaults are emitted later as :root; keep font aliases on theme tokens.
+  --va-font-family-base: var(--lgc-font-family-sans);
+  --va-font-sans: var(--lgc-font-family-sans);
+  --va-font-serif: var(--lgc-font-family-serif);
   --va-font-mono: var(--lgc-font-family-mono);
+  --font-sans: var(--lgc-font-family-sans);
   --font-mono: var(--lgc-font-family-mono);
+  --default-font-family: var(--lgc-font-family-sans);
   --default-monoFont-family: var(--lgc-font-family-mono);
 }
 

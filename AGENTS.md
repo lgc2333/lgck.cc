@@ -81,11 +81,6 @@ Before implementing theme features, first inspect how the default theme `valaxy-
 
 ATTENTION: If you encounter a reusable pitfall, you MUST RECORD IT BELOW AS EARLY AS POSSIBLE.
 
-### Tools
-
-- When searching for text that starts with `--` using `rg`, pass `--` before the pattern, e.g. `rg -- "--lgc-space"`.
-- Put `rg` options such as `-g` before path operands; after paths they are parsed as files.
-
 ### Styling / Vue
 
 - **Never put Uno attributify `text="…"` on `<a>`, `AppLink`, or `RouterLink`.** `HTMLAnchorElement` has a legacy `.text` DOM property (alias of `textContent`). Vue sets it as a prop and **replaces all children** with the attribute string. Put color/size on a child span via `class`/`text=`, or use residual CSS / `class="text-…"`.
@@ -96,7 +91,7 @@ ATTENTION: If you encounter a reusable pitfall, you MUST RECORD IT BELOW AS EARL
 - Sass `@extend` cannot cross Vue scoped style / `@use` module boundaries reliably; prefer `@apply` shared classes or duplicate small declarations.
 - Under `lang="scss"`, always quote `@apply '…$token…'` so Sass does not treat `$token` as a Sass variable.
 - Uno `@apply` may leave multi-property `transition-[…,max-inline-size,…]` untransformed (raw `@apply` in dist CSS / lightningcss warning). Use residual `transition-property: …` for lists that include `max-inline-size` (or other props that fail transform); keep `duration-`/`ease-` as `@apply`.
-- Wind4 preflight plus later Valaxy defaults can reset code fonts through `--default-monoFont-family` / `--va-font-mono`; keep `unocss.theme.font.mono` and the narrow `html:root` mono alias bridge in theme base.
+- Wind4 preflight plus later Valaxy defaults can reset font aliases; keep `html:root` aliases in theme base and make iframe CSS generators merge those overrides after plain `:root`.
 - Shared control reset owns no display; use ordinary display utilities such as `hidden max-md:grid` plus explicit `grid`/`place-items` on the element.
 - Parent scoped CSS does **not** match non-root nodes inside child components. Header mobile hide for action buttons must live in `LgcHeaderActions` (or use `:deep`), not only in `LgcHeader`.
 - Use Uno overflow-wrap utilities: `wrap="anywhere"` / `wrap="break-word"` / `wrap="normal"`, not raw `overflow-wrap` or arbitrary `[overflow-wrap:anywhere]`.
