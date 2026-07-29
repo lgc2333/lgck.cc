@@ -5,7 +5,7 @@ title:
   en: About Me
 icon: i-material-symbols-person-outline-rounded
 date: 2024-04-10
-updated: 2026-07-22
+updated: 2026-07-29
 nav: false
 ---
 
@@ -57,11 +57,11 @@ You can just call me `Cookie`.
 
 23 年 7 月，我去远方的亲戚家玩。但是我感受到更多的不是快乐，而是束缚和寂寞。从这里，人生转折点开始了。我陆续又认识了一些人。
 
-在 23 年 11 月，我认识了他。24 年 6 月我去参加了高考。24 年 7 月 17 日出发，18 日见了面，同居了一段时间。
+在 23 年 11 月，我认识了他。24 年 6 月我去参加了高考。24 年 7 月 17 日出发，18 日见了面，借住同居了一段时间。
 
-书我本来是没想着继续读下去，但是我还是试着报了他当地的一个大专，结果被录取了。我索性继续在当地读书，因为我想一直在当地的话，能经常见面陪陪他。但是后面因为我太飘发生了各种各样的事，导致在校时，我已经非常少能见到他了。
+书我本来是没想着继续读下去，但是我还是试着报了他当地的一个大专，结果被录取了。我索性继续在当地读书，因为我想既然在当地的话，也是可以经常见面陪陪他的。但是好景不长，没过很久，稚嫩的我做事太飘在他家被抓包炸柜了，导致他那边不方便随时见我了，所以很可惜在校时我能见到他的机会变得非常少了。
 
-到现在，在校的课业终于结束了。我依旧在本地租了一间房，在他午休的空余，好好享受一会在一起的时光。
+此事之后，这两年我的心态也发生了一些变化（更谦虚谨慎，可能精神状态更堪忧了）。到现在，在校的课业终于结束了。我依旧在本地租了一间房，在他午休的空余，短暂地好好享受一会在一起的时光。
 :::
 
 ::: en
@@ -73,11 +73,11 @@ After that, I stayed at home for two years, slacking off, lying in bed, and play
 
 In July 2023, I went to visit relatives far away. But what I felt was less happiness and more restraint and loneliness. From there, a turning point in my life began. I gradually met some more people.
 
-In November 2023, I met him. In June 2024, I took the gaokao. On July 17, 2024, I set out; on the 18th, we met, and lived together for a while.
+In November 2023, I met him. In June 2024, I took the gaokao. On July 17, 2024, I set out; on the 18th, we met, and I stayed with him for a while.
 
-I originally had not planned to keep studying, but I still tried applying to a local junior college near him, and ended up being accepted. So I simply continued studying there, because I wanted to stay local and be able to see him and keep him company often. But later, because I got too carried away, all kinds of things happened, and while I was at school I already had very few chances to see him.
+I originally had not planned to keep studying, but I still tried applying to a local junior college near him, and ended up being accepted. So I simply continued studying there, because I thought that if I stayed local, I could still see him often and keep him company. But the good times did not last. Before long, immature as I was, I got too carried away and was caught at his home, outing myself. After that, it became inconvenient for him to see me whenever we wanted, so sadly, while I was at school, my chances to see him became very rare.
 
-Now, my school coursework is finally over. I still rented a room locally, and during the spare time in his lunch break, I can properly enjoy a little time together.
+After that incident, my mindset has also changed over the past two years (more humble and cautious, and maybe in a worse mental state). Now, my school coursework is finally over. I still rented a room locally, and during the spare time in his lunch break, I can briefly and properly enjoy a little time together.
 :::
 
 ## 关于昵称 {lang=zh-CN}
