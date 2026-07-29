@@ -113,8 +113,10 @@ watch(
               class="lgc-side-drawer-scroll"
               min-h="0"
               min-w="0"
+              mx="[-2px]"
               overflow-x-hidden
               overflow-y-auto
+              px="[2px]"
             >
               <slot />
             </div>

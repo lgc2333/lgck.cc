@@ -21,6 +21,7 @@ const { t } = useI18n()
     v-if="prev || next"
     class="lgc-prev-next-nav"
     :class="{ 'has-pair': prev && next }"
+    m="x-$lgc-space-lg sm:x-0"
     grid
     gap="$lgc-space-md"
     :aria-label="label"

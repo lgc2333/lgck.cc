@@ -67,7 +67,8 @@ const footerIconLink = computed(() => footerIcon.value?.url || themeRepository.v
     px="$lgc-space-lg"
     py="$lgc-space-lg"
     min-h="$lgc-footer-min-h"
-    text="$md-sys-color-on-surface-variant size-$lgc-body-small center"
+    text="$md-sys-color-on-surface-variant center"
+    text-size="$lgc-body-small"
     leading="[1.8]"
   >
     <div w="full" max-w="$lgc-container-reading" gap="0" mx-auto shrink-0 grid>

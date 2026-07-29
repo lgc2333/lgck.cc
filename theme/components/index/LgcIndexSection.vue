@@ -52,6 +52,7 @@ const hasHeader = computed(
     >
       <header
         v-if="hasHeader"
+        m="x-$lgc-space-lg sm:x-0"
         flex="~ wrap items-end justify-between"
         gap="$lgc-space-md"
       >

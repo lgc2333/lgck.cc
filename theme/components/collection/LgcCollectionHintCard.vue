@@ -21,10 +21,10 @@ const collectionTitle = computed(
 <template>
   <aside
     class="text-$md-sys-color-on-surface lg:hidden!"
-    w="full"
+    w="sm:full"
     max-w="$lgc-container-reading"
     grid-cols="[auto_minmax(0,1fr)]"
-    mx-auto
+    m="x-$lgc-space-lg sm:x-auto"
     grid
     items-center
     box-border

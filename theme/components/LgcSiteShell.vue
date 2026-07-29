@@ -12,7 +12,7 @@
         mx-auto
         flex-1
         box-border
-        px="$lgc-space-lg sm:$lgc-space-2xl lg:0"
+        px="0 sm:$lgc-space-2xl lg:0"
       >
         <slot />
       </main>

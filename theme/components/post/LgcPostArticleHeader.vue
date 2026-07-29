@@ -68,9 +68,9 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
 <template>
   <LgcPostCoverFrame
     v-if="hasCover && hasHeaderContent"
-    w="full"
-    mb="$lgc-space-lg"
+    w="sm:full"
     rounded="$lgc-radius-large"
+    m="x-$lgc-space-lg sm:x-0"
     :src="frontmatter.cover!"
     :alt="title"
     variant="article"
@@ -139,10 +139,9 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
 
   <header
     v-else-if="hasHeaderContent"
+    p="t-$lgc-space-2xl b-$lgc-space-3xl"
     justify-items="center"
     gap="$lgc-space-md"
-    pt="$lgc-space-2xl"
-    pb="$lgc-space-3xl"
     text-center
     grid
     relative

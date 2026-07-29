@@ -203,7 +203,7 @@ function translateCategoryName(name: string) {
               i-material-symbols-folder-rounded
               aria-hidden="true"
             />
-            <span>{{ row.label }}</span>
+            <span min-w="0" wrap="anywhere" leading="snug">{{ row.label }}</span>
           </RouterLink>
           <RouterLink v-else class="lgc-category-link is-post" :to="row.path">
             <span
@@ -211,7 +211,7 @@ function translateCategoryName(name: string) {
               i-material-symbols-article-outline-rounded
               aria-hidden="true"
             />
-            <span>{{ row.label }}</span>
+            <span min-w="0" wrap="anywhere" leading="snug">{{ row.label }}</span>
           </RouterLink>
 
           <span v-if="row.kind === 'category'" class="lgc-category-count">
@@ -231,13 +231,18 @@ function translateCategoryName(name: string) {
 // Vue TransitionGroup name classes; rows enter/leave as categories expand.
 .lgc-category-branch-enter-active,
 .lgc-category-branch-leave-active {
-  --category-row-max-block-size: calc(var(--lgc-control-size-sm) + var(--lgc-space-lg));
-
-  max-block-size: var(--category-row-max-block-size);
+  display: grid;
+  grid-template-rows: 1fr;
   overflow: hidden;
-  transition-property: max-block-size, opacity, transform;
+  transition-property: grid-template-rows, opacity, transform;
   transition-duration: var(--lgc-motion-medium);
   transition-timing-function: var(--lgc-easing-standard);
+}
+
+.lgc-category-branch-enter-active > .lgc-category-tree-row,
+.lgc-category-branch-leave-active > .lgc-category-tree-row {
+  min-block-size: 0;
+  overflow: hidden;
 }
 
 .lgc-category-branch-move {
@@ -248,7 +253,7 @@ function translateCategoryName(name: string) {
 
 .lgc-category-branch-enter-from,
 .lgc-category-branch-leave-to {
-  max-block-size: 0;
+  grid-template-rows: 0fr;
   opacity: 0;
   transform: translateY(calc(-1 * var(--lgc-space-xs)));
 }
@@ -330,10 +335,6 @@ function translateCategoryName(name: string) {
 
 .lgc-category-link.is-post .lgc-category-item-icon {
   @apply 'text-$md-sys-color-primary';
-}
-
-.lgc-category-link span:last-child {
-  @apply 'truncate';
 }
 
 .lgc-category-count {

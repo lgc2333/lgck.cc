@@ -919,11 +919,8 @@ main .gsc-replies {
 }
 
 main .gsc-reply {
-  /* Keep in sync with .gsc-tl-line centering math below. */
   --lgc-giscus-reply-pad-x: 0.75rem;
   --lgc-giscus-reply-pad-y: 0.85rem;
-  --lgc-giscus-reply-avatar: 30px;
-  --lgc-giscus-tl-line-width: 2px;
   position: relative;
   overflow: visible;
   margin-inline-start: 0 !important;
@@ -933,26 +930,11 @@ main .gsc-reply {
   padding: var(--lgc-giscus-reply-pad-y) var(--lgc-giscus-reply-pad-x);
 }
 
-/* Upstream uses left:30px for p-4 + 30px avatar; re-center for our padding. */
 main .gsc-tl-line {
-  position: absolute;
-  top: 0;
-  left: calc(
-    var(--lgc-giscus-reply-pad-x) +
-      (var(--lgc-giscus-reply-avatar) - var(--lgc-giscus-tl-line-width)) / 2
-  );
-  width: var(--lgc-giscus-tl-line-width);
-  height: 100%;
-  background: var(--lgc-giscus-subtle-border);
-}
-
-main .gsc-reply:first-child > .gsc-tl-line {
-  top: var(--lgc-giscus-reply-pad-y);
-  height: calc(100% - var(--lgc-giscus-reply-pad-y));
+  display: none !important;
 }
 
 main .gsc-reply-author-avatar {
-  z-index: 1;
   flex-shrink: 0;
 }
 

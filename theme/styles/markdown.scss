@@ -84,6 +84,7 @@ html.dark {
 
   @apply 'text-$md-sys-color-on-surface text-size-$lgc-body-large leading-[1.75]';
   @apply 'wrap-break-word';
+  @apply 'text-pretty';
 
   > .markdown-body {
     @apply pb-0;
@@ -164,7 +165,7 @@ html.dark {
   }
 
   p {
-    overflow: unset;
+    @apply 'overflow-unset text-justify [text-align-last:start]';
   }
 
   a {
@@ -240,6 +241,7 @@ html.dark {
   h5,
   h6 {
     @apply 'font-900 leading-[1.22] tracking-normal text-$md-sys-color-on-surface';
+    @apply 'text-balance';
     font-family: var(--va-font-family-base);
   }
 
@@ -577,5 +579,9 @@ html.dark {
   h5,
   h6 {
     @apply 'm-0 border-0 p-0 text-size-$lgc-body-small font-800 leading-[1.75] tracking-normal';
+  }
+
+  p {
+    @apply 'text-left';
   }
 }

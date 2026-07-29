@@ -117,7 +117,12 @@ function collectionToPost(collection: CollectionConfig): Post {
     :title="feedTitle"
   >
     <template v-if="posts.length">
-      <LgcPostFeedCard v-for="post in posts" :key="post.path" :post="post" />
+      <LgcPostFeedCard
+        v-for="post in posts"
+        :key="post.path"
+        :post="post"
+        m="x-$lgc-space-lg sm:x-0"
+      />
     </template>
     <p
       v-else
@@ -132,6 +137,7 @@ function collectionToPost(collection: CollectionConfig): Post {
 
     <LgcPostPagination
       v-if="paginate && totalPages > 1"
+      m="x-$lgc-space-lg sm:x-0"
       :current-page="curPage"
       :next-to="nextTo"
       :pages="paginationPages"
