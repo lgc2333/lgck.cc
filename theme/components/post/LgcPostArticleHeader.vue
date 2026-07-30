@@ -139,7 +139,7 @@ const hasCover = computed(() => Boolean(props.frontmatter.cover))
 
   <header
     v-else-if="hasHeaderContent"
-    p="t-$lgc-space-2xl b-$lgc-space-3xl"
+    p="t-$lgc-space-2xl b-$lgc-space-3xl x-$lgc-space-lg sm:x-0"
     justify-items="center"
     gap="$lgc-space-md"
     text-center

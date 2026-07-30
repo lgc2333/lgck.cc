@@ -192,7 +192,7 @@ function translateCategoryName(name: string) {
             @click="handleCategoryClick(row, $event)"
           >
             <span
-              v-if="row.isActive || row.isExpanded"
+              v-if="row.isExpanded"
               class="lgc-category-item-icon"
               i-material-symbols-folder-open-rounded
               aria-hidden="true"
