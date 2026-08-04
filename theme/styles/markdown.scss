@@ -165,7 +165,7 @@ html.dark {
   }
 
   p {
-    @apply 'overflow-unset text-justify [text-align-last:start]';
+    @apply 'overflow-unset';
   }
 
   a {
