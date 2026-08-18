@@ -1,5 +1,9 @@
 name: Auto Update Sponsor List
 
+concurrency:
+  group: sponsor-ci
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -19,9 +23,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          # 必须全量历史：fetch-depth: 1 时 HEAD 是孤儿 commit，
-          # amend 会把整个仓库历史 squash 成单个 commit（曾因此在 2026-08 事故）
-          fetch-depth: 0
+          # amend 安全只需要 HEAD 有 parent（depth ≥ 2 即有）。
+          # depth 1 时 HEAD 是孤儿 commit，amend 会把整个仓库历史
+          # squash 成单条（2026-08 事故根因）。留 20 条历史供诊断。
+          fetch-depth: 20
           submodules: true
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v6
@@ -40,8 +45,16 @@ jobs:
             git config user.name github-actions[bot]
             git config user.email github-actions[bot]@users.noreply.github.com
             if [[ "$(git log -1 --pretty=%s)" == "$commit_title" ]]; then
-              git commit --amend --no-edit
-              git push --force-with-lease
+              # 防御：HEAD 无 parent（孤儿 commit，如历史被重建）时绝不 amend，
+              # 降级为普通 commit，避免把仓库历史 squash 成一条
+              if git rev-parse --verify -q HEAD^ >/dev/null; then
+                git commit --amend --no-edit
+                git push --force-with-lease
+              else
+                echo "WARNING: HEAD has no parent, falling back to a new commit (no amend)"
+                git commit -m "$commit_title"
+                git push
+              fi
             else
               git commit -m "$commit_title"
               git push
