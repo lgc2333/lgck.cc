@@ -77,3 +77,9 @@ catalog:
 
 patchedDependencies:
   sponsorkit@17.1.1: patches/sponsorkit@17.1.1.patch
+
+# cn-font-split 锁死 koffi 2.10.0；koffi 2.15.2 修复了 Node 24.14+ 下
+# callback 使用后进程退出死锁/不退出问题（CF Pages 构建 node 24.18.0 命中，
+# 导致 valaxy build --ssg 完成后进程 hang 到构建超时）
+overrides:
+  koffi: 2.16.2

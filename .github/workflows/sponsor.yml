@@ -1,6 +1,7 @@
 name: Auto Update Sponsor List
 
-permissions: write-all
+permissions:
+  contents: write
 
 on:
   push:
@@ -18,7 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          fetch-depth: 1
+          # 必须全量历史：fetch-depth: 1 时 HEAD 是孤儿 commit，
+          # amend 会把整个仓库历史 squash 成单个 commit（曾因此在 2026-08 事故）
+          fetch-depth: 0
           submodules: true
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v6
