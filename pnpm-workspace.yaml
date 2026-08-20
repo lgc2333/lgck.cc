@@ -33,50 +33,48 @@ minimumReleaseAgeExclude:
   - miniflare@4.20260721.0
   - workerd@1.20260721.1
   - wrangler@4.113.0
+  - vite@8.2.2
 
 catalog:
-  '@antfu/eslint-config': ^9.1.0
+  '@antfu/eslint-config': ^9.3.0
   '@giscus/vue': ^3.1.1
   '@iconify-json/ic': ^1.2.4
-  '@iconify-json/material-symbols': ^1.2.86
-  '@iconify-json/mingcute': ^1.2.7
+  '@iconify-json/material-symbols': ^1.2.89
+  '@iconify-json/mingcute': ^1.2.8
   '@iconify-json/ri': ^1.2.10
-  '@iconify-json/simple-icons': ^1.2.91
-  '@iconify-json/tabler': ^1.2.37
+  '@iconify-json/simple-icons': ^1.2.93
+  '@iconify-json/tabler': ^1.2.38
   '@poupe/material-color-utilities': 0.4.1
   '@trivago/prettier-plugin-sort-imports': ^6.0.2
-  '@unocss/eslint-config': ^66.7.5
-  '@unocss/eslint-plugin': ^66.7.5
-  '@vueuse/core': ^14.3.0
+  '@unocss/eslint-config': ^66.8.0
+  '@unocss/eslint-plugin': ^66.8.0
+  '@vueuse/core': ^14.4.0
   '@waline/client': 3.15.2
-  artalk: ^2.9.1
-  eslint: ^10.7.0
+  artalk: ^2.10.0
+  eslint: ^10.8.1
   eslint-config-prettier: ^10.1.8
   eslint-plugin-format: ^2.0.1
   medium-zoom: ^1.1.0
   prettier: ^3.9.6
-  sponsorkit: ^17.1.1
+  sponsorkit: ^18.0.0
   typescript: ^6.0.3
-  unocss: ^66.7.5
+  unocss: ^66.8.0
   valaxy: ^0.28.11
   valaxy-addon-algolia: ^0.2.1
   valaxy-addon-artalk: ^0.1.4
   valaxy-addon-components: ^0.1.0
   valaxy-addon-twikoo: ^0.0.4
   valaxy-addon-waline: ^0.2.1
-  vite: ^8.1.5
+  vite: ^8.2.2
   vite-plugin-font: ^5.1.2
   vite-plugin-vue-layouts-next: ^2.1.0
-  vitest: ^4.1.10
-  vue: ^3.5.40
+  vitest: ^4.1.11
+  vue: ^3.5.41
   vue-gtag-next: ^1.14.0
-  vue-i18n: ^11.4.7
+  vue-i18n: ^11.4.8
   vue-router: ^5.2.0
-  vue-tsc: ^3.3.7
-  wrangler: ^4.113.0
-
-patchedDependencies:
-  sponsorkit@17.1.1: patches/sponsorkit@17.1.1.patch
+  vue-tsc: ^3.3.10
+  wrangler: ^4.124.0
 
 # cn-font-split 锁死 koffi 2.10.0；koffi 2.15.2 修复了 Node 24.14+ 下
 # callback 使用后进程退出死锁/不退出问题（CF Pages 构建 node 24.18.0 命中，
