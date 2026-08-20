@@ -10,9 +10,9 @@
     "deploy:site": "pnpm run build:site && pnpm --dir site deploy",
     "deploy:legacy": "pnpm --dir legacy deploy",
     "deploy:workers": "pnpm run deploy:site && pnpm run deploy:demo && pnpm run deploy:legacy",
-    "format": "prettier -cw .",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix && pnpm run format"
+    "format": "prettier -cw",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix && pnpm run format"
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",

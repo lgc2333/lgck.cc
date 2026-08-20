@@ -26,7 +26,6 @@
     "@iconify-json/simple-icons": "catalog:",
     "@iconify-json/tabler": "catalog:",
     "eslint": "catalog:",
-    "prettier": "catalog:",
     "sponsorkit": "catalog:",
     "typescript": "catalog:",
     "unocss": "catalog:",
