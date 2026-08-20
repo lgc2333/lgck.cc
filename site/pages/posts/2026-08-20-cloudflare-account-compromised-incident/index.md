@@ -18,15 +18,19 @@ This post was translated by LLM. There may be mistranslations or tones that do n
 ::: zh-CN
 各位，这里是饼干。
 
-由于管理疏忽和对网络安全的重视不足，我的 Cloudflare 账号被黑客窃取，其中的所有域名从 8 月 12 日开始，被黑客陆续注入恶意跳转规则，导致各站点被重定向到恶意钓鱼站。如果您被此次事件影响，建议查看本帖全文。
+由于管理疏忽和对网络安全的重视不足，我的 Cloudflare 账号被黑客控制，其中的所有域名从 8 月 12 日开始，被黑客陆续注入恶意跳转规则，导致各站点被重定向到恶意钓鱼站。
 
-对于这段时间可能给大家带来的困扰，以及我没能及时发现与处理此事故的情况，深表歉意。我已在 8 月 19 日下午处理完此事件，站点现已恢复正常。
+如果您被此次事件影响，建议查看本帖全文。
+
+对于这段时间可能给大家带来的困扰，以及我没能及时发现与处理此事故的情况，我深表歉意。我已在 8 月 19 日下午处理完此事件，站点现已恢复正常。
 :::
 
 ::: en
 Hello, here's LgCuwukii.
 
-Due to administrative negligence and insufficient attention to cybersecurity, my Cloudflare account was stolen by hackers. Starting from August 12, all my domains were injected with malicious redirect rules by the hackers, causing each site to be redirected to malicious phishing pages. If you have been affected by this incident, we recommend reading this post in full.
+Due to administrative negligence and insufficient attention to cybersecurity, my Cloudflare account was controlled by hackers. Starting from August 12, all my domains were injected with malicious redirect rules by the hackers, causing each site to be redirected to malicious phishing pages.
+
+If you have been affected by this incident, we recommend reading this post in full.
 
 I sincerely apologize for any inconvenience this may have caused during this period, as well as for my failure to detect and address the issue in a timely manner. I handled the incident on the afternoon of August 19, and all sites are now back to normal.
 :::
@@ -52,7 +56,7 @@ Here is the incident review.
 ::: zh-CN
 如果您在事故时访问了这些域名（或其子域），并执行了页面所示的操作，请立即重装系统、退出所有账户登录、并更改所有账户密码！
 
-我对此次事故对各位造成的伤害与损失再次真诚道歉。
+我对此次事故对各位造成的伤害与损失，再次真诚道歉。
 :::
 
 ::: en
@@ -76,7 +80,7 @@ I sincerely apologize once again for any harm or losses this incident may have c
 
 这个消息瞬间吓坏我了。
 
-我火速让 Agent 查询了我账号的审计日志，发现我账号下的另一个超级管理员权限账号被黑客控制，从 8 月 12 日开始，陆续往其账号可访问范围内注入恶意跳转规则：
+我火速让 AI Agent 查询了我账号的审计日志，发现我账号下的另一个超级管理员权限账号被黑客控制，从 8 月 12 日开始，陆续往其账号可访问范围内注入恶意跳转规则：
 
 | 时间 (UTC+8) | 操作            | 来源 IP 归属 |
 | ------------ | --------------- | ------------ |
@@ -103,7 +107,7 @@ During this process, a group member visited my site and saw the following interf
 
 This instantly alarmed me.
 
-I immediately had my agent query the audit logs of my account and found that another super-admin privileged account under my account had been compromised by the hackers. Starting from August 12, they had been injecting malicious redirect rules into all domains accessible to that account:
+I immediately had my AI agent query the audit logs of my account and found that another super-admin privileged account under my account had been compromised by the hackers. Starting from August 12, they had been injecting malicious redirect rules into all domains accessible to that account:
 
 | Time (UTC+8) | Action           | Source IP Location |
 | ------------ | ---------------- | ------------------ |
