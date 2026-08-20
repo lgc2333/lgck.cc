@@ -49,11 +49,16 @@ Here is the incident review.
 - `lgc2333.top`
 - `0d00.cn`
 
+::: zh-CN
 如果您在事故时访问了这些域名（或其子域），并执行了页面所示的操作，请立即重装系统、退出所有账户登录、并更改所有账户密码！
 
 我对此次事故对各位造成的伤害与损失再次真诚道歉。
+:::
 
 ::: en
+If you visited any of these domains (or their subdomains) during the incident and performed any actions as shown on the pages, please immediately reinstall your operating system, log out of all accounts, and change all account passwords!
+
+I sincerely apologize once again for any harm or losses this incident may have caused you.
 :::
 
 ## 时间线 {lang=zh-CN}
