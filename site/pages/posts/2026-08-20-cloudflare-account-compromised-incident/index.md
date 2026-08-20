@@ -67,7 +67,7 @@ Here is the incident review.
 
 途中，群友访问本站展示出了以下界面——伪装 Cloudflare 人机验证，让用户往终端粘贴恶意命令！
 
-![网站截图](assets/incident-site-screenshot.webp)
+![网站截图](./assets/incident-site-screenshot.webp)
 
 这个消息瞬间吓坏我了。
 
@@ -94,7 +94,7 @@ At first, I thought it was a Cloudflare glitch, so I checked Cloudflare Status a
 
 During this process, a group member visited my site and saw the following interface—a fake Cloudflare CAPTCHA that tricked users into pasting malicious commands into their terminals!
 
-![Screenshot of the site](assets/incident-site-screenshot.webp)
+![Screenshot of the site](./assets/incident-site-screenshot.webp)
 
 This instantly alarmed me.
 

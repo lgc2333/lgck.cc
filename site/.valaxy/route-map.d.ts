@@ -115,6 +115,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/posts/2026-08-20-cloudflare-account-compromised-incident/': RouteRecordInfo<
+      '/posts/2026-08-20-cloudflare-account-compromised-incident/',
+      '/posts/2026-08-20-cloudflare-account-compromised-incident',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/sponsor/': RouteRecordInfo<
       '/sponsor/',
       '/sponsor',
@@ -233,6 +240,14 @@ declare module 'vue-router/auto-routes' {
     'pages/posts/2026-07-22-nickname-change-and-site-refactor/index.md': {
       routes:
         | '/posts/2026-07-22-nickname-change-and-site-refactor/'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'pages/posts/2026-08-20-cloudflare-account-compromised-incident/index.md': {
+      routes:
+        | '/posts/2026-08-20-cloudflare-account-compromised-incident/'
       views:
         | never
       pathParamNames:
